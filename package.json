@@ -1,0 +1,29 @@
+{
+  "name": "bnb",
+  "version": "1.0.0",
+  "description": "Web application for B&B reservation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TommasoScalici/BnB.git"
+  },
+  "author": "Salvatore Apicella, Girolamo Nobile, Tommaso Scalici",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/TommasoScalici/BnB/issues"
+  },
+  "homepage": "https://github.com/TommasoScalici/BnB#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.13",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
+}
