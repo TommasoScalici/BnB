@@ -1,22 +1,13 @@
-module.exports = class User {
-    constructor(name, surname) {
-        this.name = name;
-        this.surname = surname;
-    }
+var bcrypt = require('bcryptjs');
+var mongoose = require('mongoose');
 
-    getName() {
-        return this.name;
+var UserSchema = new mongoose.Schema({
+    username: String,
+    password: String,
+    name: {
+        first: String,
+        last: String
     }
+});
 
-    getSurname() {
-        return this.surname;
-    }
-
-    setName(value) {
-        this.name = value;
-    }
-
-    setSurname(value) {
-        this.surname = value;
-    }
-}
+module.exports = mongoose.model('User', UserSchema);
