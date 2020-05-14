@@ -11,12 +11,102 @@
         <br /><br />
 
         <form action="signup" method="POST">
-            <label for="firstname">First name:</label><br>
-            <input type="text" id="firstname" name="firstname"><br>
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lastname" name="lastname"><br><br>
-            <input type="submit" value="Submit">
+            <label for="firstname">First name: (required)</label> <br>
+            <input type="text" id="firstname" name="firstname" required><br>
+            <label for="lastname">Last name:</label><br>
+            <input type="text" id="lastname" name="lastname" required><br><br>
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="age"  min = "0" max = "100" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([com,it,net,br,de])+$" required><br><br>
+            <label for="tel">Tel:</label><br>
+            <input type="tel" id="tel" name="tel" pattern = "^[0-9\-\+]{9,15}$"required><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$" required ><br><br>
+            <label for="repass">Confirm Password:</label><br>
+            <input type="password" id="repass" name="repass" required><br><br>
+
+            <input type="submit" value="Submit" onclick="valida()">
           </form>
+
+          <script type="text/javascript">
+        
+            function valida()
+            {
+                if (password != repass) {
+            
+            document.signup.repass.value = "";
+            document.signup.repass.focus();
+            return false;
+            }
+            else {
+            document.signup.action = "#"; 
+            document.signup.submit();
+            }
+            }
+        
+          </script>
+
+           <!-- <script type="text/javascript">  non funziona un cazzo
+
+        //     function valida() {
+        //     // Variabili associate ai campi del modulo
+        //     var firstname = document.signup.firstname.value();
+        //     var lastname = document.signup.lastname.value();
+        //     var email= document.signup.email.value;
+        //     var telephone = document.signup.tel.value;
+        //     var password = document.signup.password.value;
+        //     var repass = document.signup.repass.value;
+
+        //     if ((firstname == "") || (firstname == "undefined")) {
+        //     alert("Devi inserire un nome");
+        //     document.signup.firstname.focus();
+        //     return false;
+        //     }
+        //     if ((lastname == "") || (lastname == "undefined")) {
+        //     alert("Devi inserire un nome");
+        //     document.signup.lastname.focus();
+        //     return false;
+        //     }
+        //     if ((isNaN(telephone)) || (telephone == "") || (telephone == "undefined")) {
+        //     alert("Devi inserire il telefono, attenzione deve essere numerico!");
+        //     document.signup.telephone.value = "";
+        //     document.signup.telephone.focus();
+        //     return false;
+        //     }
+        //     // Espressione regolare dell'email
+        //     var email_valid = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([com,it,net,br,de])+$/;
+        //     if (!email_valid.test(email) || (email == "") || (email == "undefined")) {
+        //     alert("Devi inserire un indirizzo mail corretto");
+        //     document.signup.email.focus();
+        //     return false;
+        //     }
+        //     var password_valid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        //     if (!password_valid.test(password) || (password == "") || (password == "undefined") ) {
+        //     alert("Scegli una password, minimo 8 caratteri, un carattere maiuscolo,uno minuscolo ed un carattere speciale");
+        //     document.signup.password.focus();
+        //     return false;
+        //     }
+        //     //Effettua il controllo sul campo CONFERMA PASSWORD
+        //     if ((repass == "") || (repass == "undefined")) {
+        //     alert("Devi confermare la password");
+        //     document.invio.conferma.focus();
+        //     return false;
+        //     }
+        //     if (password != repass) {
+        //     alert("La conferma password");
+        //     document.signup.repass.value = "";
+        //     document.signup.repass.focus();
+        //     return false;
+        //     }
+        //     else {
+        //     document.signup.action = "#"; 
+        //     document.signup.submit();
+        //     }
+        //     }
+        
+        //   -->
+
     </body>
 
 </html>

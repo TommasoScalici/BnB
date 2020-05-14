@@ -3,13 +3,14 @@ var User = require('../models/user.js');
 module.exports = 
 {
     
-    signup: (req, res) =>   //scenderà togliendo la funzione in fondo
+    signup: (req, res) =>   //scenderà togliendo la funzione
     {
 
         var newUser = new User({
 
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
+                age: req.body.age,
                 email : req.body.email,
                 tel : req.body.tel,
                 password : req.body.password
