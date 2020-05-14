@@ -12,7 +12,7 @@ module.exports =
                 lastname: req.body.lastname,
                 age: req.body.age,
                 email : req.body.email,
-                tel : req.body.tel,
+                tel : req.body.telephone,
                 password : req.body.password
             
         });

@@ -1,6 +1,7 @@
 // Qui ci andremo a fare il require di tutti i controllers, tipo
 // var apartmentController = require('../controllers/apartmentController.js');
 var userController = require('../controllers/userController.js');
+
 // e così via...
 
 module.exports = function(app, express) {
