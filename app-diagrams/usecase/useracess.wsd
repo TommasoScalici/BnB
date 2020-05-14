@@ -1,0 +1,16 @@
+@startuml useraccess
+scale 2
+left to right direction
+skinparam packageStyle rect
+
+actor "generic user"
+
+rectangle "application" {
+    (generic user) -- (register) : if not registered
+    (generic user) -- (login) : if not\nalready\nlogged
+    (generic user) -- (logout) : if logged
+    (generic user) -- (view profile) : if logged
+    (generic user) -- (view apartments\ndo search query) : in any case
+}
+
+@enduml
