@@ -9,8 +9,8 @@ module.exports = app => {
     // Retrieve all users
     router.get("/", userController.findAll);
   
-    // // Retrieve a single User with id
-    // router.get("/:id", userController.findOne);
+    // Retrieve a single User with id
+    router.get("/:id", userController.findOne);
   
     // // Update a User with id
     // router.put("/:id", userController.update);

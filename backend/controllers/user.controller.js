@@ -1,3 +1,4 @@
+const helpers = require('../config/helpers.js');
 const User = require('../models/user.js');
 
 module.exports = 
@@ -22,11 +23,24 @@ module.exports =
         });
     },
 
+    findOne: (req, res) => {
+        const id = req.params.id;
+
+        User.findById(id)
+            .then(data => {
+                if (!data)
+                   helpers.sendNotFound(err, req, res);
+                else
+                    res.send(data);
+            })
+            .catch(err => helpers.sendError(err, req, res));
+    },
+
     findAll: (req, res) => {
         User.find({})
             .then(data => {
                 res.send(data);
-            });
+            })
+            .catch(err => helpers.sendError(err, req, res));
     }
 }
-
