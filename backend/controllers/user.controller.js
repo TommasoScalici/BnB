@@ -1,11 +1,8 @@
-var User = require('../models/user.js');
+const User = require('../models/user.js');
 
 module.exports = 
 {
-    
-    signup: (req, res) =>   //scenderà togliendo la funzione
-    {
-
+    create: (req, res) => {
         var newUser = new User({
 
                 firstname: req.body.firstname,
@@ -21,16 +18,15 @@ module.exports =
             if(err)
                 console.log(`Mongo error while user was signing up: ${err}`);
             else
-                res.send("Signed up succesfully!");
+                res.send("Ti sei iscritto!");
         });
+    },
 
-
-        User.find(function (err, newUser) {   //per vedere cosa mi ha appena inserito
-            if (err) return console.error(err);
-            console.log(newUser)});
-           
+    findAll: (req, res) => {
+        User.find({})
+            .then(data => {
+                res.send(data);
+            });
     }
-        
-   
 }
 

@@ -1,7 +1,7 @@
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
-var path = require('path');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+const path = require('path');
 
 module.exports = function(app, express) {
 
@@ -15,5 +15,5 @@ module.exports = function(app, express) {
     app.set('view engine', 'ejs');
 
     app.use(express.static(path.join(__dirname, '../../frontend')));
-    app.use(express.static(path.join(__dirname, '../../frontend/template/.')));
+    //app.use(express.static(path.join(__dirname, '../../frontend/template/.')));
 };
