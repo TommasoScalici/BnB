@@ -12,9 +12,9 @@ db.mongoose.connect(db.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    console.log("Connected to the database! (MongoDB)")
+    console.log("Connected to database! (MongoDB)")
 }).catch(err => {
-    console.log(`Connection to the database failed with error:  ${err}`);
+    console.log(`Connection to database failed with error:  ${err}`);
     process.exit();
 })
 
