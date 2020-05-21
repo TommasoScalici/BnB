@@ -1,3 +1,6 @@
+
+const userController = require("../controllers/user.controller.js");
+
 module.exports = function(app, express) {
 
     require('../routes/user.routes.js')(app);
@@ -9,4 +12,7 @@ module.exports = function(app, express) {
     app.get('/test', function(req, res) {
         res.render("test");
     });
+    
+   
+
 };
