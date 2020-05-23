@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+    <head>
+        <title>Pagina di test signin</title>
+    </head>
+
+    <body>
+        <h1>La pagina di test funziona. Mind blowing.</h1>
+        <a href="/">Clicca qui per tornare indietro.</a>
+
+        <br /><br />
+
+        <form action="/api/users/signin" method="POST">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([com,it,net,br,de])+$" required><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+
+</html>

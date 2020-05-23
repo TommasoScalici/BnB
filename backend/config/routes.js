@@ -6,7 +6,11 @@ module.exports = function(app, express) {
         res.render("index");
     });
 
-    app.get('/test', function(req, res) {
-        res.render("test");
+    app.get('/signin', function(req, res) {
+        res.render("signin");
+    });
+
+    app.get('/signup', function(req, res) {
+        res.render("signup");
     });
 };
