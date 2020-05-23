@@ -20,6 +20,7 @@ var UserSchema = new mongoose.Schema({
     email: String,
     password: String,
     
+    is_host: Boolean,
     sex: String,
     birthdate: Date,
     telephone: String,
@@ -59,7 +60,6 @@ UserSchema.pre('save', function(next) {
 
             if (err)
                 return next(err);
-
             
             user.password = hash; // Assegno l'hash al posto della password
             next(); // Richiamo ricorsivamente la passata successiva

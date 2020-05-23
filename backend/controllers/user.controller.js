@@ -1,4 +1,5 @@
 const helpers = require('../config/helpers.js');
+const jwt = require('jwt-simple');
 const User = require('../models/user.js');
 
 module.exports = 
@@ -59,7 +60,7 @@ module.exports =
                 //     // C'è bisogno di altro?
                 //   });
 
-                res.send("Login eseguito con successo!\n" + user);
+                
                 }
               });
             }
