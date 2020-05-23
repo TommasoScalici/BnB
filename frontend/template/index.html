@@ -107,9 +107,9 @@
             </div>
             <div class="col-lg-4 col-md-5">
                 <div class="form-container">
-                    <div class="media-container-column" data-form-type="formoid">
+                    <div class="media-container-column" >
                         <!---Formbuilder Form--->
-                        <form action="/signup" method="POST" class="mbr-form form-with-styler" data-form-title="Mobirise Form">
+                        <form action="/api/users/signup" method="POST" class="mbr-form form-with-styler" id = "signup">
                             <div class="row">
                                 <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Grazie per aver compilato il modulo!</div>
                                 <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
@@ -117,13 +117,13 @@
                             </div>
                             <div class="dragArea row">
                                 <div class="col-md-12 form-group " data-for="name">
-                                    <input type="text" id="firstname" name="firstname" placeholder="Name" data-form-field="Name" required="required" class="form-control px-3 display-7" id="name-header15-4">
+                                    <input type="text" id="firstname" name="firstname" placeholder="Name" data-form-field="Name"  class="form-control px-3 display-7" id="name-header15-4">
                                 </div>
                                 <div class="col-md-12 form-group " data-for="lastname">
-                                    <input type="text" id="lastname" name="lastname" placeholder="Lastname" data-form-field="Lastname" required="required" class="form-control px-3 display-7" id="name-header15-4">
+                                    <input type="text" id="lastname" name="lastname" placeholder="Lastname" data-form-field="Lastname"  class="form-control px-3 display-7" id="name-header15-4">
                                 </div>
                                 <div class="col-md-12 form-group " data-for="age">
-                                    <input type="number" id="age" name="age" placeholder="Age" data-form-field="Age" required="required" class="form-control px-3 display-7" id="name-header15-4 " min = "0" max = "100">
+                                    <input type="number" id="age" name="age" placeholder="Age" data-form-field="Age"  class="form-control px-3 display-7" id="name-header15-4 " min = "0" max = "100">
                                 </div>
                                 <div class="col-md-12 form-group " data-for="email">
                                     <input type="email" id="email" name="email" placeholder="Email" data-form-field="Email" required="required" class="form-control px-3 display-7" id="email-header15-4" pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([com,it,net,br,de])+$">
@@ -141,7 +141,7 @@
                             </div>
 
 
-                            <script type="text/javascript">
+                            <!-- <script type="text/javascript">
         
                                 function valida()
                                 {
@@ -157,7 +157,9 @@
                                 }
                                 }
                             
-                              </script>
+                              </script>  -->
+
+                              
 
                         </form><!---Formbuilder Form--->
 
@@ -490,6 +492,9 @@
   <script src="assets/theme/js/script.js"></script>
   <script src="assets/formoid/formoid.min.js"></script>
   
+  <!-- Jquery -->
+  <script src="frontend/jQuery/signup_validation.js"></script>
+  <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
   
 </body>
 </html>
