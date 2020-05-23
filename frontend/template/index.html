@@ -41,11 +41,11 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="https://mobirise.co">
+                    <a href="/">
                          <img src="assets/images/mbr-1.png" alt="Mobirise" title="" style="height: 3.8rem;">
                     </a>
                 </span>
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-5" href="https://mobirise.co"><span class="mbri-github mbr-iconfont mbr-iconfont-btn" style="font-size: 28px; color: rgb(85, 180, 212);"></span>
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-5" href="/"><span class="mbri-github mbr-iconfont mbr-iconfont-btn" style="font-size: 28px; color: rgb(85, 180, 212);"></span>
                         BnB</a></span>
             </div>
         </div>
@@ -60,7 +60,7 @@
                         <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                         Informazioni</a>
                 </li></ul>
-            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-4" href="https://mobirise.co">Accedi<br></a> <a class="btn btn-sm btn-primary display-4" href="index.html#header15-4">Registrati<br></a></div>
+            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-4" href="signin">Accedi<br></a> <a class="btn btn-sm btn-primary display-4" href="index.html#header15-4">Registrati<br></a></div>
         </div>
     </nav>
 </section>
@@ -107,63 +107,52 @@
             </div>
             <div class="col-lg-4 col-md-5">
                 <div class="form-container">
-                    <div class="media-container-column" >
+                    <div class="-container-column" >
                         <!---Formbuilder Form--->
-                        <form action="/api/users/signup" method="POST" class="mbr-form form-with-styler" id = "signup">
-                            <div class="row">
-                                <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Grazie per aver compilato il modulo!</div>
-                                <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
-                                </div>
-                            </div>
+                        <form action="/api/users/signup" method="POST"  id="signup_form">
+                            
                             <div class="dragArea row">
                                 <div class="col-md-12 form-group " data-for="name">
-                                    <input type="text" id="firstname" name="firstname" placeholder="Name" data-form-field="Name"  class="form-control px-3 display-7" id="name-header15-4">
+                                    <input type="text" id="firstname" name="firstname" placeholder="Name" data-form-field="Name"  class="form-control px-3 display-7" >
                                 </div>
                                 <div class="col-md-12 form-group " data-for="lastname">
-                                    <input type="text" id="lastname" name="lastname" placeholder="Lastname" data-form-field="Lastname"  class="form-control px-3 display-7" id="name-header15-4">
+                                    <input type="text" id="lastname" name="lastname" placeholder="Lastname" data-form-field="Lastname"  class="form-control px-3 display-7" >
                                 </div>
                                 <div class="col-md-12 form-group " data-for="age">
-                                    <input type="number" id="age" name="age" placeholder="Age" data-form-field="Age"  class="form-control px-3 display-7" id="name-header15-4 " min = "0" max = "100">
+                                    <input type="date" id="age" name="age" placeholder="Age" data-form-field="Age"  class="form-control px-3 display-7"  min = "0" max = "100">
                                 </div>
                                 <div class="col-md-12 form-group " data-for="email">
-                                    <input type="email" id="email" name="email" placeholder="Email" data-form-field="Email" required="required" class="form-control px-3 display-7" id="email-header15-4" pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([com,it,net,br,de])+$">
+                                    <input type="email" id="email" name="email" placeholder="Email" data-form-field="Email" required="required" class="form-control px-3 display-7"  pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([com,it,net,br,de])+$">
                                 </div>
                                 <div data-for="telephone" class="col-md-12 form-group ">
-                                    <input type="tel" id="telephone" name="telephone" placeholder="Telephone" data-form-field="Telephone" class="form-control px-3 display-7" id="phone-header15-4" pattern = "^[0-9\-\+]{9,15}$">
+                                    <input type="tel" id="telephone" name="telephone" placeholder="Telephone" data-form-field="Telephone" class="form-control px-3 display-7"  pattern = "^[0-9\-\+]{9,15}$">
                                 </div>
                                 <div data-for="password" class="col-md-12 form-group ">
-                                    <input type="password" id="password" name="password" placeholder="Password" data-form-field="Password" class="form-control px-3 display-7" id="phone-header15-4" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$">
+                                    <input type="password" id="password" name="password" placeholder="Password" data-form-field="Password" class="form-control px-3 display-7"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$">
                                 </div>
                                 <div data-for="repass" class="col-md-12 form-group ">
-                                    <input type="password" id="repass" name="repass" placeholder="Repass" data-form-field="Repass" class="form-control px-3 display-7" id="phone-header15-4">
+                                    <input type="password" id="repass" name="repass" placeholder="Repass" data-form-field="Repass" class="form-control px-3 display-7" >
                                 </div>
-                                <div class="col-md-12 input-group-btn"><button type="submit" class="btn btn-secondary btn-form display-4" onclick="valida()" >REGISTRATI</button> </div>
-                            </div>
+                                <div class="col-md-12 input-group-btn"><button type="submit" class="btn btn-secondary btn-form display-4" onclick="checkPasswordMatch()">REGISTRATI</button> </div>
+                            </div>      
 
+                        </form>
 
-                            <!-- <script type="text/javascript">
-        
-                                function valida()
-                                {
-                                    if (password != repass) {
-                                alert("La conferma password non è andata a buon fine");
-                                document.signup.repass.value = "";
-                                document.signup.repass.focus();
-                                return false;
-                                }
-                                else {
-                                document.signup.action = "#"; 
-                                document.signup.submit();
-                                }
-                                }
-                            
-                              </script>  -->
+                        <script type="text/javascript">
 
-                              
-
-                        </form><!---Formbuilder Form--->
-
-                        
+                            function checkPasswordMatch() {
+                
+                                if ($("#password").val() != $("#repass").val())
+                                    $("#repass")[0].setCustomValidity("Le password non coincidono!");
+                                else
+                                    $("#repass")[0].setCustomValidity('');
+                            }
+                
+                            $(document).ready(function () {
+                                $("#repass").keyup(checkPasswordMatch);
+                            });
+                
+                          </script>
 
                     </div>
                 </div>
@@ -493,8 +482,8 @@
   <script src="assets/formoid/formoid.min.js"></script>
   
   <!-- Jquery -->
-  <script src="frontend/jQuery/signup_validation.js"></script>
-  <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+                crossorigin="anonymous"></script>
   
 </body>
 </html>

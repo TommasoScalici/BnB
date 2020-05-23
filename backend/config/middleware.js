@@ -11,8 +11,11 @@ module.exports = function(app, express) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
-    app.set('views', path.join(__dirname, '../../frontend'));
-    app.set('view engine', 'ejs');
+    
+
+    app.set('views', path.join(__dirname, '../../frontend/template'));
+    app.engine('html', require('ejs').renderFile);
+    app.set('view engine', 'html');
 
     app.use(express.static(path.join(__dirname, '../../frontend')));
     app.use(express.static(path.join(__dirname, '../../frontend/template/.')));
