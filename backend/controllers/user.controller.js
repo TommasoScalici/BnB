@@ -1,5 +1,4 @@
 const helpers = require('../config/helpers.js');
-const jwt = require('jwt-simple');
 const User = require('../models/user.js');
 
 module.exports = 
@@ -10,8 +9,8 @@ module.exports =
             email: req.body.email,
             password: req.body.password,
             name: {
-                firstname: req.body.fname,
-                lastname: req.body.lname
+                first: req.body.fname,
+                last: req.body.lname
             },
             
             birthdate: req.body.birthdate,
@@ -36,32 +35,16 @@ module.exports =
         // per poter confrontare la password dopo avere decrittografata 
         User.findOne({'email': email}, (err, user) => {
 
-            if (!user) { // notifies if user is not found
+            if (!user) // notifies if user is not found
               helpers.sendError("Nessun utente è registrato con questo indirizzo e-mail!", req, res);
-            }
 
             else {
               user.comparePasswords(password, (err, match) => {
 
-                if (!match) { 
+                if (!match) 
                   helpers.sendError("Password non corretta!", req, res);
-                }
-
-                else {
-                // Per tutta questa roba ci servirà una libreria di gestione dei cookie, per non farla a mano 
-
-                //   var token = jwt.encode(user, 'secret');
-                //   res.json({
-                //     token: token, // Assegno il token di sessione client side
-                //     // Restituisco anche lo userid.
-                //     // Andrà conservato in un cookie in modo da poterlo riutilizzare
-                //     // per future richieste al server e query al DB.
-                //     userid: user['_id'],
-                //     // C'è bisogno di altro?
-                //   });
-
-                
-                }
+                else
+                  res.render('signin', {user: user});
               });
             }
         });

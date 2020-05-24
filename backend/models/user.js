@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 var UserSchema = new mongoose.Schema({
 
     name: {
-        firstname: String,
-        lastname: String,
+        first: String,
+        last: String,
         // toString() { return `${firstname} ${lastname}` } // Cosa figa che devo vedere come e se si può far
+        // EDIT: così non si può fare perché Mongoose non supporta la dichiarazione dei metodi nello schema
+        // si può però fare usando un metodo virtuale, guardare giù
     },
 
     address: {
@@ -28,6 +30,10 @@ var UserSchema = new mongoose.Schema({
 
     { timestamps: true }
 );
+
+UserSchema.virtual('fullname').get(function () {
+    return this.name.first + ' ' + this.name.last;
+});
 
 UserSchema.methods.comparePasswords = function(enteredPassword, callback) {
     
