@@ -16,7 +16,7 @@
                 <div class="card card-signin my-5">
                     <div class="card-body">
                     <h5 class="card-title text-center">Inserisci le tue credenziali</h5>
-                        <form class="form-signin">
+                        <form class="form-signin" form action="/api/users/signin" method="POST" >
                             <div class="form-label-group">
                             <input type="email" id="email" class="form-control" placeholder="E-mail" required autofocus>
                             <label for="email">E-mail</label>
@@ -27,7 +27,14 @@
                             <label for="password">Password</label>
                             </div>
 
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Continua</button>
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" value="Submit" >Continua</button>
+                           
+                            <script type="text/javascript">
+                                res.locals.login = req.isAuthenticated();
+                                console.log("Prova");
+                            </script>
+
+
                         </form>
                     </div>
                 </div>

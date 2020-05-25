@@ -22,7 +22,17 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">B&B (magari con un logo carino)</a>
+        <a class="navbar-brand" href="#">
+
+          <span class="logo">
+            <li class="nav-item">
+              <a class="logo" href="/#">B&B</a>
+            </li>
+            <a href="/#">
+                 <img src="images/mbr-1.png" style="height: 3.8rem;">
+            </a>
+        </span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,15 +43,31 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="modal" data-target="#signinModal" href="#">Accedi</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="signup">Registrati</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Cerca alloggio</a>
-            </li>
+            <% if (login ) { %>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#LogoutModal" href="#">Logout</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="signup">Inserisci Appartamento</a>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Cerca alloggio</a>
+                </li>
+              </li>
+              <% } else { %> 
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="modal" data-target="#signinModal" href="signin">Accedi</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="signup">Registrati</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Cerca alloggio</a>
+                </li>
+              <% } %>
+          </li>
+
+            
+            
           </ul>
         </div>
       </div>

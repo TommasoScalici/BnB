@@ -36,15 +36,18 @@ module.exports =
         User.findOne({'email': email}, (err, user) => {
 
             if (!user) // notifies if user is not found
-              helpers.sendError("Nessun utente è registrato con questo indirizzo e-mail!", req, res);
-
+            {helpers.sendError("Nessun utente è registrato con questo indirizzo e-mail!", req, res);
+              
+            }
             else {
               user.comparePasswords(password, (err, match) => {
+
+                // res.redirect("/"); //mandatelo nella merda di home porcodi0
 
                 if (!match) 
                   helpers.sendError("Password non corretta!", req, res);
                 else
-                  res.render('signin', {user: user});
+                  res.render('/', {login: true}); //da cambiare
               });
             }
         });
