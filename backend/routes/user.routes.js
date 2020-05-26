@@ -3,10 +3,13 @@ module.exports = app => {
   
     var router = require("express").Router();
   
+    // Logs out the current user
+    router.get("/logout", userController.logout);
+
     // Create a new User
     router.post("/signup", userController.signup);
 
-    // Find the user that is trying to login
+    // Sign in the user that is trying to login if credentials are valid
     router.post("/signin", userController.signin);
   
     // Retrieve all users

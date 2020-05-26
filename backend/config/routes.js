@@ -20,7 +20,7 @@ module.exports = function(app, express) {
         {
             name: "Appartamento 3",
             price: 25.50,
-            description: "Bellissimo appartamento in centro città, vicno alla stazione, ecc.",
+            description: "Bellissimo appartamento in centro città, vicino la stazione, ecc.",
         },
         {
             name: "Appartamento 4",

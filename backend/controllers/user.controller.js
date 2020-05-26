@@ -2,6 +2,11 @@ const User = require('../models/user.js');
 
 module.exports = 
 {
+    logout: (req, res) => {
+        req.session.user = null;
+        res.status(200).json({message: 'Logout succesful'});
+    },
+
     signup: (req, res) => {
         var newUser = new User({
 
@@ -44,7 +49,7 @@ module.exports =
                     res.status(401).json({message: "Password mismatch"});
                 else {
                     req.session.user = user;
-                    res.status(200).json({message: 'Login succesful', user: req.session.user});
+                    res.status(200).json({message: 'Login succesful'});
                 }
               });
             }

@@ -17,8 +17,16 @@ $(document).ready(function () {
 
         if(url == "signin") {
             $("#dialog").dialog();
-
             return;
+        }
+
+        if(url == "logout") {
+            $.ajax({
+                url: "api/users/logout",
+                success: function() {
+                    window.location.replace("/");
+                }
+            });
         }
 
 
@@ -45,7 +53,7 @@ $(document).ready(function () {
                 type: form.attr('method'),
                 url: form.attr('action'),
                 data: form.serialize()
-            }).done(function(response) {
+            }).done(function() {
 
                 $('#alertSuccess').fadeIn(2000).fadeOut(1000);
                 setTimeout(() => { $('#signinModal').modal('hide'); }, 3000);
