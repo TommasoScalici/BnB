@@ -1,5 +1,4 @@
 const bodyParser = require('body-parser');
-const ejs = require('ejs');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
@@ -15,11 +14,15 @@ module.exports = function(app, express) {
         secret: 'le brutte intenzioni la maleducazione',
         resave: false,
         saveUninitialized: true
-      }))
-    
+      }));
+
+    app.use(function(req, res, next) {
+      res.locals.session = req.session;
+      next();
+    });
+
     app.set('views', path.join(__dirname, '../../frontend'));
     app.set('view engine', 'ejs');
 
     app.use(express.static(path.join(__dirname, '../../frontend')));
-    //app.use(express.static(path.join(__dirname, '../../frontend/template/.')));
 };

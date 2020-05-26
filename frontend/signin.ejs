@@ -1,5 +1,5 @@
 
-<link href="css/signin.css" rel="stylesheet">
+<link href="/css/signin.css" rel="stylesheet">
 
 <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="signinModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -16,18 +16,35 @@
                 <div class="card card-signin my-5">
                     <div class="card-body">
                     <h5 class="card-title text-center">Inserisci le tue credenziali</h5>
-                        <form class="form-signin">
+                        <form class="form-signin" id="form-signin" action="api/users/signin" method="POST">
                             <div class="form-label-group">
-                            <input type="email" id="email" class="form-control" placeholder="E-mail" required autofocus>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" required autofocus>
                             <label for="email">E-mail</label>
                             </div>
             
                             <div class="form-label-group">
-                            <input type="password" id="password" class="form-control" placeholder="Password" required>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                             <label for="password">Password</label>
                             </div>
 
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Continua</button>
+
+                            <br />
+
+                            <div id="alertEmail" style="display: none;" class="alert alert-warning" role="alert">
+                                <strong>Indirizzo e-mail non trovato</strong><br />
+                                Forse non sei ancora registrato. <a href="#" class="alert-link">Clicca qui</a> per registrarti.
+                            </div>
+
+                            <div id="alertPass" style="display: none;" class="alert alert-danger" role="alert">
+                                <strong>Password errata!</strong><br />
+                                Assicurati di aver inserito la password corretta.
+                            </div>
+
+                            <div id="alertSuccess" style="display: none;" class="alert alert-success" role="alert">
+                                <strong>Accesso effettuato!</strong>
+                            </div>
+
                         </form>
                     </div>
                 </div>

@@ -1,4 +1,3 @@
-const helpers = require('../config/helpers.js');
 const User = require('../models/user.js');
 
 module.exports = 
@@ -36,15 +35,17 @@ module.exports =
         User.findOne({'email': email}, (err, user) => {
 
             if (!user) // notifies if user is not found
-              helpers.sendError("Nessun utente è registrato con questo indirizzo e-mail!", req, res);
+                res.status(401).json({message: "User not found"});
 
             else {
-              user.comparePasswords(password, (err, match) => {
-
+                user.comparePasswords(password, (err, match) => {
+                
                 if (!match) 
-                  helpers.sendError("Password non corretta!", req, res);
-                else
-                  res.render('signin', {user: user});
+                    res.status(401).json({message: "Password mismatch"});
+                else {
+                    req.session.user = user;
+                    res.status(200).json({message: 'Login succesful', user: req.session.user});
+                }
               });
             }
         });
