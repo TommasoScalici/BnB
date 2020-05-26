@@ -1,3 +1,4 @@
+const Mapper = require('../utilities/request-model-mapper.js')
 const User = require('../models/user.js');
 
 module.exports = 
@@ -7,37 +8,48 @@ module.exports =
         res.status(200).redirect("/");
     },
 
-    signup: (req, res) => {
-        var newUser = new User({
+    signup: async (req, res) => {
 
-            email: req.body.email,
-            password: req.body.password,
-            name: {
-                first: req.body.fname,
-                last: req.body.lname
-            },
+        let existingUser;
+
+        await User.findOne({'email': req.body.email}, (err, user) => {
+
+            if(err) {
+                console.log(`Mongo error while user was signing up: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+
+            existingUser = user;
             
-            birthdate: req.body.birthdate,
-            sex: req.body.sex,
-            telephone: req.body.telephone
         });
 
-        User.create(newUser, function(err, user) {
-            if(err)
+        if (existingUser) {
+            res.status(500).json({message: "User with this e-mail address already exists!"});
+            return;
+        }
+
+        var newUser = Mapper.getUserFromReq(req);
+
+        await User.create(newUser, function(err, user) {
+            if(err) {
                 console.log(`Mongo error while user was signing up: ${err}`);
-            else
-                res.send("Ti sei iscritto!");
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else {
+                req.session.user = newUser;
+                res.status(200).json({message: 'Signup succesful'});
+            }
         });
     },
 
 
-    signin: (req, res) => {
+    signin: async (req, res) => {
         var email = req.body.email;
         var password = req.body.password;
 
         // Utilizzo il metodo comparePasswords della classe di modello 
         // per poter confrontare la password dopo avere decrittografata 
-        User.findOne({'email': email}, (err, user) => {
+        await User.findOne({'email': email}, (err, user) => {
 
             if (!user) // notifies if user is not found
                 res.status(401).json({message: "User not found"});
@@ -53,6 +65,19 @@ module.exports =
                 }
               });
             }
+        });
+    },
+
+    update: async (req, res) => {
+
+        await User.findByIdAndUpdate(req.params.id, Mapper.getUserFromReq(req), function(err, doc) {
+
+            if(err) {
+                console.log(`Mongo error while updating user profile data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else 
+                res.status(200).json({message: 'User profile updated succesfully'});
         });
     }
 }

@@ -68,6 +68,10 @@ module.exports = function(app, express) {
         res.redirect('/api/users/logout');
     });
 
+    app.get('/profile', function(req, res) {
+        res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
+    });
+
     app.get('/signup', function(req, res) {
         res.render("index", {pagetitle: "Registrazione", path: "signup"});
     });

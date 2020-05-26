@@ -9,6 +9,7 @@ middleware(app, express);
 routes(app, express);
 
 db.mongoose.connect(db.url, {
+    useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {

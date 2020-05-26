@@ -27,7 +27,7 @@ $(document).ready(function () {
             data: form.serialize()
         }).done(function() {
 
-            $('#alertSuccess').fadeIn(2000).fadeOut(1000);
+            $('#alertSignInSuccess').fadeIn(2000).fadeOut(1000);
             setTimeout(() => { $('#signinModal').modal('hide'); }, 3000);
             setTimeout(() => { window.location.replace("/"); }, 4000);
 
@@ -47,16 +47,36 @@ $(document).ready(function () {
 $(window).on('load', function() {
     $(".needs-validation").each(function() {
 
-        let form = $(this)[0];
+        let form = $(this);
 
         $(this).on('submit', function(event) {
 
-            if (form.checkValidity() === false) {
-                event.preventDefault();
+            event.preventDefault();
+
+            if (form[0].checkValidity() === false) 
                 event.stopPropagation();
+            else
+            {
+                $('#alertSignUpError').fadeOut();
+        
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize()
+                }).done(function() {
+        
+                    $('#alertSignUpSuccess').fadeIn(2000).fadeOut(1000);
+                    setTimeout(() => { window.location.replace("/"); }, 3000);
+        
+                }).fail(function(response) {
+        
+                    $('#alertSignUpError').html(response.responseJSON.message);
+                    $('#alertSignUpError').fadeIn(1000);
+        
+                });
             }
         
-            form.classList.add('was-validated');
+            form[0].classList.add('was-validated');
         });
     });
 });

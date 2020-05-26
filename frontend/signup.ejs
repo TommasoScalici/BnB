@@ -2,7 +2,7 @@
   <div class="card-body">
   <h5 class="card-title text-center">Compila il form di registrazione</h5>
 
-    <form id="form-signup" class="needs-validation" novalidate>
+    <form action="api/users/signup" method="POST" id="form-signup" class="needs-validation" novalidate>
       <div class="card mb-5">
 
         <div class="card-header text-white bg-primary">Dati personali</div>
@@ -20,8 +20,8 @@
               </div>
             </div>
             <div class="col-md-4 mb-3">
-              <label for="surname">Cognome</label>
-              <input type="text" class="form-control" id="surname" name="surname" placeholder="Cognome" required>
+              <label for="lastname">Cognome</label>
+              <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Cognome" required>
               <div class="invalid-feedback">
                 L'inserimento del cognome è obbligatorio
               </div>
@@ -33,7 +33,7 @@
                   <span class="input-group-text" id="inputGroupPrepend3">@</span>
                 </div>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username"
-                      pattern="[a-z0-9]{4,20}"  aria-describedby="inputGroupPrepend3">
+                       pattern="[a-z0-9]{4,20}"  aria-describedby="inputGroupPrepend3">
                 <div class="invalid-feedback">
                   L'username deve essere tra 4 e 20 caratteri alfanumerici (minuscoli).
                 </div>
@@ -112,16 +112,16 @@
           <div class="form-row">
             
             <div class="col-md-9 mb-3">
-              <label for="address">Zip</label>
-              <input type="text" class="form-control" id="address" name="address" placeholder="Indirizzo e numero civico">
+              <label for="street">Indirizzo</label>
+              <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico">
               <div class="invalid-feedback">
                 Inserire un indirizzo valido
               </div>
             </div>
 
             <div class="col-md-3 mb-3">
-              <label for="zipcode">Zip</label>
-              <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CAP" pattern="/^\d{5}$/">
+              <label for="zipcode">CAP</label>
+              <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CAP" pattern="[0-9]{5}">
               <div class="invalid-feedback">
                 Inserire un CAP valido.
               </div>
@@ -169,6 +169,15 @@
       
 
       <button class="btn btn-primary" onclick="checkPasswordMatch()" type="submit">Registrati</button>
+
+      <br /><br />
+
+      <div id="alertSignUpSuccess" style="display: none;" class="alert alert-success" role="alert">
+        <strong>Registrazione effettuata con successo!</strong>
+      </div>
+
+      <div id="alertSignUpError" style="display: none;" class="alert alert-danger" role="alert">
+      </div>
 
     </form>
   </div>

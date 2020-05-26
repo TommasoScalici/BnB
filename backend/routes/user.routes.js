@@ -11,6 +11,9 @@ module.exports = app => {
 
     // Sign in the user that is trying to login if credentials are valid
     router.post("/signin", userController.signin);
+
+     // Update data of an existing user
+     router.post("/update:id", userController.update);
   
     // Retrieve all users
     // router.get("/", userController.findAll);
