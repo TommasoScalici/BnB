@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         let url = $(this).attr("href");
 
-        if(url == "/" || url == '#')
+        if(url == "/" || url.startsWith("#"))
             return;
 
         if(url == "signin") {
