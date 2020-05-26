@@ -1,13 +1,11 @@
-const userController = require("../controllers/user.controller.js");
-const apartmentController = require("../controllers/apartments.controller.js");
 const Apartment = require('../models/apartment.js');
-const stream = require('stream');
+
 module.exports = function(app, express) {
 
     require('../routes/user.routes.js')(app);
     require('../routes/apartment.routes.js')(app);
 
-    //mi serve per testare
+    // mi serve per testare
     var apartments = [
         {
             name: "Appartamento 1",
@@ -22,7 +20,7 @@ module.exports = function(app, express) {
         {
             name: "Appartamento 3",
             price: 25.50,
-            description: "Bellissimo appartamento in centro città, vicno alla stazione, ecc.",
+            description: "Bellissimo appartamento in centro città, vicino la stazione, ecc.",
         },
         {
             name: "Appartamento 4",
@@ -30,6 +28,7 @@ module.exports = function(app, express) {
             description: "Casa di Pirrone",
         },
     ];
+
     // fine roba di test
 
     // var stream = Apartment.find().cursor()
@@ -56,23 +55,21 @@ module.exports = function(app, express) {
         if (err) return console.error(err);
         console.log(apartment);
         return
-      })
+      });
 
-      const list = apartment.exec();
+    const list = apartment.exec();
         console.log(list);
 
     app.get('/', function(req, res) {
-        var name = req.body.name;
-        res.render("index", {pagetitle: "Home", apartments: apartments});
+        res.render("index", {pagetitle: "Home", path: "home", apartments: apartments});
     });
 
-
-    app.get('/signin', function(req, res) {
-        res.render("signin");
+    app.get('/logout', function(req, res) {
+        res.redirect('/api/users/logout');
     });
 
     app.get('/signup', function(req, res) {
-        res.render("signup");
+        res.render("index", {pagetitle: "Registrazione", path: "signup"});
     });
 
     app.get("/insert", function(req,res)
