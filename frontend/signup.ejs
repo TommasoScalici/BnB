@@ -3,86 +3,158 @@
   <h5 class="card-title text-center">Compila il form di registrazione</h5>
 
     <form id="form-signup" class="needs-validation" novalidate>
+      <div class="card mb-5">
 
-      <div class="form-row">
+        <div class="card-header text-white bg-primary">Dati personali</div>
 
-        <div class="col-md-4 mb-3">
-          <label for="firstname">Nome</label>
-          <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nome" required>
-          <div class="invalid-feedback">
-            L'inserimento del nome è obbligatorio
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="surname">Cognome</label>
-          <input type="text" class="form-control" id="surname" name="surname" placeholder="Cognome" required>
-          <div class="invalid-feedback">
-            L'inserimento del cognome è obbligatorio
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="username">Username</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend3">@</span>
+        <div class="card-body">
+
+
+          <div class="form-row">
+
+            <div class="col-md-4 mb-3">
+              <label for="firstname">Nome</label>
+              <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nome" required>
+              <div class="invalid-feedback">
+                L'inserimento del nome è obbligatorio
+              </div>
             </div>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username"
-                   pattern="[a-z0-9]{4,20}"  aria-describedby="inputGroupPrepend3">
-            <div class="invalid-feedback">
-              L'username deve essere tra 4 e 20 caratteri alfanumerici (minuscoli).
+            <div class="col-md-4 mb-3">
+              <label for="surname">Cognome</label>
+              <input type="text" class="form-control" id="surname" name="surname" placeholder="Cognome" required>
+              <div class="invalid-feedback">
+                L'inserimento del cognome è obbligatorio
+              </div>
             </div>
+            <div class="col-md-4 mb-3">
+              <label for="username">Username</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                </div>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                      pattern="[a-z0-9]{4,20}"  aria-describedby="inputGroupPrepend3">
+                <div class="invalid-feedback">
+                  L'username deve essere tra 4 e 20 caratteri alfanumerici (minuscoli).
+                </div>
+              </div>
+            </div>
+
           </div>
+      
+
+          <div class="form-row">
+
+            <div class="col-md-6 mb-3">
+              <label for="email">E-mail</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+              <div class="invalid-feedback">
+                Inserire un indirizzo e-mail valido.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+              <div class="invalid-feedback">
+                Inserire una password valida.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="repass">Conferma Password</label>
+              <input type="password" class="form-control" id="repass" placeholder="Conferma Password" required>
+              <div class="invalid-feedback">
+                Le password non coincidono.
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-row">
+
+            <div class="col-md-5 mb-3">
+              <label for="birthdate">Data di nascita</label>
+              <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Data di nascita">
+              <div class="invalid-feedback">
+                Inserire una data valida.
+              </div>
+            </div>
+            <div class="col-md-5 mb-3">
+              <label for="telephone">Telefono</label>
+              <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Telefono"
+                    pattern="^[0-9\-\+]{9,15}$">
+              <div class="invalid-feedback">
+                Inserire un numero di telefono valido.
+              </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <label for="sex">Sesso</label>
+              <select class="form-control" id="sex" name="sex" placeholder="Sesso">
+                <option></option>
+                <option>M</option>
+                <option>F</option>
+              </select>
+            </div>
+            
+          </div>
+
+
         </div>
       </div>
 
-      <div class="form-row">
+      <div class="card mt-5">
 
-        <div class="col-md-4 mb-3">
-          <label for="email">E-mail</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
-          <div class="invalid-feedback">
-            Inserire un indirizzo e-mail valido.
+        <div class="card-header text-white bg-primary">Indirizzo</div>
+
+        <div class="card-body">
+
+
+          <div class="form-row">
+            
+            <div class="col-md-9 mb-3">
+              <label for="address">Zip</label>
+              <input type="text" class="form-control" id="address" name="address" placeholder="Indirizzo e numero civico">
+              <div class="invalid-feedback">
+                Inserire un indirizzo valido
+              </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+              <label for="zipcode">Zip</label>
+              <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CAP" pattern="/^\d{5}$/">
+              <div class="invalid-feedback">
+                Inserire un CAP valido.
+              </div>
+            </div>
+
           </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-          <div class="invalid-feedback">
-            Inserire una password valida.
+
+
+          <div class="form-row">
+
+            <div class="col-md-6 mb-3">
+              <label for="city">Città</label>
+              <input type="text" class="form-control" id="city" name="city" placeholder="Città">
+              <div class="invalid-feedback">
+                Inserire una città valida.
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="state">Comune</label>
+              <input type="text" class="form-control" id="state" name="state" placeholder="Comune">
+              <div class="invalid-feedback">
+                Inserire un comune valido.
+              </div>
+            </div>
+
           </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="repass">Conferma Password</label>
-          <input type="password" class="form-control" id="repass" placeholder="Conferma Password" required>
-          <div class="invalid-feedback">
-            Le password non coincidono.
-          </div>
+
+
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="city">Città</label>
-          <input type="text" class="form-control" id="city" name="city" placeholder="Città">
-          <div class="invalid-feedback">
-            Inserire una città valida.
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="state">Comune</label>
-          <input type="text" class="form-control" id="state" name="state" placeholder="Comune">
-          <div class="invalid-feedback">
-            Inserire un comune valido.
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="zipcode">Zip</label>
-          <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CAP">
-          <div class="invalid-feedback">
-            Inserire un CAP valido.
-          </div>
-        </div>
-      </div>
+      <br /><br />
+
       <div class="form-group">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="terms" required>
@@ -94,6 +166,7 @@
           </div>
         </div>
       </div>
+      
 
       <button class="btn btn-primary" onclick="checkPasswordMatch()" type="submit">Registrati</button>
 
