@@ -31,7 +31,7 @@ module.exports = function(app, express) {
     // fine roba di test
 
     app.get('/', function(req, res) {
-        res.render("index", {pagetitle: "Home", apartments: apartments , login : req.isAuthenticated()}); //test-ata al muro
+        res.render("index", {pagetitle: "Home", apartments: apartments});
     });
 
     app.get('/signin', function(req, res) {

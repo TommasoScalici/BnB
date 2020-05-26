@@ -2,13 +2,11 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
-var passport=require('passport');
 
 
 module.exports = function(app, express) {
 
     app.use(morgan('dev'));
-    //require('./config/passport')(passport);
 
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
