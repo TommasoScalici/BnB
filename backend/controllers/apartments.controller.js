@@ -1,4 +1,3 @@
-const helpers = require('../config/helpers.js');
 const Apartment = require('../models/apartment.js');
 
 module.exports = 

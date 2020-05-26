@@ -1,6 +1,3 @@
-
-const userController = require("../controllers/user.controller.js");
-
 module.exports = function(app, express) {
 
     require('../routes/user.routes.js')(app);
@@ -31,14 +28,14 @@ module.exports = function(app, express) {
     // fine roba di test
 
     app.get('/', function(req, res) {
-        res.render("index", {pagetitle: "Home", apartments: apartments});
+        res.render("index", {pagetitle: "Home", path: "home", apartments: apartments});
     });
 
-    app.get('/signin', function(req, res) {
-        res.render("signin");
+    app.get('/logout', function(req, res) {
+        res.redirect('/api/users/logout');
     });
 
     app.get('/signup', function(req, res) {
-        res.render("signup");
+        res.render("index", {pagetitle: "Registrazione", path: "signup"});
     });
 };

@@ -4,7 +4,7 @@ module.exports =
 {
     logout: (req, res) => {
         req.session.user = null;
-        res.status(200).json({message: 'Logout succesful'});
+        res.status(200).redirect("/");
     },
 
     signup: (req, res) => {
@@ -34,7 +34,7 @@ module.exports =
     signin: (req, res) => {
         var email = req.body.email;
         var password = req.body.password;
-    
+
         // Utilizzo il metodo comparePasswords della classe di modello 
         // per poter confrontare la password dopo avere decrittografata 
         User.findOne({'email': email}, (err, user) => {
