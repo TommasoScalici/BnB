@@ -1,0 +1,39 @@
+<h1>La pagina di test funziona. Mind blowing.</h1>
+<a href="/">Clicca qui per tornare indietro.</a>
+
+<br /><br />
+
+<form action="/api/apartments/insert" id="insert_form" method="POST">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    
+    <label for="street">Street:</label><br>
+    <input type="text" id="street" name="street"  required ><br><br>
+   
+    <label for="city">City:</label><br>
+    <input type="text" id="city" name="city" required><br><br>
+
+    <label for="state">State:</label> <br>
+    <input type="text" id="state" name="state" required><br>
+   
+    <label for="price">Price:</label><br>
+    <input type="number" id="price" name="price"  min ="0" required><br><br>
+   
+    <label for="description">Description:</label><br>
+    <input type="text" id="description" name="description" required><br><br>
+
+    <label for="vote">Vote:</label><br>
+    <input type="number" id="vote" name="vote" min="0" max="5" required><br><br>
+
+    <!-- <select id="vote" name="vote" required>  //Tom poi ne parliamo e mi dici se ha senso l'idea
+        <option value="1">1</option>
+        <option value="M">F</option>
+        <option value="M">M</option>
+        <option value="M">F</option>
+        <option value="M">M</option>
+        
+    </select> -->
+    <br><br>
+
+    <input type="submit" value="Submit">
+</form>
