@@ -28,7 +28,7 @@ module.exports =
             return;
         }
 
-        var newUser = Mapper.getUserFromReq(req);
+        var newUser = new User(Mapper.getUserFromReq(req));
 
         await User.create(newUser, function(err, user) {
             if(err) {
@@ -70,14 +70,22 @@ module.exports =
 
     update: async (req, res) => {
 
-        await User.findByIdAndUpdate(req.params.id, Mapper.getUserFromReq(req), function(err, doc) {
+        let user = Mapper.getUserFromReq(req);
+
+        // Questa roba in pratica mi serve per eliminare eventuali valori undefined che arrivano dal form e che andrebbero
+        // a sostituire i valori già salvati nel DB.
+        Object.keys(user).forEach(key => user[key] === undefined && delete user[key]);
+
+        await User.findByIdAndUpdate(req.params.id, user, function(err, doc) {
 
             if(err) {
                 console.log(`Mongo error while updating user profile data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else 
+            else {
                 res.status(200).json({message: 'User profile updated succesfully'});
+                req.session.user = user;
+            }
         });
     }
 }

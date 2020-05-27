@@ -1,9 +1,7 @@
-const User = require('../models/user.js');
-
 module.exports = 
 {
     getUserFromReq: (req) => {
-        return new User({
+        return {
 
         name: {
             first: req.body.firstname,
@@ -25,6 +23,5 @@ module.exports =
         sex: req.body.sex,
         birthdate: req.body.birthdate,
         telephone: req.body.telephone,
-        });
-    }
+    }}
 }
