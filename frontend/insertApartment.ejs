@@ -1,39 +1,111 @@
-<h1>La pagina di test funziona. Mind blowing.</h1>
-<a href="/">Clicca qui per tornare indietro.</a>
-
-<br /><br />
-
-<form action="/api/apartments/insert" id="insert_form" method="POST">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" required><br><br>
-    
-    <label for="street">Street:</label><br>
-    <input type="text" id="street" name="street"  required ><br><br>
-   
-    <label for="city">City:</label><br>
-    <input type="text" id="city" name="city" required><br><br>
-
-    <label for="state">State:</label> <br>
-    <input type="text" id="state" name="state" required><br>
-   
-    <label for="price">Price:</label><br>
-    <input type="number" id="price" name="price"  min ="0" required><br><br>
-   
-    <label for="description">Description:</label><br>
-    <input type="text" id="description" name="description" required><br><br>
-
-    <label for="vote">Vote:</label><br>
-    <input type="number" id="vote" name="vote" min="0" max="5" required><br><br>
-
-    <!-- <select id="vote" name="vote" required>  //Tom poi ne parliamo e mi dici se ha senso l'idea
-        <option value="1">1</option>
-        <option value="M">F</option>
-        <option value="M">M</option>
-        <option value="M">F</option>
-        <option value="M">M</option>
+<div class="card card-signin my-5">
+    <div class="card-body">
+    <h5 class="card-title text-center">Inserisci Appartamento</h5>
+  
+      <form action="/api/apartments/insert" id="form-insert" class="needs-validation" method="POST" novalidate>
+        <div class="card mb-5">
+  
+          <div class="card-header text-white bg-primary">Dati</div>
+  
+          <div class="card-body">
+  
+  
+            <div class="form-row">
+  
+              <div class="col-md-4 mb-3">
+                <label for="firstname">Nome</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome" required>
+                <div class="invalid-feedback">
+                  L'inserimento del nome dell'appartamento è obbligatorio
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="price">Prezzo</label>
+                <input type="number" class="form-control" min="0" id="price" name="price" placeholder="Prezzo" required>
+                <div class="invalid-feedback">
+                  L'inserimento del prezzo è obbligatorio
+                </div>
+              </div>
+              
+              
+  
+            </div>
         
-    </select> -->
-    <br><br>
-
-    <input type="submit" value="Submit">
-</form>
+  
+            <div class="form-row">
+  
+                <div class="col">
+                    <label for="description">Descrizione</label>
+                    <textarea type="text" row = "10" class="form-control" id="description" name="description" placeholder="Descrizione" required> </textarea>
+                    <div class="invalid-feedback">
+                        Inserisci una Descrizione.
+                      </div>
+                </div>
+              
+                
+            </div>
+  
+  
+        <div class="card mt-5">
+  
+          <div class="card-header text-white bg-primary">Indirizzo</div>
+  
+          <div class="card-body">
+  
+  
+            <div class="form-row">
+              
+              <div class="col-md-9 mb-3">
+                <label for="street">Via</label>
+                <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico">
+                <div class="invalid-feedback">
+                  Inserire un indirizzo valido
+                </div>
+              </div>
+  
+            </div>
+  
+  
+            <div class="form-row">
+  
+              <div class="col-md-6 mb-3">
+                <label for="city">Città</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Città">
+                <div class="invalid-feedback">
+                  Inserire una città valida.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="state">Comune</label>
+                <input type="text" class="form-control" id="state" name="state" placeholder="Comune">
+                <div class="invalid-feedback">
+                  Inserire un comune valido.
+                </div>
+              </div>
+  
+            </div>
+  
+  
+          </div>
+        </div>
+  
+        <br /><br />
+  
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="terms" required>
+            <label class="form-check-label" for="terms">
+              Accetto i termini e le condizioni.
+            </label>
+            <div class="invalid-feedback">
+              Devi accettare i termini e le condizioni prima di proseguire.
+            </div>
+          </div>
+        </div>
+        
+  
+        <button class="btn btn-primary" type="submit">Inserisci</button>
+  
+      </form>
+    </div>
+  </div>
