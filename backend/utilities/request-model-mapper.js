@@ -23,5 +23,22 @@ module.exports =
         sex: req.body.sex,
         birthdate: req.body.birthdate,
         telephone: req.body.telephone,
-    }}
-}
+    }},
+
+    getApartmentFromReq: (req) => {
+        return {
+
+            name: req.body.name,
+
+            address: {
+                street: req.body.street,
+                city: req.body.city,
+                state: req.body.state,
+                
+            },
+        
+            price : req.body.price,
+            description: req.body.description,
+            vote : req.body.vote,       
+    }
+}}

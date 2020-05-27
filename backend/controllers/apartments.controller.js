@@ -1,4 +1,5 @@
 const Apartment = require('../models/apartment.js');
+const Mapper = require('../utilities/request-model-mapper.js')
 
 module.exports = 
 {
@@ -41,5 +42,40 @@ module.exports =
             }
         });
     },
+
+    apartments: async (req,res) =>
+    {
+        await Apartment.findById(req.params.id, function(err, doc) 
+        {
+            if(err) {
+                console.log(`Mongo error while updating user profile data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            
+            res.render("index", {pagetitle: "Appartamento", path: "viewApartment", apartment : doc });
+                
+        });
+        
+    },
     
+    update: async (req, res) => {
+
+        let apartment = Mapper.getApartmentFromReq(req);
+
+        // Questa roba in pratica mi serve per eliminare eventuali valori undefined che arrivano dal form e che andrebbero
+        // a sostituire i valori già salvati nel DB.
+        Object.keys(apartment).forEach(key => apartment[key] === undefined && delete apartment[key]);
+
+        await Apartment.findByIdAndUpdate(req.params.id, apartment, function(err, doc) {
+
+            if(err) {
+                console.log(`Mongo error while updating user profile data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else {
+                res.status(200).json({message: 'Apartment profile updated succesfully'});
+                req.session.apartment = apartment;
+            }
+        });
+    }
 }

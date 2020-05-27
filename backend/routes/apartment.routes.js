@@ -5,8 +5,13 @@ module.exports = app => {
   
     router.post("/insert", apartmentController.insert);
 
+
+    router.post("/update:id", apartmentController.update);
+
+    router.get("/apartments:id", apartmentController.apartments);
+
   
-    router.post("/:id", apartmentController.delete);
+    router.post("/delete", apartmentController.delete);
   
     app.use('/api/apartments', router);
   };
