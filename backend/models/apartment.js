@@ -3,20 +3,21 @@ const mongoose = require('mongoose');
 var ApartmentSchema = new mongoose.Schema({
 
     name: String,
+    description: String,
+    price : Number,
+    beds: Number,
+    rooms: Number,
+    type_accomodation: String,
+    services: Array,
 
     address: {
         street: String,
         city: String,
         state: String,
-        
+        zipcode: String,
     },
-
-    price : Number,
-    description: String,
-    vote : Number,
-    //votes : {type : Number, min : 0, Max : 5}
     },
-
+    
     { timestamps: true }
 );
 

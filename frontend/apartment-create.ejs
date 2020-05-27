@@ -2,7 +2,7 @@
     <div class="card-body">
     <h5 class="card-title text-center">Inserisci Appartamento</h5>
   
-      <form action="/api/apartments/insert" id="form-insert" class="needs-validation" method="POST" novalidate>
+      <form action="/api/apartments/create" id="form-insert" class="needs-validation" method="POST" novalidate>
         <div class="card mb-5">
   
           <div class="card-header text-white bg-primary">Dati</div>
@@ -56,7 +56,7 @@
             <div class="form-row">
               
               <div class="col-md-9 mb-3">
-                <label for="street">Via</label>
+                <label for="street">Indirizzo</label>
                 <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico">
                 <div class="invalid-feedback">
                   Inserire un indirizzo valido
