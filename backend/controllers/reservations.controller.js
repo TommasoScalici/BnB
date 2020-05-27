@@ -1,28 +1,22 @@
 const Reservation = require('../models/reservation.js');
+const User = require('../models/user.js');
+const Apartment = require('../models/apartment.js');
 
 module.exports =
 {
     create: (req, res) =>{
             var newReservation = new Reservation({
-    
-                user: req.body.userid,
-                password: req.body.password,
-                name: {
-                    first: req.body.fname,
-                    last: req.body.lname
-                },
                 
-                birthdate: req.body.birthdate,
-                sex: req.body.sex,
-                telephone: req.body.telephone
+            user: req.session.user._id,
+            apartment: req.session.apartment._id
+
             });
-    
-            User.create(newUser, function(err, user) {
+
+            Reservation.create(newReservation, function(err, reservation) {
                 if(err)
                     console.log(`Mongo error while user was signing up: ${err}`);
                 else
-                    res.send("Ti sei iscritto!");
+                    res.send("Hai prenotato il tuo appartamento");
             });
-        }
     } 
 }
