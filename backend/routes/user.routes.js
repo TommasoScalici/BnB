@@ -13,7 +13,7 @@ module.exports = app => {
     router.post("/signin", userController.signin);
 
     // Update data of an existing user
-    router.post("/update:id", userController.update);
+    router.post("/update/:id", userController.update);
   
     // Retrieve all users
     // router.get("/", userController.findAll);

@@ -2,7 +2,7 @@
     <div class="card-body">
     <h5 class="card-title text-center">Aggiorna e modifica i tuoi dati</h5>
   
-      <form action="api/users/update<%= session.user._id %>" method="POST" enctype="multipart/form-data"
+      <form action="api/users/update/<%= session.user._id %>" method="POST" enctype="multipart/form-data"
             id="form-signup" class="needs-validation" novalidate>
         <div class="card mb-5">
   
@@ -10,7 +10,9 @@
   
           <div class="card-body">
   
-            <img class="rounded mx-auto d-block" width="100" height="100" alt="profile picture" src="#" id="profilePicture">
+            <img width="100" height="100" alt="profile picture" id="profilePicture" class="rounded mx-auto d-block" 
+                 src="<% if(session.user.profile_picture_path) { %> <%= session.user.profile_picture_path %> <% } else { %>
+                      /images/default-user-image.jpg<% } %>">
 
             <br /><br />
 

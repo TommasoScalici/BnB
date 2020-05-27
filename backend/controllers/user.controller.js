@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
 const User = require('../models/user.js');
 
@@ -70,7 +71,15 @@ module.exports =
 
     update: async (req, res) => {
 
+        let imagePath = `users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
         let user = Mapper.getUserFromReq(req);
+
+        if(req.files) {
+            let image = req.files.profileImage;
+            image.mv(`./uploads/${imagePath}`);
+            user.profile_picture_path = imagePath;
+        }
+        
 
         // Questa roba in pratica mi serve per eliminare eventuali valori undefined che arrivano dal form e che andrebbero
         // a sostituire i valori già salvati nel DB.

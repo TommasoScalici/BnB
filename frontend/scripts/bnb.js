@@ -68,22 +68,46 @@ $(window).on('load', function() {
             else
             {
                 $('#alertSignUpError').fadeOut();
-        
-                $.ajax({
-                    type: form.attr('method'),
-                    url: form.attr('action'),
-                    data: form.serialize()
-                }).done(function() {
-        
-                    $('#alertSignUpSuccess').fadeIn(2000).fadeOut(1000);
-                    setTimeout(() => { window.location.replace("/"); }, 3000);
-        
-                }).fail(function(response) {
-        
-                    $('#alertSignUpError').html(response.responseJSON.message);
-                    $('#alertSignUpError').fadeIn(1000);
-        
-                });
+ 
+                if(form[0].enctype == "multipart/form-data") {
+                    var formData = new FormData($(this)[0]);
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: form.attr('method'),
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            $('#alertSignUpSuccess').fadeIn(2000).fadeOut(1000);
+                            setTimeout(() => { window.location.replace("/"); }, 3000)
+                        },
+                        error: function(response) {
+                            $('#alertSignUpError').html(response.responseJSON.message);
+                            $('#alertSignUpError').fadeIn(1000);
+                        }
+                    });
+                }
+                else {
+
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        success: function() {
+            
+                            $('#alertSignUpSuccess').fadeIn(2000).fadeOut(1000);
+                            setTimeout(() => { window.location.replace("/"); }, 3000);
+                        },
+                        error: function(response) {
+            
+                            $('#alertSignUpError').html(response.responseJSON.message);
+                            $('#alertSignUpError').fadeIn(1000);
+                
+                        }
+                    });
+                }
             }
         
             form[0].classList.add('was-validated');
