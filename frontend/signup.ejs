@@ -54,9 +54,11 @@
             </div>
             <div class="col-md-3 mb-3">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password" required
+                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$">
               <div class="invalid-feedback">
-                Inserire una password valida.
+                La password non è abbastanza sicura. Deve avere una lunghezza comprea tra gli 8 e i 20 caratteri e
+                contenere almeno un carattere minuscolo, uno maiuscolo, un numero e un carattere speciale.
               </div>
             </div>
             <div class="col-md-3 mb-3">
@@ -82,7 +84,7 @@
             <div class="col-md-5 mb-3">
               <label for="telephone">Telefono</label>
               <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Telefono"
-                    pattern="^[0-9\-\+]{9,15}$">
+                     pattern="^[0-9\-\+]{9,15}$">
               <div class="invalid-feedback">
                 Inserire un numero di telefono valido.
               </div>

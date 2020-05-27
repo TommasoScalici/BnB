@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const moment = require('moment');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
@@ -6,11 +7,13 @@ const session = require('express-session');
 
 module.exports = function(app, express) {
 
+    app.locals.moment = moment;
+
     app.use(morgan('dev'));
 
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-
+    
     app.use(session({
         secret: 'le brutte intenzioni la maleducazione',
         resave: false,

@@ -76,7 +76,7 @@ module.exports =
         // a sostituire i valori già salvati nel DB.
         Object.keys(user).forEach(key => user[key] === undefined && delete user[key]);
 
-        await User.findByIdAndUpdate(req.params.id, user, function(err, doc) {
+        await User.findByIdAndUpdate(req.params.id, user, { new: true}, function(err, updatedUser) {
 
             if(err) {
                 console.log(`Mongo error while updating user profile data: ${err}`);
@@ -84,7 +84,8 @@ module.exports =
             }
             else {
                 res.status(200).json({message: 'User profile updated succesfully'});
-                req.session.user = user;
+                req.session.user = updatedUser;
+                req.session.save();
             }
         });
     }
