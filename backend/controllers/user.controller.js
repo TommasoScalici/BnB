@@ -11,7 +11,7 @@ module.exports =
     signup: async (req, res) => {
 
         let existingUser;
-
+        
         await User.findOne({'email': req.body.email}, (err, user) => {
 
             if(err) {
