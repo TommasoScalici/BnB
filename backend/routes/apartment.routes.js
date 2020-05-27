@@ -3,15 +3,12 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    router.post("/insert", apartmentController.insert);
+    //router.get("/apartments", apartmentController.getApartments);
+    router.get("/apartment:id", apartmentController.getApartment);
 
-
+    router.post("/create", apartmentController.create);
+    router.post("/delete", apartmentController.delete);
     router.post("/update:id", apartmentController.update);
 
-    router.get("/apartments:id", apartmentController.apartments);
-
-  
-    router.post("/delete", apartmentController.delete);
-  
     app.use('/api/apartments', router);
   };

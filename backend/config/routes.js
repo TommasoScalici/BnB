@@ -2,9 +2,9 @@ const Apartment = require('../models/apartment.js');
 
 module.exports = function(app, express) {
 
-    require('../routes/user.routes.js')(app);
     require('../routes/apartment.routes.js')(app);
-
+    require('../routes/user.routes.js')(app);
+    
 
     app.get('/', async function(req, res)
      {
@@ -12,6 +12,9 @@ module.exports = function(app, express) {
             res.render("index", {pagetitle: "Home", path: "home", apartments: apartments});
         });
     });
+
+
+    // Routes User
 
     app.get('/logout', function(req, res) {
         res.redirect('/api/users/logout');
@@ -25,9 +28,11 @@ module.exports = function(app, express) {
         res.render("index", {pagetitle: "Registrazione", path: "signup"});
     });
 
-    app.get("/insert", function(req,res)
-    {
-        res.render("index",{pagetitle:"Inserimento Appartamento", path:"insertApartment"});
-    });
 
+    // Routes Apartment
+
+    app.get("/apartments/create", function(req,res)
+    {
+        res.render("index", {pagetitle:"Inserimento Appartamento", path:"apartment-insert"});
+    });
 };

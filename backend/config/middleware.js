@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const moment = require('moment');
 const morgan = require('morgan');
 const path = require('path');
@@ -9,10 +10,14 @@ module.exports = function(app, express) {
 
     app.locals.moment = moment;
 
-    app.use(morgan('dev'));
-
-    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(fileUpload({ 
+      createParentPath: true,
+      debug: true
+    }));
+
+    app.use(morgan('dev'));
     
     app.use(session({
         secret: 'le brutte intenzioni la maleducazione',

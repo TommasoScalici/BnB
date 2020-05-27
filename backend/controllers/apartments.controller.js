@@ -1,9 +1,10 @@
-const Apartment = require('../models/apartment.js');
 const Mapper = require('../utilities/request-model-mapper.js')
+const Apartment = require('../models/apartment.js');
+
 
 module.exports = 
 {
-    insert: (req, res) => {
+    create: (req, res) => {
         var newApartment = new Apartment({
 
             name: req.body.name,
@@ -31,8 +32,7 @@ module.exports =
         
     },
 
-    delete:(req,res) =>
-    {
+    delete:(req,res) => {
         Apartment.remove({ _id: req.body.id }, function(err) {
             if (!err) {
                     message.type = 'Cancellato!';
@@ -43,20 +43,19 @@ module.exports =
         });
     },
 
-    apartments: async (req,res) =>
-    {
-        await Apartment.findById(req.params.id, function(err, doc) 
+    getApartment: async (req, res) => {
+        await Apartment.findById(req.params.id, function(err, apartment) 
         {
             if(err) {
                 console.log(`Mongo error while updating user profile data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            
-            res.render("index", {pagetitle: "Appartamento", path: "viewApartment", apartment : doc });
-                
+            else
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment});       
         });
-        
     },
+
+    //getApartments: async () => { return (await Apartment.find({})).values; },
     
     update: async (req, res) => {
 
@@ -72,10 +71,8 @@ module.exports =
                 console.log(`Mongo error while updating user profile data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else {
-                res.status(200).json({message: 'Apartment profile updated succesfully'});
-                req.session.apartment = apartment;
-            }
+            else
+                res.status(200).json({message: 'Apartment updated succesfully'});
         });
     }
 }
