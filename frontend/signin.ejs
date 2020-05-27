@@ -18,13 +18,13 @@
                     <h5 class="card-title text-center">Inserisci le tue credenziali</h5>
                         <form class="form-signin" id="form-signin" action="api/users/signin" method="POST">
                             <div class="form-label-group">
-                            <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" required autofocus>
-                            <label for="email">E-mail</label>
+                            <input type="email" id="signin-email" name="email" class="form-control" placeholder="E-mail" required autofocus>
+                            <label for="signin-email">E-mail</label>
                             </div>
             
                             <div class="form-label-group">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                            <label for="password">Password</label>
+                            <input type="password" id="signin-password" name="password" class="form-control" placeholder="Password" required>
+                            <label for="signin-password">Password</label>
                             </div>
 
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Continua</button>
@@ -33,7 +33,7 @@
 
                             <div id="alertEmail" style="display: none;" class="alert alert-warning" role="alert">
                                 <strong>Indirizzo e-mail non trovato</strong><br />
-                                Forse non sei ancora registrato. <a href="#" class="alert-link">Clicca qui</a> per registrarti.
+                                Forse non sei ancora registrato. <a href="signup" class="alert-link">Clicca qui</a> per registrarti.
                             </div>
 
                             <div id="alertPass" style="display: none;" class="alert alert-danger" role="alert">
@@ -41,7 +41,7 @@
                                 Assicurati di aver inserito la password corretta.
                             </div>
 
-                            <div id="alertSuccess" style="display: none;" class="alert alert-success" role="alert">
+                            <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
                                 <strong>Accesso effettuato!</strong>
                             </div>
 

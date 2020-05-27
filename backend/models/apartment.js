@@ -14,7 +14,7 @@ var ApartmentSchema = new mongoose.Schema({
     price : Number,
     description: String,
     vote : Number,
-    votes : {type : Number, min : 0, Max : 5}
+    //votes : {type : Number, min : 0, Max : 5}
     },
 
     { timestamps: true }

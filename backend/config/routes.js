@@ -1,41 +1,33 @@
+const Apartment = require('../models/apartment.js');
+
 module.exports = function(app, express) {
 
     require('../routes/user.routes.js')(app);
+    require('../routes/apartment.routes.js')(app);
 
-    // mi serve per testare
-    var apartments = [
-        {
-            name: "Appartamento 1",
-            price: 15.50,
-            description: "Bellissimo appartamento vicino al mare",
-        },
-        {
-            name: "Appartamento 2",
-            price: 22,
-            description: "Bellissimo appartamento in montagna",
-        },
-        {
-            name: "Appartamento 3",
-            price: 25.50,
-            description: "Bellissimo appartamento in centro città, vicino la stazione, ecc.",
-        },
-        {
-            name: "Appartamento 4",
-            price: 19.90,
-            description: "Casa di Pirrone",
-        },
-    ];
-    // fine roba di test
 
-    app.get('/', function(req, res) {
-        res.render("index", {pagetitle: "Home", path: "home", apartments: apartments});
+    app.get('/', async function(req, res)
+     {
+        await Apartment.find({}, function(err, apartments) {
+            res.render("index", {pagetitle: "Home", path: "home", apartments: apartments});
+        });
     });
 
     app.get('/logout', function(req, res) {
         res.redirect('/api/users/logout');
     });
 
+    app.get('/profile', function(req, res) {
+        res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
+    });
+
     app.get('/signup', function(req, res) {
         res.render("index", {pagetitle: "Registrazione", path: "signup"});
     });
+
+    app.get("/insert", function(req,res)
+    {
+        res.render("index",{pagetitle:"Inserimento Appartamento", path:"insertApartment"});
+    });
+
 };

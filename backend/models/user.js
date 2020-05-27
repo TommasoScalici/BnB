@@ -6,16 +6,13 @@ var UserSchema = new mongoose.Schema({
     name: {
         first: String,
         last: String,
-        // toString() { return `${firstname} ${lastname}` } // Cosa figa che devo vedere come e se si può fare
-        // EDIT: così non si può fare perché Mongoose non supporta la dichiarazione dei metodi nello schema
-        // si può però fare usando un metodo virtuale, guardare giù
     },
 
     address: {
         street: String,
         city: String,
         state: String,
-        zip_code: String
+        zipcode: String
     },
 
     username: String,
