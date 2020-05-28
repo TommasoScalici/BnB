@@ -42,4 +42,13 @@ module.exports =
             zipcode: req.body.zipcode,
         },   
     }},
+
+    getReservationFromReq: (req) => {
+        return{
+            user: req.session.user._id,
+            //apartment: req.body.apartment._id,
+            reservationDate: req.body.reservationDate,
+            checkin: req.body.startVacation,
+            checkout: req.body.endVacation,
+   }},
 }
