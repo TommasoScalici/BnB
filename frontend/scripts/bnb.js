@@ -32,7 +32,7 @@ $(document).ready(function () {
         let form = $(this);
 
         $.ajax({
-            type: form.attr('method'),
+            type: $('input[name="_method"]').val(),
             url: form.attr('action'),
             data: form.serialize()
         }).done(function() {
@@ -74,7 +74,7 @@ $(window).on('load', function() {
 
                     $.ajax({
                         url: form.attr('action'),
-                        type: form.attr('method'),
+                        type: $('input[name="_method"]').val(),
                         data: formData,
                         cache: false,
                         contentType: false,
@@ -92,7 +92,7 @@ $(window).on('load', function() {
                 else {
 
                     $.ajax({
-                        type: form.attr('method'),
+                        type: $('input[name="_method"]').val(),
                         url: form.attr('action'),
                         data: form.serialize(),
                         success: function() {

@@ -45,14 +45,14 @@
 
           <div class="form-row">
 
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="email">E-mail</label>
               <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
               <div class="invalid-feedback">
                 Inserire un indirizzo e-mail valido.
               </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" name="password" placeholder="Password" required
                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$">
@@ -61,7 +61,7 @@
                 contenere almeno un carattere minuscolo, uno maiuscolo, un numero e un carattere speciale.
               </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-4 mb-3">
               <label for="repass">Conferma Password</label>
               <input type="password" class="form-control" id="repass" placeholder="Conferma Password" required>
               <div class="invalid-feedback">
@@ -169,7 +169,7 @@
         </div>
       </div>
       
-
+      <input type="hidden" name="_method" value="POST">
       <button class="btn btn-primary" onclick="checkPasswordMatch()" type="submit">Registrati</button>
 
       <br /><br />
