@@ -10,8 +10,15 @@
 
     <title>B&B - <%= pagetitle %></title>
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/shop-homepage.css" rel="stylesheet">
@@ -60,10 +67,14 @@
               </li>
               <li class="nav-item">
                 <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <%= session.user.name.first %>
                   </button>
+<<<<<<< HEAD
+                  <div class="dropdown-menu" aria-labelledby="profileDropdown">
+=======
                   <div class="dropdown-menu col-lg" aria-labelledby="dropdownMenuButton">
+>>>>>>> 2cdc14eb570e1846c9928b9c071921fab8404c35
                     <a class="dropdown-item" href="/profile">Profilo</a>
                     <a class="dropdown-item" href="/logout">Esci</a>
                   </div>
@@ -113,20 +124,13 @@
     <!-- /.container -->
 
     <!-- Footer -->
-
-   
-
-    <footer class="py-5 bg-dark">
+    <footer class="py-4 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; B&B 2020</p>
         <p class="m-0 text-center text-white">By Salvatore Apicella, Girolamo Nobile, Tommaso Scalici</p>
       </div>
       <!-- /.container -->
     </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom scripts -->
     <script src="/scripts/bnb.js"></script>
