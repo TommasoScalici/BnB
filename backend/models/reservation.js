@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 var ReservationSchema = new mongoose.Schema({
 
-    user: mongoose.Types.ObjectId,
-    apartment: mongoose.Types.ObjectId,
+    user: String,
+    apartment: String,
     reservationDate: Date,   //data di prenotazione
-    startVacation: Date,
-    endVacation: Date,
+    checkin: Date,
+    checkout: Date,
     },
 
     { timestamps: true }

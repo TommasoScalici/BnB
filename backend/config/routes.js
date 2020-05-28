@@ -2,6 +2,7 @@ module.exports = function(app, express) {
 
     require('../routes/apartment.routes.js')(app);
     require('../routes/user.routes.js')(app);
+    require('../routes/reservation.routes.js')(app);
  
     app.get('/', async function(req, res)
      {
@@ -34,9 +35,9 @@ module.exports = function(app, express) {
         res.render("index", {pagetitle:"Inserimento Appartamento", path:"apartment-create"});
     });
 
-    //Routes Reservation
+    //anche se in teoria la review dovresti vederla in post dato che devi passare tutti i parametri
     app.get("/reservation", function(req, res){
-        res.render("index", {pagetitle:"Prenotazione", path:"reservation"})
+        res.render("index", {pagetitle:"Prenotazione", path:"reservation-review"})
     });
 
 };

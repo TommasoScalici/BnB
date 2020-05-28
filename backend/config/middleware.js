@@ -14,7 +14,6 @@ module.exports = function(app, express) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(fileUpload({ 
       createParentPath: true,
-      debug: true
     }));
 
     app.use(morgan('dev'));
