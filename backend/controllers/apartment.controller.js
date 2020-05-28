@@ -34,7 +34,7 @@ module.exports =
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment});       
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, navbar : "navbar"});       
         });
     },
 

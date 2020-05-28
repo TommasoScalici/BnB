@@ -21,7 +21,7 @@
   <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
+      <div class="container col-lg">
         <a class="navbar-brand" href="/">
           <img src="/images/logo.png" alt="logo" class="d-inline-block align-top" width="48" height="36">&nbsp;B&B
         </a>
@@ -30,6 +30,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            <%if(path != 'home') { %>
+            <li class="nav-item">
+              <a><%- include('navbar') %></a>
+            </li>
+            <% } else{ %>
             <li class="nav-item active">
               <a class="nav-link" href="/">Home
                 <span class="sr-only">(current)</span>
@@ -38,6 +43,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Cerca alloggio</a>
             </li>
+            
             <% if(!session.user) { %>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#signinModal" href="#">Accedi</a>
@@ -61,6 +67,7 @@
                 </div>               
               </li>
             <% } %>
+          <% } %>
           </ul>
         </div>
       </div>
