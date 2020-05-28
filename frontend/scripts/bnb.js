@@ -1,10 +1,11 @@
 $(document).ready(function () {
 
+    // Gestione del click sugli anchor 
     $("a").click(function() {
 
         let url = $(this).attr("href");
 
-        if(url.startsWith("#"))
+        if(url === undefined || url === null || url.startsWith("#"))
             return;
 
         else if(url == "signin") {
@@ -13,10 +14,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".btn-increment, .btn-decrement").click( function(e) {
-        e.stopPropagation();
-    })
-
+    // Renderizza la preview dell'immagine profilo che si sta caricando
     $("#profileImage").change(function () {
         if (this.files && this.files[0]) {
             let reader = new FileReader();
@@ -27,6 +25,8 @@ $(document).ready(function () {
         }
     });
 
+
+    // Gestione alerts per il submit dei form
     $("#form-signin").submit(function(event) {
 
         $('#alertEmail').fadeOut();
@@ -59,6 +59,23 @@ $(document).ready(function () {
 });
 
 $(window).on('load', function() {
+
+    $(".guests-input").on('input', function() {
+
+        let sum = 0;
+        $(".guests-input").each(function() {
+            sum += Number($(this).val());
+        });
+
+        if(sum == 0)
+            $("#peopleDropdown").text("Aggiungi ospiti");
+        else if(sum == 1)
+            $("#peopleDropdown").text(`${sum} ospite`);
+        else
+            $("#peopleDropdown").text(`${sum} ospiti`);
+    });
+
+    // Validazione custom di Bootstrap
     $(".needs-validation").each(function() {
 
         let form = $(this);
@@ -119,10 +136,13 @@ $(window).on('load', function() {
     });
 });
 
+// Focus automatico sulla modale del signin
 $(document).on('shown.bs.modal', function() {
+
     $(this).find('[autofocus]').focus();
 });
 
+// Funzione di validazione aggiuntiva per il match delle password
 function checkPasswordMatch() {
 
     if ($("#password").val() != $("#repass").val())
