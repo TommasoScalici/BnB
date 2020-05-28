@@ -18,6 +18,12 @@ module.exports = function(app, express) {
         res.redirect('/api/users/logout');
     });
 
+    app.get('/apartment/list',async function(req, res) {
+        await require('../models/apartment.js').find({}, function(err, apartments) {
+            res.render("index", {pagetitle: "Lista Appartamenti", path: "apartment-list", apartments});
+        });
+    });
+
     app.get('/profile', function(req, res) {
         res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
     });
