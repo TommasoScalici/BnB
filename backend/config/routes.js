@@ -30,4 +30,8 @@ module.exports = function(app, express) {
         res.render("index",{pagetitle:"Inserimento Appartamento", path:"insertApartment"});
     });
 
+    app.get("/reservation", function(req, res){
+        res.render("index", {pagetitle:"Prenotazione", path:"reservation"})
+    });
+
 };
