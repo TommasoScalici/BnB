@@ -21,15 +21,20 @@
   <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
+      <div class="container col-lg">
         <a class="navbar-brand" href="/">
-          <img src="/images/logo.png" alt="logo" class="d-inline-block align-top" width="48" height="36">&nbsp;B&B
+          <img src="/images/logo.png" alt="logo" class="d-inline-block align-top" width="158" height="46">&nbsp;
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            <%if(path != 'home') { %>
+            <li class="nav-item">
+              <a><%- include('navbar') %></a>
+            </li>
+            <% } %>
             <li class="nav-item active">
               <a class="nav-link" href="/">Home
                 <span class="sr-only">(current)</span>
@@ -38,6 +43,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Cerca alloggio</a>
             </li>
+            
             <% if(!session.user) { %>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#signinModal" href="#">Accedi</a>
@@ -69,21 +75,14 @@
     <!-- Page Content -->
     <div class="container col-lg">
 
-      <div class="row">
+      <!-- <div class="row">
 
-        <ul class="list-group list-group-horizontal my-5 mx-auto">
-          <li class="list-group-item">Cerca per città, indirizzo...</li>
-          <li class="list-group-item">Check-in - Check-out</li>
-          <li class="list-group-item">Numero di persone</li>
-          <li class="list-group-item">
-            <button class="btn btn-primary" type="submit">Cerca alloggio</button>
-          </li>
-        </ul>
-      </div>
+        
+      </div> -->
 
-      <div class="row">
-
-        <div class="col-lg-3">
+      <!-- <div class="row">
+        
+        <div class="col-lg-2">
 
           <h1 class="my-4">B&B</h1>
           <div class="list-group">
@@ -92,10 +91,10 @@
             <a href="#" class="list-group-item">Le categorie qui</a>
           </div>
 
-        </div>
+      </div> -->
         <!-- /.col-lg-3 -->
 
-        <div class="col-lg-9">
+        <div class="col-xl-12">
 
           <div id="ajaxContent">
 
@@ -105,10 +104,7 @@
           <!-- /#content -->
 
         </div>
-        <!-- /.col-lg-9 -->
-
-      </div>
-      <!-- /.row -->
+        <!-- /.col-lg-12 -->
 
     </div>
     <!-- /.container -->
