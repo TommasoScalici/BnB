@@ -1,17 +1,18 @@
-const Apartment = require('../models/apartment.js');
-
 module.exports = function(app, express) {
 
-    require('../routes/user.routes.js')(app);
     require('../routes/apartment.routes.js')(app);
-
-
+    require('../routes/user.routes.js')(app);
+ 
     app.get('/', async function(req, res)
      {
-        await Apartment.find({}, function(err, apartments) {
-            res.render("index", {pagetitle: "Home", path: "home", apartments: apartments});
+        // Richiamare un modello da qui è concettualmente sbagliato ma non ho trovato altre soluzioni per ora
+        await require('../models/apartment.js').find({}, function(err, apartments) {
+            res.render("index", {pagetitle: "Home", path: "home", apartments});
         });
     });
+
+
+    // Routes User
 
     app.get('/logout', function(req, res) {
         res.redirect('/api/users/logout');
@@ -25,9 +26,12 @@ module.exports = function(app, express) {
         res.render("index", {pagetitle: "Registrazione", path: "signup"});
     });
 
-    app.get("/insert", function(req,res)
+
+    // Routes Apartment
+
+    app.get("/apartments/create", function(req,res)
     {
-        res.render("index",{pagetitle:"Inserimento Appartamento", path:"insertApartment"});
+        res.render("index", {pagetitle:"Inserimento Appartamento", path:"apartment-create"});
     });
 
     app.get("/reservation", function(req, res){

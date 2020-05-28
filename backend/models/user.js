@@ -19,17 +19,19 @@ var UserSchema = new mongoose.Schema({
     email: String,
     password: String,
     
-    is_host: Boolean,
     sex: String,
     birthdate: Date,
     telephone: String,
+
+    is_host: Boolean,
+    profile_picture_path: String,
     },
 
     { timestamps: true }
 );
 
 UserSchema.virtual('fullname').get(function () {
-    return this.name.first + ' ' + this.name.last;
+    return `${this.name.first} ${this.name.last}`;
 });
 
 UserSchema.methods.comparePasswords = function(enteredPassword, callback) {
