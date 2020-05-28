@@ -12,6 +12,9 @@
       </div>
     </header>
 
+
+   
+
     
 
       <section class="jumbotron text-center">
@@ -27,10 +30,16 @@
       </section>
 
 
-      <% for(let apartment of apartments) { %>
-        <%- include('apartment', {apartment: apartment}); %>
-    <% } %>
+   
+      <div class="album bg-light">
+        <div class="container">
 
+          <% for(let apartment of apartments) { %>
+            <%- include('apartment', {apartment: apartment}); %>
+        <% } %>
+          
+        </div>
+      </div>
      
     
 
