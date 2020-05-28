@@ -1,50 +1,14 @@
-<div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav col-lg">
-        <li class="nav-item">
-            <div class="row">
 
-                <ul class="list-group list-group-horizontal col-lg">
-                <li class="list-group-item">Cerca per città, indirizzo...</li>
-                <li class="list-group-item">Check-in - Check-out</li>
-                <li class="list-group-item">Numero di persone</li>
-                <li class="list-group-item">
-                    <button class="btn btn-primary" type="submit">Cerca alloggio</button>
-                </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="/">Home
-              <span class="sr-only">(current)</span>
-            </a>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Cerca alloggio</a>
-          </li>
-          
-          <% if(!session.user) { %>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="modal" data-target="#signinModal" href="#">Accedi</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">Registrati</a>
-            </li>
-          <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/apartments/create">Inserisci Alloggio</a>
-            </li>
-            <li class="nav-item">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <%= session.user.name.first %>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="/profile">Profilo</a>
-                  <a class="dropdown-item" href="/logout">Esci</a>
-                </div>
-              </div>               
-            </li>
-          <% } %>
-    
-        </ul>
-    </div>
+<div class="row">
+
+    <ul class="list-group list-group-horizontal col-lg">
+    <li class="list-group-item">Cerca per città, indirizzo...</li>
+    <li class="list-group-item">Check-in - Check-out</li>
+    <li class="list-group-item">Numero di persone</li>
+    <li class="list-group-item">
+        <button class="btn btn-primary" type="submit">Cerca alloggio</button>
+    </li>
+    </ul>
+</div>
+
+        
