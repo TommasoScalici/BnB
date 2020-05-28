@@ -5,6 +5,8 @@ const Apartment = require('../models/apartment.js');
 module.exports =
 {
     reserve: async (req, res) =>{
+
+            console.log(req.body);
             var newReservation = new Reservation({
                 
             user: req.session.user._id,
@@ -14,6 +16,8 @@ module.exports =
             reservationDate: new Date()
 
             });
+
+            
 
             Reservation.create(newReservation, function(err, reservation) {
                 if(err)
