@@ -4,7 +4,7 @@ var ReservationSchema = new mongoose.Schema({
 
     user: mongoose.Types.ObjectId,
     apartment: mongoose.Types.ObjectId,
-    reservationdate: Date,   //data di prenotazione
+    reservationDate: Date,   //data di prenotazione
     startVacation: Date,
     endVacation: Date,
     },

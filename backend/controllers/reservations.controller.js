@@ -4,19 +4,30 @@ const Apartment = require('../models/apartment.js');
 
 module.exports =
 {
-    create: (req, res) =>{
+    reserve: async (req, res) =>{
+
+            console.log(req.body);
             var newReservation = new Reservation({
                 
             user: req.session.user._id,
-            apartment: req.session.apartment._id
+            apartment: req.params.id,
+            startVacation: req.body.startVacation,
+            endVacation: req.body.endVacation,
+            reservationDate: new Date()
 
             });
+
+            
 
             Reservation.create(newReservation, function(err, reservation) {
                 if(err)
-                    console.log(`Mongo error while user was signing up: ${err}`);
+                    console.log(`Mongo error while user reserving an apartment: ${err}`);
                 else
                     res.send("Hai prenotato il tuo appartamento");
             });
-    } 
+    }
+
+   
+            
+
 }
