@@ -27,10 +27,9 @@ module.exports =
     },
 
     getApartment: async (req, res) => {
-        await Apartment.findById(req.params.id, function(err, apartment) 
-        {
+        await Apartment.findById(req.params.id, function(err, apartment) {
             if(err) {
-                console.log(`Mongo error while updating user profile data: ${err}`);
+                console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
@@ -38,7 +37,16 @@ module.exports =
         });
     },
 
-    //getApartments: async () => { return (await Apartment.find({})).values; },
+    getApartments: async (req, res) => { 
+        await Apartment.find({}, function(err, apartments) {
+            if(err) {
+                console.log(`Mongo error while retrieveing apartments data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else
+                res.render("index", {pagetitle: "Lista Appartamenti", path: "apartments", apartments, navbar : "navbar"});
+        });
+    },
     
     update: async (req, res) => {
 
