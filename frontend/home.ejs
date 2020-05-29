@@ -1,18 +1,72 @@
+<link href="/css/home.css" rel="stylesheet">
+
 <div id="carousel" class="carousel slide my-5" data-ride="carousel">
 
-    <div class="rounded" style="background-color: gray; border: 20px; width: 60%; height: 6rem; position: absolute; 
-                                opacity: 0.6; margin: 0 auto; left: 0; right: 0; top:45%; z-index: 16;">
+  <form>
 
-      <div class="btn-group" role="group"
-          style="width:80%; height:60%; position: absolute; margin: 0 auto; left: 0; right: 0; top:20%;">
+    <div class="rounded d-none d-lg-block" style="background-color: gray; width: 80%; height: 6rem; position: absolute; 
+                opacity: 0.6; margin: 0 auto; left: 0; right: 0; top:45%; z-index: 1;">
 
-          <button type="button" class="btn btn-secondary" style="background-color: white; color: black">Cerca per città, indirizzo...</button>
-          <button type="button" class="btn btn-secondary" style="background-color: white; color: black">Check-in - Check-out</button>
-          <button type="button" class="btn btn-secondary" style="background-color: white; color: black">Numero di persone</button>
-          <button type="button" class="btn btn-primary">Cerca</button>
+      <div class="btn-group" role="group" id="search-bar"
+           style="width:80%; height:80%; position: absolute; margin: 0 auto; left: 0; right: 0; top:20%;">
+
+          <div class="form-group">
+            <small class="label-placeholder">DOVE</small>
+            <input id="location" name="location" type="input" class="btn btn-secondary input-placeholding"
+                   placeholder="Cerca per città, indirizzo...">
+          </div>
+
+          <div class="form-group">
+            <small class="label-placeholder">CHECK-IN</small>
+            <input type="date" id="checkin" name="checkin" class="btn btn-secondary input-placeholding">      
+          </div>
+
+          <div class="form-group">
+            <small class="label-placeholder">CHECK-OUT</small>
+            <input type="date" id="checkout" name="checkout" class="btn btn-secondary input-placeholding">    
+          </div>
+
+          <div class="form-group">
+            <input type="hidden" id="guests" name="guests">
+            <small class="label-placeholder">OSPITI</small>
+            <button class="btn btn-secondary btn-block input-placeholding" type="button" id="peopleDropdown" style="width: 12rem;"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
+
+            <div class="dropdown-menu" aria-labelledby="peopleDropdown">
+              <div class="container">
+                <div class="form-inline">
+                  <div class="form-group" style="line-height: 1em;">
+
+                    <div>
+                      <strong class="align-middle mx-auto">Adulti</strong><br />
+                      <small class="align-middle mx-auto">12 in su</small><br /><br />
+                      <strong class="align-middle mx-auto">Bambini</strong><br />
+                      <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
+                      <strong class="align-middle mx-auto">Neonati</strong><br />
+                      <small class="align-middle mx-auto">Fino ai 2</small>
+                    </div>
+
+                    <div class="ml-4" style="width: 8em">
+                      <input class="guests-input mb-4" type="number" value="0" min="0" max="9" step="1" />
+                      <input class="guests-input my-auto" type="number" value="0" min="0" max="9" step="1"/>
+                      <input class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <button type="button" class="btn btn-primary" style="height: 100%; width: 12rem;">Cerca</button>
+          </div>
 
       </div>
     </div>
+
+  </form>
+
 
     <div class="carousel-inner" role="listbox">
 
@@ -46,8 +100,6 @@
 
 <div class="row">
 
-<% for(let apartment of apartments) { %>
-    <%- include('apartment', {apartment: apartment}); %>
-<% } %>
+
 
 </div>

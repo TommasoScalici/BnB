@@ -6,10 +6,7 @@ module.exports = function(app, express) {
  
     app.get('/', async function(req, res)
      {
-        // Richiamare un modello da qui è concettualmente sbagliato ma non ho trovato altre soluzioni per ora
-        await require('../models/apartment.js').find({}, function(err, apartments) {
-            res.render("index", {pagetitle: "Home", path: "home", apartments});
-        });
+        res.render("index", {pagetitle: "Home", path: "home"});
     });
 
 
@@ -17,6 +14,12 @@ module.exports = function(app, express) {
 
     app.get('/logout', function(req, res) {
         res.redirect('/api/users/logout');
+    });
+
+    app.get('/apartment/list',async function(req, res) {
+        await require('../models/apartment.js').find({}, function(err, apartments) {
+            res.render("index", {pagetitle: "Lista Appartamenti", path: "apartment-list", apartments});
+        });
     });
 
     app.get('/profile', function(req, res) {

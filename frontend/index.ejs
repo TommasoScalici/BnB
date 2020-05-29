@@ -10,8 +10,15 @@
 
     <title>B&B - <%= pagetitle %></title>
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/shop-homepage.css" rel="stylesheet">
@@ -20,7 +27,7 @@
 
   <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container col-lg">
         <a class="navbar-brand" href="/">
           <img src="/images/logo.png" alt="logo" class="d-inline-block align-top" width="158" height="46">&nbsp;
@@ -42,7 +49,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Cerca alloggio</a>
+              
             </li>
+
             
             <% if(!session.user) { %>
               <li class="nav-item">
@@ -50,6 +59,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/signup">Registrati</a>
+                <a class="nav-link" href="/apartment/list">Listone</a>
               </li>
             <% } else { %>
               <li class="nav-item">
@@ -57,10 +67,10 @@
               </li>
               <li class="nav-item">
                 <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <%= session.user.name.first %>
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-menu" aria-labelledby="profileDropdown">
                     <a class="dropdown-item" href="/profile">Profilo</a>
                     <a class="dropdown-item" href="/logout">Esci</a>
                   </div>
@@ -110,7 +120,7 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-4 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; B&B 2020</p>
         <p class="m-0 text-center text-white">By Salvatore Apicella, Girolamo Nobile, Tommaso Scalici</p>
@@ -118,14 +128,12 @@
       <!-- /.container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- Custom scripts -->
     <script src="/scripts/bnb.js"></script>
 
-    <%- include("signin") %>
+    <% if(!session.user) { %>
+      <%- include("signin") %>
+    <% } %>
     
   </body>
 
