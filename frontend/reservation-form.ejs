@@ -1,0 +1,46 @@
+
+<link href="/css/signin.css" rel="stylesheet">
+
+<div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationModalLabel">Prenota questo appartamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                    <h5 class="card-title text-center">Inserisci le tue credenziali</h5>
+                    <form class="form-reservation" id="form-reservation" action="api/reservations/reservation" method="POST">
+
+                        <!--Checkin-->
+                            <div class="form-label-group">
+                                <input type="date" id="checkin" name="checkin" class="form-control" placeholder="Check-in" required autofocus>
+                                <label for="checkin">Checkin</label>
+                            </div>
+                        <!--Checkout-->
+                            <div class="form-label-group">
+                                <input type="date" id="checkout" name="checkout" class="form-control" placeholder="Check-out" required>
+                                <label for="checkout">Checkout</label>
+                            </div>
+                        <!--Numero ospiti-->
+                            <div class="form-label-group">
+                                <input type="select " id="guests" name="guests" class="form-control" placeholder="Guests" required>
+                                <label for="guests">Ospiti</label>
+                            </div>
+
+                            <input type="hidden" name="_method" value="POST">
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>

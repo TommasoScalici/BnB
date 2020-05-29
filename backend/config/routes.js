@@ -35,9 +35,10 @@ module.exports = function(app, express) {
         res.render("index", {pagetitle:"Inserimento Appartamento", path:"apartment-create"});
     });
 
-    //anche se in teoria la review dovresti vederla in post dato che devi passare tutti i parametri
+    // Routes Reservation
+
     app.get("/reservation", function(req, res){
-        res.render("index", {pagetitle:"Prenotazione", path:"reservation-review"})
+        res.render("index", {pagetitle:"Prenotazione", path:"reservation-form"})
     });
 
 };

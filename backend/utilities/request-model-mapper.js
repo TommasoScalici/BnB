@@ -46,9 +46,8 @@ module.exports =
     getReservationFromReq: (req) => {
         return{
             user: req.session.user._id,
-            //apartment: req.body.apartment._id,
-            reservationDate: req.body.reservationDate,
-            checkin: req.body.startVacation,
-            checkout: req.body.endVacation,
+            //apartment: req.body.apartment.id,
+            checkin: req.body.checkin,
+            checkout: req.body.checkout,
    }},
 }

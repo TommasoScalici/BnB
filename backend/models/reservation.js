@@ -4,7 +4,6 @@ var ReservationSchema = new mongoose.Schema({
 
     user: String,
     apartment: String,
-    reservationDate: Date,   //data di prenotazione
     checkin: Date,
     checkout: Date,
     },
