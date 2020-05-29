@@ -77,7 +77,7 @@
     </div>
 
     <div class="col-md-4">
-      <h3 class="my-3">Descrizione Appartamento</h3>
+      <h3 class="my">Descrizione Appartamento</h3>
       <p><%= apartment.description %></p>
       <h3 class="my-3">Dettagli</h3>
       <ul>
@@ -86,6 +86,7 @@
         <li>L'appartamento è di tipo: <%= apartment.type_accomodation %>.</li>
         <li>L'appartamento ha i seguenti servizi <%= apartment.services %></li>
       </ul>
+    
     </div>
 
   </div>
@@ -141,6 +142,14 @@
         </div>
   
       </div>
+
+      <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> €! 
+        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>
+      
+      
+      </h4>
+     
+      
   
     </section>
     <!-- Section: Block Content -->
