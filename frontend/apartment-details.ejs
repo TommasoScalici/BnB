@@ -6,9 +6,9 @@
   <h1 class="my-4">Page Heading
     <small>Secondary Text</small>
   </h1>
-  <h1 class="my-4"   ><%= apartment.name %>
+  <h1 class="my-4"><%= apartment.name %>
     <div style="font-size:large; color: darkslategray; margin-top: 0rem;"  >
-      <smaller > <%= apartment.address.state %> , <%= apartment.address.city %>, <%= apartment.address.street %> </smaller>
+      <smaller> <%= apartment.address.state %> , <%= apartment.address.city %>, <%= apartment.address.street %> </smaller>
     </div>
   </h1>
   
@@ -165,7 +165,7 @@
 
     <% for(let apartment of apartments) { %>
       <%- include('apartment-preview', {apartment: apartment}); %>
-  <% } %>
+    <% } %>
 
 
   </div>

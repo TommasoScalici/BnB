@@ -9,6 +9,39 @@ module.exports =
         res.status(200).redirect("/");
     },
 
+    profile: (req, res) => {
+        res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
+    },
+
+    renderSignup: (req, res) => {
+        res.render("index", {pagetitle: "Registrazione", path: "signup"});
+    },
+
+    signin: async (req, res) => {
+        var email = req.body.email;
+        var password = req.body.password;
+
+        // Utilizzo il metodo comparePasswords della classe di modello 
+        // per poter confrontare la password dopo avere decrittografata 
+        await User.findOne({'email': email}, (err, user) => {
+
+            if (!user) // notifies if user is not found
+                res.status(401).json({message: "User not found"});
+
+            else {
+                user.comparePasswords(password, (err, match) => {
+                
+                if (!match) 
+                    res.status(401).json({message: "Password mismatch"});
+                else {
+                    req.session.user = user;
+                    res.status(200).json({message: 'Login succesful'});
+                }
+              });
+            }
+        });
+    },
+
     signup: async (req, res) => {
 
         let existingUser;
@@ -38,45 +71,19 @@ module.exports =
             }
             else {
                 req.session.user = newUser;
-                res.status(200).json({message: 'Signup succesful'});
-            }
-        });
-    },
-
-
-    signin: async (req, res) => {
-        var email = req.body.email;
-        var password = req.body.password;
-
-        // Utilizzo il metodo comparePasswords della classe di modello 
-        // per poter confrontare la password dopo avere decrittografata 
-        await User.findOne({'email': email}, (err, user) => {
-
-            if (!user) // notifies if user is not found
-                res.status(401).json({message: "User not found"});
-
-            else {
-                user.comparePasswords(password, (err, match) => {
-                
-                if (!match) 
-                    res.status(401).json({message: "Password mismatch"});
-                else {
-                    req.session.user = user;
-                    res.status(200).json({message: 'Login succesful'});
-                }
-              });
+                res.status(201).json({message: 'Signup succesful'});
             }
         });
     },
 
     update: async (req, res) => {
 
-        let imagePath = `users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
+        let imagePath = `/users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
         let user = Mapper.getUserFromReq(req);
 
         if(req.files) {
             let image = req.files.profileImage;
-            image.mv(`./uploads/${imagePath}`);
+            image.mv(`./uploads${imagePath}`);
             user.profile_picture_path = imagePath;
         }
         

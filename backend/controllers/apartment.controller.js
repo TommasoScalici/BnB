@@ -4,26 +4,15 @@ const Apartment = require('../models/apartment.js');
 
 module.exports = 
 {
-    create: (req, res) => {
+    create: async (req, res) => {
         var newApartment = new Apartment(Mapper.getApartmentFromReq(req));
 
-        Apartment.create(newApartment, function(err, apartment) {
+        await Apartment.create(newApartment, function(err, apartment) {
             if(err)
                 console.log(`Mongo error while user was signing up: ${err}`);
             else
-                res.send("Hai inserito il tuo B&B!");
+                res.status(201).json("Hai inserito il tuo B&B!");
         });        
-    },
-
-    delete:(req,res) => {
-        Apartment.remove({ _id: req.body.id }, function(err) {
-            if (!err) {
-                    message.type = 'Cancellato!';
-            }
-            else {
-                    message.type = 'error';
-            }
-        });
     },
 
     getApartment: async (req, res) => {
@@ -34,7 +23,7 @@ module.exports =
             }
             else
              Apartment.find({}, function(err, apartments) {
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment,apartments, navbar : "navbar"});  
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments, navbar : "navbar"});  
             });     
         });
     },
@@ -50,6 +39,10 @@ module.exports =
         });
     },
     
+    renderCreate: (req, res) => {
+        res.render("index", {pagetitle: "Inserimento Appartamento", path: "apartment-create"});
+    },
+
     update: async (req, res) => {
 
         let apartment = Mapper.getApartmentFromReq(req);
