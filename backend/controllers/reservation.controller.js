@@ -1,10 +1,12 @@
 const Mapper = require('../utilities/request-model-mapper.js')
 const Reservation = require('../models/reservation.js');
-const User = require('../models/user.js');
-const Apartment = require('../models/apartment.js');
 
 module.exports =
 {
+    renderReservation: (req, res) => {
+        res.render("index", {pagetitle:"Prenotazione", path:"reservation-form"})
+    },
+    
     reserve: (req, res) => {
         //test
         console.log(req);

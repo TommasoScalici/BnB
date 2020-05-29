@@ -7,10 +7,12 @@ module.exports = app => {
     router.get("/", apartmentController.getApartments);
 
     // Get single Aapartment
-    router.get("/:id", apartmentController.getApartment);
+    router.get("/apartment/:id", apartmentController.getApartment);
 
-    // Create a new Apartment
-    router.post("/create", apartmentController.create);
+    // Show form for inserting a new Apartment or submit a new Apartment
+    router.route("/create")
+          .get(apartmentController.renderCreate)
+          .post(apartmentController.create);
 
-    app.use('/api/apartments', router);
+    app.use("/apartments", router);
   };
