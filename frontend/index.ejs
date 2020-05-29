@@ -70,7 +70,7 @@
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <%= session.user.name.first %>
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                  <div class="dropdown-menu col-lg" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/profile">Profilo</a>
                     <a class="dropdown-item" href="/logout">Esci</a>
                   </div>
@@ -131,9 +131,7 @@
     <!-- Custom scripts -->
     <script src="/scripts/bnb.js"></script>
 
-    <% if(!session.user) { %>
-      <%- include("signin") %>
-    <% } %>
+    <%- include('signin') %>
     
   </body>
 

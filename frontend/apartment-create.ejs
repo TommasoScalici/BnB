@@ -31,7 +31,26 @@
   
             </div>
         
-  
+            
+            <div class="form-row">
+              
+              <div class="col-md-4 mb-3">
+                <label for="rooms">Stanze</label>
+                <input type="number" class="form-control" min="0" id="rooms" name="rooms" placeholder="Stanze" required>
+                <div class="invalid-feedback">
+                  L'inserimento delle stanze
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="beds">Letti per stanza</label>
+                <input type="number" class="form-control" min="0" id="beds" name="beds" placeholder="Letti" required>
+                <div class="invalid-feedback">
+                  L'inserimento dei letti
+                </div>
+              </div>    
+           </div>
+
+
             <div class="form-row">
   
                 <div class="col">
@@ -44,6 +63,19 @@
               
                 
             </div>
+
+            <div class="form-row">
+  
+              <div class="col">
+                  <label for="type_accomodation">Tipo di Alloggio</label>
+                  <textarea type="text" row = "10" class="form-control" id="type_accomodation" name="type_accomodation" placeholder="Tipo di Alloggio" required> </textarea>
+                  <div class="invalid-feedback">
+                      Inserisci un tipo di Alloggio (Es:Tutta la stanza, Stanza Privata, Stanza Hotel ecc).
+                    </div>
+              </div>
+            
+              
+          </div>
   
   
         <div class="card mt-5">
@@ -76,8 +108,8 @@
                 </div>
               </div>
               <div class="col-md-3 mb-3">
-                <label for="state">Comune</label>
-                <input type="text" class="form-control" id="state" name="state" placeholder="Comune">
+                <label for="state">Stato</label>
+                <input type="text" class="form-control" id="state" name="state" placeholder="Stato">
                 <div class="invalid-feedback">
                   Inserire un comune valido.
                 </div>
