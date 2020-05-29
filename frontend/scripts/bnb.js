@@ -43,7 +43,7 @@ $(document).ready(function () {
 
             $('#alertSignInSuccess').fadeIn(2000).fadeOut(1000);
             setTimeout(() => { $('#signinModal').modal('hide'); }, 3000);
-            setTimeout(() => { window.location.replace("/"); }, 4000);
+            setTimeout(() => { window.location.replace(window.location.pathname); }, 4000);
 
         }).fail(function(response) {
 

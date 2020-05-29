@@ -3,6 +3,9 @@ module.exports = app => {
   
     var router = require("express").Router();
 
+    // Get all Apartments
+    router.get("/", apartmentController.getApartments);
+
     // Get single Aapartment
     router.get("/:id", apartmentController.getApartment);
 

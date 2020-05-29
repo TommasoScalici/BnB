@@ -1,8 +1,8 @@
 module.exports = function(app, express) {
 
     require('../routes/apartment.routes.js')(app);
-    require('../routes/user.routes.js')(app);
     require('../routes/reservation.routes.js')(app);
+    require('../routes/user.routes.js')(app);
  
     app.get('/', async function(req, res)
      {
@@ -16,12 +16,6 @@ module.exports = function(app, express) {
         res.redirect('/api/users/logout');
     });
 
-    app.get('/apartment/list',async function(req, res) {
-        await require('../models/apartment.js').find({}, function(err, apartments) {
-            res.render("index", {pagetitle: "Lista Appartamenti", path: "apartment-list", apartments});
-        });
-    });
-
     app.get('/profile', function(req, res) {
         res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
     });
@@ -33,7 +27,11 @@ module.exports = function(app, express) {
 
     // Routes Apartment
 
-    app.get("/apartments/create", function(req,res)
+    app.get('/apartments', function(req, res) {
+        res.redirect("/api/apartments");
+    });
+
+    app.get("/apartments/create", function(req, res)
     {
         res.render("index", {pagetitle:"Inserimento Appartamento", path:"apartment-create"});
     });
