@@ -49,5 +49,13 @@ module.exports =
             //apartment: req.body.apartment.id,
             checkin: req.body.checkin,
             checkout: req.body.checkout,
+            guests: {
+                guests: adults + children + newborn,
+                adults: req.body.adults,
+                children: req.body.children,
+                newborns: req.body.newborn
+            },
+            payment: req.body.payment,
+            totalPrice: req.body.totalPrice
    }},
 }

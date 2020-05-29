@@ -1,7 +1,8 @@
 <!-- Page Content -->
 
-<div class="container">
 
+<div class="container">
+  
   <!-- Portfolio Item Heading -->
   <h1 class="my-4">Page Heading
     <small>Secondary Text</small>
@@ -112,6 +113,18 @@
           width: 100%;
           position: absolute;
         }
+        .button {
+          font: bold 11px Arial;
+          text-decoration: none;
+          background-color: #EEEEEE;
+          color: #333333;
+          padding: 2px 6px 2px 6px;
+          border-top: 1px solid #CCCCCC;
+          border-right: 1px solid #333333;
+          border-bottom: 1px solid #333333;
+          border-left: 1px solid #CCCCCC;
+        }
+
       </style>
   
       <div class="card">
@@ -142,10 +155,10 @@
         </div>
   
       </div>
-
+      <%- include ('reservation-form')%>
       <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> €! 
-        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>
-      
+        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+           data-toggle="modal" data-target="#reservationModal">  Prenota </a>
       
       </h4>
      
@@ -174,5 +187,7 @@
 
 </div>
 <!-- /.container -->
+
+
 
 
