@@ -6,6 +6,10 @@ module.exports =
     renderReservation: (req, res) => {
         res.render("index", {pagetitle:"Prenotazione", path:"reservation-form"})
     },
+
+    renderReview: (req, res) => {
+        res.render("index", {pagetitle:"Prenotazione", path:"reservation-review"})
+    },
     
     reserve: (req, res) => {
         //test
