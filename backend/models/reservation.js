@@ -6,6 +6,9 @@ var ReservationSchema = new mongoose.Schema({
     apartment: String,
     checkin: Date,
     checkout: Date,
+    guests: Number,
+    payment: String,
+    totalPrice: Number
     },
 
     { timestamps: true }
