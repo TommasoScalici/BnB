@@ -8,7 +8,7 @@
   </h1>
   <h1 class="my-4"><%= apartment.name %>
     <div style="font-size:large; color: darkslategray; margin-top: 0rem;"  >
-      <smaller> <%= apartment.address.state %> , <%= apartment.address.city %>, <%= apartment.address.street %> </smaller>
+      <smaller><%= apartment.address.town %>, <%= apartment.address.province %>, <%= apartment.address.street %> </smaller>
     </div>
   </h1>
   
@@ -135,8 +135,8 @@
           <div class="col-10 col-md-4 mx-auto align-self-center py-4">
   
             <h6 class="font-weight-bold grey-text text-uppercase small">Posizione</h6>
-            <h5 class="font-weight-normal mb-4"><%= apartment.address.state %> , <%= apartment.address.city %></h5>
-            <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %><br>Email: hello@thetheme.io</p>
+            <h5 class="font-weight-normal mb-4"><%= apartment.address.town %>, <%= apartment.address.province %></h5>
+            <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %>
   
           </div>
         </div>
@@ -159,7 +159,7 @@
 
 
   <!-- Related Projects Row -->
-  <h3 class="my-4">Appartamenti vicino <%= apartment.address.city %>  </h3>
+  <h3 class="my-4">Appartamenti vicino <%= apartment.address.town %>  </h3>
 
   <div class="row">
 
