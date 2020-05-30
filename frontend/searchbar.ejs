@@ -1,0 +1,58 @@
+<link href="/css/searchbar.css" rel="stylesheet">
+
+<form action="/apartments/search" method="GET" class="btn-group position-absolute" 
+      role="group" id="search-bar" style="height:5rem; margin: 2% 10%">
+
+    <div class="form-group">
+        <small class="label-placeholder">DOVE</small>
+        <input id="location" name="location" type="input" class="btn btn-secondary input-placeholding"
+            placeholder="Cerca per città, indirizzo...">
+    </div>
+
+    <div class="form-group">
+        <small class="label-placeholder">CHECK-IN</small>
+        <input type="date" id="checkin" name="checkin" class="btn btn-secondary input-placeholding">      
+    </div>
+
+    <div class="form-group">
+        <small class="label-placeholder">CHECK-OUT</small>
+        <input type="date" id="checkout" name="checkout" class="btn btn-secondary input-placeholding">    
+    </div>
+
+    <div class="form-group">
+        <input type="hidden" id="guests" name="guests">
+        <small class="label-placeholder">OSPITI</small>
+        <button class="btn btn-secondary btn-block input-placeholding" type="button" id="peopleDropdown" style="width:12rem;"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
+
+        <div class="dropdown-menu" aria-labelledby="peopleDropdown">
+            <div class="container">
+                <div class="form-inline">
+                    <div class="form-group" style="line-height: 1em;">
+
+                        <div>
+                            <strong class="align-middle mx-auto">Adulti</strong><br />
+                            <small class="align-middle mx-auto">12 in su</small><br /><br />
+                            <strong class="align-middle mx-auto">Bambini</strong><br />
+                            <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
+                            <strong class="align-middle mx-auto">Neonati</strong><br />
+                            <small class="align-middle mx-auto">Fino ai 2</small>
+                        </div>
+
+                        <div class="ml-4" style="width: 8em">
+                            <input class="guests-input mb-4" type="number" value="0" min="0" max="9" step="1" />
+                            <input class="guests-input my-auto" type="number" value="0" min="0" max="9" step="1"/>
+                            <input class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" style="height: 100%; width:12rem">Cerca</button>
+    </div>
+
+</form>

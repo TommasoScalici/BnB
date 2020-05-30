@@ -140,20 +140,28 @@
   
             <div class="form-row">
   
-              <div class="col-md-6 mb-3">
-                <label for="city">Città</label>
-                <input type="text" class="form-control" id="city" name="city" placeholder="Città"
-                       value="<%= session.user.address.city %>">
+              <div class="col-md-4 mb-3">
+                <label for="town">Comune</label>
+                <input type="text" class="form-control" id="town" name="town" placeholder="Comune"
+                       value="<%= session.user.address.town %>">
+                <div class="invalid-feedback">
+                  Inserire un comune valido.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3 ui-widget">
+                <label for="province">Provincia</label>
+                <input type="text" class="form-control" id="province" name="province" placeholder="Provincia"
+                       value="<%= session.user.address.province %>">
                 <div class="invalid-feedback">
                   Inserire una città valida.
                 </div>
               </div>
-              <div class="col-md-3 mb-3">
-                <label for="state">Comune</label>
-                <input type="text" class="form-control" id="state" name="state" placeholder="Comune"
-                       value="<%= session.user.address.state %>">
+              <div class="col-md-4 mb-3">
+                <label for="country">Stato</label>
+                <input type="text" class="form-control" id="country" name="country" placeholder="Stato"
+                       value="<%= session.user.address.country %>">
                 <div class="invalid-feedback">
-                  Inserire un comune valido.
+                  Inserire un stato valido.
                 </div>
               </div>
   

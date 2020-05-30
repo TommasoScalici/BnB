@@ -2,7 +2,7 @@
   <div class="card-body">
   <h5 class="card-title text-center">Compila il form di registrazione</h5>
 
-    <form action="api/users/signup" method="POST" id="form-signup" class="needs-validation" novalidate>
+    <form action="/users/signup" method="POST" id="form-signup" class="needs-validation" novalidate>
       <div class="card mb-5">
 
         <div class="card-header text-white bg-primary">Dati personali</div>
@@ -134,18 +134,25 @@
 
           <div class="form-row">
 
-            <div class="col-md-6 mb-3">
-              <label for="city">Città</label>
-              <input type="text" class="form-control" id="city" name="city" placeholder="Città">
+            <div class="col-md-4 mb-3">
+              <label for="town">Comune</label>
+              <input type="text" class="form-control" id="town" name="town" placeholder="Comune">
+              <div class="invalid-feedback">
+                Inserire un comune valido.
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="province">Provincia</label>
+              <input type="text" class="form-control" id="province" name="province" placeholder="Provincia">
               <div class="invalid-feedback">
                 Inserire una città valida.
               </div>
             </div>
-            <div class="col-md-3 mb-3">
-              <label for="state">Comune</label>
-              <input type="text" class="form-control" id="state" name="state" placeholder="Comune">
+            <div class="col-md-4 mb-3">
+              <label for="country">Stato</label>
+              <input type="text" class="form-control" id="country" name="country" placeholder="Stato">
               <div class="invalid-feedback">
-                Inserire un comune valido.
+                Inserire un stato valido.
               </div>
             </div>
 

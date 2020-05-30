@@ -9,9 +9,10 @@ var UserSchema = new mongoose.Schema({
     },
 
     address: {
+        country: String,
         street: String,
-        city: String,
-        state: String,
+        province: String,
+        town: String,
         zipcode: String
     },
 

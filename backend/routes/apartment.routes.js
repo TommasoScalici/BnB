@@ -1,18 +1,20 @@
 module.exports = app => {
-    const apartmentController = require("../controllers/apartment.controller.js");
-  
-    var router = require("express").Router();
+      const apartmentController = require("../controllers/apartment.controller.js");
 
-    // Get all Apartments
-    router.get("/", apartmentController.getApartments);
+      var router = require("express").Router();
 
-    // Get single Aapartment
-    router.get("/apartment/:id", apartmentController.getApartment);
+      // Get all Apartments
+      router.get("/", apartmentController.getApartments);
 
-    // Show form for inserting a new Apartment or submit a new Apartment
-    router.route("/create")
-          .get(apartmentController.renderCreate)
-          .post(apartmentController.create);
+      // Get single Aapartment
+      router.get("/apartment/:id", apartmentController.getApartment);
 
-    app.use("/apartments", router);
+      // Show form for inserting a new Apartment or submit a new Apartment
+      router.route("/create")
+            .get(apartmentController.renderCreate)
+            .post(apartmentController.create);
+
+      router.get("/search", apartmentController.searchApartments);
+
+      app.use("/apartments", router);
   };

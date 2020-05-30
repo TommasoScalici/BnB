@@ -23,7 +23,7 @@ module.exports =
             }
             else
              Apartment.find({}, function(err, apartments) {
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments, navbar : "navbar"});  
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments});  
             });     
         });
     },
@@ -35,12 +35,23 @@ module.exports =
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                res.render("index", {pagetitle: "Lista Appartamenti", path: "apartments", apartments, navbar : "navbar"});
+                res.render("index", {pagetitle: "Lista Appartamenti", path: "apartments", apartments});
         });
     },
     
     renderCreate: (req, res) => {
         res.render("index", {pagetitle: "Inserimento Appartamento", path: "apartment-create"});
+    },
+
+    searchApartments: async (req, res) => { 
+        await Apartment.find({ province: req.query.location }, function(err, apartments) {
+            if(err) {
+                console.log(`Mongo error while retrieveing apartments data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else
+                res.render("index", {pagetitle: `Hai cercato alloggi a ${req.query.location}`, path: "apartments", apartments});
+        });
     },
 
     update: async (req, res) => {

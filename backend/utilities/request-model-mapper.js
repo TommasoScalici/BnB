@@ -9,11 +9,12 @@ module.exports =
         },
     
         address: {
+            country: req.body.country,
             street: req.body.street,
-            city: req.body.city,
-            state: req.body.state,
+            province: req.body.province,
+            town: req.body.town,
             zipcode: req.body.zipcode,
-        },
+        },   
     
         username: req.body.username,
         email: req.body.email,
@@ -31,14 +32,15 @@ module.exports =
         description: req.body.description,
         price : req.body.price,
         beds: req.body.beds,
-        rooms: req.body.rooms,
+        bedrooms: req.body.bedrooms,
         type_accomodation: req.body.type_accomodation,
         services: req.body.services,
     
         address: {
+            country: req.body.country,
             street: req.body.street,
-            city: req.body.city,
-            state: req.body.state,
+            province: req.body.province,
+            town: req.body.town,
             zipcode: req.body.zipcode,
         },   
     }},

@@ -8,7 +8,9 @@
   </h1>
   <h1 class="my-4"><%= apartment.name %>
     <div style="font-size:large; color: darkslategray; margin-top: 0rem;"  >
-      <smaller> <%= apartment.address.state %> , <%= apartment.address.city %>, <%= apartment.address.street %> </smaller>
+      <smaller>
+        <%= apartment.address.street %>, <%= apartment.address.town %>, <%= apartment.address.province %>, <%= apartment.address.country %>
+      </smaller>
     </div>
   </h1>
   
@@ -82,7 +84,7 @@
       <h3 class="my-3">Dettagli</h3>
       <ul>
         <li>L'appartamento ha <%= apartment.beds %> letti</li>
-        <li>L'appartamento ha <%= apartment.rooms %> stenze</li>
+        <li>L'appartamento ha <%= apartment.bedrooms %> camere da letto</li>
         <li>L'appartamento è di tipo: <%= apartment.type_accomodation %>.</li>
         <li>L'appartamento ha i seguenti servizi <%= apartment.services %></li>
       </ul>
@@ -124,9 +126,7 @@
               <a id="my_anchor" href=""></a>
 
               <iframe src="https://maps.google.com/maps?q=<%= apartment.address.street %>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                style="border:0" allowfullscreen></iframe>
-              <!-- <iframe src="https://maps.google.com/maps?q=    &t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                style="border:0" allowfullscreen></iframe> -->
+                      style="border:0" allowfullscreen></iframe>
             </div>
             <!-- Google Maps -->
   
@@ -175,5 +175,3 @@
 
 </div>
 <!-- /.container -->
-
-
