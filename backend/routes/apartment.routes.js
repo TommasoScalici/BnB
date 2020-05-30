@@ -11,10 +11,12 @@ module.exports = app => {
 
       // Show form for inserting a new Apartment or submit a new Apartment
       router.route("/create")
-            .get(apartmentController.renderCreate)
+            .get(apartmentController.create)
             .post(apartmentController.create);
 
       router.get("/search", apartmentController.searchApartments);
+
+      router.put("/upload", apartmentController.upload);
 
       app.use("/apartments", router);
   };
