@@ -143,7 +143,7 @@
   
       </div>
 
-      <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> €! 
+      <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> € <small>/Notte</small>
         <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>
       
       
@@ -159,10 +159,11 @@
 
 
   <!-- Related Projects Row -->
-  <h3 class="my-4">Appartamenti vicino <%= apartment.address.city %>  </h3>
+  <h3 class="row" style="margin-bottom: 100px;">Appartamenti vicino <%= apartment.address.city %>  </h3>
 
   <div class="row">
-
+    <link rel = “stylesheet” type = “text/css” href = “/apartment-preview.css” />
+  <script language=”JavaScript” type=”/apartment-preview.js” src=”file.js”></script>
     <% for(let apartment of apartments) { %>
       <%- include('apartment-preview', {apartment: apartment}); %>
     <% } %>
