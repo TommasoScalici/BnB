@@ -3,8 +3,8 @@
 <div class="container">
 
   <!-- Portfolio Item Heading -->
-  <h1 class="my-4">Page Heading
-    <small>Secondary Text</small>
+  <h1 class="my-4">
+    <small></small>
   </h1>
   <h1 class="my-4"><%= apartment.name %>
     <div style="font-size:large; color: darkslategray; margin-top: 0rem;"  >
@@ -162,10 +162,13 @@
   <h3 class="my-4">Appartamenti vicino <%= apartment.address.city %>  </h3>
 
   <div class="row">
-
+    
+    
+    
     <% for(let apartment of apartments) { %>
       <%- include('apartment-preview', {apartment: apartment}); %>
     <% } %>
+    
 
 
   </div>
