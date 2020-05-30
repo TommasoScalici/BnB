@@ -32,6 +32,13 @@
 
   <body>
 
+
+    <!-- Hack per conoscere il path JS side -->
+    <div id="divPath" style="display: none;"><%= path %></div>
+
+    <!-- Placeholder for SearchBar in home -->
+    <div id="searchbar-home"></div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark responsive">
       <div class="container col-lg">
@@ -44,6 +51,10 @@
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <div class="navbar-nav ml-auto">
+
+            <div class="nav-item" id="searchbar-navitem">
+              <%- include('searchbar') %>
+            </div>
 
             <a class="nav-item nav-link active" href="/">Home
               <span class="sr-only">(current)</span>
