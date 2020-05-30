@@ -206,45 +206,42 @@ body
   <!--SCRIPT-->
 
   <script>
-  function flip(){
+  function flip(id){
     clearTimeout(backVar);
-        $(".top").css({
+    $("#" + id + ".top").css({
         "box-shadow": "0px 1px 10px -2px rgba(0,0,0,0.43)",
         "transform": "translateY(-100%)"
     });
     flipVar = setTimeout( function(){
-        $(".flip").css({
+        $("#" + id + ".top").css({
             "transform": "rotateY(180deg)"
         });
-        $(".radius-front").hide();
+        $("#" + id + ".top").hide();
     }, 400);
 }
 
-function back(){
+function back(id){
     clearTimeout(flipVar);
-  	$(".radius-front").show();
+  	$("#" + id + ".radius-front").show();
     backVar = setTimeout( function(){
-        $(".top").css({
+        $("#" + id + ".top").css({
             "box-shadow": "0px 10px 20px 0px rgba(0,0,0,0.43)",
             "transform": "translateY(-25px)"
         });
         
     }, 400);
-    $(".flip").css({
+    $("#" + id + ".flip").css({
             "transform": "none"
         });
 }
 
 var flipVar, backVar;
 
-$(function(){
-    $(".thecard").hover(function(){
-        flip();
-    }, function(){
-        back();
-    });
-    
-});</script>
+function onHover(control){
+
+    flip(control.id);
+};
+</script>
 </head>
 
 
@@ -263,7 +260,7 @@ $(function(){
         <!--Exemple card-->
         
     
-            <div class="thecard"style="margin-bottom: 50px; margin-left: 0;" id="<%= apartment._id%>">
+            <div class="thecard"style="margin-bottom: 50px; margin-left: 0;" onmouseover="onHover(this)" id="<%= apartment._id%>">
     
                 <div class="flip">
                     <!--Front card-->

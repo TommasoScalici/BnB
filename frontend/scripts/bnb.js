@@ -69,11 +69,13 @@ $(window).on('load', function() {
         });
 
         if(sum == 0)
-            $("#peopleDropdown").text("Aggiungi ospiti");
+            $("#searchbar-peopleDropdown").text("Aggiungi ospiti");
         else if(sum == 1)
-            $("#peopleDropdown").text(`${sum} ospite`);
+            $("#searchbar-peopleDropdown").text(`${sum} ospite`);
         else
-            $("#peopleDropdown").text(`${sum} ospiti`);
+            $("#searchbar-peopleDropdown").text(`${sum} ospiti`);
+
+        $("#searchbar-guests").val(sum);
     });
 
     // Validazione custom di Bootstrap
@@ -135,61 +137,101 @@ $(window).on('load', function() {
             form[0].classList.add('was-validated');
         });
     });
-
-    /*
-    ***
-    *** Gestione delle query per l'autocompletamento
-    ***
-    */
-
-    $.ui.autocomplete.filter = function(source, term) {
-        let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(term), "i" );
-        let results = $.grep(source, function(item) { return matcher.test(item.label || item.value || item)});
-        results = Array.from(new Set(results));
-        results.sort();
-        return results.slice(0, 10);
-    }
-  
-
-    $("#country").ready(function() {
-        $.getJSON("../data/countries.json", function(data) {
-            $("#country").autocomplete({
-                source: data.map(x => x.name)
-            });
-        });
-    });
-
-    $("#province").ready(function() {
-        $.getJSON("../data/comuni.json", function(data) {
-            $("#province").autocomplete({
-                source: data.map(x => {return { label: x.provincia.nome, value: x.sigla} })
-            })
-            .autocomplete("instance")._renderItem = function(ul, item) {
-                return $(`${item.label} (${item.value})`);
-            };
-        });
-    });
-
-    $("#town").ready(function() {
-        $.getJSON("../data/comuni.json", function(data) {
-            $("#town").autocomplete({
-                source: data.map(x => x.nome)
-            });
-        });
-    });
-
-    $("#location").ready(function() {
-        $.getJSON("../data/comuni.json", function(data) {
-            $("#location").autocomplete({
-                source: data.map(x => {return { label: x.provincia.nome, value: x.sigla} })
-            })
-            .autocomplete("instance")._renderItem = function(ul, item) {
-                return $(`${item.label} (${item.value})`);
-            };
-        });
-    });
-
 });
+
+/*
+***
+*** Gestione delle query per l'autocompletamento
+***
+*/
+
+// Filtro con "Unique" e "startsWith" (RegExp) 
+function uniqueFilterSearch(request, source) {
+    let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
+    let results = source;
+    results = _.uniq(results, function(item) { return item.value === undefined ? item : item.value});
+    results = $.grep(results, function(item) { return matcher.test(item.label || item.value || item)});
+    results.sort();
+    return results.slice(0, 10);
+}
+
+
+$("#country").ready(function() {
+    $.getJSON("../data/countries.json", function(data) {
+        $("#country").autocomplete({
+            source: function(request, response) {
+                response(uniqueFilterSearch(request, data.map(x => x.name)))
+            }
+        });
+    });
+});
+
+$("#province").ready(function() {
+    $.getJSON("../data/comuni.json", function(data) {
+        $("#province").autocomplete({
+            source: function(request, response) {
+                response(uniqueFilterSearch(request,data.map(x => {return { label: x.provincia.nome, value: x.sigla} })))
+            }
+        })
+        
+        if($("province") !== undefined) {
+            $("#province").autocomplete("instance")._renderItem = function(ul, item) {
+                return $("<li>").append(`<div>${item.label} (${item.value})</div>`)
+                                .appendTo(ul);
+            };
+        }
+    });
+});
+
+$("#town").ready(function() {
+    $.getJSON("../data/comuni.json", function(data) {
+        $("#town").autocomplete({
+            source: function(request, response) {
+                response(uniqueFilterSearch(request, data.map(x => x.nome)))
+            }
+        });
+    });
+});
+
+$("#searchbar-location").ready(function() {
+    $.getJSON("../data/comuni.json", function(data) {
+        $("#searchbar-location").autocomplete({
+
+            focus: function( event, ui ) {
+                $("#searchbar-location").val(`${ui.item.label} (${ui.item.value})`);
+                return false;
+            },
+
+            select: function(event, ui) {
+                $("#searchbar-location").val(`${ui.item.label} (${ui.item.value})`);
+                $("#searchbar-province").val(ui.item.value);
+                $("#searchbar-town").val(ui.item.label);
+                return false;
+            },
+
+            source: function(request, response) {
+                let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
+                let results = data.map(x => {return { label: x.nome, value: x.sigla} })
+                results = $.grep(results, function(item) { return matcher.test(item.label || item.value)});
+                results.sort();
+                response(results.slice(0, 10));
+            } 
+        })
+
+        if($("#searchbar-location") !== undefined) {
+            $("#searchbar-location").autocomplete("instance")._renderItem = function(ul, item) {
+                return $("<li>").append(`<div>${item.label} (${item.value})</div>`)
+                                .appendTo(ul);
+            };
+        }
+    });
+});
+
+/*
+***
+*** Fine gestione autocompletamento
+***
+*/
 
 // Focus automatico sulla modale del signin
 $(document).on('shown.bs.modal', function() {
