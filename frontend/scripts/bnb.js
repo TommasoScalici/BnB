@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     // Gestione del click sugli anchor 
     $("a").click(function() {
 
@@ -134,6 +135,66 @@ $(window).on('load', function() {
             form[0].classList.add('was-validated');
         });
     });
+
+    /*
+    ***
+    *** Gestione delle query per l'autocompletamento
+    ***
+    */
+
+    // Funzione che inietta un array in un HTMLElement
+    function loadAutoComplete(data, HTMLElement) {        
+        $(HTMLElement).autocomplete({ 
+            maxResults: 10,
+            source: function (request, response) {
+            let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
+            let results = $.grep(data, function(item) { return matcher.test(item)});
+            results = $.ui.autocomplete.filter(results, request.term);
+            results = results.slice(0, this.options.maxResults);
+            response($.grep(results, function(item){
+                return matcher.test(item);
+            }));
+            }
+        });
+    }
+
+    $("#country").ready(function() {
+        $.getJSON("../data/countries.json", function(data) {
+             // Utilizzo l'oggetto Set per ottenere un insieme di elementi distinti
+            // La funziona map effettua la proiezione al campo che mi interessa
+            // Lo ritrasformo in array per passarlo al controllo autocomplete
+            let queryResult = Array.from(new Set(data.map(x => x.name)));
+            queryResult.sort(); // Ordino l'array
+            loadAutoComplete(queryResult, "#country"); // Richiamo la funzione che inietta il queryResult
+        });
+    });
+
+    $("#province").ready(function() {
+        $.getJSON("../data/comuni.json", function(data) {
+           
+            let queryResult = data.map(x => x.sigla);
+            queryResult = Array.from(new Set(queryResult));
+            queryResult.sort(); 
+            loadAutoComplete(queryResult, "#province");
+        });
+    });
+
+    $("#town").ready(function() {
+        $.getJSON("../data/comuni.json", function(data) {
+            let queryResult = Array.from(new Set(data.map(x => x.nome)));
+            queryResult.sort();
+            loadAutoComplete(queryResult, "#town");
+        });
+    });
+
+    $("#location").ready(function() {
+        $.getJSON("../data/comuni.json", function(data) {
+            let queryResult = Array.from(new Set(data.map(x => x.nome)));
+            queryResult.sort();
+            loadAutoComplete(queryResult, "#location");
+        });
+    });
+
 });
 
 // Focus automatico sulla modale del signin
