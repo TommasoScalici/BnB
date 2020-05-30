@@ -142,56 +142,50 @@ $(window).on('load', function() {
     ***
     */
 
-    // Funzione che inietta un array in un HTMLElement
-    function loadAutoComplete(data, HTMLElement) {        
-        $(HTMLElement).autocomplete({ 
-            maxResults: 10,
-            source: function (request, response) {
-            let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
-            let results = $.grep(data, function(item) { return matcher.test(item)});
-            results = $.ui.autocomplete.filter(results, request.term);
-            results = results.slice(0, this.options.maxResults);
-            response($.grep(results, function(item){
-                return matcher.test(item);
-            }));
-            }
-        });
+    $.ui.autocomplete.filter = function(source, term) {
+        let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(term), "i" );
+        let results = $.grep(source, function(item) { return matcher.test(item.label || item.value || item)});
+        results = Array.from(new Set(results));
+        results.sort();
+        return results.slice(0, 10);
     }
+  
 
     $("#country").ready(function() {
         $.getJSON("../data/countries.json", function(data) {
-             // Utilizzo l'oggetto Set per ottenere un insieme di elementi distinti
-            // La funziona map effettua la proiezione al campo che mi interessa
-            // Lo ritrasformo in array per passarlo al controllo autocomplete
-            let queryResult = Array.from(new Set(data.map(x => x.name)));
-            queryResult.sort(); // Ordino l'array
-            loadAutoComplete(queryResult, "#country"); // Richiamo la funzione che inietta il queryResult
+            $("#country").autocomplete({
+                source: data.map(x => x.name)
+            });
         });
     });
 
     $("#province").ready(function() {
         $.getJSON("../data/comuni.json", function(data) {
-           
-            let queryResult = data.map(x => x.sigla);
-            queryResult = Array.from(new Set(queryResult));
-            queryResult.sort(); 
-            loadAutoComplete(queryResult, "#province");
+            $("#province").autocomplete({
+                source: data.map(x => {return { label: x.provincia.nome, value: x.sigla} })
+            })
+            .autocomplete("instance")._renderItem = function(ul, item) {
+                return $(`${item.label} (${item.value})`);
+            };
         });
     });
 
     $("#town").ready(function() {
         $.getJSON("../data/comuni.json", function(data) {
-            let queryResult = Array.from(new Set(data.map(x => x.nome)));
-            queryResult.sort();
-            loadAutoComplete(queryResult, "#town");
+            $("#town").autocomplete({
+                source: data.map(x => x.nome)
+            });
         });
     });
 
     $("#location").ready(function() {
         $.getJSON("../data/comuni.json", function(data) {
-            let queryResult = Array.from(new Set(data.map(x => x.nome)));
-            queryResult.sort();
-            loadAutoComplete(queryResult, "#location");
+            $("#location").autocomplete({
+                source: data.map(x => {return { label: x.provincia.nome, value: x.sigla} })
+            })
+            .autocomplete("instance")._renderItem = function(ul, item) {
+                return $(`${item.label} (${item.value})`);
+            };
         });
     });
 
