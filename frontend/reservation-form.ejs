@@ -1,12 +1,11 @@
 
 <link href="/css/signin.css" rel="stylesheet">
 <link href="/css/home.css" rel="stylesheet">
-<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            
+        <%if(session.user) { %>            
             <div class="modal-header">
                 <h5 class="modal-title" id="reservationModalLabel">Prenota questo appartamento</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -17,7 +16,7 @@
             <div class="modal-body">
                 <div class="card card-signin my-5">
                     <div class="card-body">
-                    <form class="form-reservation" id="form-reservation" action="api/reservations/reservation" method="POST">
+                    <form class="form-reservation" id="form-reservation" action="/reservations/reservation" method="POST">
 
                         <!--Checkin-->
                             <div class="form-label-group">
@@ -75,16 +74,41 @@
                                 </select>
                             </div>
 
-                            
                             <input type="hidden" name="_method" value="POST">
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota</button>
+
+                            <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
+                                <strong>Prenotazione effettuata!</strong>
+                            </div>
                     </form>
+
                     </div>
                 </div>
             </div>
+            <%} else {%>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notLoggedModalLabel">Non sei un utente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <p>
+                                Accedi per proseguire nella prenotazione.
+                                <a data-toggle="modal" data-target="#signinModal" href="#">Accedi</a >, o <a href="/users/signup">registrati</a>se non possiedi ancora un account.
+                            </p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <% } %>
          </div>
     </div>
 </div>
+<!-- Custom scripts -->
+<script src="/scripts/bnb.js"></script>
 
 
 
