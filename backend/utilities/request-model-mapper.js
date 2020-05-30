@@ -35,6 +35,7 @@ module.exports =
         bedrooms: req.body.bedrooms,
         type_accomodation: req.body.type_accomodation,
         services: req.body.services,
+        photo: req.body.photo,
     
         address: {
             country: req.body.country,
