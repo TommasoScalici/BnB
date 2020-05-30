@@ -1,5 +1,26 @@
 $(document).ready(function () {
 
+    function responsiveSearchBar() {
+        if($("#searchbar-navitem").is(":empty") && window.innerWidth < 1400) {
+            $("#searchbar-home").empty();
+            $("#searchbar-navitem").load("searchbar.ejs");
+        }
+        else if($("#searchbar-home").is(":empty") && window.innerWidth > 1400) {
+            $("#searchbar-home").load("searchbar-home.ejs");
+            $("#searchbar-navitem").empty();
+        }
+    }
+
+    var path = $("#divPath").html().toString();
+
+    if(path === "home") {
+        responsiveSearchBar(); 
+
+        $(window).resize(function() {
+            responsiveSearchBar();
+        })
+    }
+   
 
     // Gestione del click sugli anchor 
     $("a").click(function() {
@@ -232,6 +253,7 @@ $("#searchbar-location").ready(function() {
 *** Fine gestione autocompletamento
 ***
 */
+
 
 // Focus automatico sulla modale del signin
 $(document).on('shown.bs.modal', function() {
