@@ -5,16 +5,17 @@ var ApartmentSchema = new mongoose.Schema({
     name: String,
     description: String,
     price : Number,
+    bedrooms: Number,
     beds: Number,
-    rooms: Number,
     type_accomodation: String,
     services: Array,
 
     address: {
+        country: String,
         street: String,
-        city: String,
-        state: String,
-        zipcode: String,
+        province: String,
+        town: String,
+        zipcode: String
     },
     },
     

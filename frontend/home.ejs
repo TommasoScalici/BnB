@@ -1,103 +1,40 @@
-<link href="/css/home.css" rel="stylesheet">
+
+<div class="rounded d-none d-lg-block" style="background-color: rgba(128,128,128, 0.5); width: 80%; height: 6rem; position: absolute;
+                                              margin: 0 auto; left: 0; right: 0; top:45%; z-index: 1;">
+
+
+<%- include('searchbar') %>
+</div>
+
 
 <div id="carousel" class="carousel slide my-5" data-ride="carousel">
 
-    <div class="rounded d-none d-lg-block" style="background-color:  rgba(128,128,128, 0.5); border: 20px; width: 80%; height: 6rem; position: absolute; 
-                                 margin: 0 auto; left: 0; right: 0; top:45%; z-index: 1;">
+  <div class="carousel-inner" role="listbox">
 
-      <div class="btn-group" role="group" id="search-bar"
-           style="width:80%; height:80%; position: absolute; margin: 0 auto; left: 0; right: 0; top:20%;">
-
-          <div class="form-group">
-            <small class="label-placeholder">DOVE</small>
-            <input id="location" name="location" type="input" class="btn btn-secondary input-placeholding"
-                   placeholder="Cerca per città, indirizzo...">
-          </div>
-
-          <div class="form-group">
-            <small class="label-placeholder">CHECK-IN</small>
-            <input type="date" id="checkin" name="checkin" class="btn btn-secondary input-placeholding">      
-          </div>
-
-          <div class="form-group">
-            <small class="label-placeholder">CHECK-OUT</small>
-            <input type="date" id="checkout" name="checkout" class="btn btn-secondary input-placeholding">    
-          </div>
-
-          <div class="form-group">
-            <input type="hidden" id="guests" name="guests">
-            <small class="label-placeholder">OSPITI</small>
-            <button class="btn btn-secondary btn-block input-placeholding" type="button" id="peopleDropdown" style="width: 12rem;"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
-
-            <div class="dropdown-menu" aria-labelledby="peopleDropdown">
-              <div class="container">
-                <div class="form-inline">
-                  <div class="form-group" style="line-height: 1em;">
-
-                    <div>
-                      <strong class="align-middle mx-auto">Adulti</strong><br />
-                      <small class="align-middle mx-auto">12 in su</small><br /><br />
-                      <strong class="align-middle mx-auto">Bambini</strong><br />
-                      <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
-                      <strong class="align-middle mx-auto">Neonati</strong><br />
-                      <small class="align-middle mx-auto">Fino ai 2</small>
-                    </div>
-
-                    <div class="ml-4" style="width: 8em">
-                      <input class="guests-input mb-4" type="number" value="0" min="0" max="9" step="1" />
-                      <input class="guests-input my-auto" type="number" value="0" min="0" max="9" step="1"/>
-                      <input class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <button type="button" class="btn btn-primary" style="height: 100%; width: 12rem;">Cerca</button>
-          </div>
-
-      </div>
+    <div class="carousel-item active">
+      <img class="d-block img-fluid" src="/images/stock1.jpg" alt="Stock Image 1">
     </div>
 
-  </form>
-
-
-    <div class="carousel-inner" role="listbox">
-
-      <div class="carousel-item active">
-        <img class="d-block img-fluid" src="/images/stock1.jpg" alt="Stock Image 1">
-      </div>
-
-      <div class="carousel-item">
-        <img class="d-block img-fluid" src="/images/stock2.jpg" alt="Stock Image 2">
-      </div>
-
-      <div class="carousel-item">
-        <img class="d-block img-fluid" src="/images/stock3.jpg" alt="Stock Image 3">
-      </div>
-
-      <div class="carousel-item">
-        <img class="d-block img-fluid" src="/images/stock4.jpg" alt="Stock Image 4">
-      </div>
-
-      <div class="carousel-item">
-        <img class="d-block img-fluid" src="/images/stock5.jpg" alt="Stock Image 5">
-      </div>
-
-      <div class="carousel-item">
-        <img class="d-block img-fluid" src="/images/stock6.jpg" alt="Stock Image 6">
-      </div>
-
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="/images/stock2.jpg" alt="Stock Image 2">
     </div>
 
-</div>
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="/images/stock3.jpg" alt="Stock Image 3">
+    </div>
 
-<div class="row">
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="/images/stock4.jpg" alt="Stock Image 4">
+    </div>
 
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="/images/stock5.jpg" alt="Stock Image 5">
+    </div>
 
+    <div class="carousel-item">
+      <img class="d-block img-fluid" src="/images/stock6.jpg" alt="Stock Image 6">
+    </div>
+
+  </div>
 
 </div>
