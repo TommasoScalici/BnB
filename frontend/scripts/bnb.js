@@ -69,11 +69,13 @@ $(window).on('load', function() {
         });
 
         if(sum == 0)
-            $("#peopleDropdown").text("Aggiungi ospiti");
+            $("#searchbar-peopleDropdown").text("Aggiungi ospiti");
         else if(sum == 1)
-            $("#peopleDropdown").text(`${sum} ospite`);
+            $("#searchbar-peopleDropdown").text(`${sum} ospite`);
         else
-            $("#peopleDropdown").text(`${sum} ospiti`);
+            $("#searchbar-peopleDropdown").text(`${sum} ospiti`);
+
+        $("#searchbar-guests").val(sum);
     });
 
     // Validazione custom di Bootstrap
@@ -135,67 +137,101 @@ $(window).on('load', function() {
             form[0].classList.add('was-validated');
         });
     });
+});
 
-    /*
-    ***
-    *** Gestione delle query per l'autocompletamento
-    ***
-    */
+/*
+***
+*** Gestione delle query per l'autocompletamento
+***
+*/
 
-    // Funzione che inietta un array in un HTMLElement
-    function loadAutoComplete(data, HTMLElement) {        
-        $(HTMLElement).autocomplete({ 
-            maxResults: 10,
-            source: function (request, response) {
-            let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
-            let results = $.grep(data, function(item) { return matcher.test(item)});
-            results = $.ui.autocomplete.filter(results, request.term);
-            results = results.slice(0, this.options.maxResults);
-            response($.grep(results, function(item){
-                return matcher.test(item);
-            }));
+// Filtro con "Unique" e "startsWith" (RegExp) 
+function uniqueFilterSearch(request, source) {
+    let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
+    let results = source;
+    results = _.uniq(results, function(item) { return item.value === undefined ? item : item.value});
+    results = $.grep(results, function(item) { return matcher.test(item.label || item.value || item)});
+    results.sort();
+    return results.slice(0, 10);
+}
+
+
+$("#country").ready(function() {
+    $.getJSON("../data/countries.json", function(data) {
+        $("#country").autocomplete({
+            source: function(request, response) {
+                response(uniqueFilterSearch(request, data.map(x => x.name)))
             }
         });
-    }
-
-    $("#country").ready(function() {
-        $.getJSON("../data/countries.json", function(data) {
-             // Utilizzo l'oggetto Set per ottenere un insieme di elementi distinti
-            // La funziona map effettua la proiezione al campo che mi interessa
-            // Lo ritrasformo in array per passarlo al controllo autocomplete
-            let queryResult = Array.from(new Set(data.map(x => x.name)));
-            queryResult.sort(); // Ordino l'array
-            loadAutoComplete(queryResult, "#country"); // Richiamo la funzione che inietta il queryResult
-        });
     });
-
-    $("#province").ready(function() {
-        $.getJSON("../data/comuni.json", function(data) {
-           
-            let queryResult = data.map(x => x.sigla);
-            queryResult = Array.from(new Set(queryResult));
-            queryResult.sort(); 
-            loadAutoComplete(queryResult, "#province");
-        });
-    });
-
-    $("#town").ready(function() {
-        $.getJSON("../data/comuni.json", function(data) {
-            let queryResult = Array.from(new Set(data.map(x => x.nome)));
-            queryResult.sort();
-            loadAutoComplete(queryResult, "#town");
-        });
-    });
-
-    $("#location").ready(function() {
-        $.getJSON("../data/comuni.json", function(data) {
-            let queryResult = Array.from(new Set(data.map(x => x.nome)));
-            queryResult.sort();
-            loadAutoComplete(queryResult, "#location");
-        });
-    });
-
 });
+
+$("#province").ready(function() {
+    $.getJSON("../data/comuni.json", function(data) {
+        $("#province").autocomplete({
+            source: function(request, response) {
+                response(uniqueFilterSearch(request,data.map(x => {return { label: x.provincia.nome, value: x.sigla} })))
+            }
+        })
+        
+        if($("province") !== undefined) {
+            $("#province").autocomplete("instance")._renderItem = function(ul, item) {
+                return $("<li>").append(`<div>${item.label} (${item.value})</div>`)
+                                .appendTo(ul);
+            };
+        }
+    });
+});
+
+$("#town").ready(function() {
+    $.getJSON("../data/comuni.json", function(data) {
+        $("#town").autocomplete({
+            source: function(request, response) {
+                response(uniqueFilterSearch(request, data.map(x => x.nome)))
+            }
+        });
+    });
+});
+
+$("#searchbar-location").ready(function() {
+    $.getJSON("../data/comuni.json", function(data) {
+        $("#searchbar-location").autocomplete({
+
+            focus: function( event, ui ) {
+                $("#searchbar-location").val(`${ui.item.label} (${ui.item.value})`);
+                return false;
+            },
+
+            select: function(event, ui) {
+                $("#searchbar-location").val(`${ui.item.label} (${ui.item.value})`);
+                $("#searchbar-province").val(ui.item.value);
+                $("#searchbar-town").val(ui.item.label);
+                return false;
+            },
+
+            source: function(request, response) {
+                let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
+                let results = data.map(x => {return { label: x.nome, value: x.sigla} })
+                results = $.grep(results, function(item) { return matcher.test(item.label || item.value)});
+                results.sort();
+                response(results.slice(0, 10));
+            } 
+        })
+
+        if($("#searchbar-location") !== undefined) {
+            $("#searchbar-location").autocomplete("instance")._renderItem = function(ul, item) {
+                return $("<li>").append(`<div>${item.label} (${item.value})</div>`)
+                                .appendTo(ul);
+            };
+        }
+    });
+});
+
+/*
+***
+*** Fine gestione autocompletamento
+***
+*/
 
 // Focus automatico sulla modale del signin
 $(document).on('shown.bs.modal', function() {

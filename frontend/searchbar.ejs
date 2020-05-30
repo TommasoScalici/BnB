@@ -1,31 +1,33 @@
 <link href="/css/searchbar.css" rel="stylesheet">
 
 <form action="/apartments/search" method="GET" class="btn-group position-absolute" 
-      role="group" id="search-bar" style="height:5rem; margin: 2% 10%">
+      role="group" id="search-bar" style="height:5rem; margin: 1.4% 10%">
 
     <div class="form-group">
         <small class="label-placeholder">DOVE</small>
-        <input id="location" name="location" type="input" class="btn btn-secondary input-placeholding"
-            placeholder="Cerca per città, indirizzo...">
+        <input type="hidden" id="searchbar-province" name="province">
+        <input type="hidden" id="searchbar-town" name="town">
+        <input id="searchbar-location" type="input" class="btn btn-secondary input-placeholding"
+               placeholder="Cerca per città, indirizzo...">
     </div>
 
     <div class="form-group">
         <small class="label-placeholder">CHECK-IN</small>
-        <input type="date" id="checkin" name="checkin" class="btn btn-secondary input-placeholding">      
+        <input type="date" id="searchbar-checkin" name="checkin" class="btn btn-secondary input-placeholding">      
     </div>
 
     <div class="form-group">
         <small class="label-placeholder">CHECK-OUT</small>
-        <input type="date" id="checkout" name="checkout" class="btn btn-secondary input-placeholding">    
+        <input type="date" id="searchbar-checkout" name="checkout" class="btn btn-secondary input-placeholding">    
     </div>
 
     <div class="form-group">
-        <input type="hidden" id="guests" name="guests">
+        <input type="hidden" id="searchbar-guests" name="guests">
         <small class="label-placeholder">OSPITI</small>
-        <button class="btn btn-secondary btn-block input-placeholding" type="button" id="peopleDropdown" style="width:12rem;"
+        <button class="btn btn-secondary btn-block input-placeholding" type="button" id="searchbar-peopleDropdown" style="width:12rem;"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
 
-        <div class="dropdown-menu" aria-labelledby="peopleDropdown">
+        <div class="dropdown-menu" aria-labelledby="searchbar-peopleDropdown">
             <div class="container">
                 <div class="form-inline">
                     <div class="form-group" style="line-height: 1em;">
@@ -40,9 +42,12 @@
                         </div>
 
                         <div class="ml-4" style="width: 8em">
-                            <input class="guests-input mb-4" type="number" value="0" min="0" max="9" step="1" />
-                            <input class="guests-input my-auto" type="number" value="0" min="0" max="9" step="1"/>
-                            <input class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
+                            <input id="searchbar-guests-adults" name="guests-adults" class="guests-input mb-4"
+                                   type="number" value="0" min="0" max="9" step="1" />
+                            <input id="searchbar-guests-children" name="guests-children" class="guests-input my-auto"
+                                   type="number" value="0" min="0" max="9" step="1"/>
+                            <input id="searchbar-guests-newborns" name="guests-newborns" class="guests-input mt-4"
+                                   type="number" value="0" min="0" max="9" step="1"/>
                         </div>
 
                     </div>
