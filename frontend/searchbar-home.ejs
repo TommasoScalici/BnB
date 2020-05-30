@@ -4,13 +4,13 @@
                                               margin: 0 auto; left: 0; right: 0; top:40%; z-index: 1;">
 
     <form action="/apartments/search" method="GET" class="btn-group position-absolute" 
-        role="group" id="search-bar" style="height:5rem; margin: 1.4% 10%">
+          role="group" id="searchbar-form" style="height:5rem; margin: 1.4% 10%">
 
         <div class="form-group">
             <small class="label-placeholder">DOVE</small>
             <input type="hidden" id="searchbar-province" name="province">
             <input type="hidden" id="searchbar-town" name="town">
-            <input id="searchbar-location" type="input" class="btn btn-secondary input-placeholding"
+            <input id="searchbar-location" name="location" type="input" class="btn btn-secondary input-placeholding"
                 placeholder="Cerca per città, indirizzo...">
         </div>
 
@@ -65,3 +65,5 @@
         
     </div>
 </form>
+
+<script src="/scripts/searchbar.js"></script>

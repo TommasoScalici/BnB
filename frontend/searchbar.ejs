@@ -1,6 +1,6 @@
 <link href="/css/searchbar.css" rel="stylesheet">
 
-<form action="/apartments/search" class="align-middle mx-auto my-auto" method="GET" role="group" id="search-bar">
+<form action="/apartments/search" method="GET" id="searchbar-form" class="align-middle mx-auto my-auto" role="group" id="search-bar">
 
     <div class="row mx-auto">
 
@@ -18,7 +18,7 @@
             <small class="label-placeholder">DOVE</small>
             <input type="hidden" id="searchbar-province" name="province">
             <input type="hidden" id="searchbar-town" name="town">
-            <input id="searchbar-location" type="input" class="form-control input-placeholding" style="width: 11rem;"
+            <input id="searchbar-location" name="location" type="input" class="form-control input-placeholding" style="width: 11rem;"
                    placeholder="Cerca per città, indirizzo...">
         </div>
 
@@ -63,3 +63,5 @@
     </div>
 
 </form>
+
+<script src="/scripts/searchbar.js"></script>
