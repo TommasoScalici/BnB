@@ -1,7 +1,6 @@
 <div class="col-md-4">
-  <div class="card mb-4 box-shadow ">
+  
 
-<<<<<<< HEAD
         <!-- <div class="col-md-4">
             <div class="card mb-4 box-shadow ">
               <a href="/apartments/apartment/<%= apartment._id%>"><img class="card-img-top" src="https://a0.muscache.com/im/pictures/288a9ae0-059d-49fb-805b-42d3c609f5b6.jpg?im_w=720" alt=""></a>
@@ -126,7 +125,7 @@ body
 
 .avatar-container
 {
-    width: 170px;
+    
     margin-top: 50px;
 }
 
@@ -134,7 +133,7 @@ body
 {
    text-align: center;
    margin: 0;
-    max-width: 250px;
+    max-width: 450px;
     box-shadow: 0px 1px 10px -2px rgba(0,0,0,0.43);
 }
 
@@ -262,9 +261,9 @@ $(function(){
           <h1 class="center-text"></h1>
         </hr>
         <!--Exemple card-->
-        <div class="maincontainer" style="margin-bottom: 50px;">
+        
     
-            <div class="thecard">
+            <div class="thecard"style="margin-bottom: 50px; margin-left: 0;" id="<%= apartment._id%>">
     
                 <div class="flip">
                     <!--Front card-->
@@ -275,7 +274,7 @@ $(function(){
                         </div>
 
 
-                        <h4 class="name">Via:<%= apartment.address.street %></h4>
+                        <h4 class="name">Indirizzo: <small> <%= apartment.address.street %></small> </h4>
               
                         <p class=" center-text"><%= apartment.type_accomodation %> </p>
                     </div>
@@ -307,17 +306,3 @@ $(function(){
         <!-- ./Exemple card -->
 
       </body>
-=======
-    <a href="/apartments/apartment/<%= apartment._id%>"><img class="card-img-top" src="https://a0.muscache.com/im/pictures/288a9ae0-059d-49fb-805b-42d3c609f5b6.jpg?im_w=720" alt=""></a>
-    
-    <div class="card-body">
-      <h4 class="card-title">
-        <a href="/apartments/apartment/<%= apartment._id%>"><%= apartment.name %></a>
-      </h4>
-
-    <h5><%= apartment.price %> €</h5>
-    
-    </div>
-  </div>
-</div>
->>>>>>> 76bece4e1006bb716cd7610098e4aded36af9fd3
