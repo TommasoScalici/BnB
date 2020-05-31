@@ -22,7 +22,7 @@
                 <div class="input-group mb-3">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="profile-image-input" name="profile_image">
-                    <label class="custom-file-label" for="profileImage">Scegli un file da caricare come immagine profilo</label>
+                    <label class="custom-file-label" for="profileImage" data-browse="Sfoglia">Carica un'immagine</label>
                   </div>
                 </div>
               </div>
@@ -172,15 +172,13 @@
         </div>        
   
         <input type="hidden" name="_method" value="PUT">
-        <button class="btn btn-primary mt-5" type="submit">Aggiorna dati</button>
+        <button class="btn btn-primary mb-4 mt-5" type="submit">Aggiorna dati</button>
 
-        <br /><br />
-
-        <div id="alert-signup-success" style="display: none;" class="alert alert-success" role="alert">
+        <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
           <strong>Dati aggiornati con successo!</strong>
         </div>
 
-        <div id="alert-signup-error" style="display: none;" class="alert alert-danger" role="alert">
+        <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
         </div>
   
       </form>

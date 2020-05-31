@@ -21,9 +21,49 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 $('#profile-image').attr('src', e.target.result);
             }
-            reader.readAsDataURL(this.files[0]);
+            
+            
+        }
+    });
 
-            $("#profile-image-input")
+    $("#apartment-images-input").change(function () {
+
+        if (this.files && this.files[0]) {
+            let files = this.files;
+            $.each(files, function(index, value) {
+                
+                setTimeout(() => {
+
+                    $('#apartment-spinner').show();
+
+                    let percentage = Math.ceil(((index + 1) / files.length * 100));
+
+                    let img = new Image();
+                    let reader = new FileReader();
+
+                    img.style.display = "none";
+                    img.style.width = "200px";
+                    img.classList.add("img-fluid");
+                    img.classList.add("img-thumbnail");
+
+                    img.onload = function() { $(this).fadeIn(2000)};
+
+                    $('#photos-preview').append(img);
+                    reader.onload = function (e) {
+                        img.src = e.target.result;
+                    }
+
+                    reader.readAsDataURL(value);
+
+                    $("#apartment-progressbar").attr("aria-valuenow", `${percentage}%`);
+                    $("#apartment-progressbar").css("width", `${percentage}%`);
+                    $("#apartment-progressbar").html(`${percentage}%`);
+
+                    if(percentage === 100)
+                    $('#apartment-spinner').hide();
+
+                }, 1000 + (index * 1000));
+            });
         }
     });
 
@@ -31,8 +71,10 @@ $(document).ready(function () {
     // Gestione alerts per il submit dei form
     $("#form-signin").submit(function(event) {
 
-        $('#alert-email').fadeOut();
-        $('#alert-pass').fadeOut();
+        setTimeout(() => {
+        $('#alert-signin-email').fadeOut(1000);
+        $('#alert-signin-pass').fadeOut(1000);
+        }, 2000);
 
         event.preventDefault(); 
         let form = $(this);
@@ -50,9 +92,9 @@ $(document).ready(function () {
         }).fail(function(response) {
 
             if(response.responseJSON.message == "User not found")
-                $('#alert-email').fadeIn(1000);
+                $('#alert-signin-email').fadeIn(1000);
             else if(response.responseJSON.message == "Password mismatch")
-                $('#alert-pass').fadeIn(1000);
+                $('#alert-signin-pass').fadeIn(1000);
 
         });
     });
@@ -75,7 +117,7 @@ $(window).on('load', function() {
                 event.stopPropagation();
             else
             {
-                $('#alert-signup-error').fadeOut();
+                $('#alert-form-error').fadeOut();
  
                 if(form[0].enctype == "multipart/form-data") {
                     var formData = new FormData($(this)[0]);
@@ -88,12 +130,12 @@ $(window).on('load', function() {
                         contentType: false,
                         processData: false,
                         success: function(response) {
-                            $('#alert-signup-success').fadeIn(2000).fadeOut(1000);
+                            $('#alert-form-success').fadeIn(2000).fadeOut(1000);
                             setTimeout(() => { window.location.replace("/"); }, 3000)
                         },
                         error: function(response) {
-                            $('#alert-signup-error').html(response.responseJSON.message);
-                            $('#alert-signup-error').fadeIn(1000);
+                            $('#alert-form-error').html(response.responseJSON.message);
+                            $('#alert-form-error').fadeIn(1000);
                         }
                     });
                 }
@@ -105,13 +147,13 @@ $(window).on('load', function() {
                         data: form.serialize(),
                         success: function() {
             
-                            $('#alert-signup-success').fadeIn(2000).fadeOut(1000);
+                            $('#alert-form-success').fadeIn(2000).fadeOut(1000);
                             setTimeout(() => { window.location.replace("/"); }, 3000);
                         },
                         error: function(response) {
             
-                            $('#alert-signup-error').html(response.responseJSON.message);
-                            $('#alert-signup-error').fadeIn(1000);
+                            $('#alert-form-error').html(response.responseJSON.message);
+                            $('#alert-form-error').fadeIn(1000);
                 
                         }
                     });

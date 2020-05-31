@@ -28,6 +28,7 @@ module.exports =
 
     getApartmentFromReq: (req) => {
         return {
+
         name: req.body.name,
         description: req.body.description,
         price : req.body.price,
@@ -35,7 +36,7 @@ module.exports =
         bedrooms: req.body.bedrooms,
         type_accomodation: req.body.type_accomodation,
         services: req.body.services,
-        photo: req.body.photo,
+        photo_paths: new Array(),
     
         address: {
             country: req.body.country,
@@ -48,6 +49,7 @@ module.exports =
 
     getReservationFromReq: (req) => {
         console.log(req.body);
+        
         return{
             user: req.session.user._id,
             apartment: req.body.apartment,

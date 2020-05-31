@@ -2,7 +2,8 @@
     <div class="card-body">
     <h5 class="card-title text-center">Inserisci Appartamento</h5>
   
-      <form action="/apartments/create" id="form-insert" class="needs-validation" method="POST" novalidate>
+      <form action="/apartments/create" id="form-insert" class="needs-validation" method="POST"
+            enctype="multipart/form-data" novalidate>
 
         <div class="card mb-5">
   
@@ -78,8 +79,7 @@
                   <label for="description"><span class="fas fa-comment"></span> Descrizione</label>
 
                   <textarea type="text" rows="10" class="form-control" id="description" name="description" 
-                            placeholder="Descrizione" minlength="50" required>
-                  </textarea>
+                            placeholder="Descrizione" minlength="50" required></textarea>
 
                   <div class="invalid-feedback">
                       La descrizione è obbligatoria e deve essere minimo di 50 caratteri.
@@ -149,6 +149,45 @@
           </div>
         </div>
   
+        <div class="card mt-5">
+  
+          <div class="card-header text-white bg-primary"><span class="far fa-images"></span> Caricamento foto dell'alloggio</div>
+  
+          <div class="card-body">
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3 my-auto" id="photos-preview">
+                <div class="d-flex align-self-center justify-content-center">
+                  <div class="spinner-grow" id="apartment-spinner" role="status" style="display: none">
+                    <span class="sr-only"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3 my-auto">
+                <div class="input-group mb-3">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="apartment-images-input" name="photos" multiple>
+                    <label class="custom-file-label" for="apartment-images-input" data-browse="Sfoglia">Carica una o più immagini</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3 my-auto">     
+              </div>
+              <div class="col-md-6 mb-3 my-auto">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" id="apartment-progressbar" role="progressbar" 
+                       aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <br /><br />
   
         <div class="form-group">
@@ -164,13 +203,15 @@
         </div>
         
         <input type="hidden" name="_method" value="POST">
-        <button class="btn btn-primary" type="submit">Inserisci</button>
-  
-      </form>
+        <button class="btn btn-primary mb-4" type="submit">Inserisci</button>
 
-      <form method="post" enctype="multipart/form-data" action="/apartments/upload">
-        <input type="file" name="file">
-        <input type="submit" value="Submit">
+        <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
+          <strong>L'annuncio è stato caricato con successo!</strong>
+        </div>
+
+        <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
+        </div>
+  
       </form>
 
     </div>

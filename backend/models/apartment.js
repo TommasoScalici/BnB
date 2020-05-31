@@ -9,6 +9,7 @@ var ApartmentSchema = new mongoose.Schema({
     beds: Number,
     type_accomodation: String,
     services: Array,
+    photo_paths: Array,
 
     address: {
         country: String,
