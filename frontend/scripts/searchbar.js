@@ -12,11 +12,11 @@ function updateGuests() {
     });
 
     if(sum == 0)
-        $("#searchbar-peopleDropdown").text("Aggiungi ospiti");
+        $("#searchbar-people-dropdown").text("Aggiungi ospiti");
     else if(sum == 1)
-        $("#searchbar-peopleDropdown").text(`${sum} ospite`);
+        $("#searchbar-people-dropdown").text(`${sum} ospite`);
     else
-        $("#searchbar-peopleDropdown").text(`${sum} ospiti`);
+        $("#searchbar-people-dropdown").text(`${sum} ospiti`);
 
     $("#searchbar-guests").val(sum);
 }

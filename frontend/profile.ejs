@@ -13,16 +13,18 @@
             <div class="form-row">
 
               <div class="col-md-6 mb-3">
-                <img width="100" height="100" alt="profile picture" id="profilePicture" class="rounded-circle mx-auto d-block" 
+                <img width="100" height="100" alt="profile picture" id="profile-image" class="rounded-circle mx-auto d-block" 
                 src="<% if(session.user.profile_picture_path) { %> <%= session.user.profile_picture_path %> <% } else { %>
                      /images/default-user-image.jpg<% } %>">
               </div>
 
-              <div class="col-md-6 mb-3">
-                <div class="col-md-6 mb-3">
-                  <label for="profileImage">Immagine profilo</label>
-                  <input type="file" class="form-control-file" id="profileImage" name="profileImage">
-                </div>  
+              <div class="col-md-6 mb-3 my-auto">
+                <div class="input-group mb-3">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="profile-image-input" name="profile_image">
+                    <label class="custom-file-label" for="profileImage">Scegli un file da caricare come immagine profilo</label>
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -34,7 +36,7 @@
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nome"
                        value="<%= session.user.name.first %>" required>
                 <div class="invalid-feedback">
-                  L'inserimento del nome è obbligatorio
+                  L'inserimento del nome è obbligatorio.
                 </div>
               </div>
 
@@ -43,22 +45,17 @@
                 <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Cognome"
                        value="<%= session.user.name.last %>" required>
                 <div class="invalid-feedback">
-                  L'inserimento del cognome è obbligatorio
+                  L'inserimento del cognome è obbligatorio.
                 </div>
               </div>
 
               <div class="col-md-3 mb-3">
                 <label for="username"><span class="fas fa-at"></span> Username</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend3">@</span>
-                  </div>
                   <input type="text" class="form-control" id="username" name="username" placeholder="Username"
-                         value="<%= session.user.username %>" pattern="[a-z0-9]{4,20}" aria-describedby="inputGroupPrepend3">
+                         value="<%= session.user.username %>" pattern="[a-z0-9]{4,20}">
                   <div class="invalid-feedback">
                     L'username deve essere tra 4 e 20 caratteri alfanumerici (minuscoli).
                   </div>
-                </div>
               </div>
 
               <div class="col-md-3 mb-3">
@@ -125,7 +122,7 @@
                 <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico"
                        value="<%= session.user.address.street %>" >
                 <div class="invalid-feedback">
-                  Inserire un indirizzo valido
+                  Inserire un indirizzo valido.
                 </div>
               </div>
   
@@ -179,11 +176,11 @@
 
         <br /><br />
 
-        <div id="alertSignUpSuccess" style="display: none;" class="alert alert-success" role="alert">
+        <div id="alert-signup-success" style="display: none;" class="alert alert-success" role="alert">
           <strong>Dati aggiornati con successo!</strong>
         </div>
 
-        <div id="alertSignUpError" style="display: none;" class="alert alert-danger" role="alert">
+        <div id="alert-signup-error" style="display: none;" class="alert alert-danger" role="alert">
         </div>
   
       </form>

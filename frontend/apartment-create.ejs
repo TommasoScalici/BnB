@@ -3,97 +3,117 @@
     <h5 class="card-title text-center">Inserisci Appartamento</h5>
   
       <form action="/apartments/create" id="form-insert" class="needs-validation" method="POST" novalidate>
+
         <div class="card mb-5">
   
-          <div class="card-header text-white bg-primary">Dati</div>
+          <div class="card-header text-white bg-primary">
+            <span class="fas fa-list"></span>
+            Dati sull'appartemento, descrizione, prezzo e disposizione camere / letti.
+          </div>
   
           <div class="card-body">
   
-  
             <div class="form-row">
   
-              <div class="col-md-4 mb-3">
-                <label for="firstname">Nome</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nome" required>
+              <div class="col-md-8 mb-3">
+                <label for="name"><span class="fas fa-home"></span> Nome dell'appartamento</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome appartamento" required>
                 <div class="invalid-feedback">
-                  L'inserimento del nome dell'appartamento è obbligatorio
+                  L'inserimento del nome dell'appartamento è obbligatorio.
                 </div>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="price">Prezzo</label>
-                <input type="number" class="form-control" min="0" id="price" name="price" placeholder="Prezzo" required>
-                <div class="invalid-feedback">
-                  L'inserimento del prezzo è obbligatorio
-                </div>
-              </div>
-              
-              
-  
-            </div>
-        
-            
-            <div class="form-row">
-              
-              <div class="col-md-4 mb-3">
-                <label for="bedrooms">Stanze</label>
-                <input type="number" class="form-control" min="0" id="bedrooms" name="bedrooms" placeholder="Camere da letto" required>
-                <div class="invalid-feedback">
-                  L'inserimento delle stanze
-                </div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="beds">Letti per stanza</label>
-                <input type="number" class="form-control" min="0" id="beds" name="beds" placeholder="Letti" required>
-                <div class="invalid-feedback">
-                  L'inserimento dei letti
-                </div>
-              </div>    
-           </div>
 
-
-            <div class="form-row">
-  
-                <div class="col">
-                    <label for="description">Descrizione</label>
-                    <textarea type="text" row = "10" class="form-control" id="description" name="description" placeholder="Descrizione" required> </textarea>
-                    <div class="invalid-feedback">
-                        Inserisci una Descrizione.
-                      </div>
+              <div class="col-md-4 mb-3">
+                <label for="type_accomodation"><span class="fas fa-door-closed"></span> Tipo di Alloggio</label>
+                <select type="select" class="form-control" id="type-accomodation" name="type_accomodation" placeholder="Tipo di Alloggio" required>
+                  <option>Tutta la casa</option>
+                  <option>Camera di Hotel</option>
+                  <option>Stanza condivisa</option>
+                  <option>Stanza privata</option>
+                </select>
+                <div class="invalid-feedback">
+                    La tipologia di alloggio è obbligatoria.
                 </div>
-              
-                
+              </div>
+
             </div>
 
             <div class="form-row">
+
+              <div class="col-md-4 mb-3">
+                <label for="price"><span class="fas fa-euro-sign"></span> Prezzo per notte</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
+                  <input type="number" class="form-control" min="0" id="price" name="price" placeholder="Prezzo per notte" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text">,00</span>
+                  </div>
+                </div>
+                <div class="invalid-feedback">
+                  L'inserimento del prezzo è obbligatorio.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="bedrooms"><span class="fas fa-restroom"></span> Camere da letto</label>
+                <input type="number" class="form-control" min="0" max="100" id="bedrooms" name="bedrooms" placeholder="Camere da letto" required>
+                <div class="invalid-feedback">
+                  L'inserimento del numero di camere è obbligatorio.
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="beds"><span class="fas fa-bed"></span> Posti letto (totali)</label>
+                <input type="number" class="form-control" min="0" max="200" id="beds" name="beds" placeholder="Posti letto" required>
+                <div class="invalid-feedback">
+                  L'inserimento del numero dei posti letto è obbligatorio
+                </div>
+              </div>   
+               
+            </div>
+
+            <div class="form-row">
   
-              <div class="col">
-                  <label for="type_accomodation">Tipo di Alloggio</label>
-                  <textarea type="text" row = "10" class="form-control" id="type_accomodation" name="type_accomodation" placeholder="Tipo di Alloggio" required> </textarea>
+              <div class="col-md-12 mb-3">
+                  <label for="description"><span class="fas fa-comment"></span> Descrizione</label>
+
+                  <textarea type="text" rows="10" class="form-control" id="description" name="description" 
+                            placeholder="Descrizione" minlength="50" required>
+                  </textarea>
+
                   <div class="invalid-feedback">
-                      Inserisci un tipo di Alloggio (Es:Tutta la stanza, Stanza Privata, Stanza Hotel ecc).
-                    </div>
+                      La descrizione è obbligatoria e deve essere minimo di 50 caratteri.
+                  </div>
               </div>
-            
-              
+            </div>
           </div>
+        </div>
   
   
         <div class="card mt-5">
   
-          <div class="card-header text-white bg-primary">Indirizzo</div>
+          <div class="card-header text-white bg-primary"><span class="fas fa-house-user"></span> Indirizzo</div>
   
           <div class="card-body">
   
-  
             <div class="form-row">
               
-              <div class="col-md-9 mb-3">
-                <label for="street">Indirizzo</label>
+              <div class="col-md-8 mb-3">
+                <label for="street"><span class="fas fa-map-marker-alt"></span> Indirizzo</label>
                 <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico">
                 <div class="invalid-feedback">
                   Inserire un indirizzo valido
                 </div>
               </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="zipcode"><span class="fas fa-map-marker-alt"></span> CAP</label>
+                <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CAP"
+                       value="<%= session.user.address.zipcode %>" pattern="[0-9]{5}">
+                <div class="invalid-feedback">
+                  Inserire un CAP valido.
+                </div>
+              </div>
   
             </div>
   
@@ -101,31 +121,31 @@
             <div class="form-row">
   
               <div class="col-md-4 mb-3">
-                <label for="town">Comune</label>
-                <input type="text" class="form-control" id="town" name="town" placeholder="Comune">
+                <label for="town"><span class="fas fa-map"></span> Comune</label>
+                <input type="text" class="form-control" id="town" name="town" placeholder="Comune"
+                       value="<%= session.user.address.town %>">
                 <div class="invalid-feedback">
                   Inserire un comune valido.
                 </div>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="province">Provincia</label>
-                <input type="text" class="form-control" id="province" name="province" placeholder="Provincia">
+              <div class="col-md-4 mb-3 ui-widget">
+                <label for="province"><span class="fas fa-map"></span> Provincia</label>
+                <input type="text" class="form-control" id="province" name="province" placeholder="Provincia"
+                       value="<%= session.user.address.province %>">
                 <div class="invalid-feedback">
                   Inserire una città valida.
                 </div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="country">Stato</label>
-                <input type="text" class="form-control" id="country" name="country" placeholder="Stato">
+                <label for="country"><span class="fas fa-globe"></span> Stato</label>
+                <input type="text" class="form-control" id="country" name="country" placeholder="Stato"
+                       value="<%= session.user.address.country %>">
                 <div class="invalid-feedback">
                   Inserire un stato valido.
                 </div>
               </div>
   
-  
             </div>
-  
-  
           </div>
         </div>
   
@@ -151,7 +171,7 @@
       <form method="post" enctype="multipart/form-data" action="/apartments/upload">
         <input type="file" name="file">
         <input type="submit" value="Submit">
-    </form>
+      </form>
 
     </div>
   </div>

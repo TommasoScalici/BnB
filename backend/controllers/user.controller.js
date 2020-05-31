@@ -82,7 +82,7 @@ module.exports =
         let user = Mapper.getUserFromReq(req);
 
         if(req.files) {
-            let image = req.files.profileImage;
+            let image = req.files.profile_image;
             image.mv(`./uploads${imagePath}`);
             user.profile_picture_path = imagePath;
         }
