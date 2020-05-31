@@ -73,7 +73,14 @@
                                 </select>
                             </div>
 
+                            <!--ID dell'appartamento-->
                             <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
+
+                            </br>
+
+                            <!--Prezzo totale dinamico-->
+                            <input id="totalPrice" name="totalPrice" type="hidden" value="">
+                            <label id="totalPriceLabel" for="totalPrice"></label>
 
                             <input type="hidden" name="_method" value="POST">
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota</button>

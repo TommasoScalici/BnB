@@ -1,5 +1,8 @@
 $(document).ready(function () {    
-    $(window).on('load', function() {
+    $(window).on('load', function() 
+    {
+        var totalPrice;
+        var apartmentPrice = Number($('#apartment').val());
 
         $(".guests-input").on('input', function() {
 
@@ -16,6 +19,18 @@ $(document).ready(function () {
                 $("#peopleDropdown").text(`${sum} ospiti`);
 
             $("#guests").val(sum);
+        });
+
+        $("#checkin, #checkout").change(function(){
+
+            
+            var date1 = new Date ($('#checkin').val()); 
+            var date2 = new Date ($('#checkout').val());
+            
+            totalPrice = (date2 - date1) * apartmentPrice;
+            
+            
+            $('#totalPriceLabel').html(totalPrice);
         });
     });
     $("#to-signinModal").click(function() {
