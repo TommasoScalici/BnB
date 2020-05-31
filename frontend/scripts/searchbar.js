@@ -10,6 +10,9 @@ function updateGuests() {
     $(".guests-input").each(function() {
         sum += Number($(this).val());
     });
+    
+    if ($(('#searchbar-guests-newborns').val()) < 0)   
+        this.val() = 0;
 
     if(sum == 0)
         $("#searchbar-people-dropdown").text("Aggiungi ospiti");
@@ -17,8 +20,9 @@ function updateGuests() {
         $("#searchbar-people-dropdown").text(`${sum} ospite`);
     else
         $("#searchbar-people-dropdown").text(`${sum} ospiti`);
-
     $("#searchbar-guests").val(sum);
+
+
 }
 
 $(document).ready(function() {
@@ -71,4 +75,4 @@ $(document).ready(function() {
 });
 
 
-$(".guests-input").on('input', () => updateGuests());
+$(".guests-input").on('change', () => updateGuests());

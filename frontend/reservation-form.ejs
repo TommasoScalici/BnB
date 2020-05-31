@@ -73,7 +73,16 @@
                                 </select>
                             </div>
 
+                            <!--ID dell'appartamento-->
                             <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
+                            <!--Prezzo appartamento-->
+                            <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
+
+                            </br>
+
+                            <!--PREZZO TOTALE DINAMICO-->
+                            <input id="totalPrice" name="totalPrice" type="hidden" value="">
+                            <label id="totalPriceLabel" for="totalPrice" style="font-size: large; font-weight: bold;"></label>
 
                             <input type="hidden" name="_method" value="POST">
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota</button>
@@ -98,7 +107,7 @@
                         <div class="card-body">
                             <p>
                                 Accedi per proseguire nella prenotazione.
-                                <a id="to-signinModal" data-toggle="modal" data-target="#signinModal" href="#">Accedi</a >, o <a href="/users/signup">registrati </a>se non possiedi ancora un account.
+                                <a id="to-signinModal" data-toggle="modal" data-target="#signin-modal" href="#">Accedi</a >, o <a href="/users/signup">registrati </a>se non possiedi ancora un account.
                             </p>
                         </div>
                     </div>
