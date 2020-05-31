@@ -1,5 +1,21 @@
 <link href="/css/searchbar.css" rel="stylesheet">
 
+<style>
+ 
+ .dropdown-container {
+  position: relative;
+}
+
+.navbar .dropdown-menu {
+    margin-left: -1rem;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 100%;
+}
+    
+</style>    
+
 <form action="/apartments/search" method="GET" id="searchbar-form" class="align-middle mx-auto my-auto" role="group" id="search-bar">
 
     <div class="row mx-auto">
@@ -25,32 +41,34 @@
         <div class="form-group-inline">
             <input type="hidden" id="searchbar-guests" name="guests">
             <small class="label-placeholder">OSPITI</small>
-            <button class="form-control input-placeholding" type="button" id="searchbar-peopleDropdown" style="width:11rem"
+            <button class="form-control input-placeholding" type="button" id="searchbar-people-dropdown" style="width:11rem"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
 
-            <div class="dropdown-menu" aria-labelledby="searchbar-peopleDropdown">
-                <div class="container">
-                    <div class="form-inline">
-                        <div class="form-group" style="line-height: 1em;">
+            <div class="dropdown-container">
+                <div class="dropdown-menu dropdown-menu-absolute" aria-labelledby="searchbar-people-dropdown">
+                    <div class="container">
+                        <div class="form-inline">
+                            <div class="form-group" style="line-height: 1em;">
 
-                            <div>
-                                <strong class="align-middle mx-auto">Adulti</strong><br />
-                                <small class="align-middle mx-auto">12 in su</small><br /><br />
-                                <strong class="align-middle mx-auto">Bambini</strong><br />
-                                <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
-                                <strong class="align-middle mx-auto">Neonati</strong><br />
-                                <small class="align-middle mx-auto">Fino ai 2</small>
+                                <div>
+                                    <strong class="align-middle mx-auto">Adulti</strong><br />
+                                    <small class="align-middle mx-auto">13 in su</small><br /><br />
+                                    <strong class="align-middle mx-auto">Bambini</strong><br />
+                                    <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
+                                    <strong class="align-middle mx-auto">Neonati</strong><br />
+                                    <small class="align-middle mx-auto">Fino ai 2</small>
+                                </div>
+
+                                <div class="ml-4" style="width: 2em">
+                                    <input id="searchbar-guests-adults" name="guests-adults" class="guests-input mb-4"
+                                        type="number" value="0" min="0" max="9" step="1" />
+                                    <input id="searchbar-guests-children" name="guests-children" class="guests-input my-auto"
+                                        type="number" value="0" min="0" max="9" step="1"/>
+                                    <input id="searchbar-guests-newborns" name="guests-newborns" class="guests-input mt-4"
+                                        type="number" value="0" min="0" max="9" step="1"/>
+                                </div>
+
                             </div>
-
-                            <div class="ml-4" style="width: 4em">
-                                <input id="searchbar-guests-adults" name="guests-adults" class="guests-input mb-4"
-                                    type="number" value="0" min="0" max="9" step="1" />
-                                <input id="searchbar-guests-children" name="guests-children" class="guests-input my-auto"
-                                    type="number" value="0" min="0" max="9" step="1"/>
-                                <input id="searchbar-guests-newborns" name="guests-newborns" class="guests-input mt-4"
-                                    type="number" value="0" min="0" max="9" step="1"/>
-                            </div>
-
                         </div>
                     </div>
                 </div>
