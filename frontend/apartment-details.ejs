@@ -31,7 +31,11 @@
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
       <div class="view">
-        <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/4cfb3ae7-dc82-4004-8d34-b9687be812f3.jpg?im_w=720" alt="First slide">
+
+        <img width="100" height="100" alt="profile picture" id="profilePicture" class=" d-block w-100" 
+                 src="<% if(apartment.photo) { %> <%= apartment.photo %> <% } else { %>
+                      /images/default-user-image.jpg<% } %>">
+        <!-- <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/4cfb3ae7-dc82-4004-8d34-b9687be812f3.jpg?im_w=720" alt="First slide"> -->
         <div class="mask rgba-black-light"></div>
       </div>
       <div class="carousel-caption">

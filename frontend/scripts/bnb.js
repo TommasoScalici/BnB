@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     // Gestione del click sugli anchor 
     $("a").click(function() {
 
@@ -60,23 +59,6 @@ $(document).ready(function () {
 });
 
 $(window).on('load', function() {
-
-    $(".guests-input").on('input', function() {
-
-        let sum = 0;
-        $(".guests-input").each(function() {
-            sum += Number($(this).val());
-        });
-
-        if(sum == 0)
-            $("#searchbar-peopleDropdown").text("Aggiungi ospiti");
-        else if(sum == 1)
-            $("#searchbar-peopleDropdown").text(`${sum} ospite`);
-        else
-            $("#searchbar-peopleDropdown").text(`${sum} ospiti`);
-
-        $("#searchbar-guests").val(sum);
-    });
 
     // Validazione custom di Bootstrap
     $(".needs-validation").each(function() {
@@ -174,7 +156,7 @@ $("#province").ready(function() {
             }
         })
         
-        if($("province") !== undefined) {
+        if($("#province").autocomplete("instance") !== undefined) {
             $("#province").autocomplete("instance")._renderItem = function(ul, item) {
                 return $("<li>").append(`<div>${item.label} (${item.value})</div>`)
                                 .appendTo(ul);
@@ -193,45 +175,12 @@ $("#town").ready(function() {
     });
 });
 
-$("#searchbar-location").ready(function() {
-    $.getJSON("../data/comuni.json", function(data) {
-        $("#searchbar-location").autocomplete({
-
-            focus: function( event, ui ) {
-                $("#searchbar-location").val(`${ui.item.label} (${ui.item.value})`);
-                return false;
-            },
-
-            select: function(event, ui) {
-                $("#searchbar-location").val(`${ui.item.label} (${ui.item.value})`);
-                $("#searchbar-province").val(ui.item.value);
-                $("#searchbar-town").val(ui.item.label);
-                return false;
-            },
-
-            source: function(request, response) {
-                let matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
-                let results = data.map(x => {return { label: x.nome, value: x.sigla} })
-                results = $.grep(results, function(item) { return matcher.test(item.label || item.value)});
-                results.sort();
-                response(results.slice(0, 10));
-            } 
-        })
-
-        if($("#searchbar-location") !== undefined) {
-            $("#searchbar-location").autocomplete("instance")._renderItem = function(ul, item) {
-                return $("<li>").append(`<div>${item.label} (${item.value})</div>`)
-                                .appendTo(ul);
-            };
-        }
-    });
-});
-
 /*
 ***
 *** Fine gestione autocompletamento
 ***
 */
+
 
 // Focus automatico sulla modale del signin
 $(document).on('shown.bs.modal', function() {

@@ -1,31 +1,33 @@
 <link href="/css/searchbar.css" rel="stylesheet">
 
-<form action="/apartments/search" method="GET" id="searchbar-form" class="align-middle mx-auto my-auto" role="group" id="search-bar">
+<div class="rounded d-none d-lg-block" style="background-color: rgba(128,128,128, 0.5); width: 80%; height: 6rem; position: absolute;
+                                              margin: 0 auto; left: 0; right: 0; top:40%; z-index: 1;">
 
-    <div class="row mx-auto">
+    <form action="/apartments/search" method="GET" class="btn-group position-absolute" 
+          role="group" id="searchbar-form" style="height:5rem; margin: 1.4% 10%">
 
-        <div class="form-group-inline">
-            <small class="label-placeholder">CHECK-IN</small>
-            <input type="date" id="searchbar-checkin" name="checkin" class="form-control input-placeholding" style="width:11rem">      
-        </div>
-
-        <div class="form-group-inline">
-            <small class="label-placeholder">CHECK-OUT</small>
-            <input type="date" id="searchbar-checkout" name="checkout" class="form-control input-placeholding" style="width:11rem">    
-        </div>
-
-        <div class="form-group-inline">
+        <div class="form-group">
             <small class="label-placeholder">DOVE</small>
             <input type="hidden" id="searchbar-province" name="province">
             <input type="hidden" id="searchbar-town" name="town">
-            <input id="searchbar-location" name="location" type="input" class="form-control input-placeholding" style="width: 11rem;"
-                   placeholder="Cerca per città, indirizzo...">
+            <input id="searchbar-location" name="location" type="input" class="btn btn-secondary input-placeholding"
+                placeholder="Cerca per città, indirizzo...">
         </div>
 
-        <div class="form-group-inline">
+        <div class="form-group">
+            <small class="label-placeholder">CHECK-IN</small>
+            <input type="date" id="searchbar-checkin" name="checkin" class="btn btn-secondary input-placeholding">      
+        </div>
+
+        <div class="form-group">
+            <small class="label-placeholder">CHECK-OUT</small>
+            <input type="date" id="searchbar-checkout" name="checkout" class="btn btn-secondary input-placeholding">    
+        </div>
+
+        <div class="form-group">
             <input type="hidden" id="searchbar-guests" name="guests">
             <small class="label-placeholder">OSPITI</small>
-            <button class="form-control input-placeholding" type="button" id="searchbar-peopleDropdown" style="width:11rem"
+            <button class="btn btn-secondary btn-block input-placeholding" type="button" id="searchbar-peopleDropdown" style="width:12rem;"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
 
             <div class="dropdown-menu" aria-labelledby="searchbar-peopleDropdown">
@@ -42,7 +44,7 @@
                                 <small class="align-middle mx-auto">Fino ai 2</small>
                             </div>
 
-                            <div class="ml-4" style="width: 4em">
+                            <div class="ml-4" style="width: 8em">
                                 <input id="searchbar-guests-adults" name="guests-adults" class="guests-input mb-4"
                                     type="number" value="0" min="0" max="9" step="1" />
                                 <input id="searchbar-guests-children" name="guests-children" class="guests-input my-auto"
@@ -57,11 +59,11 @@
             </div>
         </div>
 
-        <div class="form-group-inline">
-            <button type="submit" class="btn btn-primary fas fa-search" style="height: 100%; width:100%"></button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" style="height: 100%; width:12rem">Cerca</button>
         </div>
+        
     </div>
-
 </form>
 
 <script src="/scripts/searchbar.js"></script>
