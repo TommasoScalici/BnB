@@ -46,12 +46,13 @@ module.exports =
     }},
 
     getReservationFromReq: (req) => {
+        console.log(req.body);
         return{
-          //  user: req.session.user._id,
-            //apartment: req.body.apartment.id,
+            user: req.session.user._id,
+            apartment: req.body.apartment,
             checkin: req.body.checkin,
             checkout: req.body.checkout,
-            guests: req.body.sum,
+            guests: req.body.guests,
             payment: req.body.payment,
             //totalPrice: req.body.totalPrice
    }},

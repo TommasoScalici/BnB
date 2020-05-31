@@ -4,8 +4,8 @@
 <div class="container">
   
   <!-- Portfolio Item Heading -->
-  <h1 class="my-4">
-    <small></small>
+  <h1 class="my-4">Page Heading
+    <small>Secondary Text</small>
   </h1>
   <h1 class="my-4"><%= apartment.name %>
     <div style="font-size:large; color: darkslategray; margin-top: 0rem;"  >
@@ -142,62 +142,60 @@
                 style="border:0" allowfullscreen></iframe> -->
             </div>
             <!-- Google Maps -->
-  
+            
           </div>
-  
+          
           <div class="col-10 col-md-4 mx-auto align-self-center py-4">
-  
+            
             <h6 class="font-weight-bold grey-text text-uppercase small">Posizione</h6>
             <h5 class="font-weight-normal mb-4"><%= apartment.address.town %>, <%= apartment.address.province %></h5>
             <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %>
-  
+              
+            </div>
           </div>
+          
         </div>
-  
+        <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> €! <small>/Notte</small>
+          <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+          data-toggle="modal" data-target="#reservationModal">  Prenota </a>
+          <!--
+            <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> € <small>/Notte</small>
+              <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>
+            -->  
+            
+          </h4>
+          
+          
+          
+        </section>
+        <!-- Section: Block Content -->
+        
       </div>
-      <%- include ('reservation-form')%>
-      <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> €! <small>/Notte</small>
-        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
-           data-toggle="modal" data-target="#reservationModal">  Prenota </a>
-<!--
-      <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> € <small>/Notte</small>
-        <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>
--->  
       
-      </h4>
-     
       
-  
-    </section>
-    <!-- Section: Block Content -->
-  
-  </div>
-
-
-
-  <!-- Related Projects Row -->
-  <h3 class="my-4">Appartamenti vicino <%= apartment.address.town %>  </h3>
-
-  <div class="row">
+      
+      <!-- Related Projects Row -->
+      <h3 class="my-4">Appartamenti vicino <%= apartment.address.town %>  </h3>
+      
+      <div class="row">
+        
+      <% for(let apartment of apartments) { %>
+        <%- include('apartment-preview', {apartment: apartment}); %>
+        <% } %>
+        
+        
+      </div>
+      <!-- /.row -->
+      
+      
+  <%- include ('reservation-form')%>
+    </div>
+    <!-- /.container -->
     
-    
-    
-    <% for(let apartment of apartments) { %>
-      <%- include('apartment-preview', {apartment: apartment}); %>
-    <% } %>
-    
+    <script>
+      $("#to-signinModal").click(function() {
+        $('#reservationModal').modal('hide');
+    });
+    </script>
 
 
-  </div>
-  <!-- /.row -->
-
-
-</div>
-<!-- /.container -->
-
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 272a29a91d60099884f4554a44f079150d4faef7

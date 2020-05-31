@@ -1,6 +1,5 @@
 
-<link href="/css/signin.css" rel="stylesheet">
-<link href="/css/home.css" rel="stylesheet">
+
 
 <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -74,6 +73,8 @@
                                 </select>
                             </div>
 
+                            <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
+
                             <input type="hidden" name="_method" value="POST">
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota</button>
 
@@ -97,9 +98,8 @@
                         <div class="card-body">
                             <p>
                                 Accedi per proseguire nella prenotazione.
-                                <a data-toggle="modal" data-target="#signinModal" href="#">Accedi</a >, o <a href="/users/signup">registrati</a>se non possiedi ancora un account.
+                                <a id="to-signinModal" data-toggle="modal" data-target="#signinModal" href="#">Accedi</a >, o <a href="/users/signup">registrati </a>se non possiedi ancora un account.
                             </p>
-                            
                         </div>
                     </div>
                 </div>
@@ -107,8 +107,10 @@
          </div>
     </div>
 </div>
+
 <!-- Custom scripts -->
-<script src="/scripts/bnb.js"></script>
+<script src="/scripts/reservationModalScript.js"></script>
+
 
 
 
