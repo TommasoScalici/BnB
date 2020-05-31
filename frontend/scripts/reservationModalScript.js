@@ -2,7 +2,7 @@ $(document).ready(function () {
     $(window).on('load', function() 
     {
         var totalPrice;
-        var apartmentPrice = Number($('#apartment').val());
+        var apartmentPrice = Number($('#apartmentPrice').val());
 
         $(".guests-input").on('input', function() {
 
@@ -27,13 +27,30 @@ $(document).ready(function () {
             var date1 = new Date ($('#checkin').val()); 
             var date2 = new Date ($('#checkout').val());
             
-            totalPrice = (date2 - date1) * apartmentPrice;
+            totalPrice = (date2 - date1)/86400000 * apartmentPrice;
             
             
             $('#totalPriceLabel').html(totalPrice);
         });
+       
+        $("#checkin").attr("min", moment().format("YYYY-MM-DD"));
+        $("#checkout").attr("min", moment().format("YYYY-MM-DD"));
+
+        $("#checkin").change(function() {
+            $("#checkout").attr("min", $("#checkin").val());
+
+                if($("#checkin").val() > $("#checkout").val())
+                    $("#checkout").val($("#checkin").val());
+        });
+
+        $("#checkout").change(function() {
+            if($("#checkin").val() > $("#checkout").val())
+                $("#checkin").val($("#checkout").val());
+        });
+
     });
-    $("#to-signinModal").click(function() {
+    $("#to-signinModal").click(function(event) {
+        event.preventDefault();
         $('#reservationModal').modal('hide');
     });
 });
