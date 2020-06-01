@@ -107,7 +107,9 @@
               
               <div class="col-md-8 mb-3">
                 <label for="street"><span class="fas fa-map-marker-alt"></span> Indirizzo</label>
+                <div class="input-group">
                 <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico">
+              </div>
                 <div class="invalid-feedback">
                   Inserire un indirizzo valido
                 </div>
@@ -163,8 +165,9 @@
 
             <div class="form-row">      
               <div class="col-md-12 mb-3 my-auto">
+                <label for="apartment-file-input"><span class="fas fa-images"></span> Seleziona una o più immagini del tuo appartamento da caricare</label>
                 <div class="input-group mb-3">
-                  <div class="custom-file">
+                  <div class="custom-file" id="apartment-file-input">
                     <input type="file" class="custom-file-input" id="apartment-images-input" name="photos" multiple>
                     <label class="custom-file-label" for="apartment-images-input" data-browse="Sfoglia">
                       <div class="progress h-100">

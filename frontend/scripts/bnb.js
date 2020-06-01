@@ -32,6 +32,7 @@ $(document).ready(function () {
             let files = this.files;
 
             // Inizializzazione view per il caricamento
+            $('#photos-preview').empty(); // Svuoto nel caso ci fossero immagini caricate in precedenza
             $('#apartment-spinner').fadeIn(500);
             $("#apartment-progressbar").attr("aria-valuenow", 0);
             $("#apartment-progressbar").css("width", 0);
@@ -57,6 +58,7 @@ $(document).ready(function () {
                     img.onload = function() { $(this).fadeIn(2000)};
 
                     $('#photos-preview').append(img);
+
                     reader.onload = function (e) {
                         img.src = e.target.result;
                     }
