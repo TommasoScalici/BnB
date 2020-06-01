@@ -1,3 +1,9 @@
+<style>
+.custom-file-label {
+    padding: 0 !important;
+}
+</style>
+
 <div class="card card-signin my-5">
     <div class="card-body">
     <h5 class="card-title text-center">Inserisci Appartamento</h5>
@@ -18,7 +24,8 @@
   
               <div class="col-md-8 mb-3">
                 <label for="name"><span class="fas fa-home"></span> Nome dell'appartamento</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nome appartamento" required>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome appartamento"
+                       autocomplete="off" required>
                 <div class="invalid-feedback">
                   L'inserimento del nome dell'appartamento è obbligatorio.
                 </div>
@@ -127,7 +134,7 @@
                   Inserire un comune valido.
                 </div>
               </div>
-              <div class="col-md-4 mb-3 ui-widget">
+              <div class="col-md-4 mb-3">
                 <label for="province"><span class="fas fa-map"></span> Provincia</label>
                 <input type="text" class="form-control" id="province" name="province" placeholder="Provincia"
                        value="<%= session.user.address.province %>">
@@ -154,42 +161,41 @@
   
           <div class="card-body">
 
-            <div class="form-row">
-              <div class="col-md-6 mb-3 my-auto" id="photos-preview">
-                <div class="d-flex align-self-center justify-content-center">
-                  <div class="spinner-grow" id="apartment-spinner" role="status" style="display: none">
-                    <span class="sr-only"></span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6 mb-3 my-auto">
+            <div class="form-row">      
+              <div class="col-md-12 mb-3 my-auto">
                 <div class="input-group mb-3">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="apartment-images-input" name="photos" multiple>
-                    <label class="custom-file-label" for="apartment-images-input" data-browse="Sfoglia">Carica una o più immagini</label>
+                    <label class="custom-file-label" for="apartment-images-input" data-browse="Sfoglia">
+                      <div class="progress h-100">
+                        <div class="progress-bar bg-success" id="apartment-progressbar" role="progressbar" 
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </label>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="form-row">
-              <div class="col-md-6 mb-3 my-auto">     
-              </div>
-              <div class="col-md-6 mb-3 my-auto">
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" id="apartment-progressbar" role="progressbar" 
-                       aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="form-row mb-4 mt-4">
+              <div class="col-md-12 mb-3 my-auto">
+                <div class="d-flex align-self-center justify-content-center">
+                  <div class="spinner-border text-primary" id="apartment-spinner" role="status" style="display: none">
+                    <span class="sr-only"></span>
+                  </div>
                 </div>
+              </div>
+            </div>
+
+            <div class="form-row mb-4 mt-4">
+              <div class="col-md-12 mb-3 my-auto border border-primary rounded" id="photos-preview">
               </div>
             </div>
 
           </div>
         </div>
-
-        <br /><br />
   
-        <div class="form-group">
+        <div class="form-group mt-4">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="terms" required>
             <label class="form-check-label" for="terms">
@@ -202,7 +208,7 @@
         </div>
         
         <input type="hidden" name="_method" value="POST">
-        <button class="btn btn-primary mb-4" type="submit">Inserisci</button>
+        <button class="btn btn-primary mb-4 mt-4" type="submit">Inserisci</button>
 
         <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
           <strong>L'annuncio è stato caricato con successo!</strong>
