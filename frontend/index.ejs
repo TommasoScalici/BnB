@@ -2,6 +2,14 @@
 <html lang="en">
 
   <head>
+    <!-- 
+                                                  ______         ______ 
+                                                  | ___ \  ___   | ___ \
+                                                  | |_/ / ( _ )  | |_/ /
+                                                  | ___ \ / _ \/\| ___ \
+                                                  | |_/ /| (_>  <| |_/ /
+                                                  \____/  \___/\/\____/ 
+     -->
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,6 +18,10 @@
 
     <title>B&B - <%= pagetitle %></title>
 
+
+    <!-- ******************** -->
+    <!-- JavaScript libraries -->
+    <!-- ******************** -->
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,6 +37,18 @@
     <!-- underscore.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.10.2/underscore-min.js"></script>
 
+    <!-- underscore.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+
+
+    <!-- ******************** -->
+    <!--   Stylesheets (CSS)  -->
+    <!-- ******************** -->
+
+    
+    <!-- jQuery UI CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+
     <!-- Bootstrap core -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 
@@ -37,10 +61,6 @@
   </head>
 
   <body>
-
-
-    <!-- Hack per conoscere il path JS side -->
-    <div id="divPath" style="display: none;"><%= path %></div>
 
     <!-- Placeholder for SearchBar in home -->
     <div id="searchbar-home"></div>

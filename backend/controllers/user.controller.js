@@ -6,11 +6,15 @@ module.exports =
 {
     logout: (req, res) => {
         req.session.user = null;
+        req.session.save();
         res.status(200).redirect("/");
     },
 
     profile: (req, res) => {
-        res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
+        if(req.session.user === undefined || req.session.user === null)
+            res.sendStatus(403);
+        else
+            res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
     },
 
     renderSignup: (req, res) => {

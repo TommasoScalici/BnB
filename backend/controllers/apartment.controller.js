@@ -51,11 +51,28 @@ module.exports =
     },
     
     renderCreate: (req, res) => {
-        res.render("index", {pagetitle: "Inserimento Appartamento", path: "apartment-create"});
+        if(req.session.user === undefined || req.session.user === null)
+            res.sendStatus(403);
+        else
+            res.render("index", {pagetitle: "Inserimento Appartamento", path: "apartment-create"});
     },
 
-    searchApartments: async (req, res) => { 
-        await Apartment.find({ province: req.query.location }, function(err, apartments) {
+    searchApartments: async (req, res) => {
+
+        req.session.guests = {
+            adults: req.query.guests_adults,
+            children: req.query.guests_children,
+            newborns: req.query.guests_newborns,
+            total: req.query.guests
+        };
+
+        req.session.save();
+
+        await Apartment.find({
+            "address.province": req.query.province,
+            "address.town": req.query.town,
+            beds: { $gte: req.query.guests }
+        }, function(err, apartments) {
             if(err) {
                 console.log(`Mongo error while retrieveing apartments data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});

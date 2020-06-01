@@ -8,11 +8,10 @@
 function updateGuests() {
     let sum = 0;
     $(".guests-input").each(function() {
+        if($(this).val() < 0)
+            $(this).val(0);
         sum += Number($(this).val());
     });
-    
-    if ($(('#searchbar-guests-newborns').val()) < 0)   
-        this.val() = 0;
 
     if(sum == 0)
         $("#searchbar-people-dropdown").text("Aggiungi ospiti");
@@ -20,12 +19,32 @@ function updateGuests() {
         $("#searchbar-people-dropdown").text(`${sum} ospite`);
     else
         $("#searchbar-people-dropdown").text(`${sum} ospiti`);
+
     $("#searchbar-guests").val(sum);
-
-
 }
 
 $(document).ready(function() {
+
+    // Gestione dei cookie per la query di ricerca
+    if(Cookies.get("query_search")) {
+        $("#searchbar-form").deserialize(Cookies.get("query_search"));
+        updateGuests();
+    }
+
+    $("#searchbar-form").submit(function(event) {
+        let cookie = Cookies.get("query_search");
+        let data =  $(this).serialize();
+
+        if(!cookie || cookie != data) {
+            event.preventDefault();
+            Cookies.set("query_search", data, {expires: 7});
+            $(this).submit();
+        }
+    })
+    // Fine gestione cookie
+
+
+    // Gestione autocompletamento per input di ricerca location
     $.getJSON("../data/comuni.json", function(data) {
         $("#searchbar-location").autocomplete({
 
@@ -75,4 +94,4 @@ $(document).ready(function() {
 });
 
 
-$(".guests-input").on('change', () => updateGuests());
+$(".guests-input").change(() => updateGuests());

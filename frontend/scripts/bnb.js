@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     // Gestione del click sugli anchor 
     $("a").click(function() {
 
@@ -21,11 +20,12 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 $('#profile-image').attr('src', e.target.result);
             }
-            
-            
+            reader.readAsDataURL(value);
         }
     });
 
+    // Renderizza le previews per le immagini all'inserimento di un nuovo alloggio
+    // utilizzando l'effetto fadein
     $("#apartment-images-input").change(function () {
 
         if (this.files && this.files[0]) {
@@ -109,7 +109,7 @@ $(window).on('load', function() {
 
         let form = $(this);
 
-        $(this).on('submit', function(event) {
+        $(this).submit(function(event) {
 
             event.preventDefault();
 
