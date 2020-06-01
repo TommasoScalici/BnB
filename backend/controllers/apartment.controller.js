@@ -12,14 +12,16 @@ module.exports =
                 console.log(`Mongo error while user was signing up: ${err}`);
             else {
                 let i = 0;
-
-                for(let image of req.files.photos) {
+                
+                let photos = [].concat(req.files.photos);
+                
+                for(let image of photos) {
                     let path = `/apartment/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
                     image.mv(`./uploads${path}`);
                     newApartment.photo_paths.push(path);
                     i++;
                 }
-
+                
                 await Apartment.updateOne({_id: apartment._id}, newApartment);
                 res.status(201).json("Apartment inserted sucesfully");
             }

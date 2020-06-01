@@ -4,9 +4,6 @@
 <div class="container">
   
   <!-- Portfolio Item Heading -->
-  <h1 class="my-4">Page Heading
-    <small>Secondary Text</small>
-  </h1>
   <h1 class="my-4"><%= apartment.name %>
     <div style="font-size:large; color: darkslategray; margin-top: 0rem;"  >
       <smaller><%= apartment.address.town %>, <%= apartment.address.province %>, <%= apartment.address.street %> </smaller>
@@ -149,7 +146,7 @@
             
             <h6 class="font-weight-bold grey-text text-uppercase small">Posizione</h6>
             <h5 class="font-weight-normal mb-4"><%= apartment.address.town %>, <%= apartment.address.province %></h5>
-            <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %>
+            <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %><%= apartment.address.zipcode %>
               
             </div>
           </div>
