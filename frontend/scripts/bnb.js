@@ -20,7 +20,7 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 $('#profile-image').attr('src', e.target.result);
             }
-            reader.readAsDataURL(value);
+            reader.readAsDataURL(this.files[0]);
         }
     });
 
