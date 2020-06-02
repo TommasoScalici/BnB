@@ -3,6 +3,9 @@ module.exports = app => {
   
     var router = require("express").Router();
   
+    // Go to the page for becoming a host
+    router.get("/becomehost", userController.becomeHost);
+
     // Logs out the current User
     router.get("/logout", userController.logout);
 

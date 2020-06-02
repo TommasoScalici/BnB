@@ -4,6 +4,13 @@ const User = require('../models/user.js');
 
 module.exports = 
 {
+    becomeHost: (req, res) => {
+        if(req.session.user === undefined || req.session.user === null)
+            res.sendStatus(403);
+        else
+            res.render("index", {pagetitle: "Diventa Host", path: "become-host"});
+    },
+
     logout: (req, res) => {
         req.session.user = null;
         req.session.save();
