@@ -20,7 +20,7 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 $('#profile-image').attr('src', e.target.result);
             }
-            reader.readAsDataURL(value);
+            reader.readAsDataURL(this.files[0]);
         }
     });
 
@@ -30,11 +30,20 @@ $(document).ready(function () {
 
         if (this.files && this.files[0]) {
             let files = this.files;
+
+            // Inizializzazione view per il caricamento
+            $('#photos-preview').empty(); // Svuoto nel caso ci fossero immagini caricate in precedenza
+            $('#apartment-spinner').fadeIn(500);
+            $("#apartment-progressbar").attr("aria-valuenow", 0);
+            $("#apartment-progressbar").css("width", 0);
+            $("#apartment-progressbar").html(0);        
+            $("#apartment-progressbar").toggleClass("bg-success");
+            $("#apartment-progressbar").toggleClass("progress-bar-animated");
+            $("#apartment-progressbar").toggleClass("progress-bar-striped");
+
             $.each(files, function(index, value) {
                 
                 setTimeout(() => {
-
-                    $('#apartment-spinner').show();
 
                     let percentage = Math.ceil(((index + 1) / files.length * 100));
 
@@ -49,6 +58,7 @@ $(document).ready(function () {
                     img.onload = function() { $(this).fadeIn(2000)};
 
                     $('#photos-preview').append(img);
+
                     reader.onload = function (e) {
                         img.src = e.target.result;
                     }
@@ -59,8 +69,12 @@ $(document).ready(function () {
                     $("#apartment-progressbar").css("width", `${percentage}%`);
                     $("#apartment-progressbar").html(`${percentage}%`);
 
-                    if(percentage === 100)
-                    $('#apartment-spinner').hide();
+                    if(percentage === 100) {
+                        $('#apartment-spinner').fadeOut(1000);
+                        $("#apartment-progressbar").toggleClass("bg-success");
+                        $("#apartment-progressbar").toggleClass("progress-bar-animated");
+                        $("#apartment-progressbar").toggleClass("progress-bar-striped");
+                    }
 
                 }, 1000 + (index * 1000));
             });

@@ -85,14 +85,17 @@
             <a class="nav-item nav-link active" href="/">Home
               <span class="sr-only">(current)</span>
             </a>
-            <a class="nav-item nav-link" href="#">Cerca alloggio</a>
     
             <% if(!session.user) { %>
             <a class="nav-item nav-link" data-toggle="modal" data-target="#signin-modal" href="#">Accedi</a>
             <a class="nav-item nav-link" href="/users/signup">Registrati</a>
-            <a class="nav-item nav-link" href="/apartments">Listone</a>
-            <% } else { %>
+            <a class="nav-item nav-link" href="/apartments">Appartamenti</a>
+
+            <% } else if(session.user.is_host) { %>
             <a class="nav-item nav-link" href="/apartments/create">Inserisci Alloggio</a>
+
+            <% } else { %>
+            <a class="nav-item nav-link" href="/users/becomehost">Diventa un Host</a>
             <!-- Profile Dropdown -->
             <div class="nav-item dropdown">
 
@@ -102,6 +105,8 @@
               </a>
 
               <div class="dropdown-menu col-lg" aria-labelledby="profile-dropdown">
+                <a class="dropdown-item" href="/reservations">Viaggi</a>
+                <hr>
                 <a class="dropdown-item" href="/users/profile">Profilo</a>
                 <a class="dropdown-item" href="/users/logout">Esci</a>
               </div>
