@@ -8,10 +8,6 @@ module.exports =
             res.sendStatus(403);
         else
             res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
-    }
-
-    renderReservation: (req, res) => {
-        res.render("index", {pagetitle:"Prenotazione", path:"reservation-form"})
     },
 
     renderReview: (req, res) => {

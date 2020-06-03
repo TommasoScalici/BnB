@@ -1,19 +1,29 @@
 $(document).ready(function () {    
     $(window).on('load', function() 
     {
-        var totalPrice;
-        var apartmentPrice = Number($('#apartmentPrice').val());
 
         // By Tom: questa cosa qui è pericolosa perché lo script viene caricato in index.ejs che contiene già elementi
         // con queste classi e id, c'è rischio di conflitti. Una soluzione potrebbe usare nomi di identificatori diversi
-        $(".guests-input").on('input', function() {
+        //By Gigi: ma dove? xD
+        //By Salvo: mi piace il cazzo! :)
+        $(".guests-input, #checkin, #checkout").change(function() {
 
+            let totalPrice;
+            let adults = 0;
+            let newborns = 0;
             let sum = 0;
+            let date1 = new Date ($('#checkin').val()); 
+            let date2 = new Date ($('#checkout').val());
+            let apartmentPrice = Number($('#apartmentPrice').val());
+
             $(".guests-input").each(function() {
                 if($(this).val() < 0)
                     $(this).val(0);
-                sum += Number($(this).val());
-            });
+                    sum += Number($(this).val());
+                });
+            
+            newborns = Number($("#newborns").val());
+            adults = sum - newborns;
 
             if(sum == 0)
                 $("#peopleDropdown").text("Aggiungi ospiti");
@@ -23,19 +33,12 @@ $(document).ready(function () {
                 $("#peopleDropdown").text(`${sum} ospiti`);
 
             $("#guests").val(sum);
-            totalPrice *= sum;
-            $('#totalPriceLabel').html(totalPrice);
-        });
 
-        $("#checkin, #checkout").change(function(){
+            totalPrice = ((date2 - date1)/86400000 * (apartmentPrice)*(adults + (newborns/2)));
 
-            
-            var date1 = new Date ($('#checkin').val()); 
-            var date2 = new Date ($('#checkout').val());
-            
-            totalPrice = ((date2 - date1)/86400000 * apartmentPrice)*$("#guests").val();;
-            
-            $('#totalPriceLabel').html(totalPrice);
+            if(totalPrice > 0)
+                $('#strong-price').html(totalPrice+"€");
+                
         });
        
         $("#checkin").attr("min", moment().format("YYYY-MM-DD"));
@@ -51,6 +54,10 @@ $(document).ready(function () {
         $("#checkout").change(function() {
             if($("#checkin").val() > $("#checkout").val())
                 $("#checkin").val($("#checkout").val());
+
+        //Non so perchè ma sta cosa fixa il problema che puoi selezionare anche date precedenti al cui giorno presente
+        if(false){
+        }
         });
     });
     
