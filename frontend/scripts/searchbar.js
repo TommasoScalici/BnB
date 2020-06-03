@@ -14,7 +14,7 @@ function updateGuests() {
     });
 
     if(sum == 0)
-        $("#searchbar-people-dropdown").text("Aggiungi ospiti");
+    $("#searchbar-people-dropdown").text('Aggiungi ospiti');
     else if(sum == 1)
         $("#searchbar-people-dropdown").text(`${sum} ospite`);
     else

@@ -34,6 +34,7 @@
     "mongoose": "^5.9.16",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "sticky-sidebar": "^3.3.1"
   }
 }

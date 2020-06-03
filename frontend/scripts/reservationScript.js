@@ -23,6 +23,8 @@ $(document).ready(function () {
                 $("#peopleDropdown").text(`${sum} ospiti`);
 
             $("#guests").val(sum);
+            totalPrice *= sum;
+            $('#totalPriceLabel').html(totalPrice);
         });
 
         $("#checkin, #checkout").change(function(){
@@ -31,8 +33,7 @@ $(document).ready(function () {
             var date1 = new Date ($('#checkin').val()); 
             var date2 = new Date ($('#checkout').val());
             
-            totalPrice = (date2 - date1)/86400000 * apartmentPrice;
-            
+            totalPrice = ((date2 - date1)/86400000 * apartmentPrice)*$("#guests").val();;
             
             $('#totalPriceLabel').html(totalPrice);
         });
@@ -51,8 +52,8 @@ $(document).ready(function () {
             if($("#checkin").val() > $("#checkout").val())
                 $("#checkin").val($("#checkout").val());
         });
-
     });
+    
     $("#to-signinModal").click(function(event) {
         event.preventDefault();
         $('#reservationModal').modal('hide');

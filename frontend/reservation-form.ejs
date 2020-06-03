@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <input type="hidden" id="guests" name="guests">
                                 <button class="btn btn-light btn-block input-placeholding" type="button" id="peopleDropdown" style="width: 12rem;"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                     
                                 <!--Guests Dropdown-->
                                 <div class="dropdown-menu" aria-labelledby="peopleDropdown">
@@ -63,33 +63,13 @@
                                 </div>
                             </div>
 
-                            <!--Payment-->
-                            <div class="form-group">
-                                <label for="payment">Tipologia di pagamento</label>
-                                <select class="form-control" id="payment" name="payment">
-                                    <option value="visa">Visa</option>
-                                    <option value="mastercard">Mastercard</option>
-                                    <option value="payPal">PayPal</option>
-                                </select>
-                            </div>
+                            
 
-                            <!--ID dell'appartamento-->
-                            <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
-                            <!--Prezzo appartamento-->
-                            <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
+                            
 
                             </br>
 
-                            <!--PREZZO TOTALE DINAMICO-->
-                            <input id="totalPrice" name="totalPrice" type="hidden" value="">
-                            <label id="totalPriceLabel" for="totalPrice" style="font-size: large; font-weight: bold;"></label>
-
-                            <input type="hidden" name="_method" value="POST">
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota</button>
-
-                            <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
-                                <strong>Prenotazione effettuata!</strong>
-                            </div>
+                            
                     </form>
 
                     </div>
@@ -117,8 +97,7 @@
     </div>
 </div>
 
-<!-- Custom scripts -->
-<script src="/scripts/reservationModalScript.js"></script>
+
 
 
 
