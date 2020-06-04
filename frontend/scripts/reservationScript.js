@@ -6,6 +6,16 @@ $(document).ready(function () {
         // con queste classi e id, c'è rischio di conflitti. Una soluzione potrebbe usare nomi di identificatori diversi
         //By Gigi: ma dove? xD
         //By Salvo: mi piace il cazzo! :)
+        $("#adults").change(function(){
+            if(Number($("#adults").val()) + Number($("#children").val() ) > $("#guests").attr("max"))
+            $("#adults").val($("#adults").val() - 1);
+        });    
+    
+        $("#children").change(function(){
+            if(Number($("#adults").val()) + Number($("#children").val() ) > $("#guests").attr("max"))
+            $("#children").val($("#children").val() - 1);
+        });
+        
         $(".guests-input, #checkin, #checkout").change(function() {
 
             let totalPrice;
@@ -59,12 +69,15 @@ $(document).ready(function () {
         if(false){
         }
         });
+
+
+
     });
+
+    
     
     $("#to-signinModal").click(function(event) {
         event.preventDefault();
         $('#reservationModal').modal('hide');
     });
 });
-
-

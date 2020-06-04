@@ -88,7 +88,7 @@
 
                 <!--Guests (Adults, Children, newborns)-->
                     <div class="form-group col-md-12">
-                        <input type="hidden" id="guests" name="guests">
+                        <input type="hidden" id="guests" name="guests" max="<%=apartment.beds%>">
                         <button type="button" id="peopleDropdown" class="btn btn-light btn-block input-placeholding bg-warning border-dark rounded-pill" style="width: 12rem;"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
             
@@ -108,8 +108,8 @@
                                 </div>
             
                                 <div class="ml-4" style="width: 8em">
-                                  <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="9" step="1" />
-                                  <input class="guests-input my-auto" type="number" value="0" min="0" max="9" step="1"/>
+                                  <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="<%=apartment.beds%>" step="1"/>
+                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" step="1"/>
                                   <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
                                 </div>
 
