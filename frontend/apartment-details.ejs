@@ -3,91 +3,172 @@
 
 <div class="container">
   
-  <!-- Portfolio Item Heading -->
-  <h1 class="my-4"><%= apartment.name %>
-    <div style="font-size:large; color: darkslategray; margin-top: 0rem;"  >
-      <smaller><%= apartment.address.town %>, <%= apartment.address.province %>, <%= apartment.address.street %> </smaller>
-    </div>
-  </h1>
+    <!-- Portfolio Item Heading
+    <h1 class="my-4">Page Heading
+      <small>Secondary Text</small>
+    </h1> -->
+    
+    <h1 class="my-4"><%= apartment.name %>
+      <div>
+        <a  href="#" style="font-size:large; text-decoration: underline; color: darkslategray; margin-top: 0rem;">
+            <%= apartment.address.town %>, <%= apartment.address.province %>, <%= apartment.address.street %>
+        </a>
+      </div>
+    </h1>
+    
+
+    <!-- Portfolio Item Row -->
+    <div class="container" style="margin: 0%; padding: 0%;">
+      <div class="row">
+        <div class="col-sm-8">
+        
+          
+          <!--Carousel Wrapper-->
+          <div id="carousel-apartment" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
+            <!--Indicators-->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-apartment" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-apartment" data-slide-to="1"></li>
+              <li data-target="#carousel-apartment" data-slide-to="2"></li>
+            </ol>
+            <!--/.Indicators-->
+            
+            <!--Slides-->
+          <div class="carousel-inner rounded" role="listbox">
+           
+                <div class="carousel-item active">
+                  <div class="view">
+                    <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/4cfb3ae7-dc82-4004-8d34-b9687be812f3.jpg?im_w=720" alt="First slide">
+                  </div>
+                </div>
+        
+                <div class="carousel-item">
+                <div class="view">
+                    <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/48c023f0-becf-43e5-861a-589077a9fa6b.jpg?im_w=720" alt="Second slide">
+                </div>
+                </div>
+                
+                <div class="carousel-item">
+                <div class="view">
+                    <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/90877b18-c9b1-4948-a523-03a6403e7e3f.jpg?im_w=720" alt="Third slide">
+                </div>
+                </div>
+                
+              </div>
+                  <a class="carousel-control-prev" href="#carousel-apartment" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carousel-apartment" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+            </div>
+          </div>
+          <!--INSERIRE QUA LA CARDBOX PER LA PRENOTAZIONE-->
+          <div class="col-sm-4 card bg-light border" id="reservation-card">
+          <div class="card-body">
+            <h2 id="totalPrice" class="card-title" alt="Card apartment price"> <strong id="strong-price"><%= apartment.price%>€ </strong> <small>/notte</small> </h2>
+            <form class="form-reservation" id="form-reservation" action="/reservations/reservation" method="POST">
+              
+              <div class="row">
+                <!--Checkin-->
+                    <div class="form-label-group col-lg-12">
+                        <input type="date" id="checkin" name="checkin" class="btn btn-light input-placeholding bg-warning border-dark" 
+                              placeholder="Check-in" required autofocus>
+                        <label for="checkin">Checkin</label>
+                    </div>
+
+                <!--Checkout-->
+                    <div class="form-label-group col-lg-12">
+                        <input type="date" id="checkout" name="checkout" class="btn btn-light input-placeholding bg-warning border-dark"
+                              placeholder="Check-out" required autofocus>
+                        <label for="checkout">Checkout</label>
+                    </div>
+
+                <!--Guests (Adults, Children, newborns)-->
+                    <div class="form-group col-md-12">
+                        <input type="hidden" id="guests" name="guests" max="<%=apartment.beds%>">
+                        <button type="button" id="peopleDropdown" class="btn btn-light btn-block input-placeholding bg-warning border-dark rounded-pill" style="width: 12rem;"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
+            
+                        <!--Guests Dropdown-->
+                        <div class="dropdown-menu rounded-lg bg-warning" aria-labelledby="peopleDropdown">
+                          <div class="container">
+                            <div class="form-inline">
+                              <div class="form-group" style="line-height: 1em;">
+            
+                                <div>
+                                  <strong class="align-middle mx-auto">Adulti</strong><br />
+                                  <small class="align-middle mx-auto">12 in su</small><br /><br />
+                                  <strong class="align-middle mx-auto">Bambini</strong><br />
+                                  <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
+                                  <strong class="align-middle mx-auto">Neonati</strong><br />
+                                  <small class="align-middle mx-auto">Fino ai 2</small>
+                                </div>
+            
+                                <div class="ml-4" style="width: 8em">
+                                  <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="<%=apartment.beds%>" step="1"/>
+                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" step="1"/>
+                                  <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
+                                </div>
+
+                                
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+
+                      
+                        <input type="hidden" name="_method" value="POST">
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
   
+                        <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
+                             <strong>Prenotazione effettuata!</strong>
+                        </div>
+                        
+                        
+                      </div> <!--ROW -->
 
-  <!-- Portfolio Item Row -->
-  <div class="row">
+                
+                <!--ID dell'appartamento-->
+                <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
 
-    <div class="col-md-8">
-      <!--Carousel Wrapper-->
-<div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-2" data-slide-to="1"></li>
-    <li data-target="#carousel-example-2" data-slide-to="2"></li>
-  </ol>
-  <!--/.Indicators-->
-  <!--Slides-->
-  <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-      <div class="view">
-        <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/4cfb3ae7-dc82-4004-8d34-b9687be812f3.jpg?im_w=720" alt="First slide">
-        <div class="mask rgba-black-light"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive"></h3>
-        <p></p>
-      </div>
+                <!--Prezzo appartamento-->
+                <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
+          </div> <!--FORM-->
+            
+          <!--TEST COI BOTTONI POPOVER-->
+          </div><button class="btn btn-lg btn-primary btn-block text-uppercase notlogged-popover"
+          data-toggle="popover" data-template='<div class="popover" role="tooltip"> ciao <div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'	
+          >Prenota (not logged)</button>
     </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/48c023f0-becf-43e5-861a-589077a9fa6b.jpg?im_w=720" alt="Second slide">
-        <div class="mask rgba-black-light"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive"></h3>
-        <p></p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/90877b18-c9b1-4948-a523-03a6403e7e3f.jpg?im_w=720" alt="Third slide">
-        <div class="mask rgba-black-light"></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive"></h3>
-        <p></p>
-      </div>
-    </div>
-  </div>
+
   <!--/.Slides-->
-  <!--Controls-->
-  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!--/.Controls-->
 </div>
 <!--/.Carousel Wrapper-->
-    </div>
 
-    <div class="col-md-4">
-      <h3 class="my">Descrizione Appartamento</h3>
-      <p><%= apartment.description %></p>
-      <h3 class="my-3">Dettagli</h3>
-      <ul>
-        <li>L'appartamento ha <%= apartment.beds %> letti</li>
-        <li>L'appartamento ha <%= apartment.rooms %> stenze</li>
-        <li>L'appartamento è di tipo: <%= apartment.type_accomodation %>.</li>
-        <li>L'appartamento ha i seguenti servizi <%= apartment.services %></li>
-      </ul>
-    
-    </div>
 
-  </div>
+                                                                      <!--DESCRIZIONE E DETTAGLI. AL MOMENTO LI TOLGO PER FARE ESPERIMENTI
+                                                                        </div>
+                                                                          <div class="col-md-4">
+                                                                          <h3 class="my">Descrizione Appartamento</h3>
+                                                                          <p><%= apartment.description %></p>
+                                                                          <h3 class="my-3">Dettagli</h3>
+                                                                          <ul>
+                                                                            <li>L'appartamento ha <%= apartment.beds %> letti</li>
+                                                                            <li>L'appartamento ha <%= apartment.rooms %> stanze</li>
+                                                                            <li>L'appartamento è di tipo: <%= apartment.type_accomodation %>.</li>
+                                                                            <li>L'appartamento ha i seguenti servizi <%= apartment.services %></li>
+                                                                          </ul>
+                                                                        
+                                                                        </div>
+                                                                      </div>
+                                                                    -->
+
   <!-- /.row -->
 
 
@@ -121,7 +202,7 @@
           border-bottom: 1px solid #333333;
           border-left: 1px solid #CCCCCC;
         }
-
+    
       </style>
   
       <div class="card">
@@ -152,9 +233,6 @@
           </div>
           
         </div>
-        <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> €! <small>/Notte</small>
-          <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
-          data-toggle="modal" data-target="#reservationModal">  Prenota </a>
           <!--
             <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> € <small>/Notte</small>
               <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>
@@ -183,16 +261,17 @@
         
       </div>
       <!-- /.row -->
-      
-      
-  <%- include ('reservation-form')%>
+  
     </div>
     <!-- /.container -->
     
-    <script>
-      $("#to-signinModal").click(function() {
-        $('#reservationModal').modal('hide');
-    });
-    </script>
 
+    <!-- Custom scripts -->
+<script src="/scripts/reservationScript.js"></script> 
 
+<script> 
+  $('.notlogged-popover').popover({
+    container: 'body'
+    
+});
+</script>

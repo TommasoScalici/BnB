@@ -1,11 +1,12 @@
 .label-placeholder {
     margin-bottom: -5rem;
-    padding-left: 0.5rem;
+    padding-left: 0.8rem;
     padding-top: 0.05rem;
     position: absolute;
     color: black;
     font-weight: bold;
     z-index: 2;
+    font-size: x-small;
 }
 
 .input-placeholding {

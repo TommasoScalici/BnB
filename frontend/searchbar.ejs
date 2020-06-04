@@ -18,7 +18,7 @@
 
 <form action="/apartments/search" method="GET" id="searchbar-form" class="align-middle mx-auto my-auto" role="group">
 
-    <div class="row mx-auto">
+    <div class="row mx-auto" style="margin: 0%; padding-right: 110px;" >
 
         <div class="form-group-inline">
             <small class="label-placeholder">CHECK-IN</small>
@@ -41,8 +41,8 @@
         <div class="form-group-inline">
             <input type="hidden" id="searchbar-guests" name="guests">
             <small class="label-placeholder">OSPITI</small>
-            <button class="form-control input-placeholding" type="button" id="searchbar-people-dropdown" style="width:11rem"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
+            <button class="form-control input-placeholding" type="button" id="searchbar-people-dropdown" style="width:11rem;"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 
             <div class="dropdown-container">
                 <div class="dropdown-menu dropdown-menu-absolute" aria-labelledby="searchbar-people-dropdown">
@@ -61,7 +61,7 @@
 
                                 <div class="ml-4" style="width: 2em">
                                     <input id="searchbar-guests-adults" name="guests_adults" class="guests-input mb-4"
-                                        type="number" value="0" min="0" max="9" step="1" />
+                                        type="number" value="0" min="0" max="9" step="1"/>
                                     <input id="searchbar-guests-children" name="guests_children" class="guests-input my-auto"
                                         type="number" value="0" min="0" max="9" step="1"/>
                                     <input id="searchbar-guests-newborns" name="guests_newborns" class="guests-input mt-4"
