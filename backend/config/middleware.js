@@ -4,7 +4,7 @@ const moment = require('moment');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
-
+const mongoDBStore = require('connect-mongodb-session')(session);
 
 module.exports = function(app, express) {
 
@@ -19,9 +19,15 @@ module.exports = function(app, express) {
     app.use(morgan('dev'));
     
     app.use(session({
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 365,
         secret: 'le brutte intenzioni la maleducazione',
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
+        store: new mongoDBStore({
+          collection: 'bnb_sessions',
+          uri: 'mongodb://localhost/sessions'
+        })
       }));
 
     app.use(function(req, res, next) {
