@@ -1,0 +1,38 @@
+@startuml classdiagram
+left to right direction
+
+class Apartment {
+  +long id
+  +String name
+  +String description
+  +Number price
+  +Number beds
+  +String type_accomodation
+  +Array services
+  +Array photo_paths
+  +Address address
+  --
+  +Apartment()
+  +Apartment(String name, String description,   
+  \t          Number price, Number beds, 
+  \t          String type_accomodation, Array services,
+  \t          Address)
+}
+
+class Address {
+    +String country
+    +String city
+    +String province
+    +String street
+    +String number
+    +String zip
+    --
+    +Address()
+    +Address(String country, String city,
+\t       String province, String number, String zip)
+
+}
+
+Address *-- Apartment
+
+@enduml

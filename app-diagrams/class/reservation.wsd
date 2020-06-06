@@ -1,0 +1,19 @@
+@startuml classdiagram
+left to right direction
+
+class Reservation {
+  +long id
+  +User customer
+  +String password
+  +Object name - [String first, String last]
+  +String email
+  +String telephoneNumber
+  +Address address
+  +Date birthdate
+  --
+  +User()
+  +User(String username, String password)
+}
+
+
+@enduml
