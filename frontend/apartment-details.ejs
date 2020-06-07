@@ -1,5 +1,5 @@
 <!-- Page Content -->
-
+<link href="/css/signin.css" rel="stylesheet">
 
 <div class="container">
   
@@ -69,6 +69,7 @@
           <div class="col-sm-4 card bg-light border" id="reservation-card">
           <div class="card-body">
             <h2 id="totalPrice" class="card-title" alt="Card apartment price"> <strong id="strong-price"><%= apartment.price%>€ </strong> <small>/notte</small> </h2>
+           
             <form class="form-reservation" id="form-reservation" action="/reservations/reservation" method="POST">
               
               <div class="row">
@@ -109,23 +110,22 @@
             
                                 <div class="ml-4" style="width: 8em">
                                   <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="<%=apartment.beds%>" step="1"/>
-                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" step="1"/>
+                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" max="20" step="1"/>
                                   <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
                                 </div>
 
-                                
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                    </div>
+                    </div>  
 
 
                       
                         <input type="hidden" name="_method" value="POST">
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
-  
+            </form>
                         <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
                              <strong>Prenotazione effettuata!</strong>
                         </div>

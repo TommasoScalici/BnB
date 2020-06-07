@@ -159,7 +159,9 @@
     <!-- Custom scripts -->
     <script src="/scripts/bnb.js"></script>
 
-    <%- include('signin') %>
+    <%if(!session.user) { %>
+      <%- include('signin') %>
+      <% } %>
     
   </body>
 
