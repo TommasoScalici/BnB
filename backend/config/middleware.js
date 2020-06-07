@@ -19,8 +19,8 @@ module.exports = function(app, express) {
     app.use(morgan('dev'));
     
     app.use(session({
+        cookie: { maxAge: 1000 * 60 * 60 * 24 * 365},
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 365,
         secret: 'le brutte intenzioni la maleducazione',
         resave: false,
         saveUninitialized: true,
