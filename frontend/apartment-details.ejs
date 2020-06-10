@@ -125,7 +125,7 @@
                       
                         <input type="hidden" name="_method" value="POST">
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
-            </form>
+            
                         <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
                              <strong>Prenotazione effettuata!</strong>
                         </div>
@@ -139,8 +139,9 @@
 
                 <!--Prezzo appartamento-->
                 <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
-          </div> <!--FORM-->
-            
+              </div> <!--FORM-->
+            </form>
+        
           <!--TEST COI BOTTONI POPOVER-->
           </div><button class="btn btn-lg btn-primary btn-block text-uppercase notlogged-popover"
           data-toggle="popover" data-template='<div class="popover" role="tooltip"> ciao <div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'	
