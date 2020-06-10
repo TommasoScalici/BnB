@@ -7,6 +7,9 @@
     <h1 class="my-4">Page Heading
       <small>Secondary Text</small>
     </h1> -->
+
+    <!-- Sta roba qui è a scopo di test, ovviamente, perché è una porcata -->
+    <span id="apartments"><%= apartmentsTest %></span>
     
     <h1 class="my-4"><%= apartment.name %>
       <div>
@@ -259,7 +262,7 @@
         
       <% for(let apartment of apartments) { %>
         <%- include('apartment-preview', {apartment: apartment}); %>
-        <% } %>
+      <% } %>
         
         
       </div>
@@ -292,31 +295,32 @@ function initMap() {
   }
 
   geocoder = new google.maps.Geocoder();
+  codeAddress();
 }
 
 function codeAddress() {
-  let address = $('#address').text();
-  let marker;
-  geocoder.geocode( { 'address': address}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
-      if(marker)
-        marker.setMap(null);
-      marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-          label: $('#price').text() + " €"
-      });
-    } else {
-      alert('Errore: ' + status);
-    }
-  });
-}
 
-$(document).ready(function () {
-  initMap();
-  codeAddress();
-});
+  let json = JSON.parse($("#apartments").text());
+  apartments = json.map(x => {return { address: x.address, price: x.price } });
+
+  for (const apartment of apartments) {
+      let marker;
+      geocoder.geocode( { 'address': apartment.address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        if(marker)
+          marker.setMap(null);
+        marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            label: apartment.price + "€"
+        });
+      } else {
+        alert('Errore: ' + status);
+      }
+    }); 
+  }
+}
 
 $('.notlogged-popover').popover({
   container: 'body'

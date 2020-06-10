@@ -99,10 +99,10 @@
             <a class="nav-item nav-link" data-toggle="modal" data-target="#signin-modal" href="#">Accedi</a>
             <a class="nav-item nav-link" href="/users/signup">Registrati</a>
 
-            <% } if(session.user.is_host) { %>
+            <% } else if(session.user.is_host) { %>
             <a class="nav-item nav-link" href="/apartments/create">Inserisci Alloggio</a>
 
-            <% } if(!session.user.is_host) { %>
+            <% } else if(!session.user.is_host) { %>
             <a class="nav-item nav-link" href="/users/becomehost">Diventa un Host</a>
 
             <% } if(session.user) { %>
@@ -161,9 +161,9 @@
     <!-- Custom scripts -->
     <script src="/scripts/bnb.js"></script>
 
-    <%if(!session.user) { %>
+    <%if (!session.user) { %>
       <%- include('signin') %>
-      <% } %>
+    <% } %>
     
   </body>
 
