@@ -211,36 +211,38 @@
           <div class="col-md-6">
   
             <!-- Google Maps -->
-            <div id="map-within-card-2" class="map-container rounded-left" style="height: 200px">
+            <div id="map" style="height: 100%;"></div>
+            <!-- <div id="map-within-card-2" class="map-container rounded-left" style="height: 200px">
               <a id="my_anchor" href=""></a>
 
               <iframe src="https://maps.google.com/maps?q=<%= apartment.address.street %>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
                 style="border:0" allowfullscreen></iframe>
-              <!-- <iframe src="https://maps.google.com/maps?q=    &t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                style="border:0" allowfullscreen></iframe> -->
-            </div>
+              <iframe src="https://maps.google.com/maps?q=    &t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                style="border:0" allowfullscreen></iframe>
+            </div> -->
             <!-- Google Maps -->
             
           </div>
           
           <div class="col-10 col-md-4 mx-auto align-self-center py-4">
             
+            <span>Roba per test delle mappe</span>
+            <span id="address"><%= apartment.address.street %>, <%= apartment.address.zipcode %> <%= apartment.address.town %>, <%= apartment.address.province %></span>
+            <span id="price"><%= apartment.price %></span>
+
             <h6 class="font-weight-bold grey-text text-uppercase small">Posizione</h6>
             <h5 class="font-weight-normal mb-4"><%= apartment.address.town %>, <%= apartment.address.province %></h5>
-            <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %><%= apartment.address.zipcode %>
-              
+            <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %>, <%= apartment.address.zipcode %>
+            
             </div>
           </div>
           
         </div>
           <!--
             <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> € <small>/Notte</small>
-              <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>
-            -->  
-            
-          </h4>
-          
-          
+              <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>          
+            </h4>
+          -->
           
         </section>
         <!-- Section: Block Content -->
@@ -268,10 +270,56 @@
 
     <!-- Custom scripts -->
 <script src="/scripts/reservationScript.js"></script> 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script>
 
-<script> 
-  $('.notlogged-popover').popover({
-    container: 'body'
-    
+
+<script>
+
+var geocoder;
+var map;
+
+function initMap() {
+  map = new google.maps.Map($('#map')[0], {
+    zoom: 12
+  });
+
+  if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(function (position) {
+         initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+         map.setCenter(initialLocation);
+     });
+  }
+
+  geocoder = new google.maps.Geocoder();
+}
+
+function codeAddress() {
+  let address = $('#address').text();
+  let marker;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      if(marker)
+        marker.setMap(null);
+      marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          label: $('#price').text() + " €"
+      });
+    } else {
+      alert('Errore: ' + status);
+    }
+  });
+}
+
+$(document).ready(function () {
+  initMap();
+  codeAddress();
 });
+
+$('.notlogged-popover').popover({
+  container: 'body'
+  
+});
+
 </script>
