@@ -48,6 +48,12 @@ $(document).ready(function() {
     $.getJSON("../data/comuni.json", function(data) {
         $("#searchbar-location").autocomplete({
 
+            change: function(event, ui) {
+                $("#searchbar-province").val(null);
+                $("#searchbar-town").val(null);
+                return false;
+            },
+
             focus: function(event, ui) {
                 $("#searchbar-location").val(`${ui.item.label} (${ui.item.value})`);
                 return false;
