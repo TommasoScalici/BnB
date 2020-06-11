@@ -50,8 +50,7 @@ module.exports =
     getReservationFromReq: (req) => {
         console.log(req.body.apartment);
         
-        return{
-            
+        return {
             user: req.session.user._id,
             apartment: req.body.apartment,
             checkin: req.body.checkin,
@@ -60,4 +59,19 @@ module.exports =
             payment: req.body.payment,
             //totalPrice: req.body.totalPrice
    }},
+
+   getSearchDataFromReq: (req) => {
+    return {
+
+        checkin: req.query.checkin,
+        checkout: req.query.checkout,
+        location: req.query.location,
+        guests: {
+            adults: req.query.guests_adults,
+            children: req.query.guests_children,
+            newborns: req.query.guests_newborns,
+            total: req.query.guests
+        },
+   }},
+
 }
