@@ -72,16 +72,10 @@ module.exports =
 
         await Apartment.find({
             beds: { $gte: req.query.guests },
-            $or: [
-                    { $and: [
-                        { "address.province": req.query.province },
-                        { "address.town": req.query.town },
-                    ]}, 
-                { "address.province": { $regex: req.query.location } },
-                { "address.street": { $regex: req.query.location } },
-                { "address.town": { $regex: req.query.location } },
-                { "address.zipcode": { $regex: req.query.location } },
-            ],
+            "address.province": { $regex: req.query.province },
+            "address.street": { $regex: req.query.street },
+            "address.town": { $regex: req.query.town },
+            "address.zipcode": { $regex: req.query.zipcode },
         }, function(err, apartments) {
             if(err) {
                 console.log(`Mongo error while retrieveing apartments data: ${err}`);

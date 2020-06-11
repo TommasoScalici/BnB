@@ -32,10 +32,12 @@
 
         <div class="form-group-inline">
             <small class="label-placeholder">DOVE</small>
-            <input type="hidden" id="searchbar-province" name="province">
-            <input type="hidden" id="searchbar-town" name="town">
             <input id="searchbar-location" name="location" type="input" class="form-control input-placeholding" style="width: 11rem;"
-                   placeholder="Cerca per città, indirizzo...">
+                   placeholder="Cerca per città, indirizzo..." onFocus="geolocate()"/>
+            <input type="hidden" id="searchbar-province" name="province">
+            <input type="hidden" id="searchbar-street" name="street">
+            <input type="hidden" id="searchbar-town" name="town">
+            <input type="hidden" id="searchbar-town" name="zipcode">
         </div>
 
         <div class="form-group-inline">

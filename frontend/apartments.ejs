@@ -1,3 +1,5 @@
+
+
 <div class="row my-4">
 
   <div class="col-lg-7">
@@ -29,6 +31,13 @@
 
 </div>
 
-
 <script src="/scripts/maps.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script>
+
+<script>
+  $(document).ready(function() {
+    initMap();
+    geocodeApartments();
+  })
+</script>
+
+
