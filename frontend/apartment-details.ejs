@@ -110,7 +110,7 @@
             
                                 <div class="ml-4" style="width: 8em">
                                   <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="<%=apartment.beds%>" step="1"/>
-                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" max="20" step="1"/>
+                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" max="9" step="1"/>
                                   <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
                                 </div>
 
@@ -120,6 +120,17 @@
                           </div>
                         </div>
                     </div>  
+
+                    <!--Payment-->
+                    <div class="form-group">
+                     <select class="form-control bg-warning border-dark" id="payment" name="payment" placeholder="Tipologia di Pagamento">
+                       <option value="visa">Visa</option>
+                       <option value="mastercard">Mastercard</option>
+                       <option value="payPal">PayPal</option>
+                       <option value="payPal">Bonifico Bancario</option>
+                     </select>
+                   </div>
+                   
 
 
                       
@@ -143,9 +154,12 @@
             </form>
         
           <!--TEST COI BOTTONI POPOVER-->
-          </div><button class="btn btn-lg btn-primary btn-block text-uppercase notlogged-popover"
+          <button type="button" class="btn btn-secondary notlogged-popover" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+            Popover on top
+          </button>
+          </div><button class="btn btn-lg btn-primary btn-block text-uppercase"
           data-toggle="popover" data-template='<div class="popover" role="tooltip"> ciao <div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'	
-          >Prenota (not logged)</button>
+          >Prenota (not logged)</button>  
     </div>
 
   <!--/.Slides-->
@@ -271,8 +285,4 @@
 <script src="/scripts/reservationScript.js"></script> 
 
 <script> 
-  $('.notlogged-popover').popover({
-    container: 'body'
-    
-});
 </script>

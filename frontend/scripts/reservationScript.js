@@ -1,6 +1,10 @@
 $(document).ready(function () {    
     $(window).on('load', function() 
     {
+        $('.notlogged-popover').popover({
+            container: 'body'
+            
+        });
 
         // By Tom: questa cosa qui è pericolosa perché lo script viene caricato in index.ejs che contiene già elementi
         // con queste classi e id, c'è rischio di conflitti. Una soluzione potrebbe usare nomi di identificatori diversi
