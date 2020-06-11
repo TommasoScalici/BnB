@@ -78,21 +78,21 @@
               <div class="row">
                 <!--Checkin-->
                     <div class="form-label-group col-lg-12">
-                        <input type="date" id="checkin" name="checkin" class="btn btn-light input-placeholding bg-warning border-dark" 
+                        <input type="date" id="reservation-checkin" name="checkin" class="btn btn-light input-placeholding bg-warning border-dark" 
                               placeholder="Check-in" required autofocus>
                         <label for="checkin">Checkin</label>
                     </div>
 
                 <!--Checkout-->
                     <div class="form-label-group col-lg-12">
-                        <input type="date" id="checkout" name="checkout" class="btn btn-light input-placeholding bg-warning border-dark"
+                        <input type="date" id="reservation-checkout" name="checkout" class="btn btn-light input-placeholding bg-warning border-dark"
                               placeholder="Check-out" required autofocus>
                         <label for="checkout">Checkout</label>
                     </div>
 
                 <!--Guests (Adults, Children, newborns)-->
                     <div class="form-group col-md-12">
-                        <input type="hidden" id="guests" name="guests" max="<%=apartment.beds%>">
+                        <input type="hidden" id="reservation-guests" name="guests" max="<%=apartment.beds%>">
                         <button type="button" id="peopleDropdown" class="btn btn-light btn-block input-placeholding bg-warning border-dark rounded-pill" style="width: 12rem;"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
             
@@ -138,7 +138,7 @@
 
                       
                         <input type="hidden" name="_method" value="POST">
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
+                        <button id="reservation-button" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
             
                         <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
                              <strong>Prenotazione effettuata!</strong>
@@ -288,61 +288,14 @@
 
     <!-- Custom scripts -->
 <script src="/scripts/reservationScript.js"></script> 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script> -->
 
-<<<<<<< HEAD
-<script> 
-=======
 
 <script>
-
-var geocoder;
-var map;
-
-function initMap() {
-  map = new google.maps.Map($('#map')[0], {
-    zoom: 12
-  });
-
-  if (navigator.geolocation) {
-     navigator.geolocation.getCurrentPosition(function (position) {
-         initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-         map.setCenter(initialLocation);
-     });
-  }
-
-  geocoder = new google.maps.Geocoder();
-  codeAddress();
-}
-
-function codeAddress() {
-
-  let json = JSON.parse($("#apartments").text());
-  apartments = json.map(x => {return { address: x.address, price: x.price } });
-
-  for (const apartment of apartments) {
-      let marker;
-      geocoder.geocode( { 'address': apartment.address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        if(marker)
-          marker.setMap(null);
-        marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location,
-            label: apartment.price + "€"
-        });
-      } else {
-        alert('Errore: ' + status);
-      }
-    }); 
-  }
-}
 
 $('.notlogged-popover').popover({
   container: 'body'
   
 });
 
->>>>>>> 330cc3d7d2466b7c6a7436e18b1df666d042e3ae
 </script>
