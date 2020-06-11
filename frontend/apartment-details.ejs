@@ -245,8 +245,7 @@
           <div class="col-10 col-md-4 mx-auto align-self-center py-4">
             
             <span>Roba per test delle mappe</span>
-            <span id="address"><%= apartment.address.street %>, <%= apartment.address.zipcode %> <%= apartment.address.town %>, <%= apartment.address.province %></span>
-            <span id="price"><%= apartment.price %></span>
+            <span id="address"><%= apartment.address.street %>, <%= apartment.address.zipcode %> <%= apartment.address.town %>, <%= apartment.address.province %></span><br />
 
             <h6 class="font-weight-bold grey-text text-uppercase small">Posizione</h6>
             <h5 class="font-weight-normal mb-4"><%= apartment.address.town %>, <%= apartment.address.province %></h5>
@@ -288,10 +287,52 @@
 
     <!-- Custom scripts -->
 <script src="/scripts/reservationScript.js"></script> 
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script>
 
 
 <script>
+
+var geocoder;
+var map;
+
+function initMap() {
+
+  geocoder = new google.maps.Geocoder();
+  map = new google.maps.Map($('#map')[0], {
+    zoom: 12
+  });
+
+  geocoder.geocode( { 'address': $("apartment").text()}, function(results, status) {
+    map.setCenter(results[0].geometry.location);
+  });
+  
+  
+  codeAddress();
+}
+
+function codeAddress() {
+
+  let json = JSON.parse($("#apartments").text());
+  apartments = json.map(x => {return { address: x.address, price: x.price } });
+
+  for (const apartment of apartments) {
+      let marker;
+      geocoder.geocode( { 'address': apartment.address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        if(marker)
+          marker.setMap(null);
+        marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            label: apartment.price + "€"
+        });
+      } else {
+        alert('Errore: ' + status);
+      }
+    }); 
+  }
+}
 
 $('.notlogged-popover').popover({
   container: 'body'

@@ -1,6 +1,7 @@
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
 const Apartment = require('../models/apartment.js');
+const { getSearchDataFromReq } = require('../utilities/request-model-mapper.js');
 
 module.exports = 
 {
@@ -65,19 +66,22 @@ module.exports =
 
     searchApartments: async (req, res) => {
 
-        req.session.guests = {
-            adults: req.query.guests_adults,
-            children: req.query.guests_children,
-            newborns: req.query.guests_newborns,
-            total: req.query.guests
-        };
+        req.session.searchdata = getSearchDataFromReq(req);
 
         req.session.save();
 
         await Apartment.find({
-            "address.province": req.query.province,
-            "address.town": req.query.town,
-            beds: { $gte: req.query.guests }
+            beds: { $gte: req.query.guests },
+            $or: [
+                    { $and: [
+                        { "address.province": req.query.province },
+                        { "address.town": req.query.town },
+                    ]}, 
+                { "address.province": { $regex: req.query.location } },
+                { "address.street": { $regex: req.query.location } },
+                { "address.town": { $regex: req.query.location } },
+                { "address.zipcode": { $regex: req.query.location } },
+            ],
         }, function(err, apartments) {
             if(err) {
                 console.log(`Mongo error while retrieveing apartments data: ${err}`);
