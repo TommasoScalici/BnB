@@ -127,12 +127,35 @@
                     <!--Payment-->
                     <div class="form-group">
                      <select class="form-control bg-warning border-dark" id="payment" name="payment" placeholder="Tipologia di Pagamento">
-                       <option value="visa">Visa</option>
-                       <option value="mastercard">Mastercard</option>
+                       <option value="">---Seleziona Metodo di Pagamento---</option>
+                       <option value="credit-card">Carta di Credito</option>
                        <option value="payPal">PayPal</option>
-                       <option value="payPal">Bonifico Bancario</option>
+                       <option value="debit-card">Bonifico Bancario</option>
                      </select>
                    </div>
+
+                   <%- include('credit-card') %>
+                   <%- include('Paypal') %>
+
+
+                   <script>
+
+                     
+                    $('#payment').change(function() {
+                        var opval = $(this).val();
+                        if(opval=="credit-card"){
+                            $('#credit-card').modal("show");
+                        }
+                        else if(opval=="payPal")
+                        {
+                          $('#Paypal').modal("show");
+                        }
+                        else if(opval=="transfer")
+                        {
+                          $('#myModal').modal("show");
+                        }
+                    });
+                   </script>
                    
 
 
