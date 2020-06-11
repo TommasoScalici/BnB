@@ -1,39 +1,34 @@
+<div class="row my-4">
 
-  <body>
-    
-     
+  <div class="col-lg-7">
 
-      <section class="jumbotron text-center">
-        <div class="container">
-          <h1 class="jumbotron-heading">Poi vediamo che metterci
-          </h1>
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-          </p>
-        </div>
-      </section>
-   
-      <div class="album bg-light">
-        <div class="container">
-          <div class="row">
-            <% for(let apartment of apartments) { %>
-              <%- include('apartment', {apartment: apartment}); %>
-            <% } %>
-            </div>
-          </div>
-        </div>
-      </div>  
+    <h1>Soggiorni nei pressi di
+      <span id="search-location"><%= session.searchdata.location %></span>
+    </h1>
+    <small class="lead text-muted">Qui potremmo mettere i filtri</small>
 
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-        <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>
-      </div>
-    </footer>
-  
+  </div>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="508" height="225" viewBox="0 0 508 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg></body></html>
+</div>
+
+<div class="row my-4">
+
+  <div class="col-lg-7">
+
+    <div class="container mt-2" style="float:left; height: 100vh; overflow-y:scroll">
+      <% for(let apartment of apartments) { %>
+        <%- include('apartment', {apartment: apartment}); %>
+      <% } %>
+    </div>
+
+  </div>
+
+  <div class="col-lg-5 mt-2 overflow-hidden" style="height: 65vh;">
+    <div id="map" style="height: 100%;"></div>
+  </div>
+
+</div>
+
+
+<script src="/scripts/maps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script>
