@@ -102,8 +102,10 @@
             <% } else if(session.user.is_host) { %>
             <a class="nav-item nav-link" href="/apartments/create">Inserisci Alloggio</a>
 
-            <% } else { %>
+            <% } else if(!session.user.is_host) { %>
             <a class="nav-item nav-link" href="/users/becomehost">Diventa un Host</a>
+
+            <% } if(session.user) { %>
             <!-- Profile Dropdown -->
             <div class="nav-item dropdown">
 
@@ -159,9 +161,9 @@
     <!-- Custom scripts -->
     <script src="/scripts/bnb.js"></script>
 
-    <%if(!session.user) { %>
+    <%if (!session.user) { %>
       <%- include('signin') %>
-      <% } %>
+    <% } %>
     
   </body>
 

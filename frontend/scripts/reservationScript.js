@@ -10,6 +10,7 @@ $(document).ready(function () {
         // con queste classi e id, c'è rischio di conflitti. Una soluzione potrebbe usare nomi di identificatori diversi
         //By Gigi: ma dove? xD
         //By Salvo: mi piace il cazzo! :)
+        //By Tom: https://rb.gy/erpn1z ;)
         $("#adults").change(function(){
             if(Number($("#adults").val()) + Number($("#children").val() ) > $("#guests").attr("max"))
             $("#adults").val($("#adults").val() - 1);

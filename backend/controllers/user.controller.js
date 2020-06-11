@@ -4,11 +4,19 @@ const User = require('../models/user.js');
 
 module.exports = 
 {
-    becomeHost: (req, res) => {
-        if(req.session.user === undefined || req.session.user === null)
-            res.sendStatus(403);
-        else
-            res.render("index", {pagetitle: "Diventa Host", path: "become-host"});
+    becomeHost: async (req, res) => {
+        await User.findByIdAndUpdate(req.session.user._id, { $set: { is_host: true } }, { new: true }, function(err, updatedUser) {
+
+            if(err) {
+                console.log(`Mongo error while updating user profile data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else {
+                res.status(200).json({message: 'User is now host'});
+                req.session.user = updatedUser;
+                req.session.save();
+            }
+        });
     },
 
     logout: (req, res) => {
@@ -22,6 +30,13 @@ module.exports =
             res.sendStatus(403);
         else
             res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
+    },
+
+    renderBecomeHost: (req, res) => {
+        if(req.session.user === undefined || req.session.user === null)
+            res.sendStatus(403);
+        else
+            res.render("index", {pagetitle: "Diventa Host", path: "become-host"});
     },
 
     renderSignup: (req, res) => {

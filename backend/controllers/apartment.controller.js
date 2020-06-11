@@ -11,14 +11,18 @@ module.exports =
             if(err)
                 console.log(`Mongo error while user was signing up: ${err}`);
             else {
+                
+                if(!!req.files) {
+
                 let i = 0;
                 let images = [].concat(req.files.photos);
 
-                for(let image of images) {
-                    let path = `/apartment/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                    image.mv(`./uploads${path}`);
-                    apartment.photo_paths.push(path);
-                    i++;
+                    for(let image of images) {
+                        let path = `/apartment/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
+                        image.mv(`./uploads${path}`);
+                        apartment.photo_paths.push(path);
+                        i++;
+                    }
                 }
 
                 await Apartment.updateOne({_id: apartment._id}, apartment);
@@ -28,14 +32,15 @@ module.exports =
     },
 
     getApartment: async (req, res) => {
-        await Apartment.findById(req.params.id, function(err, apartment) {
+        await Apartment.findById(req.params.id, async function(err, apartment) {
             if(err) {
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-             Apartment.find({}, function(err, apartments) {
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments});  
+                await Apartment.find({}, function(err, apartments) {
+                    let apartmentsTest = JSON.stringify(apartments.map(x => { return { address: x.fulladdress, price: x.price } }));
+                    res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments, apartmentsTest});  
             });     
         });
     },

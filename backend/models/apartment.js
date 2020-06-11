@@ -23,4 +23,8 @@ var ApartmentSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
+ApartmentSchema.virtual('fulladdress').get(function () {
+    return `${this.address.street} ${this.address.zipcode} ${this.address.town} ${this.address.province}`;
+});
+
 module.exports = mongoose.model('Apartment', ApartmentSchema);
