@@ -108,21 +108,26 @@
                                   <strong class="align-middle mx-auto">Bambini</strong><br />
                                   <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
                                   <strong class="align-middle mx-auto">Neonati</strong><br />
-                                  <small class="align-middle mx-auto">Fino ai 2</small>
+                                  <small class="align-middle mx-auto">Fino ai 2</small> 
                                 </div>
             
                                 <div class="ml-4" style="width: 8em">
-                                  <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="<%=apartment.beds%>" step="1"/>
-                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" max="9" step="1"/>
-                                  <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="9" step="1"/>
+                                  <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="20" step="1"/>
+                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" max="20" step="1"/>
+                                  <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="20" step="1"/>
                                 </div>
 
-                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                    </div>  
+                      </div>
+
+                    <!--ID dell'appartamento-->
+                    <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
+
+                    <!--Prezzo appartamento-->
+                    <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
 
                     <!--Payment-->
                     <div class="form-group">
@@ -138,9 +143,7 @@
                    <%- include('Paypal') %>
 
 
-                   <script>
-
-                     
+                   <script>   
                     $('#payment').change(function() {
                         var opval = $(this).val();
                         if(opval=="credit-card"){
@@ -156,40 +159,28 @@
                         }
                     });
                    </script>
-                   
-
-
-                      
-                        <input type="hidden" name="_method" value="POST">
-                        <button id="reservation-button" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
-            
+                        <%if (session.user) { %>
+                            <input type="hidden" name="_method" value="POST">
+                            <button id="reservation-button" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
+                        <% } else  { %>
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase notlogged-popover" data-toggle="popover"	> Prenota (not logged)</button>
+                        <% } %>
+                        
                         <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
                              <strong>Prenotazione effettuata!</strong>
                         </div>
                         
                         
-                      </div> <!--ROW -->
+             </div> <!--ROW -->
 
-                
-                <!--ID dell'appartamento-->
-                <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
-
-                <!--Prezzo appartamento-->
-                <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
-              </div> <!--FORM-->
             </form>
-        
-          <!--TEST COI BOTTONI POPOVER-->
-          <button type="button" class="btn btn-secondary notlogged-popover" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-            Popover on top
-          </button>
-          </div><button class="btn btn-lg btn-primary btn-block text-uppercase"
-          data-toggle="popover" data-template='<div class="popover" role="tooltip"> ciao <div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'	
-          >Prenota (not logged)</button>  
-    </div>
+                
+                
+         </div> <!--FORM-->
 
   <!--/.Slides-->
 </div>
+    
 <!--/.Carousel Wrapper-->
 
 
@@ -357,8 +348,20 @@ function codeAddress() {
   }
 }
 
+
+
+
+
+var content = ['<div>Per poter prenotare devi ',
+               '<a data-toggle="modal" data-target="#signin-modal" href="#">accedere. </a>',
+               'Non hai un account?', 
+               '<a href="/users/signup"> Registrati </a>',
+               'subito!</div>'].join('');
+
 $('.notlogged-popover').popover({
-  container: 'body'
+  container: 'body',
+  content: content,
+  html: true
   
 });
 
