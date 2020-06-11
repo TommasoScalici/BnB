@@ -1,25 +1,26 @@
-<div class="col-md-4">
+<div class="apartment-preview row">
 
-  <div class="card mb-4 box-shadow ">
-    <a href="/apartments/apartment/<%= apartment._id%>"><img class="card-img-top" src="https://a0.muscache.com/im/pictures/288a9ae0-059d-49fb-805b-42d3c609f5b6.jpg?im_w=720" alt=""></a>
-    
-    <div class="card-body">
-      <h4 class="card-title">
+    <div class="col-md-6">
+      <a href="/apartments/apartment/<%= apartment._id%>">
+        <img class="card-img-top" src="<%= apartment.photo_paths[0] %>" alt="Immagine appartamento">
+      </a>
+    </div>
+
+    <div class="col-md-6">
+
+      <p class="text-muted"><%= apartment.type_accomodation %>, <%= apartment.beds %> letti</p>
+
+      <h4>
         <a href="/apartments/apartment/<%= apartment._id%>"><%= apartment.name %></a>
       </h4>
+          
+      <h5><%= apartment.price %> € / notte</h5>
 
-    <h5><%= apartment.price %> €</h5>
-
-    <p class="card-text" style="display: block;overflow:auto;max-height: 5.8em;line-height: 1.3em;"><%= apartment.description %></p>
-
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-        </div>
-        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-      </div>
-      
+      <p><%= apartment.bedrooms %> camere da letto, <%= apartment.beds %> letti</p>
+      <span class="apartment-fulladdress"><%= apartment.fulladdress %></span>
+      <span class="apartment-price"><%= apartment.price %> €</span>
     </div>
-  </div>
+
 </div>
+
+<hr>
