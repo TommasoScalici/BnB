@@ -7,7 +7,7 @@ $(document).ready(function () {
         if(url === undefined || url === null || url.startsWith("#"))
             return;
 
-        else if(url == "signin") {
+        else if(url == "signin" || url == "cards") {
             $("#dialog").dialog();
             return;
         }
@@ -114,6 +114,7 @@ $(document).ready(function () {
     });
 
     $("#repass").keyup(checkPasswordMatch);
+    
 });
 
 $(window).on('load', function() {

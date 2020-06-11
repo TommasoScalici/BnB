@@ -78,21 +78,21 @@
               <div class="row">
                 <!--Checkin-->
                     <div class="form-label-group col-lg-12">
-                        <input type="date" id="checkin" name="checkin" class="btn btn-light input-placeholding bg-warning border-dark" 
+                        <input type="date" id="reservation-checkin" name="checkin" class="btn btn-light input-placeholding bg-warning border-dark" 
                               placeholder="Check-in" required autofocus>
                         <label for="checkin">Checkin</label>
                     </div>
 
                 <!--Checkout-->
                     <div class="form-label-group col-lg-12">
-                        <input type="date" id="checkout" name="checkout" class="btn btn-light input-placeholding bg-warning border-dark"
+                        <input type="date" id="reservation-checkout" name="checkout" class="btn btn-light input-placeholding bg-warning border-dark"
                               placeholder="Check-out" required autofocus>
                         <label for="checkout">Checkout</label>
                     </div>
 
                 <!--Guests (Adults, Children, newborns)-->
                     <div class="form-group col-md-12">
-                        <input type="hidden" id="guests" name="guests" max="<%=apartment.beds%>">
+                        <input type="hidden" id="reservation-guests" name="guests" max="<%=apartment.beds%>">
                         <button type="button" id="peopleDropdown" class="btn btn-light btn-block input-placeholding bg-warning border-dark rounded-pill" style="width: 12rem;"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
             
@@ -127,18 +127,41 @@
                     <!--Payment-->
                     <div class="form-group">
                      <select class="form-control bg-warning border-dark" id="payment" name="payment" placeholder="Tipologia di Pagamento">
-                       <option value="visa">Visa</option>
-                       <option value="mastercard">Mastercard</option>
+                       <option value="">---Seleziona Metodo di Pagamento---</option>
+                       <option value="credit-card">Carta di Credito</option>
                        <option value="payPal">PayPal</option>
-                       <option value="payPal">Bonifico Bancario</option>
+                       <option value="debit-card">Bonifico Bancario</option>
                      </select>
                    </div>
+
+                   <%- include('credit-card') %>
+                   <%- include('Paypal') %>
+
+
+                   <script>
+
+                     
+                    $('#payment').change(function() {
+                        var opval = $(this).val();
+                        if(opval=="credit-card"){
+                            $('#credit-card').modal("show");
+                        }
+                        else if(opval=="payPal")
+                        {
+                          $('#Paypal').modal("show");
+                        }
+                        else if(opval=="transfer")
+                        {
+                          $('#myModal').modal("show");
+                        }
+                    });
+                   </script>
                    
 
 
                       
                         <input type="hidden" name="_method" value="POST">
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
+                        <button id="reservation-button" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
             
                         <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
                              <strong>Prenotazione effettuata!</strong>
