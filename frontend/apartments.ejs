@@ -5,7 +5,11 @@
   <div class="col-lg-7">
 
     <h1>Soggiorni nei pressi di
-      <span id="search-location"><%= session.searchdata.location %></span>
+      <span>
+        <% if(session.searchdata) { %>
+          <%= session.searchdata.location.town %>
+        <% } %>
+      </span>
     </h1>
     <small class="lead text-muted">Qui potremmo mettere i filtri</small>
 

@@ -110,10 +110,19 @@
 
         <div class="card-body">
 
+          <div class="form-row">
+              
+            <div class="col-md-12 mb-3">
+              <label for="autocomplete"><span class="fas fa-map-marked-alt"></span> Indirizzo completo</label>
+              <input type="text" class="form-control" id="autocomplete" onFocus="geolocate()" autocomplete="off"
+                     placeholder="Inserisci qui l'indirizzo per usare l'autocompletamento dei campi di indirizzo">
+            </div>
+
+          </div>
 
           <div class="form-row">
             
-            <div class="col-md-9 mb-3">
+            <div class="col-md-6 mb-3">
               <label for="street"><span class="fas fa-map-marker-alt"></span> Indirizzo</label>
               <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico">
               <div class="invalid-feedback">
@@ -121,9 +130,17 @@
               </div>
             </div>
 
-            <div class="col-md-3 mb-3">
-              <label for="zipcode"><span class="fas fa-map-marker-alt"></span> CAP</label>
-              <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CAP" pattern="[0-9]{5}">
+            <div class="col-md-2 mb-3">
+              <label for="streetnumber"><span class="fas fa-map-marker-alt"></span> Numero Civico</label>
+              <input type="text" class="form-control" id="streetnumber" name="streetnumber" placeholder="Numero Civico">
+              <div class="invalid-feedback">
+                Inserire un numero civico valido.
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="postalcode"><span class="fas fa-map"></span> CAP</label>
+              <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="CAP" pattern="[0-9]{5}">
               <div class="invalid-feedback">
                 Inserire un CAP valido.
               </div>
@@ -186,3 +203,5 @@
     </form>
   </div>
 </div>
+
+<script src="/scripts/autocomplete-google.js"></script>

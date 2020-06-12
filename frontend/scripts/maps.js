@@ -4,11 +4,12 @@ function initMap() {
     map = new google.maps.Map($('#map')[0], { zoom: 12 });
 }
 
+// Geocodifica per gli appartamenti presenti nei risultati di ricerca
 function geocodeApartments() {
     let address;
     let geocoder = new google.maps.Geocoder();
 
-    address = $("#search-location").text();
+    address = Cookies.get("location");
 
     geocoder.geocode( {address: address}, function(results, status) {
         map.setCenter(results[0].geometry.location);
@@ -35,8 +36,3 @@ function geocodeApartments() {
       }); 
     });
 }
-
-$(document).ready(function() {
-
-    
-});

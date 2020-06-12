@@ -19,10 +19,8 @@ module.exports =
     },
     
     reserve: (req, res) => {
-        //test
-        console.log(req);
 
-        var newReservation = new Reservation(Mapper.getReservationFromReq(req));
+        let newReservation = new Reservation(Mapper.getReservationFromReq(req));
 
         Reservation.create(newReservation, function(err, reservation) {
             if(err)

@@ -33,7 +33,7 @@
 
               <div class="col-md-4 mb-3">
                 <label for="type_accomodation"><span class="fas fa-door-closed"></span> Tipo di Alloggio</label>
-                <select type="select" class="form-control" id="type-accomodation" name="type_accomodation" placeholder="Tipo di Alloggio" required>
+                <select type="select" class="custom-select form-control" id="type-accomodation" name="type_accomodation" placeholder="Tipo di Alloggio" required>
                   <option>Tutta la casa</option>
                   <option>Camera di Hotel</option>
                   <option>Stanza condivisa</option>
@@ -48,7 +48,7 @@
 
             <div class="form-row">
 
-              <div class="col-md-4 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="price"><span class="fas fa-euro-sign"></span> Prezzo per notte</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -63,16 +63,23 @@
                   L'inserimento del prezzo è obbligatorio.
                 </div>
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-3 mb-3">
                 <label for="bedrooms"><span class="fas fa-restroom"></span> Camere da letto</label>
-                <input type="number" class="form-control" min="0" max="100" id="bedrooms" name="bedrooms" placeholder="Camere da letto" required>
+                <input type="number" class="form-control" min="0" max="10" id="bedrooms" name="bedrooms" placeholder="Camere da letto" required>
                 <div class="invalid-feedback">
                   L'inserimento del numero di camere è obbligatorio.
                 </div>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="beds"><span class="fas fa-bed"></span> Posti letto (totali)</label>
-                <input type="number" class="form-control" min="0" max="200" id="beds" name="beds" placeholder="Posti letto" required>
+              <div class="col-md-3 mb-3">
+                <label for="bedrooms"><span class="fas fa-restroom"></span> Bagni</label>
+                <input type="number" class="form-control" min="0" max="10" id="bedrooms" name="bedrooms" placeholder="Numero bagni" required>
+                <div class="invalid-feedback">
+                  L'inserimento del numero di bagni è obbligatorio.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="bathrooms"><span class="fas fa-bed"></span> Posti letto (totali)</label>
+                <input type="number" class="form-control" min="0" max="20" id="bathrooms" name="bathrooms" placeholder="Posti letto" required>
                 <div class="invalid-feedback">
                   L'inserimento del numero dei posti letto è obbligatorio
                 </div>
@@ -82,7 +89,7 @@
 
             <div class="form-row">
   
-              <div class="col-md-12 mb-3">
+              <div class="col-md-8 mb-3">
                   <label for="description"><span class="fas fa-comment"></span> Descrizione</label>
 
                   <textarea type="text" rows="10" class="form-control" id="description" name="description" 
@@ -92,6 +99,34 @@
                       La descrizione è obbligatoria e deve essere minimo di 50 caratteri.
                   </div>
               </div>
+
+              <div class="col-md-4 mb-3">
+                <label for="services"><span class="fas fa-list-ul"></span> Servizi</label>
+
+                <select class="custom-select form-control" id="services" name="services" style="height: 90%;" multiple>
+                  <option>Aria condizionata</option>
+                  <option>Allarme antincendio</option>
+                  <option>Appendiabiti</option>
+                  <option>Asciugacapelli</option>
+                  <option>Asciugatrice</option>
+                  <option>Bagno privato</option>
+                  <option>Camino</option>
+                  <option>Colazione</option>
+                  <option>Cucina</option>
+                  <option>Culla</option>
+                  <option>Ferro da stiro</option>
+                  <option>Lavatrice</option>
+                  <option>Rilevatore di monossido di carbonio</option>
+                  <option>Riscaldamento</option>
+                  <option>Seggiolone</option>
+                  <option>Self check-in</option>   
+                  <option>TV</option>
+                  <option>Wi-Fi</option>
+                  <option>Zona lavoro computer-friendly</option>
+                </select>
+
+            </div>
+
             </div>
           </div>
         </div>
@@ -102,22 +137,38 @@
           <div class="card-header text-white bg-primary"><span class="fas fa-house-user"></span> Indirizzo</div>
   
           <div class="card-body">
+
+            <div class="form-row">
+                
+              <div class="col-md-12 mb-3">
+                <label for="autocomplete"><span class="fas fa-map-marked-alt"></span> Indirizzo completo</label>
+                <input type="text" class="form-control" id="autocomplete" onFocus="geolocate()" autocomplete="off"
+                       placeholder="Inserisci qui l'indirizzo per usare l'autocompletamento dei campi di indirizzo">
+              </div>
+  
+            </div>
   
             <div class="form-row">
               
-              <div class="col-md-8 mb-3">
+              <div class="col-md-6 mb-3">
                 <label for="street"><span class="fas fa-map-marker-alt"></span> Indirizzo</label>
-                <div class="input-group">
                 <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico">
-              </div>
                 <div class="invalid-feedback">
-                  Inserire un indirizzo valido
+                  Inserire un indirizzo valido.
                 </div>
               </div>
-
+  
+              <div class="col-md-2 mb-3">
+                <label for="streetnumber"><span class="fas fa-map-marker-alt"></span> Numero Civico</label>
+                <input type="text" class="form-control" id="streetnumber" name="streetnumber" placeholder="Numero Civico">
+                <div class="invalid-feedback">
+                  Inserire un numero civico valido.
+                </div>
+              </div>
+  
               <div class="col-md-4 mb-3">
-                <label for="zipcode"><span class="fas fa-map-marker-alt"></span> CAP</label>
-                <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CAP" pattern="[0-9]{5}">
+                <label for="postalcode"><span class="fas fa-map"></span> CAP</label>
+                <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="CAP" pattern="[0-9]{5}">
                 <div class="invalid-feedback">
                   Inserire un CAP valido.
                 </div>
@@ -130,30 +181,28 @@
   
               <div class="col-md-4 mb-3">
                 <label for="town"><span class="fas fa-map"></span> Comune</label>
-                <input type="text" class="form-control" id="town" name="town" placeholder="Comune"
-                       value="<%= session.user.address.town %>">
+                <input type="text" class="form-control" id="town" name="town" placeholder="Comune">
                 <div class="invalid-feedback">
                   Inserire un comune valido.
                 </div>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="province"><span class="fas fa-map"></span> Provincia</label>
-                <input type="text" class="form-control" id="province" name="province" placeholder="Provincia"
-                       value="<%= session.user.address.province %>">
+                <input type="text" class="form-control" id="province" name="province" placeholder="Provincia">
                 <div class="invalid-feedback">
                   Inserire una città valida.
                 </div>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="country"><span class="fas fa-globe"></span> Stato</label>
-                <input type="text" class="form-control" id="country" name="country" placeholder="Stato"
-                       value="<%= session.user.address.country %>">
+                <input type="text" class="form-control" id="country" name="country" placeholder="Stato">
                 <div class="invalid-feedback">
                   Inserire un stato valido.
                 </div>
               </div>
   
             </div>
+  
           </div>
         </div>
   

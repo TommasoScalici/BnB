@@ -114,7 +114,7 @@ module.exports =
         }
         
 
-        // Questa roba in pratica mi serve per eliminare eventuali valori undefined che arrivano dal form e che andrebbero
+        // Elimina eventuali valori undefined che arrivano dal form e che andrebbero
         // a sostituire i valori già salvati nel DB.
         Object.keys(user).forEach(key => user[key] === undefined && delete user[key]);
 
