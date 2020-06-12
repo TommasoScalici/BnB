@@ -21,7 +21,6 @@ module.exports =
         email: req.body.email,
         password: req.body.password,
         
-        is_host: false,
         sex: req.body.sex,
         birthdate: req.body.birthdate,
         telephone: req.body.telephone,
@@ -53,8 +52,7 @@ module.exports =
     }},
 
     getReservationFromReq: (req) => {
-        console.log(req.body.apartment);
-        
+  
         return {
             apartment: req.body.apartment._id,
             customer: req.session.user._id,

@@ -189,14 +189,21 @@
           </div>
         </div>        
   
-        <input type="hidden" name="_method" value="PUT">
-        <button class="btn btn-primary mb-4 mt-5" type="submit">Aggiorna dati</button>
+        <div class="form-row mx-auto my-4">
 
-        <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
-          <strong>Dati aggiornati con successo!</strong>
-        </div>
+          <div class="col-md-2">
+            <input type="hidden" name="_method" value="PUT">
+            <button class="btn btn-primary" type="submit">Aggiorna dati</button>
+          </div>
+          
+          <div class="col-md-3">
+            <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
+              <strong>Dati aggiornati con successo!</strong>
+            </div>
+            <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
+            </div>
+          </div>
 
-        <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
         </div>
   
       </form>

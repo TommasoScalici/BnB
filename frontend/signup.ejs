@@ -190,15 +190,20 @@
         </div>
       </div>
       
-      <input type="hidden" name="_method" value="POST">
-      <button class="btn btn-primary mb-4 mt-5" onclick="checkPasswordMatch()" type="submit">Registrati</button>
+      <div class="form-row mx-auto my-4">
 
-      <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
-        <strong>Registrazione effettuata con successo!</strong>
-      </div>
+        <div class="col-md-2">
+          <input type="hidden" name="_method" value="POST">
+          <button class="btn btn-primary mb-4 mt-5" onclick="checkPasswordMatch()" type="submit">Registrati</button>
+        </div>
 
-      <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
-      </div>
+        <div class="col-md-3">
+          <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
+            <strong>Registrazione effettuata con successo!</strong>
+          </div>
+          <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
+          </div>
+        </div>  
 
     </form>
   </div>

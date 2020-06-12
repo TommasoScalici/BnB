@@ -18,10 +18,14 @@ function geocodeApartments() {
     $(".apartment-preview").each(function(index, element) {
         let marker;
         geocoder.geocode( {address: $(element).find(".apartment-fulladdress")[0].innerText}, function(results, status) {
+
         if (status == google.maps.GeocoderStatus.OK) {
+
           map.setCenter(results[0].geometry.location);
+
           if(marker)
             marker.setMap(null);
+
           marker = new google.maps.Marker({
               animation: google.maps.Animation.DROP,
               icon: "/images/marker.png",
@@ -32,6 +36,15 @@ function geocodeApartments() {
                 text: $(element).find(".apartment-price")[0].innerText,
               } 
           });
+
+          let apartmentAnchor = $(element).find(".apartment-anchor")[0].innerText;
+          let apartmentName = $(element).find(".apartment-name")[0].innerText;
+          let imgSource = $(element).find(".apartment-image")[0].innerText;
+          let infoContent = `<a href="${apartmentAnchor}"><img width="250" height="150" alt="apartment picture" src="${imgSource}">
+                             <h5 class="my-3">${apartmentName}</h5></a>`;
+                             
+          let infoWindow = new google.maps.InfoWindow({ content: infoContent, maxWidth: 280 });
+          marker.addListener('click', function () { infoWindow.open(map, marker); });
         }
       }); 
     });

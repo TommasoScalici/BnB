@@ -99,9 +99,9 @@ $(document).ready(function () {
             data: form.serialize()
         }).done(function() {
 
-            $('#alert-signin-success').fadeIn(2000).fadeOut(1000);
-            setTimeout(() => { $('#signin-modal').modal('hide'); }, 3000);
-            setTimeout(() => { window.location.replace(window.location.pathname); }, 4000);
+            $('#alert-signin-success').fadeIn(1000).fadeOut(1000);
+            setTimeout(() => { $('#signin-modal').modal('hide'); }, 2000);
+            setTimeout(() => { window.location.replace(window.location.pathname); }, 2500);
 
         }).fail(function(response) {
 
