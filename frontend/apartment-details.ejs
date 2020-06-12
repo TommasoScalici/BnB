@@ -87,17 +87,19 @@
                         <label for="checkout">Checkout</label>
                     </div>
 
-                <!--Guests (Adults, Children, newborns)-->
+                <!--Guests (Adults, Children, newborns)   
+                  NON SO COME RISOLVERE IL FATTO CHE IL WARNING DELLA   REQUIRED DI GUESTS NON SI VEDE SUL LAYOUT-->
+
                     <div class="form-group col-md-12">
-                        <input type="hidden" id="reservation-guests" name="guests" max="<%=apartment.beds%>">
+                        <input type="hidden" id="reservation-guests" name="guests" max="<%=apartment.beds%>" required>
                         <button type="button" id="peopleDropdown" class="btn btn-light btn-block input-placeholding bg-warning border-dark rounded-pill" style="width: 12rem;"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">Aggiungi ospiti</button>
             
                         <!--Guests Dropdown-->
                         <div class="dropdown-menu rounded-lg bg-warning" aria-labelledby="peopleDropdown">
                           <div class="container">
                             <div class="form-inline">
-                              <div class="form-group" style="line-height: 1em;">
+                              <div class="form-group" style="line-height: 1em;">  
             
                                 <div>
                                   <strong class="align-middle mx-auto">Adulti</strong><br />
@@ -109,7 +111,7 @@
                                 </div>
             
                                 <div class="ml-4" style="width: 8em">
-                                  <input id="adults" class="guests-input mb-4" type="number" value="0" min="1" max="20" step="1"/>
+                                  <input id="adults" class="guests-input mb-4" type="number" value="" min="1" max="20" step="1" required/>
                                   <input id="children"class="guests-input my-auto" type="number" value="0" min="0" max="20" step="1"/>
                                   <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="20" step="1"/>
                                 </div>
@@ -128,7 +130,7 @@
 
                     <!--Payment-->
                     <div class="form-group">
-                     <select class="form-control bg-warning border-dark" id="payment" name="payment" placeholder="Tipologia di Pagamento">
+                     <select class="form-control bg-warning border-dark" id="payment" name="payment" placeholder="Tipologia di Pagamento" required>
                        <option value="">---Seleziona Metodo di Pagamento---</option>
                        <option value="credit-card">Carta di Credito</option>
                        <option value="payPal">PayPal</option>
@@ -155,12 +157,12 @@
                           $('#myModal').modal("show");
                         }
                     });
-                   </script>
+                    </script>
                         <%if (session.user) { %>
                             <input type="hidden" name="_method" value="POST">
                             <button id="reservation-button" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
                         <% } else  { %>
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase notlogged-popover" data-toggle="popover"	> Prenota (not logged)</button>
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase notlogged-popover" data-toggle="popover"> Prenota (not logged)</button>
                         <% } %>
                         
                         <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
@@ -301,6 +303,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script>
 
 
+
 <script>
 
 var geocoder;
@@ -322,16 +325,27 @@ function initMap() {
 
 
 
+//non funziona il link accedere
 
 var content = ['<div>Per poter prenotare devi ',
                '<a data-toggle="modal" data-target="#signin-modal" href="#">accedere. </a>',
                'Non hai un account?', 
                '<a href="/users/signup"> Registrati </a>',
                'subito!</div>'].join('');
-
+var content1 = ['<div class="popover" role="tooltip">',
+                '<div class="arrow"></div>',
+                '<h3 class="popover-header"></h3>',
+                '<div class="popover-body">',
+                  '<div>Per poter prenotare devi ',
+               '<a data-toggle="modal" data-target="#signin-modal" href="#">accedere. </a>',
+               'Non hai un account?', 
+               '<a href="/users/signup"> Registrati </a>',
+               'subito!</div>',
+               '</div></div>'].join();
 $('.notlogged-popover').popover({
+  trigger: 'click',
   container: 'body',
-  content: content,
+  content: content1,
   html: true
   
 });
