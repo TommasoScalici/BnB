@@ -56,12 +56,9 @@ $(document).ready(function () {
             if($("#reservation-checkin").val() > $("#reservation-checkout").val())
                 $("#reservation-checkin").val($("#reservation-checkout").val());
 
-        //Non so perchè ma sta cosa fixa il problema che puoi selezionare anche date precedenti al cui giorno presente
-        if(false){
-        }
-        });
-
         
-
+        
+        
+        });
     });
 });
