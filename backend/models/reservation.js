@@ -3,18 +3,24 @@ const Schema = mongoose.Schema;
 
 var ReservationSchema = new Schema({
 
-    // By Tom: il modello non credo vado fatto referenziando gli id come stringhe,
-    // ma credo si debbano referenziare gli Schema
     apartment:  { type: Schema.Types.ObjectId, ref: 'Apartment' },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    customer: { type: Schema.Types.ObjectId, ref: 'User' },
+    host: { type: Schema.Types.ObjectId, ref: 'User' },
     checkin: Date,
     checkout: Date,
     guests: Number,
-    payment: String,
-    totalPrice: Number
+    payment_method: String,
+    city_tax: Number,
+    cleaning_cost: Number,
+    service_cost: Number,
+    stay_cost: Number,
     },
 
     { timestamps: true }
 );
+
+ReservationSchema.virtual('total_cost').get(function () {
+    return city_tax + cleaning_cost + service_cost + stay_cost;
+});
 
 module.exports = mongoose.model('Reservation', ReservationSchema);  

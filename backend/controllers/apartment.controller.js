@@ -1,7 +1,6 @@
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
 const Apartment = require('../models/apartment.js');
-const { getSearchDataFromReq } = require('../utilities/request-model-mapper.js');
 
 module.exports = 
 {
@@ -45,17 +44,6 @@ module.exports =
             });     
         });
     },
-
-    getApartments: async (req, res) => { 
-        await Apartment.find({}, function(err, apartments) {
-            if(err) {
-                console.log(`Mongo error while retrieveing apartments data: ${err}`);
-                res.status(500).json({message: "Server error while processing the request"});
-            }
-            else
-                res.render("index", {pagetitle: "Lista Appartamenti", path: "apartments", apartments});
-        });
-    },
     
     renderCreate: (req, res) => {
         if(req.session.user === undefined || req.session.user === null)
@@ -66,29 +54,25 @@ module.exports =
 
     searchApartments: async (req, res) => {
 
-        req.session.searchdata = getSearchDataFromReq(req);
+        req.session.searchdata = Mapper.getSearchDataFromReq(req);
 
         req.session.save();
 
         await Apartment.find({
-            beds: { $gte: req.query.guests },
-            $or: [
-                    { $and: [
-                        { "address.province": req.query.province },
-                        { "address.town": req.query.town },
-                    ]}, 
-                { "address.province": { $regex: req.query.location } },
-                { "address.street": { $regex: req.query.location } },
-                { "address.town": { $regex: req.query.location } },
-                { "address.zipcode": { $regex: req.query.location } },
-            ],
+            beds: {  $gte: req.query.guests },
+            "address.country": { $regex: req.query.country },
+            "address.postal_code": { $regex: req.query.postalcode },
+            "address.province": { $regex: req.query.province },
+            "address.street": { $regex: req.query.street },
+            "address.street_number": { $regex: req.query.streetnumber },
+            "address.town": { $regex: req.query.town },
         }, function(err, apartments) {
             if(err) {
                 console.log(`Mongo error while retrieveing apartments data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                res.render("index", {pagetitle: `Hai cercato alloggi a ${req.query.location}`, path: "apartments", apartments});
+                res.render("index", {pagetitle: `Stai cercando alloggi a ${req.query.town}`, path: "apartments", apartments});
         });
     },
 }

@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var UserSchema = new mongoose.Schema({
+var UserSchema = new Schema({
 
     name: {
         first: String,
@@ -10,10 +11,11 @@ var UserSchema = new mongoose.Schema({
 
     address: {
         country: String,
+        postal_code: String,
         street: String,
+        street_number: String,
         province: String,
         town: String,
-        zipcode: String
     },
 
     username: String,
