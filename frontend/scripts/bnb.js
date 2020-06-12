@@ -85,10 +85,8 @@ $(document).ready(function () {
     // Gestione alerts per il submit dei form
     $("#form-signin").submit(function(event) {
 
-        setTimeout(() => {
-        $('#alert-signin-email').fadeOut(1000);
-        $('#alert-signin-pass').fadeOut(1000);
-        }, 2000);
+        $('#alert-signin-email').fadeOut(500);
+        $('#alert-signin-pass').fadeOut(500);
 
         event.preventDefault(); 
         let form = $(this);
@@ -100,8 +98,8 @@ $(document).ready(function () {
         }).done(function() {
 
             $('#alert-signin-success').fadeIn(1000).fadeOut(1000);
-            setTimeout(() => { $('#signin-modal').modal('hide'); }, 2000);
-            setTimeout(() => { window.location.replace(window.location.pathname); }, 2500);
+            setTimeout(() => { $('#signin-modal').modal('hide'); }, 2500);
+            setTimeout(() => { window.location.reload(); }, 3000);
 
         }).fail(function(response) {
 
@@ -190,7 +188,7 @@ $(document).on('shown.bs.modal', function() {
 // Funzione di validazione aggiuntiva per il match delle password
 function checkPasswordMatch() {
 
-    if ($("#password").val() != $("#repass").val())
+    if ($("#password").val() !== $("#repass").val())
         $("#repass")[0].setCustomValidity("Le password non coincidono.");
     else
         $("#repass")[0].setCustomValidity('');

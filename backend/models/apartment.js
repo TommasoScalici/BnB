@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 var ApartmentSchema = new Schema({
 
-    host: { type: Schema.Types.ObjectId, ref: 'User' },
+    host: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     name: String,
     description: String,
     price : Number,

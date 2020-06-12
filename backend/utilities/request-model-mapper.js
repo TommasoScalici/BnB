@@ -36,7 +36,7 @@ module.exports =
         bathrooms: req.body.bathrooms,
         beds: req.body.beds,
         bedrooms: req.body.bedrooms,
-        guests_max: req.body.guests_max,
+        guests_max: req.body.guestsmax,
         type_accomodation: req.body.typeaccomodation,
         services: req.body.services,
         photo_paths: new Array(),
