@@ -6,10 +6,12 @@ $(document).ready(function () {
 //By Tom: https://rb.gy/erpn1z ;)        
         $("#reservation-checkin").val($("#searchbar-checkin").val());
         $("#reservation-checkout").val($("#searchbar-checkout").val());
+
+        $("#cleaning-cost").val(3*$("#apartmentRooms").val());   //6 per il numero di stanze
         
         $(".searchbar-guests-input, #reservation-checkin, #reservation-checkout").change(function() {
 
-            let totalPrice;
+            let stayCost;
             let adults = 0;
             let newborns = 0;
             let sum = 0;
@@ -35,10 +37,11 @@ $(document).ready(function () {
 
             $("#reservation-guests").val(sum);
 
-            totalPrice = ((date2 - date1)/86400000 * (apartmentPrice)*(adults + (newborns/2)));
+            stayCost = ((date2 - date1)/86400000 * (apartmentPrice)*(adults + (newborns/2)));
 
-            if(totalPrice > 0)
-                $('#strong-price').html(totalPrice+"€");
+            if(stayCost > 0)
+                $('#strong-price').html(stayCost+"€");
+                $('#stay-cost').val(stayCost);
                 
         });
        
