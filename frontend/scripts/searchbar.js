@@ -27,7 +27,7 @@ function geolocate() {
 // quando si modificano le diverse tipologie di ospiti (adulti, bambini, neonati)
 function updateGuests() {
     let sum = 0;
-    $(".guests-input").each(function() {
+    $(".searchbar-guests-input").each(function() {
         if($(this).val() < 0)
             $(this).val(0);
         sum += Number($(this).val());
@@ -101,8 +101,8 @@ $(document).ready(function() {
 
         if(!cookie || cookie !== data) {
             event.preventDefault();
-            Cookies.set("location", $("#searchbar-location").val(), {expires: 7});
-            Cookies.set("query_search", data, {expires: 7});
+            Cookies.set("location", $("#searchbar-location").val());
+            Cookies.set("query_search", data);
             $(this).submit();
         }
 
@@ -123,7 +123,6 @@ $(document).ready(function() {
         if($("#searchbar-checkin").val() > $("#searchbar-checkout").val())
             $("#searchbar-checkin").val($("#searchbar-checkout").val());
     });
+
+    $(".searchbar-guests-input").change(() => updateGuests());
 });
-
-
-$(".guests-input").change(() => updateGuests());

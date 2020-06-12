@@ -7,7 +7,7 @@ $(document).ready(function () {
         $("#reservation-checkin").val($("#searchbar-checkin").val());
         $("#reservation-checkout").val($("#searchbar-checkout").val());
         
-        $(".guests-input, #reservation-checkin, #reservation-checkout").change(function() {
+        $(".searchbar-guests-input, #reservation-checkin, #reservation-checkout").change(function() {
 
             let totalPrice;
             let adults = 0;
@@ -17,7 +17,7 @@ $(document).ready(function () {
             let date2 = new Date ($('#reservation-checkout').val());
             let apartmentPrice = Number($('#apartmentPrice').val());
 
-            $(".guests-input").each(function() {
+            $(".searchbar-guests-input").each(function() {
                 if($(this).val() < 0)
                     $(this).val(0);
                     sum += Number($(this).val());

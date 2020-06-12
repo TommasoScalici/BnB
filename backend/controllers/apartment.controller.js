@@ -1,6 +1,26 @@
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
 const Apartment = require('../models/apartment.js');
+const session = require('express-session');
+
+async function getApartmentsFromSessionSearchData(searchdata) {
+    await Apartment.find({
+        guests_max: {  $gte: searchdata.guests },
+        "address.country": { $regex: searchdata.location.country },
+        "address.postal_code": { $regex: searchdata.location.postalcode },
+        "address.province": { $regex: searchdata.location.province },
+        "address.street": { $regex: searchdata.location.street },
+        "address.street_number": { $regex: searchdata.location.streetnumber },
+        "address.town": { $regex: searchdata.location.town },
+    }, function(err, apartments) {
+        if(err) {
+            console.log(`Mongo error while retrieveing apartments data: ${err}`);
+            return null;
+        }
+        
+        return apartments;
+    });
+}
 
 module.exports = 
 {
@@ -31,18 +51,15 @@ module.exports =
         });        
     },
 
-    getApartment: async (req, res) => {
+    renderApartment: async (req, res) => {
         await Apartment.findById(req.params.id, async function(err, apartment) {
             if(err) {
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                await Apartment.find({}, function(err, apartments) {
-                    let apartmentsTest = JSON.stringify(apartments.map(x => { return { address: x.fulladdress, price: x.price } }));
-                    res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments, apartmentsTest});  
-            });     
-        });
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment});  
+        }).populate("host");
     },
     
     renderCreate: (req, res) => {
@@ -55,24 +72,9 @@ module.exports =
     searchApartments: async (req, res) => {
 
         req.session.searchdata = Mapper.getSearchDataFromReq(req);
-
         req.session.save();
-
-        await Apartment.find({
-            guests_max: {  $gte: req.query.guests },
-            "address.country": { $regex: req.query.country },
-            "address.postal_code": { $regex: req.query.postalcode },
-            "address.province": { $regex: req.query.province },
-            "address.street": { $regex: req.query.street },
-            "address.street_number": { $regex: req.query.streetnumber },
-            "address.town": { $regex: req.query.town },
-        }, function(err, apartments) {
-            if(err) {
-                console.log(`Mongo error while retrieveing apartments data: ${err}`);
-                res.status(500).json({message: "Server error while processing the request"});
-            }
-            else
-                res.render("index", {pagetitle: `Stai cercando alloggi a ${req.query.town}`, path: "apartments", apartments});
-        });
+        
+        let apartments = await getApartmentsFromSessionSearchData();
+        res.render("index", {pagetitle: `Stai cercando alloggi a ${session.searchdata.location.town}`, path: "apartments", apartments});
     },
 }
