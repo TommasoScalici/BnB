@@ -21,7 +21,6 @@ module.exports =
         email: req.body.email,
         password: req.body.password,
         
-        is_host: false,
         sex: req.body.sex,
         birthdate: req.body.birthdate,
         telephone: req.body.telephone,
@@ -37,7 +36,8 @@ module.exports =
         bathrooms: req.body.bathrooms,
         beds: req.body.beds,
         bedrooms: req.body.bedrooms,
-        type_accomodation: req.body.type_accomodation,
+        guests_max: req.body.guestsmax,
+        type_accomodation: req.body.typeaccomodation,
         services: req.body.services,
         photo_paths: new Array(),
     
@@ -52,8 +52,7 @@ module.exports =
     }},
 
     getReservationFromReq: (req) => {
-        console.log(req.body.apartment);
-        
+  
         return {
             apartment: req.body.apartment._id,
             customer: req.session.user._id,

@@ -32,14 +32,14 @@
 
         <div class="form-group-inline">
             <small class="label-placeholder">DOVE</small>
-            <input id="searchbar-location" type="input" class="form-control input-placeholding" style="width: 11rem;"
-                   placeholder="Cerca per città, indirizzo..." onFocus="geolocate()" required />
-            <input type="hidden" id="searchbar-country" name="country">
-            <input type="hidden" id="searchbar-postalcode" name="postalcode">
-            <input type="hidden" id="searchbar-province" name="province">
-            <input type="hidden" id="searchbar-street" name="street">
-            <input type="hidden" id="searchbar-streetnumber" name="streetnumber">
-            <input type="hidden" id="searchbar-town" name="town">
+            <input id="searchbar-location" class="form-control input-placeholding" name="location" type="input"
+                   style="width: 11rem;" placeholder="Cerca per città, indirizzo..." onFocus="geolocate()" />
+            <input type="hidden" class="searchbar-hidden-field" id="searchbar-country" name="country">
+            <input type="hidden" class="searchbar-hidden-field" id="searchbar-postalcode" name="postalcode">
+            <input type="hidden" class="searchbar-hidden-field" id="searchbar-province" name="province">
+            <input type="hidden" class="searchbar-hidden-field" id="searchbar-street" name="street">
+            <input type="hidden" class="searchbar-hidden-field" id="searchbar-streetnumber" name="streetnumber">
+            <input type="hidden" class="searchbar-hidden-field" id="searchbar-town" name="town">
         </div>
 
         <div class="form-group-inline">

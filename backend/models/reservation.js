@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 var ReservationSchema = new Schema({
 
-    apartment:  { type: Schema.Types.ObjectId, ref: 'Apartment' },
-    customer: { type: Schema.Types.ObjectId, ref: 'User' },
-    host: { type: Schema.Types.ObjectId, ref: 'User' },
+    apartment:  { type: Schema.Types.ObjectId, ref: 'Apartment', required: true },
+    customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    host: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     checkin: Date,
     checkout: Date,
     guests: Number,
@@ -14,6 +14,10 @@ var ReservationSchema = new Schema({
     cleaning_cost: Number,
     service_cost: Number,
     stay_cost: Number,
+    status: {
+        type: String,
+        enum: ["accepted", "canceled", "pending", "refused"]
+    },
     },
 
     { timestamps: true }

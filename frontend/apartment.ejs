@@ -2,13 +2,13 @@
 
     <div class="col-md-6">
       <a href="/apartments/apartment/<%= apartment._id%>">
-        <img class="card-img-top" src="<%= apartment.photo_paths[0] %>" alt="Immagine appartamento">
+        <img class="card-img-top" style="height: 200px;" src="<%= apartment.photo_paths[0] %>" alt="Immagine appartamento">
       </a>
     </div>
 
     <div class="col-md-6">
 
-      <p class="text-muted"><%= apartment.type_accomodation %>, <%= apartment.beds %> letti</p>
+      <p class="text-muted"><%= apartment.type_accomodation %>, per <%= apartment.guests_max %> ospite/i</p>
 
       <h4>
         <a href="/apartments/apartment/<%= apartment._id%>"><%= apartment.name %></a>
@@ -16,8 +16,13 @@
           
       <h5><%= apartment.price %> € / notte</h5>
 
-      <p><%= apartment.bedrooms %> camere da letto, <%= apartment.beds %> letti</p>
+      <p><%= apartment.bedrooms %> camera/e da letto, <%= apartment.bathrooms %> bagno/i e <%= apartment.beds %> letto/i</p>
+
+      <span class="apartment-anchor" style="display: none;">/apartments/apartment/<%= apartment._id%></span>
       <span class="apartment-fulladdress" style="display: none;"><%= apartment.fulladdress %></span>
+      <span class="apartment-image" style="display: none;"><%= apartment.photo_paths[0] %></span>
+      <span class="apartment-name" style="display: none;"><%= apartment.name %></span>
+      <span class="apartment-price" style="display: none;"><%= apartment.price %>€</span>
     </div>
 
 </div>

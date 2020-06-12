@@ -128,7 +128,7 @@
               
               <div class="col-md-6 mb-3">
                 <label for="street"><span class="fas fa-map-marker-alt"></span> Indirizzo</label>
-                <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo e numero civico"
+                <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo (via, piazza, ecc.)"
                        value="<%= session.user.address.street %>" >
                 <div class="invalid-feedback">
                   Inserire un indirizzo valido.
@@ -136,7 +136,7 @@
               </div>
 
               <div class="col-md-2 mb-3">
-                <label for="streetnumber"><span class="fas fa-map-marker-alt"></span> Numero Civico</label>
+                <label for="streetnumber"><span class="fas fa-map-marker-alt"></span> Numero civico</label>
                 <input type="text" class="form-control" id="streetnumber" name="streetnumber" placeholder="Numero Civico"
                        value="<%= session.user.address.street_number %>">
                 <div class="invalid-feedback">
@@ -189,14 +189,21 @@
           </div>
         </div>        
   
-        <input type="hidden" name="_method" value="PUT">
-        <button class="btn btn-primary mb-4 mt-5" type="submit">Aggiorna dati</button>
+        <div class="form-row mx-auto my-4">
 
-        <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
-          <strong>Dati aggiornati con successo!</strong>
-        </div>
+          <div class="col-md-2">
+            <input type="hidden" name="_method" value="PUT">
+            <button class="btn btn-primary" type="submit">Aggiorna dati</button>
+          </div>
+          
+          <div class="col-md-4">
+            <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
+              <strong>Dati aggiornati con successo!</strong>
+            </div>
+            <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
+            </div>
+          </div>
 
-        <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
         </div>
   
       </form>

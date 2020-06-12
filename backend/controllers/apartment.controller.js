@@ -59,7 +59,7 @@ module.exports =
         req.session.save();
 
         await Apartment.find({
-            beds: {  $gte: req.query.guests },
+            guests_max: {  $gte: req.query.guests },
             "address.country": { $regex: req.query.country },
             "address.postal_code": { $regex: req.query.postalcode },
             "address.province": { $regex: req.query.province },

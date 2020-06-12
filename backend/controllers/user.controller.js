@@ -89,6 +89,7 @@ module.exports =
         }
 
         var newUser = new User(Mapper.getUserFromReq(req));
+        newUser.is_host = false;
 
         await User.create(newUser, function(err, user) {
             if(err) {
