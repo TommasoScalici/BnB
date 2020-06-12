@@ -62,6 +62,10 @@ module.exports =
             checkout: req.body.checkout,
             guests: req.body.guests,
             payment_method: req.body.paymentmethod,
+            city_tax: req.body.citytax,
+            cleaning_cost: req.body.cleaningcost,
+            service_cost: req.body.servicecost,
+            stay_cost: req.body.staycost,
    }},
 
    getSearchDataFromReq: (req) => {

@@ -88,7 +88,7 @@
                     </div>
 
                 <!--Guests (Adults, Children, newborns)   
-                  NON SO COME RISOLVERE IL FATTO CHE IL WARNING DELLA   REQUIRED DI GUESTS NON SI VEDE SUL LAYOUT-->
+                  NON SO COME RISOLVERE IL FATTO CHE IL WARNING DELLA REQUIRED DI GUESTS NON SI VEDE SUL LAYOUT-->
 
                     <div class="form-group col-md-12">
                         <input type="hidden" id="reservation-guests" name="guests" max="<%=apartment.beds%>" required>
@@ -122,42 +122,26 @@
                         </div>
                       </div>
 
-                    <!--ID dell'appartamento-->
+                    <!-- ID dell'appartamento -->
                     <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
+                    <!-- Stay cost = guests*days*apartment.price-->
+                    <input id="stay-cost" name="stay-cost" type="hidden" value="<%=apartment.price%>">
 
-                    <!--Prezzo appartamento-->
+                    <!-- Apartment Price, però è un modo sbagliato per passare una variabile di sessione allo script, mi sa-->
                     <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
+                    <!-- IDEM -->
+                    <input id="apartmentRooms" name="apartmentRooms" type="hidden" value="<%=apartment.bedrooms%>">
 
-                    <!--Payment-->
-                    <div class="form-group">
-                     <select class="form-control bg-warning border-dark" id="payment" name="payment" placeholder="Tipologia di Pagamento" required>
-                       <option value="">---Seleziona Metodo di Pagamento---</option>
-                       <option value="credit-card">Carta di Credito</option>
-                       <option value="payPal">PayPal</option>
-                       <option value="debit-card">Bonifico Bancario</option>
-                     </select>
-                   </div>
+                    <!-- Cleaning Cost-->
+                    <input id="cleaning-cost" name="cleaningcost" type="hidden" value="">
 
-                   <%- include('credit-card') %>
-                   <%- include('Paypal') %>
+                    <!-- Service Cost-->
+                    <input id="service-cost" name="servicecost" type="hidden" value="2">
+                    <!-- City Tax-->
+                    <input id="city-tax" name="citytax" type="hidden" value="2">
 
 
-                   <script>   
-                    $('#payment').change(function() {
-                        var opval = $(this).val();
-                        if(opval=="credit-card"){
-                            $('#credit-card').modal("show");
-                        }
-                        else if(opval=="payPal")
-                        {
-                          $('#Paypal').modal("show");
-                        }
-                        else if(opval=="transfer")
-                        {
-                          $('#myModal').modal("show");
-                        }
-                    });
-                    </script>
+                   
                         <%if (session.user) { %>
                             <input type="hidden" name="_method" value="POST">
                             <button id="reservation-button" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
