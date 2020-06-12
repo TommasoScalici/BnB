@@ -33,7 +33,7 @@
 
               <div class="col-md-4 mb-3">
                 <label for="type_accomodation"><span class="fas fa-door-closed"></span> Tipo di Alloggio</label>
-                <select type="select" class="custom-select form-control" id="type-accomodation" name="type_accomodation" placeholder="Tipo di Alloggio" required>
+                <select type="select" class="custom-select form-control" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" required>
                   <option>Tutta la casa</option>
                   <option>Camera di Hotel</option>
                   <option>Stanza condivisa</option>
@@ -48,7 +48,7 @@
 
             <div class="form-row">
 
-              <div class="col-md-3 mb-3">
+              <div class="col-md-4 mb-3">
                 <label for="price"><span class="fas fa-euro-sign"></span> Prezzo per notte</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -63,21 +63,28 @@
                   L'inserimento del prezzo è obbligatorio.
                 </div>
               </div>
-              <div class="col-md-3 mb-3">
+              <div class="col-md-2 mb-3">
+                <label for="maxguests"><span class="fas fa-users"></span> Ospiti</label>
+                <input type="number" class="form-control" min="0" max="20" id="maxguests" name="maxguests" placeholder="Numero massimo ospiti" required>
+                <div class="invalid-feedback">
+                  L'inserimento del numero massimo di ospiti consentito è obbligatorio.
+                </div>
+              </div>
+              <div class="col-md-2 mb-3">
                 <label for="bedrooms"><span class="fas fa-restroom"></span> Camere da letto</label>
                 <input type="number" class="form-control" min="0" max="10" id="bedrooms" name="bedrooms" placeholder="Camere da letto" required>
                 <div class="invalid-feedback">
                   L'inserimento del numero di camere è obbligatorio.
                 </div>
               </div>
-              <div class="col-md-3 mb-3">
-                <label for="bedrooms"><span class="fas fa-restroom"></span> Bagni</label>
+              <div class="col-md-2 mb-3">
+                <label for="bedrooms"><span class="fas fa-bath"></span> Bagni</label>
                 <input type="number" class="form-control" min="0" max="10" id="bedrooms" name="bedrooms" placeholder="Numero bagni" required>
                 <div class="invalid-feedback">
                   L'inserimento del numero di bagni è obbligatorio.
                 </div>
               </div>
-              <div class="col-md-3 mb-3">
+              <div class="col-md-2 mb-3">
                 <label for="bathrooms"><span class="fas fa-bed"></span> Posti letto (totali)</label>
                 <input type="number" class="form-control" min="0" max="20" id="bathrooms" name="bathrooms" placeholder="Posti letto" required>
                 <div class="invalid-feedback">
@@ -217,13 +224,16 @@
                 <label for="apartment-file-input"><span class="fas fa-images"></span> Seleziona una o più immagini del tuo appartamento da caricare</label>
                 <div class="input-group mb-3">
                   <div class="custom-file" id="apartment-file-input">
-                    <input type="file" class="custom-file-input" id="apartment-images-input" name="photos" multiple>
+                    <input type="file" class="custom-file-input" id="apartment-images-input" name="photos" multiple required>
                     <label class="custom-file-label" for="apartment-images-input" data-browse="Sfoglia">
                       <div class="progress h-100">
                         <div class="progress-bar bg-success" id="apartment-progressbar" role="progressbar" 
                              aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
                     </label>
+                    <div class="invalid-feedback">
+                      Bisogna caricare obbligatoriamente almeno un'immagine.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -273,3 +283,5 @@
 
     </div>
   </div>
+
+  <script src="/scripts/autocomplete-google.js"></script>

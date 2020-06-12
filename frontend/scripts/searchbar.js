@@ -14,6 +14,15 @@ function initAutocomplete() {
     autocomplete.addListener('place_changed', function() {
         let place = autocomplete.getPlace();
 
+
+        $("#searchbar-province").val(null);
+        $("#searchbar-country").val(null);
+        $("#searchbar-town").val(null)
+        $("#searchbar-town").val(null);
+        $("#searchbar-postalcode").val(null);
+        $("#searchbar-street").val(null);
+        $("#searchbar-streetnumber").val(null);
+
         // Get each component of the address from the place details,
         // and then fill-in the corresponding field on the form.
         for (let i = 0; i < place.address_components.length; i++) {
