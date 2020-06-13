@@ -52,3 +52,7 @@ function geolocate() {
         });
     }
 }
+
+$(document).ready(function() {
+    initAutocomplete();
+});

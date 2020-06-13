@@ -1,17 +1,4 @@
 $(document).ready(function () {
-    // Gestione del click sugli anchor 
-    $("a").click(function() {
-
-        let url = $(this).attr("href");
-
-        if(url === undefined || url === null || url.startsWith("#"))
-            return;
-
-        else if(url == "signin" || url == "cards") {
-            $("#dialog").dialog();
-            return;
-        }
-    });
 
     // Renderizza la preview dell'immagine profilo che si sta caricando
     $("#profile-image-input").change(function () {

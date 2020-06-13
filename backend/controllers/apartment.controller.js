@@ -32,15 +32,13 @@ module.exports =
     },
 
     renderApartment: async (req, res) => {
-        await Apartment.findById(req.params.id, async function(err, apartment) {
+        await Apartment.findById(req.params.id, function(err, apartment) {
             if(err) {
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                await Apartment.find({}, function(err, apartments) {
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments}); 
-            });
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment}); 
         }).populate("host");
     },
     
