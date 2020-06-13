@@ -92,20 +92,15 @@ $(document).ready(function() {
 
     $("#searchbar-form").submit(function(event) {
 
-        if(autocomplete !== undefined &&
-          (autocomplete.getPlace() !== undefined  || autocomplete.getPlace().name !== undefined))
-            $(".searchbar-hidden-field").val(null);
-
         let cookie = Cookies.get("query_search");
         let data =  $(this).serialize();
 
-        if(!cookie || cookie !== data) {
-            event.preventDefault();
+        if(!cookie || cookie !== data) {   
+            event.preventDefault();      
             Cookies.set("location", $("#searchbar-location").val());
             Cookies.set("query_search", data);
             $(this).submit();
         }
-
     })
     // Fine gestione cookie
 
