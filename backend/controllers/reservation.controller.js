@@ -10,12 +10,16 @@ module.exports =
             res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
     },
 
-    renderReservation: (req, res) => {
-        res.render("index", {pagetitle:"Prenotazione", path:"reservation-form"})
-    },
+    // renderReservation: (req, res) => {
+    //     res.render("index", {pagetitle:"Prenotazione", path:"reservation-form"})
+    // },
 
-    renderReview: (req, res) => {
-        res.render("index", {pagetitle:"Prenotazione", path:"reservation-review"})
+    // renderReview: (req, res) => {
+    //     res.render("index", {pagetitle:"Prenotazione", path:"reservation-review"})
+    // },
+
+    renderCheckout: (req, res) => {
+        res.render("index", {pagetitle:"Checkout", path:"checkout"})
     },
     
     reserve: (req, res) => {
