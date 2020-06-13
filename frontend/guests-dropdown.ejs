@@ -2,7 +2,11 @@
     <input type="hidden" id="guests" name="guests">
     <small class="label-placeholder">OSPITI</small>
     <button class="btn btn-secondary btn-block input-placeholding" type="button" id="people-dropdown"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aggiungi ospiti</button>
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Aggiungi ospiti</button>
+    <span id="guests-validation-popover" title="Attenzione!" data-placement="bottom"
+          data-toggle="popover" data-content="Devi inserire almeno un ospite!">  
+    </span>
 
     <div class="dropdown-menu" aria-labelledby="people-dropdown">
         <div class="container">
