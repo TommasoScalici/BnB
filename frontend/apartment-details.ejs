@@ -65,7 +65,7 @@
           <div class="card-body">
             <h5 class="card-title text-center mb-4">Dettagli di prenotazione</h5>
 
-            <form action="/reservations/checkout" method="GET" id="reservation-summary-form" role="group">
+            <form action="/reservations/summary" method="GET" id="reservation-summary-form" role="group">
             
               <input type="hidden" id="reservation-apartment-id" name="apartmentid">
               <input type="hidden" id="reservation-citytax" name="citytax">
@@ -105,6 +105,7 @@
                   <span id="citytax" class="text-muted"></span>
                 </li>
               </ul>
+
               <div class="card-footer d-flex justify-content-between lh-condensed">
                 <h5>Totale</h5>
                 <strong id="totalcost"></strong>
@@ -112,14 +113,21 @@
   
               <hr>
 
-            <div class="form-row inline">
-              <a class="btn btn-block btn-primary mx-auto" href="/reservations/checkout" id="checkout" tabindex="0"
-                 title="Devi prima effettuare l'accesso" data-html="true" data-toggle="popover" data-trigger="focus"
-                 data-content='Esegui il <a id="login-link" href="#">login</a> o 
-                               <a href="/users/signup">registrati</a> prima di continuare.'>
-                 Checkout
-              </a>
-            
+              <div class="form-row inline">
+                  <a class="btn btn-block btn-primary mx-auto" id="confirm-reservation" tabindex="0"
+                    title="Devi prima effettuare l'accesso" data-html="true" data-toggle="popover" data-trigger="focus"
+                    data-content='Esegui il <a id="login-link" href="#">login</a> o 
+                                  <a href="/users/signup">registrati</a> prima di continuare.'>
+                    Prenota
+                  </a>
+                </div>
+    
+              </div>
+              
+              <div class="card-footer d-flex justify-content-between lh-condensed">
+                <h5>Totale</h5>
+                <strong id="totalcost"></strong>
+              </div>  
             
             </form>
 
@@ -168,7 +176,12 @@
 
   var price = Number("<%= apartment.price %>");
   var rooms = Number("<%= apartment.bathrooms %>") + Number("<%= apartment.bedrooms %>");
-  var user = ejs.render("<%= session.user %>");
+  var user = ejs.render('<%= session.user %>');
+
+  if(user)
+    $("#confirm-reservation").on('click', function() {
+      $("#reservation-summary-form").submit();
+    });
 
 </script>
 <script src="/scripts/apartment-details.js"></script>

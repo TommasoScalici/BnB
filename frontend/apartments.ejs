@@ -5,10 +5,7 @@
   <div class="col-lg-7">
 
     <h1>Soggiorni nei pressi di
-      <span>
-        <% if(session.searchdata) { %>
-          <%= session.searchdata.location.town %>
-        <% } %>
+      <span id="search-location">
       </span>
     </h1>
     
@@ -40,13 +37,20 @@
 
 </div>
 
+
 <script src="/scripts/maps.js"></script>
 
 <script>
   $(document).ready(function() {
     initMap();
     geocodeApartments();
+
+    let queryString = Cookies.get("query_search");
+    
+    if(queryString) {
+      // Decodifica una query string di un URL in un oggetto JSON
+      let queryJSON = JSON.parse('{"' + decodeURI(queryString).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+      $("#search-location").text(`${queryJSON["town"]}, ${queryJSON["region"]}, ${queryJSON["country"]}`);
+    }
   })
 </script>
-
-

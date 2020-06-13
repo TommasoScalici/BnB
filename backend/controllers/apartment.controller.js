@@ -38,7 +38,7 @@ module.exports =
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details",apartment}); 
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment}); 
         }).populate("host");
     },
     
@@ -50,9 +50,6 @@ module.exports =
     },
 
     searchApartments: async (req, res) => {
-
-        req.session.searchdata = Mapper.getSearchDataFromReq(req);
-        req.session.save();
         
         await Apartment.find({
             guests_max: {  $gte: req.query.guests },

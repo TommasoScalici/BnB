@@ -10,13 +10,22 @@ module.exports =
             res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
     },
 
-    // renderReservation: (req, res) => {
-    //     res.render("index", {pagetitle:"Prenotazione", path:"reservation-form"})
-    // },
-
-    // renderReview: (req, res) => {
-    //     res.render("index", {pagetitle:"Prenotazione", path:"reservation-review"})
-    // },
+    summary: (req, res) =>{
+        let reservation = new Reservation();
+            reservation.stay_cost = req.query.staycost;
+            reservation.apartment = req.query.apartmentid;
+            // reservation.customer = req.session.user._id;
+            // //reservation.host = req.body.apartament.host._id;
+            reservation.checkin= req.body.checkin;
+            reservation.checkout= req.body.checkout;
+            reservation.guests= req.body.guests;
+            // reservation.payment_method: req.body.paymentmethod,
+            reservation.city_tax= req.query.citytax;
+            reservation.cleaning_cost= req.query.cleaningcost;
+            reservation.service_cost= req.query.servicecost;
+            reservation.stay_cost = req.query.staycost;
+        res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary",reservation}).populate("host");;
+    },
 
     renderCheckout: (req, res) => {
          let reservation = new Reservation();
