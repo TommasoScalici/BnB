@@ -1,0 +1,32 @@
+@startuml register
+
+actor User
+participant "Home\nPage" as HomePage
+participant "Signin\nScreen" as SigninModal
+participant "User\nController" as UserController
+database Database
+
+activate User
+    activate HomePage
+        User -> HomePage: open the app
+        HomePage -> SigninModal: click on register button
+    
+
+    activate SigninModal
+        SigninModal -> UserController: insert credentials
+        activate UserController
+        UserController -> UserController: the controller\nprocess the request
+        SigninModal x-- UserController: display error message
+        UserController -> Database: the controller inserts\n  user on DB
+        deactivate UserController
+
+        activate Database
+        SigninModal x-- Database : \n     show error
+    deactivate SigninModal
+    
+    User <-- HomePage: Close app
+    deactivate HomePage
+    deactivate Database
+deactivate User
+
+@enduml
