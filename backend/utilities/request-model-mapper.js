@@ -81,9 +81,9 @@ module.exports =
             town: req.query.town,
         },
         guests: {
-            adults: req.query.guests_adults,
-            children: req.query.guests_children,
-            newborns: req.query.guests_newborns,
+            adults: req.query.guestsadults,
+            children: req.query.guestschildren,
+            newborns: req.query.guestsnewborns,
             total: req.query.guests
         },
    }},

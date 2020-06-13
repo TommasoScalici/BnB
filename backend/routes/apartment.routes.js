@@ -3,8 +3,8 @@ module.exports = app => {
 
       var router = require("express").Router();
 
-      // Get single Aapartment
-      router.get("/apartment/:id", apartmentController.getApartment);
+      // Show the page for the selected Apartment
+      router.get("/apartment/:id", apartmentController.renderApartment);
 
       // Show form for inserting a new Apartment or submit a new Apartment
       router.route("/create")

@@ -31,18 +31,15 @@ module.exports =
         });        
     },
 
-    getApartment: async (req, res) => {
-        await Apartment.findById(req.params.id, async function(err, apartment) {
+    renderApartment: async (req, res) => {
+        await Apartment.findById(req.params.id, function(err, apartment) {
             if(err) {
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                await Apartment.find({}, function(err, apartments) {
-                    let apartmentsTest = JSON.stringify(apartments.map(x => { return { address: x.fulladdress, price: x.price } }));
-                    res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment, apartments, apartmentsTest});  
-            });     
-        });
+                res.render("index", {pagetitle: "Appartamento", path: "apartment-details",apartment}); 
+        }).populate("host");
     },
     
     renderCreate: (req, res) => {
@@ -55,9 +52,8 @@ module.exports =
     searchApartments: async (req, res) => {
 
         req.session.searchdata = Mapper.getSearchDataFromReq(req);
-
         req.session.save();
-
+        
         await Apartment.find({
             guests_max: {  $gte: req.query.guests },
             "address.country": { $regex: req.query.country },

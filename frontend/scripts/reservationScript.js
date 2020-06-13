@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         $("#cleaning-cost").val(3*$("#apartmentRooms").val());   //6 per il numero di stanze
         
-        $(".guests-input, #reservation-checkin, #reservation-checkout").change(function() {
+        $(".searchbar-guests-input, #reservation-checkin, #reservation-checkout").change(function() {
 
             let stayCost;
             let adults = 0;
@@ -22,7 +22,7 @@ $(document).ready(function () {
             let cleaningCost = Number($("#apartmentRooms").val()*3);
             let serviceCost = Number($("#service-cost").val());
 
-            $(".guests-input").each(function() {
+            $(".searchbar-guests-input").each(function() {
                 if($(this).val() < 0)
                     $(this).val(0);
                     sum += Number($(this).val());

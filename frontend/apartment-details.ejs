@@ -1,337 +1,174 @@
+<style>
+  .carousel-control-next, .carousel-control-prev {
+      filter: invert(100%);
+  }
+</style>
+  
+  
 <!-- Page Content -->
-<link href="/css/signin.css" rel="stylesheet">
-
 <div class="container">
   
-    <!-- Portfolio Item Heading
-    <h1 class="my-4">Page Heading
-      <small>Secondary Text</small>
-    </h1> -->
-    
-    <h1 class="my-4"><%= apartment.name %>
-      <div>
-        <a  href="#" style="font-size:large; text-decoration: underline; color: darkslategray; margin-top: 0rem;">
-            <%= apartment.address.town %>, <%= apartment.address.province %>, <%= apartment.address.street %>
-        </a>
-      </div>
-    </h1>
-    
+      <!-- Apartment Heading -->
+    <h1 class="my-4"><%= apartment.name %></h1>
+    <h5 class="text-muted" ><%= apartment.type_accomodation %>, affittato da <%= apartment.host.name.first %></h5>
+  
+    <div class="row">
 
-    <!-- Portfolio Item Row -->
-    <div class="container" style="margin: 0%; padding: 0%;">
-      <div class="row">
-        <div class="col-sm-8">
-        
-          
-          <!--Carousel Wrapper-->
-          <div id="carousel-apartment" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
-            <!--Indicators-->
+      <div class="col-md-12">
+        <div id="apartment-carousel" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
-              <li data-target="#carousel-apartment" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-apartment" data-slide-to="1"></li>
-              <li data-target="#carousel-apartment" data-slide-to="2"></li>
+              <% for(let i = 0; i < apartment.photo_paths.length; i++) { %>
+                <li data-target="#apartment-carousel" data-slide-to="<%= i %>" class="<% if(i == 0) { %>active<% } %>"></li>
+              <% } %>
             </ol>
-            <!--/.Indicators-->
-            
-            <!--Slides-->
-          <div class="carousel-inner rounded" role="listbox">
-           
-                <div class="carousel-item active">
-                  <div class="view">
-                    <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/4cfb3ae7-dc82-4004-8d34-b9687be812f3.jpg?im_w=720" alt="First slide">
-                  </div>
+            <div class="carousel-inner" role="listbox">
+              <% for(let i = 0; i < apartment.photo_paths.length; i++) { %>
+                <div class="carousel-item <% if(i == 0) { %>active<% } %>">
+                  <img class="d-block img-fluid" src="<%= apartment.photo_paths[i] %>"
+                        alt="Foto appartamento" style="height: 350px; margin: 0 auto">
                 </div>
-        
-                <div class="carousel-item">
-                <div class="view">
-                    <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/48c023f0-becf-43e5-861a-589077a9fa6b.jpg?im_w=720" alt="Second slide">
-                </div>
-                </div>
-                
-                <div class="carousel-item">
-                <div class="view">
-                    <img class="d-block w-100" src="https://a0.muscache.com/im/pictures/90877b18-c9b1-4948-a523-03a6403e7e3f.jpg?im_w=720" alt="Third slide">
-                </div>
-                </div>
-                
-              </div>
-                  <a class="carousel-control-prev" href="#carousel-apartment" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carousel-apartment" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
+              <% } %>
             </div>
-          </div>
-          <!--INSERIRE QUA LA CARDBOX PER LA PRENOTAZIONE-->
-          <div class="col-sm-4 card bg-light border" id="reservation-card">
-          <div class="card-body">
-            <h2 id="totalPrice" class="card-title" alt="Card apartment price"> <strong id="strong-price"><%= apartment.price%>€ </strong> <small>/notte</small> </h2>
-           
-            <form class="form-reservation" id="form-reservation" action="/reservations/reservation" method="POST">
-              
-              <div class="row">
-                <!--Checkin-->
-                    <div class="form-label-group col-lg-12">
-                        <input type="date" id="reservation-checkin" name="checkin" class="btn btn-light input-placeholding bg-warning border-dark" 
-                              placeholder="Check-in" required autofocus>
-                        <label for="checkin">Checkin</label>
-                    </div>
-
-                <!--Checkout-->
-                    <div class="form-label-group col-lg-12">
-                        <input type="date" id="reservation-checkout" name="checkout" class="btn btn-light input-placeholding bg-warning border-dark"
-                              placeholder="Check-out" required autofocus>
-                        <label for="checkout">Checkout</label>
-                    </div>
-
-                <!--Guests (Adults, Children, newborns)   
-                  NON SO COME RISOLVERE IL FATTO CHE IL WARNING DELLA REQUIRED DI GUESTS NON SI VEDE SUL LAYOUT-->
-
-                    <div class="form-group col-md-12">
-                        <input type="hidden" id="reservation-guests" name="guests" max="<%=apartment.beds%>" required>
-                        <button type="button" id="peopleDropdown" class="btn btn-light btn-block input-placeholding bg-warning border-dark rounded-pill" style="width: 12rem;"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-required="true">Aggiungi ospiti</button>
-            
-                        <!--Guests Dropdown-->
-                        <div class="dropdown-menu rounded-lg bg-warning" aria-labelledby="peopleDropdown">
-                          <div class="container">
-                            <div class="form-inline">
-                              <div class="form-group" style="line-height: 1em;">  
-            
-                                <div>
-                                  <strong class="align-middle mx-auto">Adulti</strong><br />
-                                  <small class="align-middle mx-auto">12 in su</small><br /><br />
-                                  <strong class="align-middle mx-auto">Bambini</strong><br />
-                                  <small class="align-middle mx-auto">dai 2 ai 12</small><br /><br />
-                                  <strong class="align-middle mx-auto">Neonati</strong><br />
-                                  <small class="align-middle mx-auto">Fino ai 2</small> 
-                                </div>
-            
-                                <div class="ml-4" style="width: 8em">
-                                  <input id="adults" class="guests-input mb-4" type="number" value="" min="1" max="20" step="1" required/>
-                                  <input id="children"class="guests-input my-auto" type="number" value="0" min="0" max="20" step="1"/>
-                                  <input id="newborns" class="guests-input mt-4" type="number" value="0" min="0" max="20" step="1"/>
-                                </div>
-
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    <!-- ID dell'appartamento -->
-                    <input id="apartment" name="apartment" type="hidden" value="<%=apartment._id%>">
-                    <!-- Stay cost = guests*days*apartment.price-->
-                    <input id="stay-cost" name="stay-cost" type="hidden" value="<%=apartment.price%>">
-
-                    <!-- Apartment Price, però è un modo sbagliato per passare una variabile di sessione allo script, mi sa-->
-                    <input id="apartmentPrice" name="apartmentPrice" type="hidden" value="<%=apartment.price%>">
-                    <!-- IDEM -->
-                    <input id="apartmentRooms" name="apartmentRooms" type="hidden" value="<%=apartment.bedrooms%>">
-
-                    <!-- Cleaning Cost-->
-                    <input id="cleaning-cost" name="cleaningcost" type="hidden" value="">
-
-                    <!-- Service Cost-->
-                    <input id="service-cost" name="servicecost" type="hidden" value="2">
-                    <!-- City Tax-->
-                    <input id="city-tax" name="citytax" type="hidden" value="2">
-
-
-                   
-                        <%if (session.user) { %>
-                            <input type="hidden" name="_method" value="POST">
-                            <button id="reservation-button" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prenota (utente)</button>
-                        <% } else  { %>
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase notlogged-popover" data-toggle="popover"> Prenota (not logged)</button>
-                        <% } %>
-                        
-                        <div id="alertSignInSuccess" style="display: none;" class="alert alert-success" role="alert">
-                             <strong>Prenotazione effettuata!</strong>
-                        </div>
-                        
-                        
-             </div> <!--ROW -->
-
-            </form>
-                
-                
-         </div> <!--FORM-->
-
-  <!--/.Slides-->
-</div>
-    
-<!--/.Carousel Wrapper-->
-
-
-                                                                      <!--DESCRIZIONE E DETTAGLI. AL MOMENTO LI TOLGO PER FARE ESPERIMENTI
-                                                                        </div>
-                                                                          <div class="col-md-4">
-                                                                          <h3 class="my">Descrizione Appartamento</h3>
-                                                                          <p><%= apartment.description %></p>
-                                                                          <h3 class="my-3">Dettagli</h3>
-                                                                          <ul>
-                                                                            <li>L'appartamento ha <%= apartment.beds %> letti</li>
-                                                                            <li>L'appartamento ha <%= apartment.rooms %> stanze</li>
-                                                                            <li>L'appartamento è di tipo: <%= apartment.type_accomodation %>.</li>
-                                                                            <li>L'appartamento ha i seguenti servizi <%= apartment.services %></li>
-                                                                          </ul>
-                                                                        
-                                                                        </div>
-                                                                      </div>
-                                                                    -->
-
-  <!-- /.row -->
-
-
-  <div class="container-fluid mt-3 mb-5">
-
-    <!-- Section: Block Content -->
-    <section class="mb-4">
-  
-      <style>
-        .map-container {
-          overflow: hidden;
-          position: relative;
-          height: 0;
-        }
-  
-        .map-container iframe {
-          left: 0;
-          top: 0;
-          height: 100%;
-          width: 100%;
-          position: absolute;
-        }
-        .button {
-          font: bold 11px Arial;
-          text-decoration: none;
-          background-color: #EEEEEE;
-          color: #333333;
-          padding: 2px 6px 2px 6px;
-          border-top: 1px solid #CCCCCC;
-          border-right: 1px solid #333333;
-          border-bottom: 1px solid #333333;
-          border-left: 1px solid #CCCCCC;
-        }
-    
-      </style>
-  
-      <div class="card">
-  
-        <div class="row">
-          <div class="col-md-6">
-  
-            <!-- Google Maps -->
-            <div id="map" style="height: 100%;"></div>
-            <!-- <div id="map-within-card-2" class="map-container rounded-left" style="height: 200px">
-              <a id="my_anchor" href=""></a>
-
-              <iframe src="https://maps.google.com/maps?q=<%= apartment.address.street %>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                style="border:0" allowfullscreen></iframe>
-              <iframe src="https://maps.google.com/maps?q=    &t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                style="border:0" allowfullscreen></iframe>
-            </div> -->
-            <!-- Google Maps -->
-            
-          </div>
-          
-          <div class="col-10 col-md-4 mx-auto align-self-center py-4">
-            
-            <span>Roba per test delle mappe</span>
-            <span id="address"><%= apartment.address.street %>, <%= apartment.address.zipcode %> <%= apartment.address.town %>, <%= apartment.address.province %></span><br />
-
-            <h6 class="font-weight-bold grey-text text-uppercase small">Posizione</h6>
-            <h5 class="font-weight-normal mb-4"><%= apartment.address.town %>, <%= apartment.address.province %></h5>
-            <p class="text-muted font-weight-light">Indirizzo: <%= apartment.address.street %>, <%= apartment.address.zipcode %>
-            
-            </div>
-          </div>
-          
+            <a class="carousel-control-prev" href="#apartment-carousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#apartment-carousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
         </div>
-          <!--
-            <h4 class="my-3" style="font-size: xx-large;">Prezzo: <%= apartment.price %> € <small>/Notte</small>
-              <button type="submit" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i>Prenota </button>          
-            </h4>
-          -->
-          
-        </section>
-        <!-- Section: Block Content -->
-        
       </div>
-      
-      
-      
-      <!-- Related Projects Row -->
-      <h3 class="my-4">Appartamenti vicino <%= apartment.address.town %>  </h3>
-      
-      <div class="row">
-        
-      <% for(let apartment of apartments) { %>
-        <%- include('apartment-preview', {apartment: apartment}); %>
-      <% } %>
-        
-        
-      </div>
-      <!-- /.row -->
-  
     </div>
-    <!-- /.container -->
+
+    <div class="row">
+
+      <div class="col-md-7">
+        <h3 class="my-3">Descrizione appartamento</h3>
+        <p class="text-muted"><%= apartment.type_accomodation %>, per massimo <%= apartment.guests_max %> ospiti, 
+                              <%= apartment.bedrooms %> camere da letto, <%= apartment.bathrooms %> bagni e 
+                              <%= apartment.beds %> letti
+        </p>
+        <textarea  rows="10" cols="80"><%= apartment.description %> </textarea>
+        
+        <h3 class="my-3">Servizi</h3>
+        <ul>
+          <% for(let service of apartment.services) { %>
+            <li><%= service %></li>
+          <% } %>
+        </ul>
+      </div>
+
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header">
+            <h3><%= apartment.price %>€ <small class="text-muted">/notte</small></h3> 
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center mb-4">Dettagli di prenotazione</h5>
+
+            <form action="/reservations/summary" method="GET" id="reservation-summary-form" role="group">
+            
+              <input type="hidden" id="reservation-apartment-id" name="apartmentid">
+              <input type="hidden" id="reservation-citytax" name="citytax">
+              <input type="hidden" id="reservation-cleaningcost" name="cleaningcost">
+              <input type="hidden" id="reservation-servicecost" name="servicecost">
+              <input type="hidden" id="reservation-staycost" name="staycost">
+            
+              <div class="form-row mb-3">
+                <div class="col-md-6">
+                  <small class="label-placeholder">CHECK-IN</small>
+                  <input type="date" id="reservation-checkin" name="checkin" class="btn btn-secondary input-placeholding">      
+                </div>
+  
+                <div class="col-md-6">
+                  <small class="label-placeholder">CHECK-OUT</small>
+                  <input type="date" id="reservation-checkout" name="checkout" class="btn btn-secondary input-placeholding">    
+                </div>
+              </div>
+  
+              <%- include('guests-dropdown') %>
+              
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <h6 class="my-0"><%= apartment.price %>€ x <span id="nights"></span> notti</h6>
+                    <span id="staycost" class="text-muted"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <h6 class="my-0">Costi di pulizia</h6>
+                  <span id="cleaningcost" class="text-muted"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <h6 class="my-0">Costi di servizio</h6>
+                  <span id="servicecost" class="text-muted"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <h6 class="my-0">Tassa di soggiorno</h6>
+                  <span id="citytax" class="text-muted"></span>
+                </li>
+              </ul>
+              <div class="card-footer d-flex justify-content-between lh-condensed">
+                <h5>Totale</h5>
+                <strong id="totalcost"></strong>
+              </div> 
+  
+              <hr>
+
+            <div class="form-row inline">
+              <a class="btn btn-block btn-primary mx-auto" href="/reservations/checkout" id="checkout" tabindex="0"
+                 title="Devi prima effettuare l'accesso" data-html="true" data-toggle="popover" data-trigger="focus"
+                 data-content='Esegui il <a id="login-link" href="#">login</a> o 
+                               <a href="/users/signup">registrati</a> prima di continuare.'>
+                 Checkout
+              </a>
+            
+            
+            </form>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+    <!-- Related Projects Row -->
+    <h3 class="my-4">Related Projects</h3>
+
+    <div class="row">
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <a href="#">
+              <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <a href="#">
+              <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <a href="#">
+              <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+      </div>
+
+      <div class="col-md-3 col-sm-6 mb-4">
+        <a href="#">
+              <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+      </div>
+
+    </div>
+    <!-- /.row -->
     
-
-    <!-- Custom scripts -->
-<script src="/scripts/reservationScript.js"></script> 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkjeFKa701iNLE9kIkrMI1g6hjgROQbVg&callback=initMap" async defer></script>
-
-
+</div>
+<!-- /.container -->
 
 <script>
 
-var geocoder;
-var map;
-
-function initMap() {
-
-  geocoder = new google.maps.Geocoder();
-  map = new google.maps.Map($('#map')[0], {
-    zoom: 12
-  });
-
-  geocoder.geocode( { 'address': $("apartment").text()}, function(results, status) {
-    map.setCenter(results[0].geometry.location);
-  });
-}
-
-
-
-
-
-//non funziona il link accedere
-
-var content = ['<div>Per poter prenotare devi ',
-               '<a data-toggle="modal" data-target="#signin-modal" href="#">accedere. </a>',
-               'Non hai un account?', 
-               '<a href="/users/signup"> Registrati </a>',
-               'subito!</div>'].join('');
-var content1 = ['<div class="popover" role="tooltip">',
-                '<div class="arrow"></div>',
-                '<h3 class="popover-header"></h3>',
-                '<div class="popover-body">',
-                  '<div>Per poter prenotare devi ',
-               '<a data-toggle="modal" data-target="#signin-modal" href="#">accedere. </a>',
-               'Non hai un account?', 
-               '<a href="/users/signup"> Registrati </a>',
-               'subito!</div>',
-               '</div></div>'].join();
-$('.notlogged-popover').popover({
-  trigger: 'click',
-  container: 'body',
-  content: content1,
-  html: true
-  
-});
+  var price = Number("<%= apartment.price %>");
+  var rooms = Number("<%= apartment.bathrooms %>") + Number("<%= apartment.bedrooms %>");
+  var user = ejs.render("<%= session.user %>");
 
 </script>
+<script src="/scripts/apartment-details.js"></script>
