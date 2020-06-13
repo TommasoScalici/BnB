@@ -64,56 +64,66 @@
           <div class="card-body">
             <h5 class="card-title text-center mb-4">Dettagli di prenotazione</h5>
 
-            <div class="form-row mb-3">
-              <div class="col-md-6">
-                <small class="label-placeholder">CHECK-IN</small>
-                <input type="date" id="reservation-checkin" name="checkin" class="btn btn-secondary input-placeholding">      
-              </div>
-
-              <div class="col-md-6">
-                <small class="label-placeholder">CHECK-OUT</small>
-                <input type="date" id="reservation-checkout" name="checkout" class="btn btn-secondary input-placeholding">    
-              </div>
-            </div>
-
-            <%- include('guests-dropdown') %>
+            <form action="/reservations/summary" method="GET" id="reservation-summary-form" role="group">
             
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                  <h6 class="my-0"><%= apartment.price %>€ x n notti</h6>
-                  <span class="text-muted">Tot€</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <h6 class="my-0">Costi di pulizia</h6>
-                <span class="text-muted">Tot€</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <h6 class="my-0">Costi di servizio</h6>
-                <span class="text-muted">Tot€</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <h6 class="my-0">Tassa di soggiorno</h6>
-                <span class="text-muted">Tot€</span>
-              </li>
-            </ul>
-
-            <hr>
-
-            <div class="form-row inline">
-              <a class="btn btn-block btn-primary mx-auto" id="confirm-reservation" tabindex="0"
-                 title="Devi prima effettuare l'accesso" data-html="true" data-toggle="popover" data-trigger="focus"
-                 data-content='Esegui il <a id="login-link" href="#">login</a> o 
-                               <a href="/users/signup">registrati</a> prima di continuare.'>
-                 Prenota
-              </a>
+              <input type="hidden" id="reservation-apartment-id" name="apartmentid">
+              <input type="hidden" id="reservation-citytax" name="citytax">
+              <input type="hidden" id="reservation-cleaningcost" name="cleaningcost">
+              <input type="hidden" id="reservation-servicecost" name="servicecost">
+              <input type="hidden" id="reservation-staycost" name="staycost">
+            
+              <div class="form-row mb-3">
+                <div class="col-md-6">
+                  <small class="label-placeholder">CHECK-IN</small>
+                  <input type="date" id="reservation-checkin" name="checkin" class="btn btn-secondary input-placeholding">      
+                </div>
+  
+                <div class="col-md-6">
+                  <small class="label-placeholder">CHECK-OUT</small>
+                  <input type="date" id="reservation-checkout" name="checkout" class="btn btn-secondary input-placeholding">    
+                </div>
+              </div>
+  
+              <%- include('guests-dropdown') %>
+              
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <h6 class="my-0"><%= apartment.price %>€ x <span id="nights"></span> notti</h6>
+                    <span id="staycost" class="text-muted"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <h6 class="my-0">Costi di pulizia</h6>
+                  <span id="cleaningcost" class="text-muted"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <h6 class="my-0">Costi di servizio</h6>
+                  <span id="servicecost" class="text-muted"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                  <h6 class="my-0">Tassa di soggiorno</h6>
+                  <span id="citytax" class="text-muted"></span>
+                </li>
+              </ul>
+  
+              <hr>
+  
+              <div class="form-row inline">
+                <a class="btn btn-block btn-primary mx-auto" id="confirm-reservation" tabindex="0"
+                   title="Devi prima effettuare l'accesso" data-html="true" data-toggle="popover" data-trigger="focus"
+                   data-content='Esegui il <a id="login-link" href="#">login</a> o 
+                                 <a href="/users/signup">registrati</a> prima di continuare.'>
+                   Prenota
+                </a>
+              </div>
+  
             </div>
-
-          </div>
-          
-          <div class="card-footer d-flex justify-content-between lh-condensed">
-            <h5>Totale</h5>
-            <span class="text-muted">Totale in €</span>
-          </div>
+            
+            <div class="card-footer d-flex justify-content-between lh-condensed">
+              <h5>Totale</h5>
+              <strong id="totalcost"></strong>
+            </div>
+            
+            </form>
 
         </div>
       </div>
@@ -157,23 +167,10 @@
 <!-- /.container -->
 
 <script>
-  $(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-  
-    $('.popover-dismiss').popover({
-      trigger: 'focus'
-    });
-  
-    let user = ejs.render("<%= session.user %>");
-  
-    if(user)
-      $('#confirm-reservation').popover('disable');
-    else
-      $('#confirm-reservation').popover('enable');
 
-    $(document).on('click', '#login-link', function() {
-      $('#signin-modal').modal('show');
-    });
+  var price = Number("<%= apartment.price %>");
+  var rooms = Number("<%= apartment.bathrooms %>") + Number("<%= apartment.bedrooms %>");
+  var user = ejs.render("<%= session.user %>");
 
-  });
 </script>
+<script src="/scripts/apartment-details.js"></script>
