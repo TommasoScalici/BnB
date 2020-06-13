@@ -11,7 +11,7 @@ module.exports =
     },
 
     summary: (req, res) =>{
-        res.render("index", {pagetitle: "Riepilogo prenotazione", path: "summary"});
+        res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary"});
     },
 
     renderCheckout: (req, res) => {
