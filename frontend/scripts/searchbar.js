@@ -7,13 +7,14 @@
 
 var addressCalculated;
 var autocompleteSearchbar;
+var geolocation;
   
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
 function geolocate() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-        let geolocation = {
+        geolocation = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
@@ -110,13 +111,24 @@ $(document).ready(function() {
             let address = $("#searchbar-location").val();
             let geocoder = new google.maps.Geocoder();
 
-            geocoder.geocode( {address: address}, function(results, status) {
-                if(status === google.maps.GeocoderStatus.OK) {
-                    addressCalculated = true;
-                    setFieldsFromAddressComponents(results[0].address_components);
-                    $(this).submit();
-                }
-            });
+            if(!address) {
+                geocoder.geocode( {location: geolocation}, function(results, status) {
+                    if(status === google.maps.GeocoderStatus.OK) {
+                        $("#searchbar-location").val(results[0].formatted_address);
+                        $("#searchbar-form").submit();
+                    }
+                });
+            }
+            else {
+                geocoder.geocode( {address: address}, function(results, status) {
+                    if(status === google.maps.GeocoderStatus.OK) {
+                        addressCalculated = true;
+                        setFieldsFromAddressComponents(results[0].address_components);
+                        $("#searchbar-form").submit();
+                    }
+                });
+            }
+            
         }
         else
         {
