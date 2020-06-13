@@ -1,5 +1,7 @@
 const Mapper = require('../utilities/request-model-mapper.js')
 const Reservation = require('../models/reservation.js');
+const Apartment = require('../models/apartment.js');
+
 
 module.exports =
 {
@@ -10,22 +12,35 @@ module.exports =
             res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
     },
 
-    summary: (req, res) =>{
+    summary: async (req, res) =>{
         let reservation = new Reservation();
             reservation.stay_cost = req.query.staycost;
-            reservation.apartment = req.query.apartmentid;
-            // reservation.customer = req.session.user._id;
+             reservation.customer = req.session.user._id;
             // //reservation.host = req.body.apartament.host._id;
-            reservation.checkin= req.body.checkin;
-            reservation.checkout= req.body.checkout;
-            reservation.guests= req.body.guests;
+            reservation.checkin= req.query.checkin;
+            reservation.checkout= req.query.checkout;
+            reservation.guests= req.query.guests;
+            reservation.guestsadults = req.query.guestsadults;
+            reservation.guestschildren = req.query.guestschildren;
+            reservation.guestsnewborns = req.query.guestsnewborns;
+
             // reservation.payment_method: req.body.paymentmethod,
             reservation.city_tax= req.query.citytax;
             reservation.cleaning_cost= req.query.cleaningcost;
             reservation.service_cost= req.query.servicecost;
             reservation.stay_cost = req.query.staycost;
-        res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary",reservation}).populate("host");;
-    },
+            reservation.total = req.query.totalcost;
+
+            await Apartment.findById(req.query.apartmentid, function(err, apartment) {
+                if(err) {
+                    console.log(`Mongo error while retrieving apartment data: ${err}`);
+                    res.status(500).json({message: "Server error while processing the request"});
+                }
+                else
+                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary",reservation,apartment}); 
+
+            }).populate("host");
+        },
 
     renderCheckout: (req, res) => {
          let reservation = new Reservation();

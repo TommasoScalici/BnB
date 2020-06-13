@@ -19,7 +19,7 @@
             <!--Card content-->
             <form class="card-body">
 
-              <h3 class="my-4 text-center" style="color: rgb(41, 65, 65);">Pernottamento a <%= reservation.stay_cost %></h3>
+              <h3 class="my-4 " style="color: rgb(41, 65, 65);">Pernottamento a <%= apartment.name %></h3>
               <!--Grid row-->
               <div class="row">
 
@@ -31,7 +31,7 @@
                   <!--firstName-->
                   <div class="md-form ">
                     
-                    <h5 class="my-4 text-center" style="color: rgb(41, 65, 65);">Pernottamento a Greve in Chianti</h5>
+                    <h5 class="my-4 " style="color: rgb(41, 65, 65);"> <%= apartment.address.street %>&nbsp;&nbsp;<%= apartment.address.street_number %>&nbsp;&nbsp;<%= apartment.address.province %></h5>
 
                   </div>
 
@@ -45,10 +45,10 @@
 
             <div class="row">
               <div class="col-md-6 mb-3">
-               <button type="button"  class="btn btn-secondary btn-lg">GIU<br>16</button>
+               <button type="button"  class="btn btn-secondary btn-lg"><%= reservation.checkin %></button>
               </div>
               <div class="col-md-6 mb-3">
-                <button type="button"  class="btn btn-secondary btn-lg">GIU<br>19</button>
+                <button type="button"  class="btn btn-secondary btn-lg"><%= reservation.checkout %></button>
              </div>
             </div>
 
@@ -57,9 +57,16 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <h3 class="my-4 text-center" style="color: rgb(41, 65, 65);">Servizi</h3>
+                  <ul>
+                    <% for(let service of apartment.services) { %>
+                      <li><%= service %></li>
+                    <% } %>
+                  </ul>
                 </div>
               </div>
               
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Continua al checkout</button>
 
           </div>
           <!--/.Card-->
@@ -77,41 +84,65 @@
           <ul class="list-group mb-3 z-depth-1">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <h6 class="my-0">Agriturismo nel Chianti con Piscina</h6>
-                <small class="text-muted">Via fuoricorso</small>
+                <h6 class="my-0"><%= apartment.name %></h6>
+                <small class="text-muted"><%= apartment.address.street %></small>
               </div>
               <img src="https://a0.muscache.com/im/pictures/57759434/84f7b345_original.jpg?aki_policy=large" style="width: 60px; height: 60px;" class="rounded float-right" alt="...">
             </li>
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 
-                <label for="users"><span class="fas fa-users"></span> 3 Ospiti</label>
-                
+                <label for="users"><span class="fas fa-users"></span> <%= reservation.guestsadults %> Adulti</label>
+                <br>
+                <label for="users"><span class="fas fa-users"></span> <%= reservation.guestschildren %> Bambini</label>
+                <br>
+                <label for="users"><span class="fas fa-users"></span> <%= reservation.guestsnewborns %> Neonati</label>
+                <hr>
+                <label for="users"><span class="fas fa-users"></span> <%= reservation.guests %> Totali</label>
               </div>
-              <span class="text-muted">$8</span>
+              
             </li>
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <label for="calendar"><span class="fas fa-calendar"></span> Checkin <i class="fa fa-arrow-right" aria-hidden="true"></i> Checkout</label>
+                <label for="calendar"><span class="fas fa-calendar"></span> Checkin:<%= reservation.checkin %> <i class="fa fa-arrow-right" aria-hidden="true"></i> Checkout : <%= reservation.checkout %></label>
               </div>
-              <span class="text-muted">$5</span>
+              
             </li>
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <label for="price"><i class="fa fa-eur" aria-hidden="true"></i> Prezzo Pernottamento </label>
+                <label for="price"><i class="fas fa-bed"></i> Prezzo Pernottamento: </label>
+
               </div>
-              <span class="text-muted">$5</span>
+              <span>+<%= reservation.stay_cost %>€</span>
+              
             </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0"><i class="fa fa-bath" aria-hidden="true"></i> Costi di Servizio</h6>
-                <small></small>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <label for="price"><i class="fas fa-house-user"></i> <br> Prezzo Residenza: </label>
+
               </div>
-              <span class="text-success">+$5</span>
+              <span>+<%= reservation.city_tax %>€</span>
+              
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <label for="price"><i class="fas fa-concierge-bell"></i> Prezzo Servizi: </label>
+
+              </div>
+              <span>+<%= reservation.service_cost %>€</span>
+              
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <label for="price"><i class="fa fa-bath" aria-hidden="true"></i> Prezzo Pulizie: </label>
+
+              </div>
+              <span>+<%= reservation.cleaning_cost %>€</span>
+              
             </li>
             <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>$20</strong>
+              <span>Totale </span>
+              <strong><%= reservation.total %>€</strong>
             </li>
           </ul>
           <!-- Cart -->

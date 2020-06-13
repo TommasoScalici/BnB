@@ -48,8 +48,8 @@ $(document).ready(function () {
                 
         });
        
-        $("#reservation-checkin").attr("min", moment().format("YYYY-MM-DD"));
-        $("#reservation-checkout").attr("min", moment().format("YYYY-MM-DD"));
+        $("#reservation-checkin").attr("min", moment().format("MMM Do YY"));
+        $("#reservation-checkout").attr("min", moment().format("MMM Do YY"));
 
         $("#reservation-checkin").change(function() {
             $("#reservation-checkout").attr("min", $("#reservation-checkin").val());
