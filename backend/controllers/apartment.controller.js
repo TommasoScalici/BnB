@@ -54,10 +54,7 @@ module.exports =
         await Apartment.find({
             guests_max: {  $gte: req.query.guests },
             "address.country": { $regex: req.query.country },
-            "address.postal_code": { $regex: req.query.postalcode },
             "address.province": { $regex: req.query.province },
-            "address.street": { $regex: req.query.street },
-            "address.street_number": { $regex: req.query.streetnumber },
             "address.town": { $regex: req.query.town },
         }, function(err, apartments) {
             if(err) {
