@@ -5,7 +5,8 @@
 ***
 */
 
-var autocomplete;
+var addressCalculated;
+var autocompleteSearchbar;
   
 // Bias the autocomplete object to the user's geographical location,
 // as supplied by the browser's 'navigator.geolocation' object.
@@ -18,8 +19,47 @@ function geolocate() {
         };
         let circle = new google.maps.Circle({
             center: geolocation, radius: position.coords.accuracy});
-            autocomplete.setBounds(circle.getBounds());
+            autocompleteSearchbar.setBounds(circle.getBounds());
         });
+    }
+}
+
+
+function setFieldsFromAddressComponents(address_components) {
+
+    address = $("#searchbar-location").val();
+    $(".searchbar-hidden-field").val(null);
+
+    // Get each component of the address from the place details,
+    // and then fill-in the corresponding field on the form.
+    for (let i = 0; i < address_components.length; i++) {
+        let addressType = address_components[i].types[0];
+
+        switch (addressType) {
+            case "administrative_area_level_2":
+                $("#searchbar-province").val(address_components[i].short_name);
+                break;
+            case "country":
+                $("#searchbar-country").val(address_components[i].short_name);
+                break;
+            case "locality":
+                $("#searchbar-town").val(address_components[i].short_name)
+                break;
+            case "postal_code":
+                $("#searchbar-postalcode").val(address_components[i].short_name)
+                break;
+            case "administrative_area_level_1":
+                $("#searchbar-region").val(address_components[i].short_name)
+                break;
+            case "route":
+                $("#searchbar-street").val(address_components[i].short_name)
+                break;
+            case "street_number":
+                $("#searchbar-streetnumber").val(address_components[i].short_name)
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -45,42 +85,13 @@ function updateGuests() {
 
 $(document).ready(function() {
 
-    autocomplete = new google.maps.places.Autocomplete(document.getElementById('searchbar-location'), {types: ['geocode']});
-    autocomplete.setFields(['address_component']);
+    addressCalculated = false;
+    autocompleteSearchbar = new google.maps.places.Autocomplete(document.getElementById('searchbar-location'), {types: ['geocode']});
+    autocompleteSearchbar.setFields(['address_component']);
 
-    autocomplete.addListener('place_changed', function() {
-        let place = autocomplete.getPlace();
-
-        $(".searchbar-hidden-field").val(null);
-
-        // Get each component of the address from the place details,
-        // and then fill-in the corresponding field on the form.
-        for (let i = 0; i < place.address_components.length; i++) {
-            let addressType = place.address_components[i].types[0];
-
-            switch (addressType) {
-                case "administrative_area_level_2":
-                    $("#searchbar-province").val(place.address_components[i].short_name);
-                    break;
-                case "country":
-                    $("#searchbar-country").val(place.address_components[i].short_name);
-                    break;
-                case "locality":
-                    $("#searchbar-town").val(place.address_components[i].short_name)
-                    break;
-                case "postal_code":
-                    $("#searchbar-postalcode").val(place.address_components[i].short_name)
-                    break;
-                case "route":
-                    $("#searchbar-street").val(place.address_components[i].short_name)
-                    break;
-                case "street_number":
-                    $("#searchbar-streetnumber").val(place.address_components[i].short_name)
-                    break;
-                default:
-                    break;
-            }
-        }
+    autocompleteSearchbar.addListener('place_changed', function() {
+        let place = autocompleteSearchbar.getPlace();
+        setFieldsFromAddressComponents(place.address_components);
     });
     // Fine gestione autocompletamento Google Maps Places
 
@@ -90,19 +101,36 @@ $(document).ready(function() {
         updateGuests();
     }
 
-    $("#searchbar-form").submit(function(event) {
+    $(document).on('submit', '#searchbar-form', function(event) {
 
-        let cookie = Cookies.get("query_search");
-        let data =  $(this).serialize();
+        if((autocompleteSearchbar.getPlace() === undefined || autocompleteSearchbar.getPlace().name !== undefined)
+            && !addressCalculated) {
 
-        if(!cookie || cookie !== data) {   
-            event.preventDefault();      
-            Cookies.set("location", $("#searchbar-location").val());
-            Cookies.set("query_search", data);
-            $(this).submit();
+            event.preventDefault();
+            let address = $("#searchbar-location").val();
+            let geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode( {address: address}, function(results, status) {
+                if(status === google.maps.GeocoderStatus.OK) {
+                    addressCalculated = true;
+                    setFieldsFromAddressComponents(results[0].address_components);
+                    $(this).submit();
+                }
+            });
         }
-    })
-    // Fine gestione cookie
+        else
+        {
+            let cookie = Cookies.get("query_search");
+            let data =  $(this).serialize();
+
+            if(!cookie || cookie !== data) {
+                event.preventDefault();
+                Cookies.set("location", $("#searchbar-location").val());
+                Cookies.set("query_search", data);
+                $(this).submit();
+            }
+        }   
+    });
 
     $("#searchbar-checkin").attr("min", moment().format("YYYY-MM-DD"));
     $("#searchbar-checkout").attr("min", moment().format("YYYY-MM-DD"));

@@ -4,7 +4,8 @@ module.exports = app => {
     var router = require("express").Router();
     
     router.get("/", reservationController.renderReservations);
-    router.post("/reservation", reservationController.reserve);
-    
+    router.get("/summary", reservationController.summary);
+
+
     app.use("/reservations", router);
 };  

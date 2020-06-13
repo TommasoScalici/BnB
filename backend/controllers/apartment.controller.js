@@ -50,9 +50,6 @@ module.exports =
     },
 
     searchApartments: async (req, res) => {
-
-        req.session.searchdata = Mapper.getSearchDataFromReq(req);
-        req.session.save();
         
         await Apartment.find({
             guests_max: {  $gte: req.query.guests },

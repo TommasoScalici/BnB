@@ -170,7 +170,12 @@
 
   var price = Number("<%= apartment.price %>");
   var rooms = Number("<%= apartment.bathrooms %>") + Number("<%= apartment.bedrooms %>");
-  var user = ejs.render("<%= session.user %>");
+  var user = ejs.render('<%= session.user %>');
+
+  if(user)
+    $("#confirm-reservation").on('click', function() {
+      $("#reservation-summary-form").submit();
+    });
 
 </script>
 <script src="/scripts/apartment-details.js"></script>

@@ -67,25 +67,4 @@ module.exports =
             stay_cost: req.body.staycost,
    }},
 
-   getSearchDataFromReq: (req) => {
-    return {
-
-        checkin: req.query.checkin,
-        checkout: req.query.checkout,
-        location: {
-            country: req.query.country,
-            postal_code: req.query.postalcode,
-            street: req.query.street,
-            street_number: req.query.streetnumber,
-            province: req.query.province,
-            town: req.query.town,
-        },
-        guests: {
-            adults: req.query.guestsadults,
-            children: req.query.guestschildren,
-            newborns: req.query.guestsnewborns,
-            total: req.query.guests
-        },
-   }},
-
 }

@@ -1,3 +1,5 @@
+var autocomplete;
+
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {types: ['geocode']});
     autocomplete.setFields(['address_component']);
