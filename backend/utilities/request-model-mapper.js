@@ -53,7 +53,7 @@ module.exports =
 
     getReservationFromReq: (req) => {
   
-        return {
+        return  {
             apartment: req.body.apartment._id,
             customer: req.session.user._id,
             host: req.body.apartament.host._id,

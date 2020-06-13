@@ -114,7 +114,7 @@ $(document).ready(function() {
                 if(status === google.maps.GeocoderStatus.OK) {
                     addressCalculated = true;
                     setFieldsFromAddressComponents(results[0].address_components);
-                    $(this).submit();
+                    $("#searchbar-form").submit();
                 }
             });
         }
