@@ -1,16 +1,16 @@
-@startuml register
+@startuml signup
 
 actor User
-participant "Home\nPage" as HomePage
+participant "Current\nPage" as CurrentPage
 participant "Signup\nScreen" as SignupScreen
 participant "User\nController" as UserController
 database Database
 
 activate User
-    activate HomePage
-        User -> HomePage: open the app
-        HomePage -> SignupScreen: click on register button
-    deactivate HomePage
+    activate CurrentPage
+        User -> CurrentPage: open the app
+        CurrentPage -> SignupScreen: click on register button
+    deactivate CurrentPage
 
     activate SignupScreen
         SignupScreen -> UserController: insert credentials
@@ -23,10 +23,10 @@ activate User
         activate Database
         SignupScreen x-- Database : \n     show error
     deactivate SignupScreen
-    activate HomePage
-    deactivate HomePage
-    HomePage <-- Database: successful registration
-    User <-- HomePage: Close app
+    activate CurrentPage
+    deactivate CurrentPage
+    CurrentPage <-- Database: successful registration
+    User <-- CurrentPage: Close app
     deactivate Database
 deactivate User
 
