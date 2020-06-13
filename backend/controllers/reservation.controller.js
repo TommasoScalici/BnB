@@ -19,7 +19,11 @@ module.exports =
     // },
 
     renderCheckout: (req, res) => {
-        res.render("index", {pagetitle:"Checkout", path:"checkout"})
+         let reservation = new Reservation();
+            reservation.stay_cost = req.query.staycost;
+
+            res.render("index", {pagetitle:"Checkout", path:"checkout",reservation});
+              
     },
     
     reserve: (req, res) => {
