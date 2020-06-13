@@ -13,9 +13,11 @@ module.exports =
 
     summary: async (req, res) =>{
         let reservation = new Reservation();
-        
+
+        reservation.apartament = req.query.apartmentid;
         reservation.customer = req.session.user._id;
-        // //reservation.host = req.body.apartament.host._id;
+        reservation.host = req.body.apartament.host._id;
+
         reservation.checkin= req.query.checkin;
         reservation.checkout= req.query.checkout;
         reservation.guests= req.query.guests;
@@ -23,12 +25,10 @@ module.exports =
         reservation.guestschildren = req.query.guestschildren;
         reservation.guestsnewborns = req.query.guestsnewborns;
 
-        // reservation.payment_method: req.body.paymentmethod,
         reservation.city_tax= req.query.citytax;
         reservation.cleaning_cost= req.query.cleaningcost;
         reservation.service_cost= req.query.servicecost;
         reservation.stay_cost = req.query.staycost;
-        reservation.total = req.query.totalcost;
 
         await Apartment.findById(req.query.apartmentid, function(err, apartment) {
             if(err) {
@@ -36,7 +36,7 @@ module.exports =
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-            res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation }); 
+                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation,}); 
 
         }).populate("host");
     },
