@@ -67,4 +67,41 @@ module.exports =
             stay_cost: req.body.staycost,
    }},
 
+   getSummaryFromReq: (req) => {
+  
+    return {
+        apartment: req.query.apartment._id,
+        customer: req.session.user._id,
+        host: req.body.apartament.host._id,
+        checkin: req.body.checkin,
+        checkout: req.body.checkout,
+        guests: req.body.guests,
+        payment_method: req.body.paymentmethod,
+        city_tax: req.query.citytax,
+        cleaning_cost: req.query.cleaningcost,
+        service_cost: req.query.servicecost,
+        stay_cost: req.query.staycost,
+}},
+
+   getSearchDataFromReq: (req) => {
+    return {
+
+        checkin: req.query.checkin,
+        checkout: req.query.checkout,
+        location: {
+            country: req.query.country,
+            postal_code: req.query.postalcode,
+            street: req.query.street,
+            street_number: req.query.streetnumber,
+            province: req.query.province,
+            town: req.query.town,
+        },
+        guests: {
+            adults: req.query.guestsadults,
+            children: req.query.guestschildren,
+            newborns: req.query.guestsnewborns,
+            total: req.query.guests
+        },
+   }},
+
 }
