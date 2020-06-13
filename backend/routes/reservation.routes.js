@@ -5,7 +5,7 @@ module.exports = app => {
     
     router.get("/", reservationController.renderReservations);
     router.get("/summary", reservationController.summary);
-
-
+    router.get("/checkout", reservationController.renderCheckout);
+    
     app.use("/reservations", router);
 };  

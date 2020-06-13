@@ -47,7 +47,8 @@
                               <%= apartment.bedrooms %> camere da letto, <%= apartment.bathrooms %> bagni e 
                               <%= apartment.beds %> letti
         </p>
-        <p><%= apartment.description %></p>
+        <textarea  rows="10" cols="80"><%= apartment.description %> </textarea>
+        
         <h3 class="my-3">Servizi</h3>
         <ul>
           <% for(let service of apartment.services) { %>
@@ -104,24 +105,29 @@
                   <span id="citytax" class="text-muted"></span>
                 </li>
               </ul>
+
+              <div class="card-footer d-flex justify-content-between lh-condensed">
+                <h5>Totale</h5>
+                <strong id="totalcost"></strong>
+              </div> 
   
               <hr>
-  
+
               <div class="form-row inline">
-                <a class="btn btn-block btn-primary mx-auto" id="confirm-reservation" tabindex="0"
-                   title="Devi prima effettuare l'accesso" data-html="true" data-toggle="popover" data-trigger="focus"
-                   data-content='Esegui il <a id="login-link" href="#">login</a> o 
-                                 <a href="/users/signup">registrati</a> prima di continuare.'>
-                   Prenota
-                </a>
+                  <a class="btn btn-block btn-primary mx-auto" id="confirm-reservation" tabindex="0"
+                    title="Devi prima effettuare l'accesso" data-html="true" data-toggle="popover" data-trigger="focus"
+                    data-content='Esegui il <a id="login-link" href="#">login</a> o 
+                                  <a href="/users/signup">registrati</a> prima di continuare.'>
+                    Prenota
+                  </a>
+                </div>
+    
               </div>
-  
-            </div>
-            
-            <div class="card-footer d-flex justify-content-between lh-condensed">
-              <h5>Totale</h5>
-              <strong id="totalcost"></strong>
-            </div>
+              
+              <div class="card-footer d-flex justify-content-between lh-condensed">
+                <h5>Totale</h5>
+                <strong id="totalcost"></strong>
+              </div>  
             
             </form>
 
