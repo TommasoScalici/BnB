@@ -18,6 +18,9 @@ $(document).ready(function () {
             let date1 = new Date ($('#reservation-checkin').val()); 
             let date2 = new Date ($('#reservation-checkout').val());
             let apartmentPrice = Number($('#apartmentPrice').val());
+            let cityTax = Number($("#city-tax").val());
+            let cleaningCost = Number($("#apartmentRooms").val()*3);
+            let serviceCost = Number($("#service-cost").val());
 
             $(".guests-input").each(function() {
                 if($(this).val() < 0)
@@ -37,7 +40,7 @@ $(document).ready(function () {
 
             $("#reservation-guests").val(sum);
 
-            stayCost = ((date2 - date1)/86400000 * (apartmentPrice)*(adults + (newborns/2)));
+            stayCost = ((date2 - date1)/86400000 * (apartmentPrice)*(adults + (newborns/2))  + cityTax + cleaningCost + serviceCost);
 
             if(stayCost > 0)
                 $('#strong-price').html(stayCost+"€");
