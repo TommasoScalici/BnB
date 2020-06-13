@@ -29,7 +29,7 @@ module.exports =
             reservation.cleaning_cost= req.query.cleaningcost;
             reservation.service_cost= req.query.servicecost;
             reservation.stay_cost = req.query.staycost;
-            reservation.total = req.query.totalcost;
+            // reservation.total = req.query.totalcost;
 
             await Apartment.findById(req.query.apartmentid, function(err, apartment) {
                 if(err) {
