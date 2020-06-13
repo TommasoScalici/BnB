@@ -24,7 +24,7 @@ var ReservationSchema = new Schema({
 );
 
 ReservationSchema.virtual('total_cost').get(function () {
-    return city_tax + cleaning_cost + service_cost + stay_cost;
+    return this.city_tax + this.cleaning_cost + this.service_cost + this.stay_cost;
 });
 
 module.exports = mongoose.model('Reservation', ReservationSchema);  

@@ -47,7 +47,8 @@
                               <%= apartment.bedrooms %> camere da letto, <%= apartment.bathrooms %> bagni e 
                               <%= apartment.beds %> letti
         </p>
-        <textarea  rows="10" cols="80"><%= apartment.description %> </textarea>
+
+        <p><%= apartment.description %></p>
         
         <h3 class="my-3">Servizi</h3>
         <ul>
@@ -72,7 +73,6 @@
               <input type="hidden" id="reservation-cleaningcost" name="cleaningcost">
               <input type="hidden" id="reservation-servicecost" name="servicecost">
               <input type="hidden" id="reservation-staycost" name="staycost">
-              <input type="hidden" id="totalcost" name="totalcost">
             
               <div class="form-row mb-3">
                 <div class="col-md-6">
@@ -108,11 +108,6 @@
                   <span id="citytax" class="text-muted"></span>
                 </li>
               </ul>
-
-              <div class="card-footer d-flex justify-content-between lh-condensed">
-                <h5>Totale</h5>
-                <strong id="totalcost"></strong>
-              </div> 
   
               <hr>
 
@@ -123,12 +118,16 @@
                                   <a href="/users/signup">registrati</a> prima di continuare.'>
                     Prenota
                   </a>
-                </div>
-    
               </div>
-              
+
+          </div>
+
+          <div class="card-footer d-flex justify-content-between lh-condensed">
+            <h5>Totale</h5>
+            <strong id="totalcost"></strong>
+          </div> 
             
-            </form>
+          </form>
 
         </div>
       </div>

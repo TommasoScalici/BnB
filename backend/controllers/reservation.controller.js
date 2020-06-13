@@ -1,7 +1,6 @@
-const Mapper = require('../utilities/request-model-mapper.js')
-const Reservation = require('../models/reservation.js');
+const Mapper = require('../utilities/request-model-mapper.js');
 const Apartment = require('../models/apartment.js');
-
+const Reservation = require('../models/reservation.js');
 
 module.exports =
 {
@@ -14,33 +13,33 @@ module.exports =
 
     summary: async (req, res) =>{
         let reservation = new Reservation();
-            reservation.stay_cost = req.query.staycost;
-             reservation.customer = req.session.user._id;
-            // //reservation.host = req.body.apartament.host._id;
-            reservation.checkin= req.query.checkin;
-            reservation.checkout= req.query.checkout;
-            reservation.guests= req.query.guests;
-            reservation.guestsadults = req.query.guestsadults;
-            reservation.guestschildren = req.query.guestschildren;
-            reservation.guestsnewborns = req.query.guestsnewborns;
+        
+        reservation.customer = req.session.user._id;
+        // //reservation.host = req.body.apartament.host._id;
+        reservation.checkin= req.query.checkin;
+        reservation.checkout= req.query.checkout;
+        reservation.guests= req.query.guests;
+        reservation.guestsadults = req.query.guestsadults;
+        reservation.guestschildren = req.query.guestschildren;
+        reservation.guestsnewborns = req.query.guestsnewborns;
 
-            // reservation.payment_method: req.body.paymentmethod,
-            reservation.city_tax= req.query.citytax;
-            reservation.cleaning_cost= req.query.cleaningcost;
-            reservation.service_cost= req.query.servicecost;
-            reservation.stay_cost = req.query.staycost;
-            reservation.total = req.query.totalcost;
+        // reservation.payment_method: req.body.paymentmethod,
+        reservation.city_tax= req.query.citytax;
+        reservation.cleaning_cost= req.query.cleaningcost;
+        reservation.service_cost= req.query.servicecost;
+        reservation.stay_cost = req.query.staycost;
+        reservation.total = req.query.totalcost;
 
-            await Apartment.findById(req.query.apartmentid, function(err, apartment) {
-                if(err) {
-                    console.log(`Mongo error while retrieving apartment data: ${err}`);
-                    res.status(500).json({message: "Server error while processing the request"});
-                }
-                else
-                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary",reservation,apartment}); 
+        await Apartment.findById(req.query.apartmentid, function(err, apartment) {
+            if(err) {
+                console.log(`Mongo error while retrieving apartment data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else
+            res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation }); 
 
-            }).populate("host");
-        },
+        }).populate("host");
+    },
 
     renderCheckout: (req, res) => {
          let reservation = new Reservation();

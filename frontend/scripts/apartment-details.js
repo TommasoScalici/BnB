@@ -72,6 +72,11 @@ $(document).ready(function() {
       });
     }
 
+    // Aggiorno i costi se le date sono già impostate
+    if(($("#reservation-checkin").val()) && ($("#reservation-checkout").val()))
+      updateCosts();
+
+    // Aggiorni i costi anche quando i parametri cambiano
     $("#reservation-checkin, #reservation-checkout, .guests-input").change(function() {
 
         if(!($("#reservation-checkin").val()) ||!($("#reservation-checkout").val()))

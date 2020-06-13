@@ -45,10 +45,10 @@
 
             <div class="row">
               <div class="col-md-6 mb-3">
-               <button type="button"  class="btn btn-secondary btn-lg"><%= reservation.checkin %></button>
+               <div class="btn btn-secondary btn-lg"><%= reservation.checkin %></div>
               </div>
               <div class="col-md-6 mb-3">
-                <button type="button"  class="btn btn-secondary btn-lg"><%= reservation.checkout %></button>
+                <div class="btn btn-secondary btn-lg"><%= reservation.checkout %></div>
              </div>
             </div>
 
@@ -111,14 +111,13 @@
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <label for="price"><i class="fas fa-bed"></i> Prezzo Pernottamento: </label>
-
               </div>
               <span>+<%= reservation.stay_cost %>€</span>
               
             </li>
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <label for="price"><i class="fas fa-house-user"></i> <br> Prezzo Residenza: </label>
+                <label for="price"><i class="fas fa-house-user"></i> Prezzo Residenza: </label>
 
               </div>
               <span>+<%= reservation.city_tax %>€</span>
@@ -127,7 +126,6 @@
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <label for="price"><i class="fas fa-concierge-bell"></i> Prezzo Servizi: </label>
-
               </div>
               <span>+<%= reservation.service_cost %>€</span>
               
@@ -135,14 +133,13 @@
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <label for="price"><i class="fa fa-bath" aria-hidden="true"></i> Prezzo Pulizie: </label>
-
               </div>
               <span>+<%= reservation.cleaning_cost %>€</span>
               
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Totale </span>
-              <strong><%= reservation.total %>€</strong>
+              <strong><%= reservation.total_cost %>€</strong>
             </li>
           </ul>
           <!-- Cart -->
