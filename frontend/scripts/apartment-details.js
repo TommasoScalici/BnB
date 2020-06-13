@@ -38,6 +38,8 @@ $(document).ready(function() {
       trigger: 'focus'
     });
   
+    $('#guests-validation-popover').popover('disable');
+
     if(user)
       $('#confirm-reservation').popover('disable');
     else
@@ -47,6 +49,28 @@ $(document).ready(function() {
       $('#signin-modal').modal('show');
     });
 
+    if(user) {
+      $("#confirm-reservation").on('click', function() {
+  
+        if($("#guests").val() < 1) {
+          $(".guests-input")[0].setCustomValidity("Devi inserire almeno un ospite.");
+          $('#guests-validation-popover').popover('enable');
+          $('#guests-validation-popover').popover('show');
+          setTimeout(() => {
+            $('#guests-validation-popover').popover('hide');
+          }, 2000);
+        }
+        else {
+          $(".guests-input")[0].setCustomValidity('');
+          $('#guests-validation-popover').popover('disable');
+        }
+  
+        if($("#reservation-summary-form")[0].checkValidity())
+          $("#reservation-summary-form").submit();
+        
+        $("#reservation-summary-form")[0].reportValidity(); 
+      });
+    }
 
     $("#reservation-checkin, #reservation-checkout, .guests-input").change(function() {
 
@@ -57,19 +81,19 @@ $(document).ready(function() {
     });
 
     // Controlli per correttezza delle date
-    $("#searchbar-checkin").attr("min", moment().format("YYYY-MM-DD"));
-    $("#searchbar-checkout").attr("min", moment().format("YYYY-MM-DD"));
+    $("#reservation-checkin").attr("min", moment().format("YYYY-MM-DD"));
+    $("#reservation-checkout").attr("min", moment().format("YYYY-MM-DD"));
 
-    $("#searchbar-checkin").change(function() {
-        $("#searchbar-checkout").attr("min", $("#searchbar-checkin").val());
+    $("#reservation-checkin").change(function() {
+        $("#reservation-checkout").attr("min", $("#reservation-checkin").val());
 
-        if($("#searchbar-checkin").val() > $("#searchbar-checkout").val())
-            $("#searchbar-checkout").val($("#searchbar-checkin").val());
+        if($("#reservation-checkin").val() > $("#reservation-checkout").val())
+            $("#reservation-checkout").val($("#reservation-checkin").val());
     });
 
-    $("#searchbar-checkout").change(function() {
-        if($("#searchbar-checkin").val() > $("#searchbar-checkout").val())
-            $("#searchbar-checkin").val($("#searchbar-checkout").val());
+    $("#reservation-checkout").change(function() {
+        if($("#reservation-checkin").val() > $("#reservation-checkout").val())
+            $("#reservation-checkin").val($("#reservation-checkout").val());
     });
 
   });

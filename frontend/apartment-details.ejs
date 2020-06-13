@@ -77,12 +77,14 @@
               <div class="form-row mb-3">
                 <div class="col-md-6">
                   <small class="label-placeholder">CHECK-IN</small>
-                  <input type="date" id="reservation-checkin" name="checkin" class="btn btn-secondary input-placeholding">      
+                  <input type="date" id="reservation-checkin" name="checkin" class="btn btn-secondary input-placeholding"
+                         required>      
                 </div>
   
                 <div class="col-md-6">
                   <small class="label-placeholder">CHECK-OUT</small>
-                  <input type="date" id="reservation-checkout" name="checkout" class="btn btn-secondary input-placeholding">    
+                  <input type="date" id="reservation-checkout" name="checkout" class="btn btn-secondary input-placeholding"
+                         required>    
                 </div>
               </div>
   
@@ -174,11 +176,6 @@
   var price = Number("<%= apartment.price %>");
   var rooms = Number("<%= apartment.bathrooms %>") + Number("<%= apartment.bedrooms %>");
   var user = ejs.render('<%= session.user %>');
-
-  if(user)
-    $("#confirm-reservation").on('click', function() {
-      $("#reservation-summary-form").submit();
-    });
 
 </script>
 <script src="/scripts/apartment-details.js"></script>
