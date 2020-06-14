@@ -1,32 +1,48 @@
 @startuml signup
 
 actor User
-participant "Current\nPage" as CurrentPage
+participant "Index" as Index
 participant "Signup\nScreen" as SignupScreen
 participant "User\nController" as UserController
 database Database
 
 activate User
-    activate CurrentPage
-        User -> CurrentPage: open the app
-        CurrentPage -> SignupScreen: click on register button
-    deactivate CurrentPage
 
+        
+    User -> Index: click on signup button
+    activate Index
+    Index --> SignupScreen: submit credentials
     activate SignupScreen
-        SignupScreen -> UserController: insert credentials
+        SignupScreen -> UserController: verify credentials
         activate UserController
         UserController -> UserController: the controller\nprocess the request
-        SignupScreen x-- UserController: display error message
+        alt no errors
         UserController -> Database: the controller inserts\n  user on DB
-        deactivate UserController
-
         activate Database
-        SignupScreen x-- Database : \n     show error
+        alt successfully inserted
+        UserController <-- Database: return success
+        SignupScreen <-- UserController: display success message
     deactivate SignupScreen
-    activate CurrentPage
-    deactivate CurrentPage
-    CurrentPage <-- Database: successful registration
-    User <-- CurrentPage: Close app
+    Index <-- Database: successful registration
+        else not inserted
+        activate SignupScreen
+        UserController x-- Database: return insert error
+        SignupScreen x-- UserController: display error message
+        deactivate UserController
+        
+        deactivate SignupScreen
+        end
+        else credentials error
+        SignupScreen x-- UserController: display credentials errors
+        activate SignupScreen
+
+        activate UserController
+        SignupScreen x-- Database : \n     show error
+        deactivate UserController
+        deactivate SignupScreen
+  
+
+        end
     deactivate Database
 deactivate User
 
