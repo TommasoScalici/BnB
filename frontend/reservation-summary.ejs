@@ -51,17 +51,18 @@
           <hr>
 
           <div class="row">
-            <div class="col-md-8 mb-3">
-              <h3 class="my-4 text-left" style="color: rgb(41, 65, 65);">Caricamento dati degli ospiti</h3>
+            <div class="col-md-12 mb-3">
+              <h3 class="my-4 text-center" style="color: rgb(41, 65, 65);">Caricamento dati degli ospiti</h3>
             </div>       
-            <div class="col-md-4 mt-4">
-              <button id="add-guest-form" class="btn btn-primary">Aggiungi ospite</button>
-            </div>
           </div>
 
           <div class="row">
             <div class="col-md-12">
-              <div id="guests-forms"></div>
+              <div id="guests-forms">
+                <% for (let i = 1; i < reservation.guests; i++) { %>
+                  <%- include('customer-data-form', { form_id: i }) %>
+                <% } %>
+              </div>
             </div>     
           </div>
               
@@ -154,28 +155,10 @@
 
 <script>
 
-  $(document).click(function(event) {
-    if(event.target.getAttribute("type") != "submit")
-      event.preventDefault();
-  });
-
   $(document).ready(function() {
 
-    let count = 1;
-
-    $("#add-guest-form").click(function(event) {
-
-      let accordion = getAccordion(count);
-
-      $.get("/customer-data-form.ejs", function(data) {
-        $("#guests-forms").append($.parseHTML(accordion));
-        $(`#card-body-${count}`).html($.parseHTML(data));
-        $(`#remove-button-${count}`).click(function(event) {
-          let id = event.target.getAttribute("data-id");
-          $(`#customer-card-${id}`).remove();
-        })
-        count++;
-      }, 'html');
+    $(".accordion-btn").click(function(event) {
+      event.preventDefault();
     });
     
   });

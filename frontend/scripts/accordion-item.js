@@ -4,16 +4,10 @@ return `
 
         <div class="card-header" id="header-${count}">
         <h5 class="mb-0">
-            <div class="d-flex justify-content-between lh-condensed">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-${count}" 
-                        aria-expanded="true" aria-controls="collapse-${count}">
-                Ospite #${count}
-                </button>
-
-                <button class="btn btn-link" id="remove-button-${count}" data-id="${count}">
-                Rimuovi
-                </button>
-            </div>
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-${count}" 
+                    aria-expanded="true" aria-controls="collapse-${count}">
+            Ospite #${count}
+            </button>
         </h5>
         </div>
 

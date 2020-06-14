@@ -1,136 +1,85 @@
-<form action="#" method="POST" id="form-signup" class="needs-validation" novalidate>
-    <div class="card mb-5">
+<div id="customer-card-${count}" class="card">
 
-        <div class="card-header text-white bg-primary"><span class="far fa-user"></span> Dati personali</div>
+    <div class="card-header" id="header-<%= form_id %>">
+    <h5 class="mb-0">
+        <button class="btn btn-link accordion-btn" data-toggle="collapse" data-target="#collapse-<%= form_id %>" 
+                aria-expanded="true" aria-controls="collapse-<%= form_id %>">
+        Ospite #<%= form_id %>
+        </button>
+    </h5>
+    </div>
 
-            <div class="card-body"> 
+    <div id="collapse-<%= form_id %>" class="collapse" aria-labelledby="header<%= form_id %>" data-parent="#guests-forms">
 
-                <div class="form-row">
+        <div id="card-body-<%= form_id %>" class="card-body">
 
-                    <div class="col-md-4 mb-3">
-                        <label for="firstname"><span class="fas fa-user"></span> Nome</label>
-                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nome" required>
-                        <div class="invalid-feedback">
-                            L'inserimento del nome è obbligatorio.
+            <div class="card mb-5">
+
+                <div class="card-header text-white bg-primary"><span class="far fa-user"></span> Dati personali</div>
+            
+                <div class="card-body"> 
+            
+                    <div class="form-row">
+            
+                        <div class="col-md-5 mb-3">
+                            <label for="firstname"><span class="fas fa-user"></span> Nome</label>
+                            <input type="text" class="form-control" id="firstname-<%= form_id %>" name="firstname" placeholder="Nome" required>
+                            <div class="invalid-feedback">
+                                L'inserimento del nome è obbligatorio.
+                            </div>
                         </div>
+            
+                        <div class="col-md-5 mb-3">
+                            <label for="lastname"><span class="fas fa-user"></span> Cognome</label>
+                            <input type="text" class="form-control" id="lastname-<%= form_id %>" name="lastname" placeholder="Cognome" required>
+                            <div class="invalid-feedback">
+                                L'inserimento del cognome è obbligatorio.
+                            </div>
+                        </div>
+            
+                        <div class="col-md-2 mb-3">
+                            <label for="sex"><span class="fas fa-venus-mars"></span> Sesso</label>
+                            <select class="form-control" id="sex-<%= form_id %>" name="sex" placeholder="Sesso">
+                                <option></option>
+                                <option>M</option>
+                                <option>F</option>
+                            </select>
+                        </div>
+                                
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="lastname"><span class="fas fa-user"></span> Cognome</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Cognome" required>
-                        <div class="invalid-feedback">
-                            L'inserimento del cognome è obbligatorio.
+            
+                    <div class="form-row">
+            
+                        <div class="col-md-6 mb-3">
+                            <label for="fiscalcode"><span class="fas fa-envelope"></span> Codice Fiscale</label>
+                            <input type="fiscalcode" class="form-control" id="fiscalcode-<%= form_id %>" name="fiscalcode" 
+                                   placeholder="Codice Fiscale" required>
+                            <div class="invalid-feedback">
+                                Inserire un codice fiscale valido.
+                            </div>
                         </div>
-                    </div> 
-                        <div class="col-md-4 mb-3">
-                        <label for="fiscalcode"><span class="fas fa-envelope"></span> Codice Fiscale</label>
-                        <input type="fiscalcode" class="form-control" id="fiscalcode" name="fiscalcode" placeholder="Codice Fiscale" required>
-                        <div class="invalid-feedback">
-                            Inserire un codice fiscale valido.
+            
+                        <div class="col-md-3 mb-3">
+                            <label for="birthdate"><span class="fas fa-birthday-cake"></span> Data di nascita</label>
+                            <input type="date" class="form-control" id="birthdate-<%= form_id %>" name="birthdate" placeholder="Data di nascita">
+                            <div class="invalid-feedback">
+                                Inserire una data valida.
+                            </div>
                         </div>
-                    </div>
+            
+                        <div class="col-md-3 mb-3">
+                            <label for="residence"><span class="fas fa-birthday-cake"></span> Residenza</label>
+                            <input type="date" class="form-control" id="residence-<%= form_id %>" name="residence" placeholder="Residenza">
+                            <div class="invalid-feedback">
+                                Inserire una residenza
+                            </div>
+                        </div>
+                                
+                    </div>  
                 </div>
-
-                <div class="form-row">
-
-                    <div class="col-md-4 mb-3">
-                        <label for="birthdate"><span class="fas fa-birthday-cake"></span> Data di nascita</label>
-                        <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Data di nascita">
-                        <div class="invalid-feedback">
-                            Inserire una data valida.
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="telephone"><span class="fas fa-phone-alt"></span> Telefono</label>
-                        <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Telefono"
-                                pattern="^[0-9\-\+]{9,15}$">
-                        <div class="invalid-feedback">
-                            Inserire un numero di telefono valido.
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="sex"><span class="fas fa-venus-mars"></span> Sesso</label>
-                        <select class="form-control" id="sex" name="sex" placeholder="Sesso">
-                            <option></option>
-                            <option>M</option>
-                            <option>F</option>
-                        </select>
-                    </div>
-                    
-                </div>  
             </div>
         </div>
 
-    <div class="card mt-5">
+    </div>
+</div>
 
-        <div class="card-header text-white bg-primary"><span class="fas fa-house-user"></span> Indirizzo</div>
-
-            <div class="card-body">
-
-            <div class="form-row">
-                
-                <div class="col-md-12 mb-3">
-                    <label for="autocomplete"><span class="fas fa-map-marked-alt"></span> Indirizzo completo</label>
-                    <input type="text" class="form-control" id="autocomplete" onFocus="geolocate()" autocomplete="off"
-                         placeholder="Inserisci qui l'indirizzo per usare l'autocompletamento dei campi di indirizzo">
-                </div>
-
-            </div>
-
-            <div class="form-row">
-                
-                <div class="col-md-6 mb-3">
-                    <label for="street"><span class="fas fa-map-marker-alt"></span> Indirizzo</label>
-                    <input type="text" class="form-control" id="street" name="street" placeholder="Indirizzo (via, piazza, ecc.)">
-                    <div class="invalid-feedback">
-                        Inserire un indirizzo valido.
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <label for="streetnumber"><span class="fas fa-map-marker-alt"></span> Numero civico</label>
-                    <input type="text" class="form-control" id="streetnumber" name="streetnumber" placeholder="Numero Civico">
-                    <div class="invalid-feedback">
-                        Inserire un numero civico valido.
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <label for="postalcode"><span class="fas fa-map"></span> CAP</label>
-                    <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="CAP" pattern="[0-9]{5}">
-                    <div class="invalid-feedback">
-                        Inserire un CAP valido.
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="form-row">
-
-                <div class="col-md-4 mb-3">
-                    <label for="town"><span class="fas fa-map"></span> Comune</label>
-                    <input type="text" class="form-control" id="town" name="town" placeholder="Comune">
-                    <div class="invalid-feedback">
-                        Inserire un comune valido.
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="province"><span class="fas fa-map"></span> Provincia</label>
-                    <input type="text" class="form-control" id="province" name="province" placeholder="Provincia">
-                    <div class="invalid-feedback">
-                        Inserire una città valida.
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="country"><span class="fas fa-globe"></span> Stato</label>
-                    <input type="text" class="form-control" id="country" name="country" placeholder="Stato">
-                    <div class="invalid-feedback">
-                        Inserire un stato valido.
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>  
-</form>

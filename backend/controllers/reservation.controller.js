@@ -35,8 +35,7 @@ module.exports =
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else {
-                // reservation.apartament = apartment._id;
-                // reservation.host = apartment.host._id;
+                reservation.host = apartment.host._id;
                 res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation});
             }
 
