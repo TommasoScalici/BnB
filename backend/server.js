@@ -10,12 +10,14 @@ const app = express();
 middleware(app, express);
 routes(app, express);
 
-db.mongoose.connect(process.env.MONGODB_URI || db.url, {
+const url = `${process.env.MONGODB_URI || db.url}/bnb`;
+
+db.mongoose.connect(url, {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    console.log("Connected to database! (MongoDB)")
+    console.log(`Connected to database (MongoDB), at ${url}`)
 }).catch(err => {
     console.log(`Connection to database failed with error:  ${err}`);
     process.exit();

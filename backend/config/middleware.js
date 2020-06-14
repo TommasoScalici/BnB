@@ -4,6 +4,7 @@ const moment = require('moment');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
+const db = require('./db.config')
 const mongoDBStore = require('connect-mongodb-session')(session);
 
 module.exports = function(app, express) {
@@ -26,7 +27,7 @@ module.exports = function(app, express) {
         saveUninitialized: true,
         store: new mongoDBStore({
           collection: 'bnb_sessions',
-          uri: 'mongodb://localhost/sessions'
+          uri: `${process.env.MONGODB_URI || db.url}/sessions`
         })
       }));
 
