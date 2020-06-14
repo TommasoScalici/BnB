@@ -66,7 +66,7 @@ function setFieldsFromAddressComponents(address_components) {
 
 // Si occupa di aggiornare il contatore (totale) degli ospiti
 // quando si modificano le diverse tipologie di ospiti (adulti, bambini, neonati)
-function updateGuests() {
+function updateSearchBarGuests() {
     let sum = 0;
     $(".searchbar-guests-input").each(function() {
         if($(this).val() < 0)
@@ -99,7 +99,7 @@ $(document).ready(function() {
     // Gestione dei cookie per la query di ricerca
     if(Cookies.get("query_search")) {
         $("#searchbar-form").deserialize(Cookies.get("query_search"));
-        updateGuests();
+        updateSearchBarGuests();
     }
 
     $(document).on('submit', '#searchbar-form', function(event) {
@@ -159,5 +159,5 @@ $(document).ready(function() {
             $("#searchbar-checkin").val($("#searchbar-checkout").val());
     });
 
-    $(".searchbar-guests-input").change(() => updateGuests());
+    $(".searchbar-guests-input").change(() => updateSearchBarGuests());
 });

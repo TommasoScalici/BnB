@@ -34,8 +34,11 @@ module.exports =
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else
-                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation,}); 
+            else {
+                // reservation.apartament = apartment._id;
+                // reservation.host = apartment.host._id;
+                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation});
+            }
 
         }).populate("host");
     },
