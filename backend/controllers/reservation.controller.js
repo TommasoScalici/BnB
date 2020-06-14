@@ -16,7 +16,6 @@ module.exports =
 
         reservation.apartament = req.query.apartmentid;
         reservation.customer = req.session.user._id;
-        reservation.host = req.body.apartament.host._id;
 
         reservation.checkin= req.query.checkin;
         reservation.checkout= req.query.checkout;

@@ -52,7 +52,7 @@ module.exports =
     searchApartments: async (req, res) => {
         
         await Apartment.find({
-            guests_max: {  $gte: req.query.guests },
+            "guests_max": {  $gte: req.query.guests },
             "address.country": { $regex: req.query.country },
             "address.province": { $regex: req.query.province },
             "address.town": { $regex: req.query.town },
