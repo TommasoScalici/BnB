@@ -11,75 +11,127 @@
 
     <div id="collapse-<%= form_id %>" class="collapse" aria-labelledby="header<%= form_id %>" data-parent="#guests-forms">
 
-        <div id="card-body-<%= form_id %>" class="card-body">
+        <div class="card my-4">
 
-            <div class="card mb-5">
-
-                <div class="card-header text-white bg-primary"><span class="far fa-user"></span> Dati personali</div>
-            
-                <div class="card-body"> 
-            
-                    <div class="form-row">
-            
-                        <div class="col-md-5 mb-3">
-                            <label for="firstname"><span class="fas fa-user"></span> Nome</label>
-                            <input type="text" class="form-control" id="firstname-<%= form_id %>" name="firstname" placeholder="Nome" required>
-                            <div class="invalid-feedback">
-                                L'inserimento del nome è obbligatorio.
-                            </div>
+            <div class="card-header text-white bg-primary"><span class="far fa-user"></span> Dati personali</div>
+        
+            <div class="card-body"> 
+        
+                <div class="form-row">
+        
+                    <div class="col-md-6 mb-3">
+                        <label for="firstname"><span class="fas fa-user"></span> Nome</label>
+                        <input type="text" class="form-control" placeholder="Nome" required
+                                id="firstname-<%= form_id %>" name="guests[<%= form_id %>][firstname]" >
+                        <div class="invalid-feedback">
+                            L'inserimento del nome è obbligatorio.
                         </div>
-            
-                        <div class="col-md-5 mb-3">
-                            <label for="lastname"><span class="fas fa-user"></span> Cognome</label>
-                            <input type="text" class="form-control" id="lastname-<%= form_id %>" name="lastname" placeholder="Cognome" required>
-                            <div class="invalid-feedback">
-                                L'inserimento del cognome è obbligatorio.
-                            </div>
-                        </div>
-            
-                        <div class="col-md-2 mb-3">
-                            <label for="sex"><span class="fas fa-venus-mars"></span> Sesso</label>
-                            <select class="form-control" id="sex-<%= form_id %>" name="sex" placeholder="Sesso">
-                                <option></option>
-                                <option>M</option>
-                                <option>F</option>
-                            </select>
-                        </div>
-                                
                     </div>
-            
-                    <div class="form-row">
-            
-                        <div class="col-md-6 mb-3">
-                            <label for="fiscalcode"><span class="fas fa-envelope"></span> Codice Fiscale</label>
-                            <input type="fiscalcode" class="form-control" id="fiscalcode-<%= form_id %>" name="fiscalcode" 
-                                   placeholder="Codice Fiscale" required>
-                            <div class="invalid-feedback">
-                                Inserire un codice fiscale valido.
-                            </div>
+        
+                    <div class="col-md-6 mb-3">
+                        <label for="lastname"><span class="fas fa-user"></span> Cognome</label>
+                        <input type="text" class="form-control" placeholder="Cognome" required
+                                id="lastname-<%= form_id %>" name="guests[<%= form_id %>][lastname]">
+                        <div class="invalid-feedback">
+                            L'inserimento del cognome è obbligatorio.
                         </div>
-            
-                        <div class="col-md-3 mb-3">
-                            <label for="birthdate"><span class="fas fa-birthday-cake"></span> Data di nascita</label>
-                            <input type="date" class="form-control" id="birthdate-<%= form_id %>" name="birthdate" placeholder="Data di nascita">
-                            <div class="invalid-feedback">
-                                Inserire una data valida.
-                            </div>
+                    </div>
+                            
+                </div>
+        
+                <div class="form-row">
+        
+                    <div class="col-md-4 mb-3">
+                        <label for="birthdate"><span class="fas fa-birthday-cake"></span> Data di nascita</label>
+                        <input type="date" class="form-control" placeholder="Data di nascita"
+                                id="birthdate-<%= form_id %>" name="guests[<%= form_id %>][birthdate]" >
+                        <div class="invalid-feedback">
+                            Inserire una data valida.
                         </div>
-            
-                        <div class="col-md-3 mb-3">
-                            <label for="residence"><span class="fas fa-birthday-cake"></span> Residenza</label>
-                            <input type="date" class="form-control" id="residence-<%= form_id %>" name="residence" placeholder="Residenza">
-                            <div class="invalid-feedback">
-                                Inserire una residenza
-                            </div>
+                    </div>
+        
+                    <div class="col-md-4 mb-3">
+                        <label for="residence"><span class="fas fa-map-marker-alt"></span> Residenza</label>
+                        <input type="text" class="form-control" placeholder="Residenza"
+                                id="residence-<%= form_id %>" name="guests[<%= form_id %>][residence]">
+                        <div class="invalid-feedback">
+                            Inserire una residenza valida.
                         </div>
-                                
-                    </div>  
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="sex"><span class="fas fa-venus-mars"></span> Sesso</label>
+                        <select class="form-control" placeholder="Sesso"
+                                id="sex-<%= form_id %>" name="guests[<%= form_id %>][sex]">
+                            <option></option>
+                            <option>M</option>
+                            <option>F</option>
+                        </select>
+                    </div>
+                            
+                </div>
+
+                <div class="form-row">
+                    
+                    <div class="col-md-12 mb-3">
+                        <label for="fiscalcode"><span class="fas fa-address-card"></span> Codice Fiscale</label>
+                        <input type="text" class="form-control" placeholder="Codice Fiscale" maxlength="16" required
+                            pattern="^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$"
+                            id="fiscalcode-<%= form_id %>" name="guests[<%= form_id %>][fiscalcode]">
+                        <div class="invalid-feedback">
+                            Inserire un codice fiscale valido, con lettere tutte maiuscole.
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
 
+        <div class="card my-5">
+  
+            <div class="card-header text-white bg-primary"><span class="far fa-images"></span> Caricamento foto dell'alloggio</div>
+    
+            <div class="card-body">
+  
+              <div class="form-row">      
+                <div class="col-md-12 mb-3 my-auto">
+                  <label for="documents-file-input-<%= form_id %>"><span class="fas fa-images"></span> 
+                         Carica le foto fronte-retro dei tuoi documenti</label>
+                  <div class="input-group mb-3">
+                    <div class="custom-file" id="documents-file-input-<%= form_id %>">
+                      <input type="file" class="custom-file-input images-file-input" id="documents-images-input-<%= form_id %>"
+                             name="guests[<%= form_id %>][photos]" multiple required>
+                      <label class="custom-file-label" for="documents-images-input-<%= form_id %>" data-browse="Sfoglia">
+                        <div class="progress h-100">
+                          <div class="progress-bar bg-success" id="progressbar-<%= form_id %>" role="progressbar" 
+                               aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </label>
+                      <div class="invalid-feedback">
+                        Bisogna caricare obbligatoriamente almeno un'immagine.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="form-row mb-4 mt-4">
+                <div class="col-md-12 mb-3 my-auto">
+                  <div class="d-flex align-self-center justify-content-center">
+                    <div class="spinner-border text-primary" id="progressbar" role="status" style="display: none">
+                      <span class="sr-only"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="form-row mb-4 mt-4">
+                <div class="col-md-12 mb-3 my-auto border border-primary rounded" id="photos-preview">
+                </div>
+              </div>
+  
+            </div>
+          </div>
     </div>
 </div>
 

@@ -13,20 +13,20 @@ $(document).ready(function () {
 
     // Renderizza le previews per le immagini all'inserimento di un nuovo alloggio
     // utilizzando l'effetto fadein
-    $("#apartment-images-input").change(function () {
+    $(".images-file-input").change(function () {
 
         if (this.files && this.files[0]) {
             let files = this.files;
 
             // Inizializzazione view per il caricamento
             $('#photos-preview').empty(); // Svuoto nel caso ci fossero immagini caricate in precedenza
-            $('#apartment-spinner').fadeIn(500);
-            $("#apartment-progressbar").attr("aria-valuenow", 0);
-            $("#apartment-progressbar").css("width", 0);
-            $("#apartment-progressbar").html(0);        
-            $("#apartment-progressbar").toggleClass("bg-success");
-            $("#apartment-progressbar").toggleClass("progress-bar-animated");
-            $("#apartment-progressbar").toggleClass("progress-bar-striped");
+            $('#progressbar').fadeIn(500);
+            $("#progressbar").attr("aria-valuenow", 0);
+            $("#progressbar").css("width", 0);
+            $("#progressbar").html(0);        
+            $("#progressbar").toggleClass("bg-success");
+            $("#progressbar").toggleClass("progress-bar-animated");
+            $("#progressbar").toggleClass("progress-bar-striped");
 
             $.each(files, function(index, value) {
                 
@@ -52,15 +52,15 @@ $(document).ready(function () {
 
                     reader.readAsDataURL(value);
 
-                    $("#apartment-progressbar").attr("aria-valuenow", `${percentage}%`);
-                    $("#apartment-progressbar").css("width", `${percentage}%`);
-                    $("#apartment-progressbar").html(`${percentage}%`);
+                    $("#progressbar").attr("aria-valuenow", `${percentage}%`);
+                    $("#progressbar").css("width", `${percentage}%`);
+                    $("#progressbar").html(`${percentage}%`);
 
                     if(percentage === 100) {
-                        $('#apartment-spinner').fadeOut(1000);
-                        $("#apartment-progressbar").toggleClass("bg-success");
-                        $("#apartment-progressbar").toggleClass("progress-bar-animated");
-                        $("#apartment-progressbar").toggleClass("progress-bar-striped");
+                        $('#progressbar').fadeOut(1000);
+                        $("#progressbar").toggleClass("bg-success");
+                        $("#progressbar").toggleClass("progress-bar-animated");
+                        $("#progressbar").toggleClass("progress-bar-striped");
                     }
 
                 }, 1000 + (index * 1000));

@@ -1,4 +1,4 @@
-const Mapper = require('../utilities/request-model-mapper.js');
+const mongoose = require('mongoose');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 
@@ -11,18 +11,19 @@ module.exports =
             res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
     },
 
-    summary: async (req, res) =>{
+    renderSummary: async (req, res) =>{
+        let guests = req.query.guests;
+        let guests_adults = req.query.guestsadults;
+        let guests_children = req.query.guestschildren;
+        let guests_newborns = req.query.guestsnewborns;
+
         let reservation = new Reservation();
 
-        reservation.apartament = req.query.apartmentid;
+        reservation.apartament = new mongoose.Types.ObjectId(req.query.apartmentid);
         reservation.customer = req.session.user._id;
 
         reservation.checkin= req.query.checkin;
         reservation.checkout= req.query.checkout;
-        reservation.guests= req.query.guests;
-        reservation.guestsadults = req.query.guestsadults;
-        reservation.guestschildren = req.query.guestschildren;
-        reservation.guestsnewborns = req.query.guestsnewborns;
 
         reservation.city_tax= req.query.citytax;
         reservation.cleaning_cost= req.query.cleaningcost;
@@ -36,7 +37,8 @@ module.exports =
             }
             else {
                 reservation.host = apartment.host._id;
-                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation});
+                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", 
+                            apartment, reservation, guests, guests_adults, guests_children, guests_newborns});
             }
 
         }).populate("host");
@@ -46,19 +48,20 @@ module.exports =
          let reservation = new Reservation();
             reservation.stay_cost = req.query.staycost;
 
-            res.render("index", {pagetitle:"Checkout", path:"checkout",reservation});
-              
+            res.render("index", {pagetitle:"Checkout", path:"checkout",reservation});   
     },
     
     reserve: (req, res) => {
 
-        let newReservation = new Reservation(Mapper.getReservationFromReq(req));
+        res.send("Hai prenotato il tuo appartamento");
 
-        Reservation.create(newReservation, function(err, reservation) {
-            if(err)
-                console.log(`Mongo error while user reserving an apartment: ${err}`);
-            else
-                res.send("Hai prenotato il tuo appartamento");
-        })
+        // Reservation.create(newReservation, function(err, reservation) {
+        //     if(err) {
+        //         console.log(`Mongo error while user reserving an apartment: ${err}`);
+        //         res.status(500).json({message: "Server error while processing the request"});
+        //     }
+        //     else
+        //         res.send("Hai prenotato il tuo appartamento");
+        // })
     }
 }
