@@ -11,7 +11,7 @@ module.exports = function(app, express) {
     app.locals.moment = moment;
 
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.urlencoded({  extended: true }));
     app.use(fileUpload({ 
       createParentPath: true,
     }));

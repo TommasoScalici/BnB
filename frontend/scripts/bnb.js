@@ -128,12 +128,31 @@ $(window).on('load', function() {
             }
             else
             {
+  
                 if(form[0].enctype == "multipart/form-data") {
-                    var formData = new FormData($(this)[0]);
+
+                    let formData = new FormData();
+                    let json = form.serializeJSON();
+
+                    Object.keys(json).forEach(function(key) {
+                
+                        let value = json[key];
+
+                        if(typeof value === "string" || typeof value === "number" || typeof value === "boolean")
+                            formData.append(key, value);
+                        else 
+                            formData.append(key, JSON.stringify(value));
+                    });
+
+                    let inputFiles = form.find("input[type=file]");
+
+                    for(inputFile of inputFiles) 
+                        for(file of inputFile.files)
+                            formData.append(`${inputFile.getAttribute("id")}[]`, file, file.name);
 
                     $.ajax({
                         url: form.attr('action'),
-                        type: $('input[name="_method"]').val(),
+                        type: form.find("input[name=_method]").val(),
                         data: formData,
                         cache: false,
                         contentType: false,
@@ -143,7 +162,9 @@ $(window).on('load', function() {
                             setTimeout(() => { window.location.replace("/"); }, 3000)
                         },
                         error: function(response) {
-                            $('#alert-form-error').html(response.responseJSON.message);
+                            $('#alert-form-error').html(response.responseJSON.message ?
+                                                        response.responseJSON.message :
+                                                        response.responseText);
                             $('#alert-form-error').fadeIn(1000);
                         }
                     });
@@ -161,7 +182,9 @@ $(window).on('load', function() {
                         },
                         error: function(response) {
             
-                            $('#alert-form-error').html(response.responseJSON.message);
+                            $('#alert-form-error').html(response.responseJSON.message ?
+                                                        response.responseJSON.message :
+                                                        response.responseText);
                             $('#alert-form-error').fadeIn(1000);
                 
                         }

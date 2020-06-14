@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 
@@ -54,16 +55,41 @@ module.exports =
     reserve: (req, res) => {
 
         let reservation = new Reservation(JSON.parse(req.body.reservation));
+        let guests = Object.values(JSON.parse(req.body.guests));
 
         reservation.payment_method = req.body.payment_method;
 
-        // Reservation.create(newReservation, function(err, reservation) {
-        //     if(err) {
-        //         console.log(`Mongo error while user reserving an apartment: ${err}`);
-        //         res.status(500).json({message: "Server error while processing the request"});
-        //     }
-        //     else
-        //         res.send("Hai prenotato il tuo appartamento");
-        // })
+        if(!!req.files) {
+
+            let filesPackages = Object.values(req.files);
+            let guestNumber = 0;
+
+            for(filePackage of filesPackages) {
+
+                let fileNamePath = `${reservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
+                guests[guestNumber].image_paths = new Array();
+                let i = 0;
+
+                if(Array.isArray(filePackage)) {
+
+                    for(file of filePackage) {
+                        let path = `/reservations/guests/images/${fileNamePath}_${i}.jpg`;
+                        file.mv(`./uploads${path}`);
+                        guests[guestNumber].image_paths.push(path);
+                        i++;
+                    }
+                }
+                else {
+                    let file = filePackage;
+                    let path = `/reservations/guests/images/${fileNamePath}.jpg`;
+                    file.mv(`./uploads${path}`);
+                    guests[guestNumber].image_paths.push(path);
+                }
+
+                guestNumber++;
+            }
+        }
+
+        res.status(200).json({message: 'Reservation created succesfully'});
     }
 }
