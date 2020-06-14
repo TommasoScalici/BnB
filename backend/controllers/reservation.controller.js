@@ -98,16 +98,18 @@ module.exports =
             secure: false,
             requireTLS: true,
             auth: {
-                user: 'prova8913@gmail.com',
-            pass: 'Prova123!'
+                user: 'bnb.webandmobile@gmail.com',
+            pass: 'BnB.Project123!'
+            
             }
         });
 
         let mailOptions = {
-            from: 'your.gmail.account@gmail.com',
-            to: 'receivers.email@domain.com',
+            from: 'bnb.webandmobile@gmail.com', //non serve a niente che ci puoi mettere quello che te pare
+            to: 'apix98@hotmail.it',
             subject: 'Test',
-            text: 'Hello World!'
+            text: 'Hello World!',
+            html: $("#reservation-form").html() // html body
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
