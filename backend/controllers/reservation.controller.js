@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
+const nodemailer = require('nodemailer');
+
 
 module.exports =
 {
@@ -57,13 +59,32 @@ module.exports =
 
         reservation.payment_method = req.body.payment_method;
 
-        // Reservation.create(newReservation, function(err, reservation) {
-        //     if(err) {
-        //         console.log(`Mongo error while user reserving an apartment: ${err}`);
-        //         res.status(500).json({message: "Server error while processing the request"});
-        //     }
-        //     else
-        //         res.send("Hai prenotato il tuo appartamento");
-        // })
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'prova8913@gmail.com',
+       pass: 'Prova123!'
+    }
+});
+
+let mailOptions = {
+    from: 'your.gmail.account@gmail.com',
+    to: 'receivers.email@domain.com',
+    subject: 'Test',
+    text: 'Hello World!'
+};
+
+transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        return console.log(error.message);
+    }
+    console.log('success');
+});
+
+        
     }
 }

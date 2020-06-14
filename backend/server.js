@@ -3,12 +3,14 @@ const db = require('./config/db.js');
 const middleware = require('./config/middleware.js');
 const routes = require('./config/routes');
 
+
 require('dotenv').config();
 
 const app = express();
 
 middleware(app, express);
 routes(app, express);
+
 
 db.mongoose.connect(process.env.MONGODB_URI || db.url, {
     useFindAndModify: false,
