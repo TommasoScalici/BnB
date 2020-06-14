@@ -111,14 +111,17 @@ $(window).on('load', function() {
 
         $(this).submit(function(event) {
 
+            $('#alert-form-error').fadeOut();
             event.preventDefault();
 
-            if (form[0].checkValidity() === false) 
+            if (form[0].checkValidity() === false)
+            {
                 event.stopPropagation();
+                $('#alert-form-error').html("Sono presenti errori di validazione. Ricontrolla i dati inseriti.");
+                $('#alert-form-error').fadeIn(1000);
+            }
             else
             {
-                $('#alert-form-error').fadeOut();
- 
                 if(form[0].enctype == "multipart/form-data") {
                     var formData = new FormData($(this)[0]);
 

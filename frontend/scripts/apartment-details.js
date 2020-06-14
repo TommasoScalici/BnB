@@ -32,6 +32,7 @@ function updateCosts() {
 
 $(document).ready(function() {
 
+    // Gestione popovers
     $('[data-toggle="popover"]').popover();
   
     $('.popover-dismiss').popover({
@@ -72,9 +73,25 @@ $(document).ready(function() {
       });
     }
 
+    // Carico i dati dalla query string, se presenti
+    let queryString = Cookies.get("query_search");
+    
+    if(queryString) {
+      // Decodifica una query string di un URL in un oggetto JSON
+      let queryJSON = JSON.parse('{"' + decodeURI(queryString).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+      $("#reservation-checkin").val(queryJSON["checkin"]);
+      $("#reservation-checkout").val(queryJSON["checkout"]);
+      $("#guests-adults").val(queryJSON["guestsadults"]);
+      $("#guests-children").val(queryJSON["guestschildren"]);
+      $("#guests-newborns").val(queryJSON["guestsnewborns"]);
+    }
+
     // Aggiorno i costi se le date sono già impostate
     if(($("#reservation-checkin").val()) && ($("#reservation-checkout").val()))
+    {
       updateCosts();
+      updateGuests();
+    }
 
     // Aggiorni i costi anche quando i parametri cambiano
     $("#reservation-checkin, #reservation-checkout, .guests-input").change(function() {
