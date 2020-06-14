@@ -27,7 +27,7 @@ module.exports = function(app, express) {
         saveUninitialized: true,
         store: new mongoDBStore({
           collection: 'bnb_sessions',
-          uri: `${process.env.MONGODB_URI || db.url}/sessions`
+          uri: `${process.env.MONGODB_URI || db.url}sessions`
         })
       }));
 

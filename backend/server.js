@@ -10,7 +10,7 @@ const app = express();
 middleware(app, express);
 routes(app, express);
 
-const url = `${process.env.MONGODB_URI || db.url}/bnb`;
+const url = process.env.MONGODB_URI || db.url;
 
 db.mongoose.connect(url, {
     useFindAndModify: false,
