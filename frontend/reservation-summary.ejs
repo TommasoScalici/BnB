@@ -113,7 +113,9 @@
           <hr class="mb-4">
 
           <input type="hidden" name="_method" value="POST">
-          <input type="hidden" name="reservation" value="<%= JSON.stringify(reservation) %>"> <!--Chiedere a tom-->
+          <input type="hidden" name="reservation" value="<%= JSON.stringify(reservation) %>"> 
+          <input type="hidden" name="reservationform" value="<%= include(reservation-summary) %>">
+
           <button class="btn btn-primary btn-lg btn-block" type="submit">Completa la prenotazione</button>
 
           <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">

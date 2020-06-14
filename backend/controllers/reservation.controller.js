@@ -59,33 +59,36 @@ module.exports =
 
         reservation.payment_method = req.body.payment_method;
 
+        
 
-let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    requireTLS: true,
-    auth: {
-        user: 'bnb.webandmobile@gmail.com',
-       pass: 'BnB.Project123!'
-       
-    }
-});
 
-let mailOptions = {
-    from: 'bnb.webandmobile@gmail.com', //non serve a niente che ci puoi mettere quello che te pare
-    to: 'apix98@hotmail.it',
-    subject: 'Test',
-    text: 'Hello World!',
-    html: $("#reservation-form").html() // html body
-};
 
-transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        return console.log(error.message);
-    }
-    console.log('success');
-});
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            auth: {
+                user: 'bnb.webandmobile@gmail.com',
+            pass: 'BnB.Project123!'
+            
+            }
+        });
+
+        let mailOptions = {
+            from: 'bnb.webandmobile@gmail.com', //non serve a niente che ci puoi mettere quello che te pare
+            to: 'apix98@hotmail.it',
+            subject: 'Test',
+            text: 'Hello!',
+            html: 'Ciao'          // html body
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error.message);
+            }
+            console.log('success');
+        });
      
     }
 }
