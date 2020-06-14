@@ -6,7 +6,7 @@ function responsiveSearchBar() {
             $("#searchbar-home").empty();
             $("#searchbar-navitem").load("searchbar.ejs", function() {
                 $("#searchbar-form").deserialize(searchBarFormData);
-                updateGuests();
+                updateSearchBarGuests();
             });
     }
     else if($("#searchbar-home").is(":empty") && window.innerWidth > 1200) {
@@ -14,7 +14,7 @@ function responsiveSearchBar() {
             $("#searchbar-navitem").empty();
             $("#searchbar-home").load("searchbar-home.ejs", function() {
                 $("#searchbar-form").deserialize(searchBarFormData);
-                updateGuests();
+                updateSearchBarGuests();
             });
     }
 } 

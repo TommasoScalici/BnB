@@ -1,4 +1,5 @@
-const Mapper = require('../utilities/request-model-mapper.js');
+const moment = require('moment');
+const nodemailer = require('nodemailer');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 
@@ -11,19 +12,18 @@ module.exports =
             res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
     },
 
-    summary: async (req, res) =>{
+    renderSummary: async (req, res) =>{
+        let guests = req.query.guests;
+        let guests_adults = req.query.guestsadults;
+        let guests_children = req.query.guestschildren;
+        let guests_newborns = req.query.guestsnewborns;
+
         let reservation = new Reservation();
 
-        reservation.apartament = req.query.apartmentid;
         reservation.customer = req.session.user._id;
-        reservation.host = req.body.apartament.host._id;
 
         reservation.checkin= req.query.checkin;
         reservation.checkout= req.query.checkout;
-        reservation.guests= req.query.guests;
-        reservation.guestsadults = req.query.guestsadults;
-        reservation.guestschildren = req.query.guestschildren;
-        reservation.guestsnewborns = req.query.guestsnewborns;
 
         reservation.city_tax= req.query.citytax;
         reservation.cleaning_cost= req.query.cleaningcost;
@@ -35,8 +35,12 @@ module.exports =
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else
-                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", apartment, reservation,}); 
+            else {
+                reservation.apartment = apartment._id;
+                reservation.host = apartment.host._id;
+                res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", 
+                            apartment, reservation, guests, guests_adults, guests_children, guests_newborns});
+            }
 
         }).populate("host");
     },
@@ -45,19 +49,74 @@ module.exports =
          let reservation = new Reservation();
             reservation.stay_cost = req.query.staycost;
 
-            res.render("index", {pagetitle:"Checkout", path:"checkout",reservation});
-              
+            res.render("index", {pagetitle:"Checkout", path:"checkout",reservation});   
     },
     
     reserve: (req, res) => {
 
-        let newReservation = new Reservation(Mapper.getReservationFromReq(req));
+        let reservation = new Reservation(JSON.parse(req.body.reservation));
+        let guests = Object.values(JSON.parse(req.body.guests));
 
-        Reservation.create(newReservation, function(err, reservation) {
-            if(err)
-                console.log(`Mongo error while user reserving an apartment: ${err}`);
-            else
-                res.send("Hai prenotato il tuo appartamento");
-        })
+        reservation.payment_method = req.body.payment_method;
+
+        if(!!req.files) {
+
+            let filesPackages = Object.values(req.files);
+            let guestNumber = 0;
+
+            for(filePackage of filesPackages) {
+
+                let fileNamePath = `${reservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
+                guests[guestNumber].image_paths = new Array();
+                let i = 0;
+
+                if(Array.isArray(filePackage)) {
+
+                    for(file of filePackage) {
+                        let path = `/reservations/guests/images/${fileNamePath}_${i}.jpg`;
+                        file.mv(`./uploads${path}`);
+                        guests[guestNumber].image_paths.push(path);
+                        i++;
+                    }
+                }
+                else {
+                    let file = filePackage;
+                    let path = `/reservations/guests/images/${fileNamePath}.jpg`;
+                    file.mv(`./uploads${path}`);
+                    guests[guestNumber].image_paths.push(path);
+                }
+
+                guestNumber++;
+            }
+        }
+
+        res.status(200).json({message: 'Reservation created succesfully'});
+
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            auth: {
+                user: 'bnb.webandmobile@gmail.com',
+            pass: 'BnB.Project123!'
+            
+            }
+        });
+
+        let mailOptions = {
+            from: 'bnb.webandmobile@gmail.com', //non serve a niente che ci puoi mettere quello che te pare
+            to: 'apix98@hotmail.it',
+            subject: 'Test',
+            text: 'Hello World!',
+            html: $("#reservation-form").html() // html body
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error.message);
+            }
+            console.log('success');
+        });
     }
 }

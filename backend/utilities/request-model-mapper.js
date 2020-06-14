@@ -59,7 +59,6 @@ module.exports =
             host: req.body.apartament.host._id,
             checkin: req.body.checkin,
             checkout: req.body.checkout,
-            guests: req.body.guests,
             payment_method: req.body.paymentmethod,
             city_tax: req.body.citytax,
             cleaning_cost: req.body.cleaningcost,

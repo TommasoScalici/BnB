@@ -8,7 +8,7 @@ var ReservationSchema = new Schema({
     host: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     checkin: Date,
     checkout: Date,
-    guests: Number,
+    guests: Array,
     payment_method: String,
     city_tax: Number,
     cleaning_cost: Number,

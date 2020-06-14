@@ -13,24 +13,29 @@ $(document).ready(function () {
 
     // Renderizza le previews per le immagini all'inserimento di un nuovo alloggio
     // utilizzando l'effetto fadein
-    $("#apartment-images-input").change(function () {
+    $(".images-file-input").change(function(event) {
 
         if (this.files && this.files[0]) {
             let files = this.files;
 
+            let dataid = event.target.getAttribute("data-id") ?
+                         `-${event.target.getAttribute("data-id")}` : "";
+
             // Inizializzazione view per il caricamento
-            $('#photos-preview').empty(); // Svuoto nel caso ci fossero immagini caricate in precedenza
-            $('#apartment-spinner').fadeIn(500);
-            $("#apartment-progressbar").attr("aria-valuenow", 0);
-            $("#apartment-progressbar").css("width", 0);
-            $("#apartment-progressbar").html(0);        
-            $("#apartment-progressbar").toggleClass("bg-success");
-            $("#apartment-progressbar").toggleClass("progress-bar-animated");
-            $("#apartment-progressbar").toggleClass("progress-bar-striped");
+            $(`#photos-preview${dataid}`).empty(); // Svuoto nel caso ci fossero immagini caricate in precedenza
+            $(`#progressbar${dataid}`).fadeIn(500);
+            $(`#progressbar${dataid}`).attr("aria-valuenow", 0);
+            $(`#progressbar${dataid}`).css("width", 0);
+            $(`#progressbar${dataid}`).html(0);        
+            $(`#progressbar${dataid}`).toggleClass("bg-success");
+            $(`#progressbar${dataid}`).toggleClass("progress-bar-animated");
+            $(`#progressbar${dataid}`).toggleClass("progress-bar-striped");
 
             $.each(files, function(index, value) {
                 
                 setTimeout(() => {
+
+                    $(`#spinner${dataid}`).fadeIn();
 
                     let percentage = Math.ceil(((index + 1) / files.length * 100));
 
@@ -44,7 +49,7 @@ $(document).ready(function () {
 
                     img.onload = function() { $(this).fadeIn(2000)};
 
-                    $('#photos-preview').append(img);
+                    $(`#photos-preview${dataid}`).append(img);
 
                     reader.onload = function (e) {
                         img.src = e.target.result;
@@ -52,15 +57,16 @@ $(document).ready(function () {
 
                     reader.readAsDataURL(value);
 
-                    $("#apartment-progressbar").attr("aria-valuenow", `${percentage}%`);
-                    $("#apartment-progressbar").css("width", `${percentage}%`);
-                    $("#apartment-progressbar").html(`${percentage}%`);
+                    $(`#progressbar${dataid}`).attr("aria-valuenow", `${percentage}%`);
+                    $(`#progressbar${dataid}`).css("width", `${percentage}%`);
+                    $(`#progressbar${dataid}`).html(`${percentage}%`);
 
                     if(percentage === 100) {
-                        $('#apartment-spinner').fadeOut(1000);
-                        $("#apartment-progressbar").toggleClass("bg-success");
-                        $("#apartment-progressbar").toggleClass("progress-bar-animated");
-                        $("#apartment-progressbar").toggleClass("progress-bar-striped");
+                        $(`#progressbar${dataid}`).fadeOut(1000);
+                        $(`#spinner${dataid}`).fadeOut(1000);
+                        $(`#progressbar${dataid}`).toggleClass("bg-success");
+                        $(`#progressbar${dataid}`).toggleClass("progress-bar-animated");
+                        $(`#progressbar${dataid}`).toggleClass("progress-bar-striped");
                     }
 
                 }, 1000 + (index * 1000));
@@ -111,20 +117,42 @@ $(window).on('load', function() {
 
         $(this).submit(function(event) {
 
+            $('#alert-form-error').fadeOut();
             event.preventDefault();
 
-            if (form[0].checkValidity() === false) 
+            if (form[0].checkValidity() === false)
+            {
                 event.stopPropagation();
+                $('#alert-form-error').html("Sono presenti errori di validazione. Ricontrolla i dati inseriti.");
+                $('#alert-form-error').fadeIn(1000);
+            }
             else
             {
-                $('#alert-form-error').fadeOut();
- 
+  
                 if(form[0].enctype == "multipart/form-data") {
-                    var formData = new FormData($(this)[0]);
+
+                    let formData = new FormData();
+                    let json = form.serializeJSON();
+
+                    Object.keys(json).forEach(function(key) {
+                
+                        let value = json[key];
+
+                        if(typeof value === "string" || typeof value === "number" || typeof value === "boolean")
+                            formData.append(key, value);
+                        else 
+                            formData.append(key, JSON.stringify(value));
+                    });
+
+                    let inputFiles = form.find("input[type=file]");
+
+                    for(inputFile of inputFiles) 
+                        for(file of inputFile.files)
+                            formData.append(`${inputFile.getAttribute("id")}[]`, file, file.name);
 
                     $.ajax({
                         url: form.attr('action'),
-                        type: $('input[name="_method"]').val(),
+                        type: form.find("input[name=_method]").val(),
                         data: formData,
                         cache: false,
                         contentType: false,
@@ -134,7 +162,9 @@ $(window).on('load', function() {
                             setTimeout(() => { window.location.replace("/"); }, 3000)
                         },
                         error: function(response) {
-                            $('#alert-form-error').html(response.responseJSON.message);
+                            $('#alert-form-error').html(response.responseJSON.message ?
+                                                        response.responseJSON.message :
+                                                        response.responseText);
                             $('#alert-form-error').fadeIn(1000);
                         }
                     });
@@ -152,7 +182,9 @@ $(window).on('load', function() {
                         },
                         error: function(response) {
             
-                            $('#alert-form-error').html(response.responseJSON.message);
+                            $('#alert-form-error').html(response.responseJSON.message ?
+                                                        response.responseJSON.message :
+                                                        response.responseText);
                             $('#alert-form-error').fadeIn(1000);
                 
                         }

@@ -1,87 +1,137 @@
-<hr>
 
-<!--Main layout-->
-<main class="">
-    <div class="container wow fadeIn">
+<div class="container">
 
-      <!-- Heading -->
-      <h2 class="my-4 text-center">Sommario</h2>
+  <h2 class="my-4 text-center">Riepilogo della prenotazione</h2>
 
-      <!--Grid row-->
-      <div class="row">
+  <div class="row">
 
-        <!--Grid column-->
-        <div class="col-md-8 mb-4">
+    <div class="col-md-8 mb-4">
 
-          <!--Card-->
-          <div class="card">
+      <div class="card">
 
-            <!--Card content-->
-            <form class="card-body">
+        <form class="card-body needs-validation" id="reservation-form" novalidate
+              enctype="multipart/form-data" action="/reservations/reserve"  method="POST">
 
-              <h3 class="my-4 " style="color: rgb(41, 65, 65);">Pernottamento a <%= apartment.name %></h3>
-              <!--Grid row-->
-              <div class="row">
+          <h3 class="my-4 " style="color: rgb(41, 65, 65);">Pernottamento a <%= apartment.name %></h3>
 
-                
+          <div class="row">
 
-                <!--Grid column-->
-                <div class="col-md-6 mb-2">
+            <div class="col-md-6 mb-2">
 
-                  <!--firstName-->
-                  <div class="md-form ">
-                    
-                    <h5 class="my-4 " style="color: rgb(41, 65, 65);"> <%= apartment.address.street %>&nbsp;&nbsp;<%= apartment.address.street_number %>&nbsp;&nbsp;<%= apartment.address.province %></h5>
-
-                  </div>
-
+                <div class="md-form ">        
+                  <h5 class="my-4 " style="color: rgb(41, 65, 65);"> 
+                    <%= apartment.address.street %> <%= apartment.address.street_number %>,
+                    <%= apartment.address.town %> <%= apartment.address.province %>, <%= apartment.address.country %></h5>
                 </div>
-                <!--Grid column-->
 
-                
+            </div>
+          </div>
 
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+              <div class="card text-white bg-primary">
+                <div class="card-header text-center">Check-in</div>
+                <div class="card-body text-center">
+                  <%= moment(reservation.checkin).format('DD/MM/YYYY') %>
+                </div>
               </div>
-              <!--Grid row-->
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-               <div class="btn btn-secondary btn-lg"><%= reservation.checkin %></div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="btn btn-secondary btn-lg"><%= reservation.checkout %></div>
-             </div>
             </div>
 
-              <hr>
-
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <h3 class="my-4 text-center" style="color: rgb(41, 65, 65);">Servizi</h3>
-                  <ul>
-                    <% for(let service of apartment.services) { %>
-                      <li><%= service %></li>
-                    <% } %>
-                  </ul>
+            <div class="col-md-6 mb-3">
+              <div class="card text-white bg-primary">
+                <div class="card-header text-center">Check-Out</div>
+                <div class="card-body text-center">
+                  <%= moment(reservation.checkout).format('DD/MM/YYYY') %>
                 </div>
               </div>
-              
-              <hr class="mb-4">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Continua al checkout</button>
+            </div>
 
           </div>
-          <!--/.Card-->
 
-        </div>
-        <!--Grid column-->
+          <hr>
 
-        <!--Grid column-->
-        <div class="col-md-4 mb-4">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <h3 class="my-4 text-center" style="color: rgb(41, 65, 65);">Caricamento dati degli ospiti</h3>
+            </div>       
+          </div>
 
-          <!-- Heading -->
-          <h2 class="my-4 text-center">Scheda</h2>
+          <div class="row">
+            <div class="col-md-12">
+              <div id="guests-forms">
+                <% for (let i = 0; i < guests; i++) { %>
+                  <%- include('customer-data-form', { form_id: i + 1 }) %>
+                <% } %>
+              </div>
+            </div>     
+          </div>
+              
+          <hr class="mb-4">
 
-          <!-- Cart -->
+          <h3 class="mb-3 text-center">Checkout</h3>
+
+          <hr class="mb-4">
+
+          <div class="d-flex justify-content-between lh-condensed">
+
+            <div>
+
+              <h4 class="mb-3">Metodo di pagamento</h4>
+              
+              <div class="d-block my-3">
+                <div class="custom-control custom-radio">
+                  <input id="transfer" name="paymentmethod" type="radio" class="custom-control-input"
+                         value="Bonifico Bancario" checked required>
+                  <label class="custom-control-label" for="transfer">Bonifico Bancario</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="credit-debit-card" name="paymentmethod" type="radio" class="custom-control-input"
+                         value="Carta di credito/debito" required>
+                  <label class="custom-control-label" for="credit-debit-card">Carta di credito/debito</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="paypal" name="paymentmethod" type="radio" class="custom-control-input"
+                         value="Paypal" required>
+                  <label class="custom-control-label" for="paypal">Paypal</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-grow-1 mx-3">
+              <div class="card">
+                <div class="card-header text-center">Informazioni di pagamento</div>
+                <div class="card-body text-center">
+                  * Non implementato *
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+
+          <hr class="mb-4">
+
+          <input type="hidden" name="_method" value="POST">
+          <input type="hidden" name="reservation" value="<%= JSON.stringify(reservation) %>"> <!--Chiedere a tom-->
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Completa la prenotazione</button>
+
+          <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
+            <strong>Prenotazione effettuata con successo!</strong>
+          </div>
+          <div id="alert-form-error" style="display: none;" class="alert alert-danger" role="alert">
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
           <ul class="list-group mb-3 z-depth-1">
+
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
                 <h6 class="my-0"><%= apartment.name %></h6>
@@ -89,68 +139,80 @@
               </div>
               <img src="https://a0.muscache.com/im/pictures/57759434/84f7b345_original.jpg?aki_policy=large" style="width: 60px; height: 60px;" class="rounded float-right" alt="...">
             </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                
-                <label for="users"><span class="fas fa-users"></span> <%= reservation.guestsadults %> Adulti</label>
-                <br>
-                <label for="users"><span class="fas fa-users"></span> <%= reservation.guestschildren %> Bambini</label>
-                <br>
-                <label for="users"><span class="fas fa-users"></span> <%= reservation.guestsnewborns %> Neonati</label>
-                <hr>
-                <label for="users"><span class="fas fa-users"></span> <%= reservation.guests %> Totali</label>
-              </div>
-              
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <label for="calendar"><span class="fas fa-calendar"></span> Checkin:<%= reservation.checkin %> <i class="fa fa-arrow-right" aria-hidden="true"></i> Checkout : <%= reservation.checkout %></label>
-              </div>
-              
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <label for="price"><i class="fas fa-bed"></i> Prezzo Pernottamento: </label>
-              </div>
-              <span>+<%= reservation.stay_cost %>€</span>
-              
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <label for="price"><i class="fas fa-house-user"></i> Prezzo Residenza: </label>
 
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+
+              <div>
+                <label for="users"><span class="fas fa-users"></span> <%= guests_adults %> Adulti</label>
+                <br>
+                <label for="users"><span class="fas fa-users"></span> <%= guests_children %> Bambini</label>
+                <br>
+                <label for="users"><span class="fas fa-users"></span> <%= guests_newborns %> Neonati</label>
+                <hr>
+                <label for="users"><span class="fas fa-users"></span> <%= guests %> Totali</label>
+              </div>
+
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <label for="calendar"><span class="fas fa-calendar"></span>
+                  <%= moment(reservation.checkin).format('DD/MM/YYYY') %>
+                  <i class="fa fa-arrow-right" aria-hidden="true"></i> 
+                  <%= moment(reservation.checkout).format('DD/MM/YYYY') %>
+                </label>
+              </div>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <label for="price"><i class="fas fa-bed"></i> Costo totale pernottamenti:</label>
+              </div>
+              <span>+<%= reservation.stay_cost %>€</span>          
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <label for="price"><i class="fas fa-house-user"></i> Tassa di soggiorno:</label>
               </div>
               <span>+<%= reservation.city_tax %>€</span>
-              
             </li>
+
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <label for="price"><i class="fas fa-concierge-bell"></i> Prezzo Servizi: </label>
+                <label for="price"><i class="fas fa-concierge-bell"></i> Costi del servizio: </label>
               </div>
               <span>+<%= reservation.service_cost %>€</span>
-              
             </li>
+
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <label for="price"><i class="fa fa-bath" aria-hidden="true"></i> Prezzo Pulizie: </label>
+                <label for="price"><i class="fa fa-bath" aria-hidden="true"></i> Costi di pulizia: </label>
               </div>
               <span>+<%= reservation.cleaning_cost %>€</span>
-              
             </li>
+
             <li class="list-group-item d-flex justify-content-between">
               <span>Totale </span>
               <strong><%= reservation.total_cost %>€</strong>
             </li>
+
           </ul>
-          <!-- Cart -->
-
-
-        </div>
-        <!--Grid column-->
-
-      </div>
-      <!--Grid row-->
 
     </div>
-  </main>
-  <!--Main layout-->
+
+  </div>
+</div>
+
+<script src="/scripts/accordion-item.js"></script>
+
+<script>
+
+  $(document).ready(function() {
+
+    $(".accordion-btn").click(function(event) {
+      event.preventDefault();
+    });
+    
+  });
+</script>
