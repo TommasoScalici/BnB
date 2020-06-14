@@ -100,12 +100,12 @@
                   <div class="input-group mb-3">
                     <div class="custom-file" id="documents-file-input-<%= form_id %>">
                       <input type="file" class="custom-file-input images-file-input" id="documents-images-input-<%= form_id %>"
-                             name="guests[<%= form_id %>][photos]" multiple required>
+                             data-id="<%= form_id %>" name="guests[<%= form_id %>][photos]" multiple required>
                       <label class="custom-file-label" for="documents-images-input-<%= form_id %>" data-browse="Sfoglia">
                         <div class="progress h-100">
                           <div class="progress-bar bg-success" id="progressbar-<%= form_id %>" role="progressbar" 
                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                          </div>
                       </label>
                       <div class="invalid-feedback">
                         Bisogna caricare obbligatoriamente almeno un'immagine.
@@ -118,7 +118,7 @@
               <div class="form-row mb-4 mt-4">
                 <div class="col-md-12 mb-3 my-auto">
                   <div class="d-flex align-self-center justify-content-center">
-                    <div class="spinner-border text-primary" id="progressbar" role="status" style="display: none">
+                    <div class="spinner-border text-primary" id="spinner-<%= form_id %>" role="status" style="display: none">
                       <span class="sr-only"></span>
                     </div>
                   </div>
@@ -126,7 +126,7 @@
               </div>
   
               <div class="form-row mb-4 mt-4">
-                <div class="col-md-12 mb-3 my-auto border border-primary rounded" id="photos-preview">
+                <div class="col-md-12 mb-3 my-auto border border-primary rounded" id="photos-preview-<%= form_id %>">
                 </div>
               </div>
   

@@ -19,7 +19,6 @@ module.exports =
 
         let reservation = new Reservation();
 
-        reservation.apartament = new mongoose.Types.ObjectId(req.query.apartmentid);
         reservation.customer = req.session.user._id;
 
         reservation.checkin= req.query.checkin;
@@ -36,6 +35,7 @@ module.exports =
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else {
+                reservation.apartment = apartment._id;
                 reservation.host = apartment.host._id;
                 res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", 
                             apartment, reservation, guests, guests_adults, guests_children, guests_newborns});
@@ -53,7 +53,9 @@ module.exports =
     
     reserve: (req, res) => {
 
-        res.send("Hai prenotato il tuo appartamento");
+        let reservation = new Reservation(JSON.parse(req.body.reservation));
+
+        reservation.payment_method = req.body.payment_method;
 
         // Reservation.create(newReservation, function(err, reservation) {
         //     if(err) {

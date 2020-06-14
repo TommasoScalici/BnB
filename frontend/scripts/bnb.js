@@ -13,24 +13,29 @@ $(document).ready(function () {
 
     // Renderizza le previews per le immagini all'inserimento di un nuovo alloggio
     // utilizzando l'effetto fadein
-    $(".images-file-input").change(function () {
+    $(".images-file-input").change(function(event) {
 
         if (this.files && this.files[0]) {
             let files = this.files;
 
+            let dataid = event.target.getAttribute("data-id") ?
+                         `-${event.target.getAttribute("data-id")}` : "";
+
             // Inizializzazione view per il caricamento
-            $('#photos-preview').empty(); // Svuoto nel caso ci fossero immagini caricate in precedenza
-            $('#progressbar').fadeIn(500);
-            $("#progressbar").attr("aria-valuenow", 0);
-            $("#progressbar").css("width", 0);
-            $("#progressbar").html(0);        
-            $("#progressbar").toggleClass("bg-success");
-            $("#progressbar").toggleClass("progress-bar-animated");
-            $("#progressbar").toggleClass("progress-bar-striped");
+            $(`#photos-preview${dataid}`).empty(); // Svuoto nel caso ci fossero immagini caricate in precedenza
+            $(`#progressbar${dataid}`).fadeIn(500);
+            $(`#progressbar${dataid}`).attr("aria-valuenow", 0);
+            $(`#progressbar${dataid}`).css("width", 0);
+            $(`#progressbar${dataid}`).html(0);        
+            $(`#progressbar${dataid}`).toggleClass("bg-success");
+            $(`#progressbar${dataid}`).toggleClass("progress-bar-animated");
+            $(`#progressbar${dataid}`).toggleClass("progress-bar-striped");
 
             $.each(files, function(index, value) {
                 
                 setTimeout(() => {
+
+                    $(`#spinner${dataid}`).fadeIn();
 
                     let percentage = Math.ceil(((index + 1) / files.length * 100));
 
@@ -44,7 +49,7 @@ $(document).ready(function () {
 
                     img.onload = function() { $(this).fadeIn(2000)};
 
-                    $('#photos-preview').append(img);
+                    $(`#photos-preview${dataid}`).append(img);
 
                     reader.onload = function (e) {
                         img.src = e.target.result;
@@ -52,15 +57,16 @@ $(document).ready(function () {
 
                     reader.readAsDataURL(value);
 
-                    $("#progressbar").attr("aria-valuenow", `${percentage}%`);
-                    $("#progressbar").css("width", `${percentage}%`);
-                    $("#progressbar").html(`${percentage}%`);
+                    $(`#progressbar${dataid}`).attr("aria-valuenow", `${percentage}%`);
+                    $(`#progressbar${dataid}`).css("width", `${percentage}%`);
+                    $(`#progressbar${dataid}`).html(`${percentage}%`);
 
                     if(percentage === 100) {
-                        $('#progressbar').fadeOut(1000);
-                        $("#progressbar").toggleClass("bg-success");
-                        $("#progressbar").toggleClass("progress-bar-animated");
-                        $("#progressbar").toggleClass("progress-bar-striped");
+                        $(`#progressbar${dataid}`).fadeOut(1000);
+                        $(`#spinner${dataid}`).fadeOut(1000);
+                        $(`#progressbar${dataid}`).toggleClass("bg-success");
+                        $(`#progressbar${dataid}`).toggleClass("progress-bar-animated");
+                        $(`#progressbar${dataid}`).toggleClass("progress-bar-striped");
                     }
 
                 }, 1000 + (index * 1000));

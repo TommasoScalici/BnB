@@ -69,22 +69,30 @@
               
           <hr class="mb-4">
 
+          <h3 class="mb-3 text-center">Checkout</h3>
+
+          <hr class="mb-4">
+
           <div class="d-flex justify-content-between lh-condensed">
 
             <div>
-              <h4 class="mb-3">Metodo di pagamento</h4>
 
+              <h4 class="mb-3">Metodo di pagamento</h4>
+              
               <div class="d-block my-3">
                 <div class="custom-control custom-radio">
-                  <input id="transfer" name="paymentmethod" type="radio" class="custom-control-input" checked required>
+                  <input id="transfer" name="paymentmethod" type="radio" class="custom-control-input"
+                         value="Bonifico Bancario" checked required>
                   <label class="custom-control-label" for="transfer">Bonifico Bancario</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="credit-debit-card" name="paymentmethod" type="radio" class="custom-control-input" required>
+                  <input id="credit-debit-card" name="paymentmethod" type="radio" class="custom-control-input"
+                         value="Carta di credito/debito" required>
                   <label class="custom-control-label" for="credit-debit-card">Carta di credito/debito</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="paypal" name="paymentmethod" type="radio" class="custom-control-input" required>
+                  <input id="paypal" name="paymentmethod" type="radio" class="custom-control-input"
+                         value="Paypal" required>
                   <label class="custom-control-label" for="paypal">Paypal</label>
                 </div>
               </div>
