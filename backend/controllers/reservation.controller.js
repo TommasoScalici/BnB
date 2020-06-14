@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 const moment = require('moment');
+const nodemailer = require('nodemailer');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 
@@ -91,5 +91,30 @@ module.exports =
         }
 
         res.status(200).json({message: 'Reservation created succesfully'});
+
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            auth: {
+                user: 'prova8913@gmail.com',
+            pass: 'Prova123!'
+            }
+        });
+
+        let mailOptions = {
+            from: 'your.gmail.account@gmail.com',
+            to: 'receivers.email@domain.com',
+            subject: 'Test',
+            text: 'Hello World!'
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error.message);
+            }
+            console.log('success');
+        });
     }
 }
