@@ -114,9 +114,10 @@
 
           <input type="hidden" name="_method" value="POST">
           <input type="hidden" name="reservation" value="<%= JSON.stringify(reservation) %>"> 
-          <input type="hidden" name="reservationform" value="<%= include(reservation-summary) %>">
+          <input type="hidden" name="apartment" value="<%= JSON.stringify(apartment) %>">
 
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Completa la prenotazione</button>
+
+          <button id="prenotazione" class="btn btn-primary btn-lg btn-block" type="submit">Completa la prenotazione</button>
 
           <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
             <strong>Prenotazione effettuata con successo!</strong>
@@ -130,7 +131,7 @@
 
     </div>
 
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-4" id="cardsummary">
 
           <ul class="list-group mb-3 z-depth-1">
 
@@ -217,4 +218,6 @@
     });
     
   });
+
+
 </script>

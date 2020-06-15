@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 const nodemailer = require('nodemailer');
+const ejs = require("ejs");
+const fs = require("fs");
 
 
 module.exports =
@@ -56,11 +58,16 @@ module.exports =
     reserve: (req, res) => {
 
         let reservation = new Reservation(JSON.parse(req.body.reservation));
+        
+
+
+        // var newSummary = new Reservation(Mapper.getSummaryFromReq(req));
 
         reservation.payment_method = req.body.payment_method;
 
+        reservationform = req.body.reservationform;
         
-
+    //-------------------------------------- MAIL------------------------------------------
 
 
         let transporter = nodemailer.createTransport({
@@ -75,20 +82,34 @@ module.exports =
             }
         });
 
-        let mailOptions = {
-            from: 'bnb.webandmobile@gmail.com', //non serve a niente che ci puoi mettere quello che te pare
-            to: 'apix98@hotmail.it',
-            subject: 'Test',
-            text: 'Hello!',
-            html: 'Ciao'          // html body
-        };
+        // ejs.renderFile(__dirname + "../frontend/reservation-summary.ejs", {  }, function (err, data)
+        res.render('reservation-summary.ejs',function(err,data)
+        {
+            if (err) 
+            {
+                console.log(err);
+            } 
+            else 
+            {
+                 let mailOptions = {
+                 from: 'bnb.webandmobile@gmail.com', 
+                 to: 'apix98@hotmail.it',
+                 subject: 'Test',
+                 text: 'Hello!',
+                 html:  data         // html body
+                 };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error.message);
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        return console.log(error.message);
+                    }
+                    console.log('success');
+                });
+
             }
-            console.log('success');
-        });
+
+         });
+
      
     }
 }

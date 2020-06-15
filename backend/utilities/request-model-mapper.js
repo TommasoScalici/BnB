@@ -1,3 +1,8 @@
+const mongoose = require('mongoose');
+const Apartment = require('../models/apartment.js');
+const Reservation = require('../models/reservation.js');
+
+
 module.exports = 
 {
     getUserFromReq: (req) => {
@@ -66,20 +71,40 @@ module.exports =
             stay_cost: req.body.staycost,
    }},
 
-   getSummaryFromReq: (req) => {
+   getSummaryFromReq: async (req) => {
   
+    Apartment.findById(req.query.apartmentid, function(err, apartment) {
+        if(err) {
+            console.log(`Mongo error while retrieving apartment data: ${err}`);
+            res.status(500).json({message: "Server error while processing the request"});
+        }
+        else {
+            reservation.apartment = apartment._id;
+            reservation.host = apartment.host._id;
+            res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", 
+                        apartment, reservation, guests, guests_adults, guests_children, guests_newborns});
+        }
+
+    }).populate("host");
+
+
     return {
-        apartment: req.query.apartment._id,
-        customer: req.session.user._id,
-        host: req.body.apartament.host._id,
-        checkin: req.body.checkin,
-        checkout: req.body.checkout,
-        guests: req.body.guests,
-        payment_method: req.body.paymentmethod,
-        city_tax: req.query.citytax,
-        cleaning_cost: req.query.cleaningcost,
-        service_cost: req.query.servicecost,
-        stay_cost: req.query.staycost,
+        apartment: req.query.apartmentid,
+         guests : req.query.guests,
+         guests_adults : req.query.guestsadults,
+         guests_children : req.query.guestschildren,
+         guests_newborns : req.query.guestsnewborns,
+
+        reservationcustomer : req.session.user._id,
+
+        reservationcheckin: req.query.checkin,
+        reservationcheckout: req.query.checkout,
+
+        reservationcity_tax: req.query.citytax,
+        reservationcleaning_cost: req.query.cleaningcost,
+        reservationservice_cost: req.query.servicecost,
+        reservationstay_cost : req.query.staycost,
+        
 }},
 
    getSearchDataFromReq: (req) => {

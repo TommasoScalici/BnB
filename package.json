@@ -28,6 +28,7 @@
     "consolidate": "^0.15.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.2",
+    "email-templates": "^7.0.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-session": "^1.17.1",
@@ -39,6 +40,7 @@
     "nodemailer": "^6.4.8",
     "path": "^0.12.7",
     "popper.js": "^1.16.1",
+    "pug": "^3.0.0",
     "sticky-sidebar": "^3.3.1"
   }
 }
