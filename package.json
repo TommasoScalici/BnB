@@ -24,7 +24,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "4.5.0",
-    "connect-mongodb-session": "^2.3.2",
+    "connect-mongodb-session": "^2.3.3",
     "consolidate": "^0.15.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.2",
@@ -39,8 +39,6 @@
     "morgan": "^1.10.0",
     "nodemailer": "^6.4.8",
     "path": "^0.12.7",
-    "popper.js": "^1.16.1",
-    "pug": "^3.0.0",
-    "sticky-sidebar": "^3.3.1"
+    "popper.js": "^1.16.1"
   }
 }

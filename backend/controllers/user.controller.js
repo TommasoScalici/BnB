@@ -126,8 +126,8 @@ module.exports =
         let imagePath = `/users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
         let user = Mapper.getUserFromReq(req);
 
-        if(req.files) {
-            let image = req.files.profile_image;
+        if(!!req.files) {
+            let image = Object.values(req.files)[0];
             image.mv(`./uploads${imagePath}`);
             user.profile_picture_path = imagePath;
         }

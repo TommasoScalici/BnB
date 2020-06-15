@@ -64,7 +64,7 @@
               </div>
               <div class="col-md-2 mb-3">
                 <label for="guestsmax"><span class="fas fa-users"></span> Ospiti</label>
-                <input type="number" class="form-control" min="0" max="20" id="guestsmax" name="guestsmax" placeholder="Numero massimo ospiti" required>
+                <input type="number" class="form-control" min="1" max="20" id="guestsmax" name="guestsmax" placeholder="Numero massimo ospiti" required>
                 <div class="invalid-feedback">
                   L'inserimento del numero massimo di ospiti consentito è obbligatorio (valore consentito: 1 - 20).
                 </div>
@@ -109,7 +109,7 @@
               <div class="col-md-4 mb-3">
                 <label for="services"><span class="fas fa-list-ul"></span> Servizi</label>
 
-                <select class="custom-select form-control" id="services" name="services" style="height: 90%;" multiple>
+                <select class="custom-select form-control" id="services" name="services[]" style="height: 90%;" multiple>
                   <option>Aria condizionata</option>
                   <option>Allarme antincendio</option>
                   <option>Appendiabiti</option>
@@ -166,7 +166,7 @@
   
               <div class="col-md-2 mb-3">
                 <label for="streetnumber"><span class="fas fa-map-marker-alt"></span> Numero Civico</label>
-                <input type="text" class="form-control" id="streetnumber" name="streetnumber" placeholder="Numero civico">
+                <input type="text" class="form-control" id="streetnumber" name="streetnumber" placeholder="Numero civico" required>
                 <div class="invalid-feedback">
                   Inserire un numero civico valido.
                 </div>
@@ -174,7 +174,7 @@
   
               <div class="col-md-4 mb-3">
                 <label for="postalcode"><span class="fas fa-map"></span> CAP</label>
-                <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="CAP" pattern="[0-9]{5}">
+                <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="CAP" pattern="[0-9]{5}" required>
                 <div class="invalid-feedback">
                   Inserire un CAP valido.
                 </div>
@@ -187,21 +187,21 @@
   
               <div class="col-md-4 mb-3">
                 <label for="town"><span class="fas fa-map"></span> Comune</label>
-                <input type="text" class="form-control" id="town" name="town" placeholder="Comune">
+                <input type="text" class="form-control" id="town" name="town" placeholder="Comune" required>
                 <div class="invalid-feedback">
                   Inserire un comune valido.
                 </div>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="province"><span class="fas fa-map"></span> Provincia</label>
-                <input type="text" class="form-control" id="province" name="province" placeholder="Provincia">
+                <input type="text" class="form-control" id="province" name="province" placeholder="Provincia" required>
                 <div class="invalid-feedback">
                   Inserire una città valida.
                 </div>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="country"><span class="fas fa-globe"></span> Stato</label>
-                <input type="text" class="form-control" id="country" name="country" placeholder="Stato">
+                <input type="text" class="form-control" id="country" name="country" placeholder="Stato" required>
                 <div class="invalid-feedback">
                   Inserire un stato valido.
                 </div>

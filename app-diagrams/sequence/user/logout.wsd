@@ -1,0 +1,27 @@
+@startuml logout
+
+actor User
+participant "Index" as Index
+participant "User\nController" as UserController
+
+activate User
+    User -> Index: click on logout button
+    activate Index
+    Index -> UserController: \t logout route
+
+        activate UserController
+            UserController -> UserController: process the request
+
+            alt successful logout
+                Index <-- UserController: display message
+    
+
+            else error    
+                Index x-- UserController: \n  show error message
+            end
+
+
+        deactivate UserController
+deactivate User
+
+@enduml

@@ -1,34 +1,38 @@
 @startuml signin
 
 actor User
-participant "Current\nPage" as CurrentPage
+participant "Index" as Index
 participant "Signin\nModal" as SigninModal
 participant "User\nController" as UserController
 database Database
 
 activate User
-    activate CurrentPage
-        User -> CurrentPage: open the app
-        CurrentPage -> SigninModal: (  if (session.user)  )\n click on signin button
+        User -> Index: click on signin button
+    activate Index
+        Index -> SigninModal: send credentials (submit) 
+    
     
 
     activate SigninModal
-        SigninModal -> UserController: insert credentials
+        SigninModal -> UserController: verify credentials
         activate UserController
-        UserController -> Database: the controller\nsearch if user exist
+        UserController -> Database: search for user
         activate Database
-        UserController <-- Database : \n    user found
+        alt user found
+        UserController <-- Database : \n    return user
         SigninModal <-- UserController: task completed
-        CurrentPage <-- SigninModal: return to current page
-        UserController x-- Database : \n    user not found
-        SigninModal x-- UserController: display error message
+        
+        Index <-- SigninModal: return to current page
+        
+        else user not found
+        UserController x-- Database : \n    return not found error
         deactivate Database
+        SigninModal x-- UserController: display error message
         deactivate UserController
+        deactivate SigninModal
+        end
 
-    deactivate SigninModal
     
-    User <-- CurrentPage: Close app
-    deactivate CurrentPage
 deactivate User
 
 @enduml

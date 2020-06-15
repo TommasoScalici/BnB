@@ -14,14 +14,28 @@ module.exports =
                 
                 if(!!req.files) {
 
-                let i = 0;
-                let images = [].concat(req.files.photos);
+                    let filesPackages = Object.values(req.files);
 
-                    for(let image of images) {
-                        let path = `/apartment/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                        image.mv(`./uploads${path}`);
-                        apartment.photo_paths.push(path);
-                        i++;
+                    for(filePackage of filesPackages) {
+
+                        let fileNamePath = `${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
+                        let i = 0;
+
+                        if(Array.isArray(filePackage)) {
+
+                            for(file of filePackage) {
+                                let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
+                                file.mv(`./uploads${path}`);
+                                apartment.photo_paths.push(path);
+                                i++;
+                            }
+                        }
+                        else {
+                            let file = filePackage;
+                            let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
+                            file.mv(`./uploads${path}`);
+                            apartment.photo_paths.push(path);
+                        }
                     }
                 }
 
