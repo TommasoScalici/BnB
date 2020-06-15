@@ -1,9 +1,8 @@
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
-const User = require('../models/user.js');
-const Reservation = require('../models/reservation.js');
 const Apartment = require('../models/apartment.js');
-
+const Reservation = require('../models/reservation.js');
+const User = require('../models/user.js');
 
 module.exports = 
 {
@@ -29,40 +28,26 @@ module.exports =
     },
 
     profile: (req, res) => {
-        if(req.session.user === undefined || req.session.user === null)
+        if(!req.session.user)
             res.sendStatus(403);
         else
             res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
     },
 
     reservationsEarnings: async (req, res) => {
-        if(req.session.user === undefined || req.session.user === null)
+
+        if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
-        else
-        {
-
-        let apartment;
-
-          
-
-        await Reservation.find({host : req.session.user},function(err,reservation){
-            if(err) {
-                console.log(`Mongo error while retrieving apartment data: ${err}`);
-                res.status(500).json({message: "Server error while processing the request"});
-            }
-            else {              
-                 Apartment.findById(reservation[0].apartment,function(err,apartment){
+        else {
+            await Reservation.find({ host: req.session.user._id }, function(err, reservations) {
                 if(err) {
-                    console.log(`Mongo error while retrieving apartment data: ${err}`);
+                    console.log(`Mongo error while reservations data: ${err}`);
                     res.status(500).json({message: "Server error while processing the request"});
                 }
-                else
-                return apartment;
-            })    
-            res.render("index", {pagetitle: "Gestione Profilo", path: "reservations-earnings",reservation});
-            }
-        })
-
+                else {                
+                    res.render("index", { pagetitle: "Gestione Guadagni", path: "reservations-earnings", reservations });
+                }
+            }).populate("apartment").populate("customer");
         }
     },
 

@@ -11,10 +11,8 @@ module.exports = app => {
     // Logs out the current User
     router.get("/logout", userController.logout);
 
-
-    // Show earnings storage
-    router.get("/reservationsEarnings", userController.reservationsEarnings);
-
+    // Show earnings of the host
+    router.get("/earnings", userController.reservationsEarnings);
 
     // Show User profile
     router.get("/profile", userController.profile);

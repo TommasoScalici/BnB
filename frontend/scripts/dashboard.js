@@ -6,29 +6,17 @@
   feather.replace()
 
   // Graphs
-  var ctx = document.getElementById('myChart')
+  let ctx = document.getElementById('my-chart')
+
   // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
+  let mychart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
       datasets: [{
         data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
+          { x: moment(moment.now()).subtract(3, "month"), y: 0 },
+          { x: moment(moment.now()).subtract(1, "day"), y: 0 },
+          { x: moment(moment.now()), y: 430 }
         ],
         lineTension: 0,
         backgroundColor: 'transparent',
@@ -43,7 +31,16 @@
           ticks: {
             beginAtZero: false
           }
-        }]
+        }],
+        xAxes: [{
+          type: 'time',
+          position: 'bottom',
+          time: {
+            displayFormats: {'day': 'MM/YY'},
+            tooltipFormat: 'DD/MM/YY',
+            unit: 'month',
+           }
+        }],
       },
       legend: {
         display: false

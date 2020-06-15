@@ -1,46 +1,12 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <title>Dashboard Template · Bootstrap</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="../frontend/scripts/dashboard.js"></script></body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
-
-    <!-- Bootstrap core CSS -->
-<link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="../frontend/css/dashboard.css" rel="stylesheet">
-  </head>
-  <body>
-    
-</nav>
+<link href="/css/dashboard.css" rel="stylesheet">
 
 <div class="container-fluid">
   <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <nav id="sidebar-menu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
 
@@ -93,34 +59,34 @@
         </div>
       </div>
 
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+      <canvas class="my-4 w-100" id="my-chart" width="900" height="380"></canvas>
 
-      <h2>Section title</h2>
+      <h2>Storico guadagni (netti)</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>#ID</th>
+              <th>#</th>
               <th>Nome</th>
               <th>Cognome</th>
-              <th>Checkin</th>
-              <th>Checkout</th>
-              <th> Totale</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
+              <th>Appartamento</th>
+              <th>Guadagno</th>
             </tr>
           </thead>
           <tbody>
-            <% for (let id = 0; id < reservation.length; id++) { %>
-            <% for (let guest_id = 0; guest_id < reservation[id].guests.length; guest_id++) { %>
+            <% let id = 0; for (let reservation of reservations) { %>
               <tr>
-              <td><%= id %></td>
-              <td><%= reservation[id].guests[guest_id].firstname %></td>
-              <td><%= reservation[id].guests[guest_id].lastname %></td>
-              <td><%= reservation[id].checkin %></td>
-              <td><%= reservation[id].checkout %></td> 
-              <td><%= reservation[id].total_cost %></td> 
+              <td><%= ++id %></td>
+              <td><%= reservation.customer.name.first %></td>
+              <td><%= reservation.customer.name.last %></td>
+              <td><%= moment(reservation.checkin).format('DD/MM/YYYY') %></td>
+              <td><%= moment(reservation.checkout).format('DD/MM/YYYY') %></td> 
+              <td><%= reservation.apartment.name %></td>
+              <td>€ <%= reservation.cleaning_cost + reservation.stay_cost %></td> 
               </tr>
-              <% } %>        
-            <% } %>
+            <% } %>        
             
           </tbody>
         </table>
@@ -129,62 +95,4 @@
   </div>
 </div>
 
-<script>
-    /* globals Chart:false, feather:false */
-
-(function () {
-  'use strict'
-
-  feather.replace()
-
-  // Graphs
-  var ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          10000,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      }
-    }
-  })
-}())
-
-</script>
-        
-        
-</html>
+<script src="/scripts/dashboard.js"></script>

@@ -2,7 +2,6 @@ const ejs = require('ejs');
 const moment = require('moment');
 const path = require('path');
 const sendmail = require('../utilities/mail-send');
-const nodemailer = require('nodemailer');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 
@@ -42,13 +41,6 @@ module.exports =
 
         }).populate("host");
     },
-
-    renderCheckout: (req, res) => {
-         let reservation = new Reservation();
-            reservation.stay_cost = req.query.staycost;
-
-            res.render("index", {pagetitle:"Checkout", path:"checkout",reservation});   
-    },
     
     reserve: async (req, res) => {
 
@@ -66,51 +58,6 @@ module.exports =
             else
                 apartment = retrievedApartment;
         });
-
-        reservationform = req.body.reservationform;
-        
-    //-------------------------------------- MAIL------------------------------------------
-
-
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
-            requireTLS: true,
-            auth: {
-                user: 'bnb.webandmobile@gmail.com',
-            pass: 'BnB.Project123!'
-            
-            }
-        });
-
-        // ejs.renderFile(__dirname + "../frontend/reservation-summary.ejs", {  }, function (err, data)
-        res.render('reservation-summary.ejs',function(err,data)
-        {
-            if (err) 
-            {
-                console.log(err);
-            } 
-            else 
-            {
-                 let mailOptions = {
-                 from: 'bnb.webandmobile@gmail.com', 
-                 to: 'apix98@hotmail.it',
-                 subject: 'Test',
-                 text: 'Hello!',
-                 html:  data         // html body
-                 };
-
-                transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        return console.log(error.message);
-                    }
-                    console.log('success');
-                });
-
-            }
-
-         });
 
         draftReservation.apartment = apartment._id;
         draftReservation.customer = req.session.user._id;
