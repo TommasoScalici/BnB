@@ -105,7 +105,7 @@
               <th>Cognome</th>
               <th>Checkin</th>
               <th>Checkout</th>
-              <th>Appartamento</th>
+              <th> Totale</th>
             </tr>
           </thead>
           <tbody>
@@ -116,7 +116,8 @@
               <td><%= reservation[id].guests[guest_id].firstname %></td>
               <td><%= reservation[id].guests[guest_id].lastname %></td>
               <td><%= reservation[id].checkin %></td>
-              <td><%= reservation[id].checkout %></td>  
+              <td><%= reservation[id].checkout %></td> 
+              <td><%= reservation[id].total_cost %></td> 
               </tr>
               <% } %>        
             <% } %>
