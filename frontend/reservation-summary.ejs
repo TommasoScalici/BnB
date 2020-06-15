@@ -113,7 +113,8 @@
           <hr class="mb-4">
 
           <input type="hidden" name="_method" value="POST">
-          <input type="hidden" name="reservation" value="<%= JSON.stringify(reservation) %>"> <!--Chiedere a tom-->
+          <input type="hidden" name="apartmentid" value="<%= apartment._id %>">
+          <input type="hidden" name="reservation" value="<%= JSON.stringify(reservation) %>">
           <button class="btn btn-primary btn-lg btn-block" type="submit">Completa la prenotazione</button>
 
           <div id="alert-form-success" style="display: none;" class="alert alert-success" role="alert">
@@ -128,7 +129,7 @@
 
     </div>
 
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-4" id="card-summary">
 
           <ul class="list-group mb-3 z-depth-1">
 
@@ -137,7 +138,7 @@
                 <h6 class="my-0"><%= apartment.name %></h6>
                 <small class="text-muted"><%= apartment.address.street %></small>
               </div>
-              <img src="https://a0.muscache.com/im/pictures/57759434/84f7b345_original.jpg?aki_policy=large" style="width: 60px; height: 60px;" class="rounded float-right" alt="...">
+              <img src="<%= apartment.photo_paths[0] %>" style="width: 60px; height: 60px;" class="rounded float-right" alt="Foto appartamento">
             </li>
 
             <li class="list-group-item d-flex justify-content-between lh-condensed">

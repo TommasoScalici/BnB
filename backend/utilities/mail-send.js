@@ -1,0 +1,28 @@
+const nodemailer = require('nodemailer');
+
+module.exports = function(to, subject, text, html) {
+
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: {
+            user: 'bnb.webandmobile@gmail.com',
+            pass: 'BnB.Project123!'
+        }
+    });
+
+    let mailOptions = {
+        to: to,
+        subject: subject,
+        text: text,
+        html: html
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error)
+            return console.log(`nodemailer error: ${error.message}`);
+        console.log(`nodemailer e-mail sent: ${info.messageId} ${info.envelope}`);
+    });
+}

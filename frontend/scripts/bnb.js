@@ -138,7 +138,8 @@ $(window).on('load', function() {
                 
                         let value = json[key];
 
-                        if(typeof value === "string" || typeof value === "number" || typeof value === "boolean")
+                        if(typeof value === "string" || typeof value === "number" 
+                           || typeof value === "boolean" || $.isArray(value))
                             formData.append(key, value);
                         else 
                             formData.append(key, JSON.stringify(value));

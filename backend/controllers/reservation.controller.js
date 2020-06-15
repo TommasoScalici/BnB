@@ -1,5 +1,8 @@
+const ejs = require('ejs');
 const moment = require('moment');
-const nodemailer = require('nodemailer');
+const path = require('path');
+const sendmail = require('../utilities/mail-send');
+
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 
@@ -20,8 +23,6 @@ module.exports =
 
         let reservation = new Reservation();
 
-        reservation.customer = req.session.user._id;
-
         reservation.checkin= req.query.checkin;
         reservation.checkout= req.query.checkout;
 
@@ -35,12 +36,9 @@ module.exports =
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else {
-                reservation.apartment = apartment._id;
-                reservation.host = apartment.host._id;
+            else 
                 res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", 
                             apartment, reservation, guests, guests_adults, guests_children, guests_newborns});
-            }
 
         }).populate("host");
     },
@@ -52,12 +50,30 @@ module.exports =
             res.render("index", {pagetitle:"Checkout", path:"checkout",reservation});   
     },
     
-    reserve: (req, res) => {
+    reserve: async (req, res) => {
 
-        let reservation = new Reservation(JSON.parse(req.body.reservation));
+        let apartment;
+        let reservation;
+
+        let draftReservation = new Reservation(JSON.parse(req.body.reservation));
         let guests = Object.values(JSON.parse(req.body.guests));
+        
+        await Apartment.findById(req.body.apartmentid, function(err, retrievedApartment) {
+            if(err) {
+                console.log(`Mongo error while retrieving apartment data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
+            }
+            else
+                apartment = retrievedApartment;
+        });
 
-        reservation.payment_method = req.body.payment_method;
+
+        draftReservation.apartment = apartment._id;
+        draftReservation.customer = req.session.user._id;
+        draftReservation.host = apartment.host;
+
+        draftReservation.guests = guests;
+        draftReservation.payment_method = req.body.payment_method;
 
         if(!!req.files) {
 
@@ -66,7 +82,7 @@ module.exports =
 
             for(filePackage of filesPackages) {
 
-                let fileNamePath = `${reservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
+                let fileNamePath = `${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
                 guests[guestNumber].image_paths = new Array();
                 let i = 0;
 
@@ -88,35 +104,28 @@ module.exports =
 
                 guestNumber++;
             }
-        }
+        } 
 
-        res.status(200).json({message: 'Reservation created succesfully'});
-
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
-            requireTLS: true,
-            auth: {
-                user: 'bnb.webandmobile@gmail.com',
-            pass: 'BnB.Project123!'
-            
+        await Reservation.create(draftReservation, async function(err, newReservation) {
+            if(err) {
+                console.log(`Mongo error while creating reservation data: ${err}`);
+                res.status(500).json({message: "Server error while processing the request"});
             }
-        });
+            else {
+                reservation = newReservation;
+                await reservation.populate("apartment").populate("customer").populate("host").execPopulate();
 
-        let mailOptions = {
-            from: 'bnb.webandmobile@gmail.com', //non serve a niente che ci puoi mettere quello che te pare
-            to: 'apix98@hotmail.it',
-            subject: 'Test',
-            text: 'Hello World!',
-            html: $("#reservation-form").html() // html body
-        };
+                ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email.html'), 
+                              { reservation: reservation }, function(err, data) {
+                    if(err) {
+                        console.log(`Error rendering reservation result page: ${err}`);
+                    }
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error.message);
+                    sendmail("tommaso.scalici.1991@gmail.com;apix98@hotmail.it", "BnB - Prenotazione confermata!", "", data);
+                });
+                
+                res.status(200).json({message: 'Reservation created succesfully'});
             }
-            console.log('success');
-        });
+        });              
     }
 }
