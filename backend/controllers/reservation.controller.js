@@ -2,7 +2,7 @@ const ejs = require('ejs');
 const moment = require('moment');
 const path = require('path');
 const sendmail = require('../utilities/mail-send');
-
+const nodemailer = require('nodemailer');
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 

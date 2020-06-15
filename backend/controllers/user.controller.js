@@ -2,6 +2,7 @@ const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
 const User = require('../models/user.js');
 const Reservation = require('../models/reservation.js');
+const Apartment = require('../models/apartment.js');
 
 
 module.exports = 
@@ -34,20 +35,34 @@ module.exports =
             res.render("index", {pagetitle: "Gestione Profilo", path: "profile"});
     },
 
-    reservationsEarnings: (req, res) => {
+    reservationsEarnings: async (req, res) => {
         if(req.session.user === undefined || req.session.user === null)
             res.sendStatus(403);
         else
+        {
 
-        Reservation.findById({host : req.session.user},function(err,reservation){
+        let apartment;
+
+         Apartment.findById(reservation[0].apartment,function(err,apartment){
+                if(err) {
+                    console.log(`Mongo error while retrieving apartment data: ${err}`);
+                    res.status(500).json({message: "Server error while processing the request"});
+                }
+                else
+                return apartment;
+            })    
+
+        await Reservation.find({host : req.session.user},function(err,reservation){
             if(err) {
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else {
-            res.render("index", {pagetitle: "Gestione Profilo", path: "reservations-earnings"},reservation);
+            else {                
+            res.render("index", {pagetitle: "Gestione Profilo", path: "reservations-earnings",reservation});
             }
         })
+
+        }
     },
 
     renderBecomeHost: (req, res) => {

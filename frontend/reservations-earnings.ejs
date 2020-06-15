@@ -109,25 +109,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-              <td>sit</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>amet</td>
-              <td>consectetur</td>
-              <td>adipiscing</td>
-              <td>elit</td>
-              <td>elit</td>
-            </tr>
-            <% for(let apartment of apartments) { %>
-              <%- include('apartment', {apartment: apartment}); %>
+            <% for (let id = 0; id < reservation.length; id++) { %>
+            <% for (let guest_id = 0; guest_id < reservation[id].guests.length; guest_id++) { %>
+              <tr>
+              <td><%= id %></td>
+              <td><%= reservation[id].guests[guest_id].firstname %></td>
+              <td><%= reservation[id].guests[guest_id].lastname %></td>
+              <td><%= reservation[id].checkin %></td>
+              <td><%= reservation[id].checkout %></td>  
+              </tr>
+              <% } %>        
             <% } %>
+            
           </tbody>
         </table>
       </div>
