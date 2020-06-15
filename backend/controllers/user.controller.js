@@ -43,14 +43,14 @@ module.exports =
 
         let apartment;
 
-         Apartment.findById(reservation[0].apartment,function(err,apartment){
-                if(err) {
-                    console.log(`Mongo error while retrieving apartment data: ${err}`);
-                    res.status(500).json({message: "Server error while processing the request"});
-                }
-                else
-                return apartment;
-            })    
+        //  Apartment.findById(reservation[0].apartment,function(err,apartment){
+        //         if(err) {
+        //             console.log(`Mongo error while retrieving apartment data: ${err}`);
+        //             res.status(500).json({message: "Server error while processing the request"});
+        //         }
+        //         else
+        //         return apartment;
+        //     })    
 
         await Reservation.find({host : req.session.user},function(err,reservation){
             if(err) {
