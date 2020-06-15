@@ -73,7 +73,8 @@ module.exports =
         draftReservation.host = apartment.host;
 
         draftReservation.guests = guests;
-        draftReservation.payment_method = req.body.payment_method;
+        draftReservation.payment_method = req.body.paymentmethod;
+        draftReservation.status = "pending";
 
         if(!!req.files) {
 
