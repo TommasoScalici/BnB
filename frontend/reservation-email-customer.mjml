@@ -8,11 +8,12 @@
       </mj-column>
     </mj-section>
 
-    <mj-section background-url="<%= reservation.apartment.photo_paths[0] %>" background-size="cover" background-repeat="no-repeat">
+    <mj-section background-url="https://bnb-webmobile.herokuapp.com/<%= reservation.apartment.photo_paths[0] %>"
+                background-size="cover" background-repeat="no-repeat">
       <mj-column width="600px">
         <mj-text align="center" color="#969696" font-size="40px" font-family="Helvetica Neue"><%= reservation.apartment.name %></mj-text>
         <mj-spacer height="50px" />
-        <mj-button background-color="#F63A4D" href="#">Gestisci prenotazione</mj-button>
+        <mj-button background-color="#F63A4D" href="https://bnb-webmobile.herokuapp.com/reservations">Gestisci prenotazione</mj-button>
       </mj-column>
     </mj-section>
 
@@ -35,18 +36,24 @@
 
     <mj-section background-color="white">
 
-      <mj-column width="200px">
-        <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">
-          <%= moment(reservation.checkin).format('DD/MM/YYYY') %>
+      <mj-column width="600px">
+        <mj-divider border-width="1px" border-color="lightgrey" />
+      </mj-column>
+
+      <mj-column width="200px" vertical-align="middle">
+        <mj-text align="center" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">
+          <%= checkin %>
         </mj-text>
       </mj-column>
 
-      <mj-column width="200px">
+      <mj-column width="200px" vertical-align="middle">
+        <<mj-image src="https://cdn1.iconfinder.com/data/icons/lucid-arrows-and-directions/24/two_way_right_left_arrows_double-512.png" alt="arrows"
+                   height="64px" width="64px" />
       </mj-column>
 
-      <mj-column width="200px">
-        <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">
-          <%= moment(reservation.checkout).format('DD/MM/YYYY') %>
+      <mj-column width="200px" vertical-align="middle">
+        <mj-text align="center" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">
+          <%= checkout %>
         </mj-text>
       </mj-column>
 
@@ -67,7 +74,7 @@
       </mj-column>
 
       <mj-column width="400px">
-        <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Ospiti: <%= reservation.guests.length %> </mj-text>
+        <mj-text align="center" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Ospiti: <%= reservation.guests.length %> </mj-text>
       </mj-column>
 
     </mj-section>
@@ -75,7 +82,7 @@
     <mj-section background-color="#909090">
       <mj-column width="600px">
         <mj-text align="center" color="#FAFAFA" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Inviata da BnB ♥</mj-text>
-        <mj-text align="center" color="#FAFAFA" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Copyright © B&nbsp;B 2020
+        <mj-text align="center" color="#FAFAFA" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Copyright © B&B 2020
           <br /> By Salvatore Apicella, Girolamo Nobile, Tommaso Scalici
         </mj-text>
       </mj-column>
