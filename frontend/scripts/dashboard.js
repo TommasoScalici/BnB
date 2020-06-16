@@ -13,11 +13,7 @@
     type: 'line',
     data: {
       datasets: [{
-        data: [
-          { x: moment(moment.now()).subtract(3, "month"), y: 0 },
-          { x: moment(moment.now()).subtract(1, "day"), y: 0 },
-          { x: moment(moment.now()), y: 430 }
-        ],
+        data: data,
         lineTension: 0,
         backgroundColor: 'transparent',
         borderColor: '#007bff',
@@ -38,7 +34,7 @@
           time: {
             displayFormats: {'day': 'MM/YY'},
             tooltipFormat: 'DD/MM/YY',
-            unit: 'month',
+            unit: 'week',
            }
         }],
       },

@@ -7,8 +7,23 @@ const Reservation = require('../models/reservation.js');
 
 module.exports =
 {
+    confirm: async (req, res) => {
+        if(!req.session.user || !req.session.user.is_host)
+            res.sendStatus(403);
+        else {
+            Reservation.findByIdAndUpdate(req.params.id, { $set: { status: "accepted" } }, function(err, reservation) {
+                if(err) {
+                    console.log(`Mongo error while confirming reservation: ${err}`);
+                    res.status(500).json({message: "Server error while processing the request"});
+                }
+                else
+                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
+            })
+        }
+    },
+
     renderReservations: (req, res) => {
-        if(req.session.user === undefined || req.session.user === null)
+        if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
         else
             res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
@@ -107,13 +122,17 @@ module.exports =
                 reservation = newReservation;
                 await reservation.populate("apartment").populate("customer").populate("host").execPopulate();
 
-                ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email.html'), 
-                              { reservation: reservation }, function(err, data) {
-                    if(err) {
-                        console.log(`Error rendering reservation result page: ${err}`);
-                    }
+                ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-customer.html'), 
+                              { reservation: reservation,
+                                checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
+                                checkout: moment(reservation.checkout).format('DD/MM/YYYY')
+                              },
+                    function(err, data) {
+                        if(err) {
+                            console.log(`Error rendering reservation result page: ${err}`);
+                        }
 
-                    sendmail("tommaso.scalici.1991@gmail.com;apix98@hotmail.it", "BnB - Prenotazione confermata!", "", data);
+                        sendmail(reservation.customer.email, "BnB - Prenotazione confermata!", "", data);
                 });
                 
                 res.status(200).json({message: 'Reservation created succesfully'});

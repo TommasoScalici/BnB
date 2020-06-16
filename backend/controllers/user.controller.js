@@ -45,7 +45,13 @@ module.exports =
                     res.status(500).json({message: "Server error while processing the request"});
                 }
                 else {                
-                    res.render("index", { pagetitle: "Gestione Guadagni", path: "reservations-earnings", reservations });
+                    let data = JSON.stringify(reservations.map(result => {
+                        return result == null ? result : { 
+                            x: result.createdAt,
+                            y: result.total_cost
+                        };
+                    }));
+                    res.render("index", { pagetitle: "Gestione Guadagni", path: "reservations-earnings", reservations, data});
                 }
             }).populate("apartment").populate("customer");
         }
