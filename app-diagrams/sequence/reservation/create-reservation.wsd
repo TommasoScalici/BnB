@@ -1,0 +1,48 @@
+@startuml create-reservation
+
+actor User
+participant "Index" as Index
+participant "Apartment\nController" as ApartmentController    
+database Database
+
+activate User
+
+        
+    User -> Index: GET: /reservation/summary
+    activate Index
+      Index -> ApartmentController: async renderSummary()
+    activate ApartmentController
+    ApartmentController -> Database: findById(apartment)
+    activate Database
+    alt apartment found
+    ApartmentController <- Database: return apartment
+    deactivate Database
+    ApartmentController <- ApartmentController: render(index)
+    Index <- ApartmentController: display reservation-summary
+    deactivate ApartmentController
+    
+    Index -> Index:  POST: /reservation/reserve
+    Index -> ApartmentController: async reserve()
+    activate ApartmentController
+    ApartmentController -> Database: findById(apartment)
+    activate Database
+    alt apartment found
+    ApartmentController <- Database: return apartment
+    ApartmentController -> Database: Reservation.create()
+    ApartmentController <- Database: return success
+    ApartmentController <- ApartmentController: sendmail(user.email)
+    Index <- ApartmentController: display home
+    else apartment not found
+    ApartmentController x- Database: error
+    Index x- ApartmentController: show error message
+    
+    
+    end
+    else apartment not found
+    ApartmentController x- Database: error
+    Index x- ApartmentController: show error message
+    end
+    
+deactivate User
+
+@enduml

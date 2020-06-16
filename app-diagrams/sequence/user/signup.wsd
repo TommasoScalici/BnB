@@ -2,48 +2,42 @@
 
 actor User
 participant "Index" as Index
-participant "Signup\nScreen" as SignupScreen
 participant "User\nController" as UserController
 database Database
 
 activate User
 
         
-    User -> Index: click on signup button
+    User -> Index: GET: /users/signup
     activate Index
-    Index --> SignupScreen: submit credentials
-    activate SignupScreen
-        SignupScreen -> UserController: verify credentials
         activate UserController
-        UserController -> UserController: the controller\nprocess the request
-        alt no errors
-        UserController -> Database: the controller inserts\n  user on DB
-        activate Database
-        alt successfully inserted
-        UserController <-- Database: return success
-        SignupScreen <-- UserController: display success message
-    deactivate SignupScreen
-    Index <-- Database: successful registration
-        else not inserted
-        activate SignupScreen
-        UserController x-- Database: return insert error
-        SignupScreen x-- UserController: display error message
-        deactivate UserController
-        
-        deactivate SignupScreen
-        end
-        else credentials error
-        SignupScreen x-- UserController: display credentials errors
-        activate SignupScreen
-
-        activate UserController
-        SignupScreen x-- Database : \n     show error
-        deactivate UserController
-        deactivate SignupScreen
-  
-
-        end
+    Index -> UserController: renderSignup()
+    UserController -> UserController: render(index)
+    Index <- UserController: display signup
+    deactivate UserController
+    Index -> Index:  POST: /users/signup
+    Index -> UserController: async signup()
+    activate UserController
+    UserController -> Database: User.findOne(email)
+    alt user not found
+    activate Database 
+    UserController <- Database: return false
     deactivate Database
-deactivate User
+    'send email to user and waits for his response'
+    UserController <- UserController: sendEmail()
+    Index <- UserController: display email-sent
+    Index -> UserController: wait for user response
+    alt accept
+    UserController <- UserController: User.create()
+    Index <- UserController: display home
+    deactivate UserController
+    else refuse
+    Index <- UserController: display home
+    activate UserController
+    end
+    else user already exist 
+    Index <- UserController: show error
+    deactivate UserController
+    end
 
 @enduml

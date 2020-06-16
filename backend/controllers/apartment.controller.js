@@ -9,7 +9,7 @@ module.exports =
 
         await Apartment.create(newApartment, async function(err, apartment) {
             if(err)
-                console.log(`Mongo error while user was signing up: ${err}`);
+                console.log(`Mongo error while user was signing up: ${err}`);   
             else {
                 
                 if(!!req.files) {

@@ -1,0 +1,25 @@
+@startuml searchFilter_searchbar
+
+actor User
+participant "Searchbar" as Searchbar
+participant "Index" as Index
+participant "Apartment\nController" as ApartmentController
+participant "Database" as Database
+
+activate User
+    User -> Searchbar: \t GET: /apartment/search
+    activate Searchbar
+        Searchbar -> ApartmentController:\t async searchApartments()
+        activate ApartmentController
+            ApartmentController -> Database: Apartment.find()
+            activate Database
+                ApartmentController <- Database: return apartements
+            deactivate Database    
+        ApartmentController <- ApartmentController: render(index)
+        Index <- ApartmentController: display apartments  
+        activate Index
+    deactivate Searchbar
+        deactivate ApartmentController
+deactivate User
+
+@enduml

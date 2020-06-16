@@ -1,0 +1,38 @@
+@startuml signup_host
+
+actor User
+participant "Index" as Index
+participant "User\nController" as UserController    
+database Database
+
+activate User
+
+        
+    User -> Index: GET: /users/profile
+    activate Index
+      Index -> UserController: profile()
+    activate UserController
+    UserController -> UserController: render(index)
+    Index <- UserController: display profile
+    deactivate UserController
+    Index -> Index:  PUT: /users/update/:id
+    Index -> UserController: async update()
+    activate UserController
+    UserController <- UserController: processing
+    UserController -> Database: User.findByIdAndUpdate()
+    alt success
+    activate Database 
+    UserController <- Database: return true
+    deactivate Database
+    UserController <- UserController: update user profile
+    Index <- UserController: show success message
+    Index <- Index: display home
+    else error
+    activate Database 
+    UserController <- Database: return false
+    Index <- UserController: show error
+    deactivate Database
+    end
+deactivate User
+
+@enduml
