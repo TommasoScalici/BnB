@@ -35,6 +35,7 @@ function setFieldsFromAddressComponents(address_components) {
     // Get each component of the address from the place details,
     // and then fill-in the corresponding field on the form.
     for (let i = 0; i < address_components.length; i++) {
+
         let addressType = address_components[i].types[0];
 
         switch (addressType) {
@@ -108,11 +109,17 @@ $(document).ready(function() {
 
     $(document).on('submit', '#searchbar-form', function(event) {
 
+        $('#filter-typeaccomodation').val($('#type-accomodation').val());
+        
         if((autocompleteSearchbar.getPlace() === undefined || autocompleteSearchbar.getPlace().name !== undefined)
             && !addressCalculated) {
 
+            // Pulisco i fields della ricerca relativi solo alla localizzazione 
+            // perché non sempre vengono popolati dall'autocomplete di Google Places
+            $(".searchbar-hidden-field").val(null);
+
             event.preventDefault();
-            $('#searchbar-type_accomodation').val($('#type-accomodation').val());
+            
             let address = $("#searchbar-location").val();
             let geocoder = new google.maps.Geocoder();
 

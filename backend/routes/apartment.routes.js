@@ -8,7 +8,7 @@ module.exports = app => {
 
       // Show form for inserting a new Apartment or submit a new Apartment
       router.route("/create")
-            .get(apartmentController.renderCreate)
+            .get(apartmentController.renderInsertApartment)
             .post(apartmentController.create);
 
       router.get("/search", apartmentController.searchApartments);

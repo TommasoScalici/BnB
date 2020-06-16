@@ -31,6 +31,8 @@ $(document).ready(function () {
             $(`#progressbar${dataid}`).toggleClass("progress-bar-animated");
             $(`#progressbar${dataid}`).toggleClass("progress-bar-striped");
 
+            $("button[type=submit], input[type=submit]").prop("disabled", true);
+
             $.each(files, function(index, value) {
                 
                 setTimeout(() => {
@@ -67,6 +69,7 @@ $(document).ready(function () {
                         $(`#progressbar${dataid}`).toggleClass("bg-success");
                         $(`#progressbar${dataid}`).toggleClass("progress-bar-animated");
                         $(`#progressbar${dataid}`).toggleClass("progress-bar-striped");
+                        $("button[type=submit], input[type=submit]").prop("disabled", false);
                     }
 
                 }, 1000 + (index * 1000));

@@ -6,7 +6,7 @@
                 <%= moment(reservation.checkin).format('DD/MM/YYYY') %> - 
                 <%= moment(reservation.checkout).format('DD/MM/YYYY') %></small>
             <h4 class="card-title">
-                <a style="color: rgb(34, 34, 34)" href="/reservations/<%= reservation._id %>">
+                <a href="/reservations/<%= reservation._id %>">
                     <%= reservation.apartment.address.town %>
                 </a>
             </h4>

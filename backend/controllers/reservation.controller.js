@@ -54,12 +54,49 @@ module.exports =
         let draftReservation = new Reservation(JSON.parse(req.body.reservation));
         let guests = Object.values(JSON.parse(req.body.guests));
         
-        let apartment = await Apartment.findById(req.body.apartmentid, function(err, retrievedApartment) {
-            if(err) {
-                console.log(`Mongo error while trying to complete reservation: ${err}`);
-                res.status(500).json({message: "Server error while processing the request"});
-            }
+        let apartment = await Apartment.findById(req.body.apartmentid);
+
+        // *** gestione business rules ***
+        // Qui di seguito viene controllato che non ci siano già prenotazioni che
+        // per un appartamento che possano andare in conflitto con il periodo di date scelto dal customer.
+        // Inoltre viene controllato che l'ammontare complessivo dei giorni di prenotazione per l'appartamento
+        // (per lo stesso customer) inclusi i giorni per cui sta effettuando la nuova prenotazione non eccedano
+        // il totale di 28 giorni.
+
+        let conflictingReservationsForApartment = await Reservation.find({
+            apartment: apartment.id,
+            $or: [
+                { checkin: { $gt: draftReservation.checkin, $lt: draftReservation.checkout } },
+                { checkout: { $gt: draftReservation.checkin, $lt: draftReservation.checkout } },
+            ],
+            status: { $nin: ["canceled", "refused"]}
+        })
+
+        let reservationsSameApartmentAndYearByCustomer = await Reservation.find({
+                apartment: apartment.id,
+                customer: req.session.user._id,
+                checkin: { $gte: moment().startOf("year"), $lte: moment().endOf("year") },
+                checkout: { $gte: moment().startOf("year"), $lte: moment().endOf("year") },
+                status: { $nin: ["canceled", "refused"]},
         });
+
+        let totalDays = moment(draftReservation.checkout).diff(draftReservation.checkin, "days") + 1;
+
+        reservationsSameApartmentAndYearByCustomer.forEach(reservation => {
+            totalDays += moment(reservation.checkout).diff(reservation.checkin, "days") + 1;
+        });
+
+        if(conflictingReservationsForApartment.length > 0) {
+            res.status(403).json({message: "Esiste già una prenotazione per questo appartamento nel periodo selezionato"});
+            return;
+        }
+
+        if(totalDays > 28) {
+            res.status(403).json({message: "Non puoi prenotare uno stesso appartamento per più di 28 giorni nell'arco di un anno"});
+            return;
+        }
+
+        // Fine gestione business rules
 
         draftReservation.apartment = apartment._id;
         draftReservation.customer = req.session.user._id;

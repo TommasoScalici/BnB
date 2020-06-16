@@ -35,7 +35,7 @@ module.exports =
             }
         }
 
-        await Apartment.create(apartment, async function(err, apartment) {
+        await Apartment.create(apartment, function(err, apartment) {
             if(err)
                 console.log(`Mongo error while user was signing up: ${err}`);   
             else 
@@ -44,17 +44,20 @@ module.exports =
     },
 
     renderApartment: async (req, res) => {
-        await Apartment.findById(req.params.id, function(err, apartment) {
+        await Apartment.findById(req.params.id, async function(err, apartment) {
             if(err) {
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment}); 
+            else {
+                let apartments = await Apartment.find({"address.town": apartment.address.town})
+                res.render("index", { pagetitle: "Appartamento", path: "apartment-details", apartment, apartments });
+            }
+                 
         }).populate("host");
     },
     
-    renderCreate: (req, res) => {
+    renderInsertApartment: (req, res) => {
         if(req.session.user === undefined || req.session.user === null)
             res.sendStatus(403);
         else
@@ -63,28 +66,15 @@ module.exports =
 
     searchApartments: async (req, res) => {
         
+
         await Apartment.find({
-            $and : 
-            [
-                {
-                    $and :[              
-                    {"guests_max": {  $gte: req.query.guests }},
-                    {"address.country": { $regex: req.query.country }},
-                    {"address.province": { $regex: req.query.province }},
-                    {"address.town": { $regex: req.query.town }}, 
-                     ],                          
-                },
-                {
-                    $or :[              
-                        {"type_accomodation":  req.query.type_accomodation }, 
-                        {"price":  req.query.price }, 
-                        {"services":  req.query.services },  
-                        {"type_accomodation":  { "$ne": req.query.type_accomodation } },  
-
-                         ],    
-                }
-
-            ],
+            "guests_max": { $gte: req.query.guests },
+            "address.country": req.query.country,
+            "address.province": req.query.province,
+            "address.town": req.query.town,
+            // Tentativo di risolverla usando la Spread syntax
+            // https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+            ...req.query.typeaccomodation ? { type_accomodation : req.query.typeaccomodation } : {}, 
         }, function(err, apartments) {
             if(err) {
                 console.log(`Mongo error while retrieveing apartments data: ${err}`);

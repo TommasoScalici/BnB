@@ -39,7 +39,10 @@ module.exports =
         if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
         else {
-            await Reservation.find({ host: req.session.user._id }, function(err, reservations) {
+            await Reservation.find({
+                host: req.session.user._id,
+                status: { $nin: ["canceled", "refused"]}
+            }, function(err, reservations) {
                 if(err) {
                     console.log(`Mongo error while reservations data: ${err}`);
                     res.status(500).json({message: "Server error while processing the request"});
