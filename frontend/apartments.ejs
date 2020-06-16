@@ -9,32 +9,14 @@
       </span>
     </h1>
 
-    
-    
-
-    <div class="row">
-      <div class="col-4">
-        
-        <div class="col-4 ">
-          <label for="type_accomodation"><span class="fas fa-door-closed"></span> Tipo di Alloggio</label>
-          <select type="select" class="custom-select form-control" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio">
-            <option>Intero appartamento</option>
-            <option>Stanza condivisa</option>
-            <option>Stanza privata</option>
-          </select>
-          <div class="invalid-feedback">
-              La tipologia di alloggio è obbligatoria.
+          <div class="bootstrap-select-wrapper">
+            <label>Alloggi</label>
+            <select class="custom-select form-control" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
+              <option value="Intero appartamento">Appartamento Intero</option>
+              <option value="Stanza condivisa">Stanza Condivisa</option>
+              <option value="Stanza singola">Stanza Singola</option>
+            </select>
           </div>
-        </div>
-        <div class="list-group list-group-horizontal-lg" id="list-tab" role="tablist">
-          <a class="list-group-item list-group-item-action " id="list-home-list" data-toggle="list" hidden role="tab" aria-controls="home">Tutti</a>
-
-          <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Alloggio</a>
-          <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Prezzo</a>
-          <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Servizi</a>
-        </div>
-      </div>
-    </div>
 
   </div>
 

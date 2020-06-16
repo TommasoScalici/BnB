@@ -26,10 +26,11 @@ function geolocate() {
 }
 
 
+
+
 function setFieldsFromAddressComponents(address_components) {
 
     address = $("#searchbar-location").val();
-    $(".searchbar-hidden-field").val(null);
 
     // Get each component of the address from the place details,
     // and then fill-in the corresponding field on the form.
@@ -86,6 +87,7 @@ function updateSearchBarGuests() {
 
 $(document).ready(function() {
 
+
     addressCalculated = false;
     autocompleteSearchbar = new google.maps.places.Autocomplete(document.getElementById('searchbar-location'), {types: ['geocode']});
     autocompleteSearchbar.setFields(['address_component']);
@@ -102,12 +104,15 @@ $(document).ready(function() {
         updateSearchBarGuests();
     }
 
+    
+
     $(document).on('submit', '#searchbar-form', function(event) {
 
         if((autocompleteSearchbar.getPlace() === undefined || autocompleteSearchbar.getPlace().name !== undefined)
             && !addressCalculated) {
 
             event.preventDefault();
+            $('#searchbar-type_accomodation').val($('#type-accomodation').val());
             let address = $("#searchbar-location").val();
             let geocoder = new google.maps.Geocoder();
 

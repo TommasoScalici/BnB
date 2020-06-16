@@ -48,7 +48,7 @@ module.exports =
                     let data = JSON.stringify(reservations.map(result => {
                         return result == null ? result : { 
                             x: result.createdAt,
-                            y: result.total_cost
+                            y: result.cleaning_cost + result.stay_cost,
                         };
                     }));
                     res.render("index", { pagetitle: "Gestione Guadagni", path: "reservations-earnings", reservations, data});
