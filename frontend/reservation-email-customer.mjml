@@ -4,7 +4,23 @@
     <mj-section background-color="#F0F0F0">
       <mj-column>
         <mj-text align="center" font-style="italic" font-size="36px" color="#626262">BnB</mj-text>
-        <mj-text align="center" font-style="italic" font-size="36px" color="#626262">Prenotazione confermata!</mj-text>
+        <mj-text align="center" font-style="italic" font-size="36px" color="#626262">
+          <% if(reservation.status == "accepted") { %>
+          Prenotazione confermata!
+          <% } else if(reservation.status == "canceled") { %>
+          Prenotazione non accettata :(
+          <% } %>
+        </mj-text>
+        <mj-raw>
+          <% if(reservation.status == "canceled") { %>
+        </mj-raw>
+        <mj-text align="center" font-style="italic" font-size="20px" color="#626262">
+          <mj-link href="https://bnb-webmobile.herokuapp.com/">Torna sul sito</mj-link>
+          per ricercare altri appartamenti disponibili
+        </mj-text>
+        <mj-raw>
+          <% } %>
+        </mj-raw>
       </mj-column>
     </mj-section>
 
@@ -13,7 +29,7 @@
       <mj-column width="600px">
         <mj-text align="center" color="#969696" font-size="40px" font-family="Helvetica Neue"><%= reservation.apartment.name %></mj-text>
         <mj-spacer height="50px" />
-        <mj-button background-color="#F63A4D" href="https://bnb-webmobile.herokuapp.com/reservations">Gestisci prenotazione</mj-button>
+        <mj-button background-color="#F63A4D" href="https://bnb-webmobile.herokuapp.com/reservations">Gestisci prenotazioni</mj-button>
       </mj-column>
     </mj-section>
 

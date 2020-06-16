@@ -87,7 +87,7 @@ function updateSearchBarGuests() {
 
 $(document).ready(function() {
 
-
+    // Gestione autocompletamento Google Maps Places
     addressCalculated = false;
     autocompleteSearchbar = new google.maps.places.Autocomplete(document.getElementById('searchbar-location'), {types: ['geocode']});
     autocompleteSearchbar.setFields(['address_component']);

@@ -7,26 +7,16 @@ const Reservation = require('../models/reservation.js');
 
 module.exports =
 {
-    confirm: async (req, res) => {
+    renderReservations: async (req, res) => {
         if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
         else {
-            Reservation.findByIdAndUpdate(req.params.id, { $set: { status: "accepted" } }, function(err, reservation) {
-                if(err) {
-                    console.log(`Mongo error while confirming reservation: ${err}`);
-                    res.status(500).json({message: "Server error while processing the request"});
-                }
-                else
-                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
-            })
-        }
-    },
 
-    renderReservations: (req, res) => {
-        if(!req.session.user || !req.session.user.is_host)
-            res.sendStatus(403);
-        else
-            res.render("index", {pagetitle: "Storico Prenotazioni", path: "reservations"});
+            let futureReservations = await Reservation.find({ checkin: { $gte: moment(moment.now())}}).populate("apartment");
+            let pastReservations = await Reservation.find({ checkin: { $lte: moment(moment.now())}}).populate("apartment");
+
+            res.render("index", {pagetitle: "Viaggi", path: "reservations", futureReservations, pastReservations});
+        }
     },
 
     renderSummary: async (req, res) =>{
@@ -47,7 +37,7 @@ module.exports =
 
         await Apartment.findById(req.query.apartmentid, function(err, apartment) {
             if(err) {
-                console.log(`Mongo error while retrieving apartment data: ${err}`);
+                console.log(`Mongo error while retrieving reservation summary data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else 
@@ -59,19 +49,16 @@ module.exports =
     
     reserve: async (req, res) => {
 
-        let apartment;
         let reservation;
 
         let draftReservation = new Reservation(JSON.parse(req.body.reservation));
         let guests = Object.values(JSON.parse(req.body.guests));
         
-        await Apartment.findById(req.body.apartmentid, function(err, retrievedApartment) {
+        let apartment = await Apartment.findById(req.body.apartmentid, function(err, retrievedApartment) {
             if(err) {
-                console.log(`Mongo error while retrieving apartment data: ${err}`);
+                console.log(`Mongo error while trying to complete reservation: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else
-                apartment = retrievedApartment;
         });
 
         draftReservation.apartment = apartment._id;
@@ -122,21 +109,66 @@ module.exports =
                 reservation = newReservation;
                 await reservation.populate("apartment").populate("customer").populate("host").execPopulate();
 
-                ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-customer.html'), 
-                              { reservation: reservation,
-                                checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
-                                checkout: moment(reservation.checkout).format('DD/MM/YYYY')
-                              },
-                    function(err, data) {
-                        if(err) {
+                ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-host.html'),
+                    {
+                        reservation: reservation,
+                        checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
+                        checkout: moment(reservation.checkout).format('DD/MM/YYYY')
+                    },
+                    function (err, data) {
+                        if (err) {
                             console.log(`Error rendering reservation result page: ${err}`);
                         }
 
-                        sendmail(reservation.customer.email, "BnB - Prenotazione confermata!", "", data);
-                });
+                        sendmail(reservation.host.email, "BnB - Notifica di prenotazione ricevuta", "", data);
+                    });
                 
                 res.status(200).json({message: 'Reservation created succesfully'});
             }
         });              
-    }
+    },
+
+    setStatus: async (req, res) => {
+        if(!req.session.user || !req.session.user.is_host)
+            res.sendStatus(403);
+        else {
+                Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
+                    if(err) {
+                        console.log(`Mongo error while confirming reservation: ${err}`);
+                        res.status(500).json({message: "Server error while processing the request"});
+                    }
+                    else {
+
+                        await reservation.populate("apartment").populate("customer").populate("host").execPopulate();
+
+                        ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-host.html'),
+                            {
+                                reservation: reservation,
+                                checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
+                                checkout: moment(reservation.checkout).format('DD/MM/YYYY')
+                            }, function (err, data) {
+                                if (err) {
+                                    console.log(`Error rendering reservation result page: ${err}`);
+                                }
+
+                                let emailTitle;
+
+                                if(req.params.status == "accepted") {
+                                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
+                                    emailTitle = "BnB - Prenotazione confermata!"
+                                }
+                                else if(req.params.status == "canceled") {
+                                    emailTitle = "BnB - Prenotazione rifiutata :("
+                                    res.send("<h1>Prenotazione rifiutata. Puoi chiudere questa finestra</h1>");
+                                }
+                                    
+                                else
+                                    res.send("<h1>Sei finito qui per errore. Meglio fare rinuncia agli studi</h1>");
+
+                                sendmail(reservation.customer.email, emailTitle, "", data);
+                            });
+                    }
+                });
+        }
+    },
 }

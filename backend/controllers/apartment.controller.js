@@ -5,43 +5,41 @@ const Apartment = require('../models/apartment.js');
 module.exports = 
 {
     create: async (req, res) => {
-        var newApartment = new Apartment(Mapper.getApartmentFromReq(req));
 
-        await Apartment.create(newApartment, async function(err, apartment) {
-            if(err)
-                console.log(`Mongo error while user was signing up: ${err}`);
-            else {
-                
-                if(!!req.files) {
+        let apartment = new Apartment(Mapper.getApartmentFromReq(req));
 
-                    let filesPackages = Object.values(req.files);
+        if(!!req.files) {
 
-                    for(filePackage of filesPackages) {
+            let filesPackages = Object.values(req.files);
 
-                        let fileNamePath = `${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
-                        let i = 0;
+            for(filePackage of filesPackages) {
 
-                        if(Array.isArray(filePackage)) {
+                let fileNamePath = `${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
+                let i = 0;
 
-                            for(file of filePackage) {
-                                let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
-                                file.mv(`./uploads${path}`);
-                                apartment.photo_paths.push(path);
-                                i++;
-                            }
-                        }
-                        else {
-                            let file = filePackage;
-                            let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
-                            file.mv(`./uploads${path}`);
-                            apartment.photo_paths.push(path);
-                        }
+                if(Array.isArray(filePackage)) {
+
+                    for(file of filePackage) {
+                        let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
+                        file.mv(`./uploads${path}`);
+                        apartment.photo_paths.push(path);
+                        i++;
                     }
                 }
-
-                await Apartment.updateOne({_id: apartment._id}, apartment);
-                res.status(201).json("Apartment inserted sucesfully");
+                else {
+                    let file = filePackage;
+                    let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
+                    file.mv(`./uploads${path}`);
+                    apartment.photo_paths.push(path);
+                }
             }
+        }
+
+        await Apartment.create(apartment, async function(err, apartment) {
+            if(err)
+                console.log(`Mongo error while user was signing up: ${err}`);   
+            else 
+                res.status(201).json("Apartment inserted sucesfully");
         });        
     },
 
@@ -93,7 +91,7 @@ module.exports =
                 res.status(500).json({message: "Server error while processing the request"});
             }
             else
-                res.render("index", {pagetitle: `Stai cercando alloggi a ${req.query.town}`, path: "apartments", apartments});
-        });
+                res.render("index", {pagetitle: `Stai cercando alloggi a ${req.query.town}`, path: "apartments", apartments });
+        })
     },
 }
