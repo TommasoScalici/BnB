@@ -66,10 +66,27 @@ module.exports =
     searchApartments: async (req, res) => {
         
         await Apartment.find({
-            "guests_max": {  $gte: req.query.guests },
-            "address.country": { $regex: req.query.country },
-            "address.province": { $regex: req.query.province },
-            "address.town": { $regex: req.query.town },
+            $and : 
+            [
+                {
+                    $and :[              
+                    {"guests_max": {  $gte: req.query.guests }},
+                    {"address.country": { $regex: req.query.country }},
+                    {"address.province": { $regex: req.query.province }},
+                    {"address.town": { $regex: req.query.town }}, 
+                     ],                          
+                },
+                {
+                    $or :[              
+                        {"type_accomodation":  req.query.type_accomodation }, 
+                        {"price":  req.query.price }, 
+                        {"services":  req.query.services },  
+                        {"services":  { "$ne": req.query.services } },  
+
+                         ],    
+                }
+
+            ],
         }, function(err, apartments) {
             if(err) {
                 console.log(`Mongo error while retrieveing apartments data: ${err}`);

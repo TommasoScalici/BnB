@@ -85,9 +85,12 @@
               <td><%= moment(reservation.checkout).format('DD/MM/YYYY') %></td> 
               <td><%= reservation.apartment.name %></td>
               <td>€ <%= reservation.cleaning_cost + reservation.stay_cost %></td> 
+              
+
               </tr>
             <% } %>        
             
+
           </tbody>
         </table>
       </div>
