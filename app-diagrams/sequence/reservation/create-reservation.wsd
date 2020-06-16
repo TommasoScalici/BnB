@@ -30,12 +30,20 @@ activate User
     ApartmentController <- Database: return apartment
     ApartmentController -> Database: Reservation.create()
     ApartmentController <- Database: return success
-    ApartmentController <- ApartmentController: sendmail(user.email)
-    Index <- ApartmentController: display home
+    ApartmentController <- ApartmentController: sendmail(user.email)\n(HOST)
+
+    alt host accept
+
+    Index <- ApartmentController: GET: /reservation/id/status/accepted
+    Index <- Index: show accepted
+    else host refuse
+    Index x- ApartmentController: GET: /reservation/id/status/canceled
+    Index <- Index: show refuse
+    end
+    Index <- Index: display home
     else apartment not found
     ApartmentController x- Database: error
     Index x- ApartmentController: show error message
-    
     
     end
     else apartment not found

@@ -1,4 +1,4 @@
-@startuml searchFilter_searchbar
+@startuml searchFilter
 
 actor User
 participant "Searchbar" as Searchbar

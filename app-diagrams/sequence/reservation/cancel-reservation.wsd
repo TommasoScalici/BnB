@@ -1,0 +1,23 @@
+@startuml cancel-reservation
+
+actor User
+participant "Index" as Index
+participant "Reservation\nController" as ReservationController    
+database Database
+
+activate User
+
+        
+    User -> Index: GET: /reservations/cancel
+    activate Index
+      Index -> ReservationController: cancelReservation()
+    activate ReservationController
+    ReservationController -> Database: delete()
+    activate Database
+    return success
+    deactivate Database
+
+    Index <- ReservationController: show succesfully delete
+    Index <- ReservationController: display reservations
+
+@enduml
