@@ -9,7 +9,7 @@ module.exports =
 
         await Apartment.create(newApartment, async function(err, apartment) {
             if(err)
-                console.log(`Mongo error while user was signing up: ${err}`);
+                console.log(`Mongo error while user was signing up: ${err}`);   
             else {
                 
                 if(!!req.files) {
@@ -46,18 +46,31 @@ module.exports =
     },
 
     renderApartment: async (req, res) => {
-        await Apartment.findById(req.params.id, function(err, apartment) {
+        await Apartment.findById(req.params.id, async function(err, apartment) {
             if(err) {
                 console.log(`Mongo error while retrieving apartment data: ${err}`);
                 res.status(500).json({message: "Server error while processing the request"});
             }
-            else
-                res.render("index", {pagetitle: "Appartamento", path: "apartment-details", apartment}); 
+            else {
+
+                await Apartment.find({
+                    "address.country": { $regex: apartment.address.country },
+                    "address.province": { $regex: apartment.address.province },
+                    "address.town": { $regex: apartment.address.town },
+                }, function(err, apartments) {
+                    if(err) {
+                        console.log(`Mongo error while retrieveing apartments data: ${err}`);
+                        res.status(500).json({message: "Server error while processing the request"});
+                    }
+                    else
+                        res.render("index", {pagetitle: `${apartment.name}`, path: "apartment-details", apartment, apartments});
+                }).limit(4);
+            }
         }).populate("host");
     },
     
     renderCreate: (req, res) => {
-        if(req.session.user === undefined || req.session.user === null)
+        if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
         else
             res.render("index", {pagetitle: "Inserimento Appartamento", path: "apartment-create"});

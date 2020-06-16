@@ -7,29 +7,30 @@ participant "User\nController" as UserController
 database Database
 
 activate User
-        User -> Index: click on signin button
+        User -> Index: open signin-modal
     activate Index
-        Index -> SigninModal: send credentials (submit) 
+        Index -> SigninModal: submit POST /users/signin
     
     
 
     activate SigninModal
-        SigninModal -> UserController: verify credentials
+        SigninModal -> UserController: async signin()
         activate UserController
-        UserController -> Database: search for user
+        UserController -> Database: User.findOne()
         activate Database
         alt user found
-        UserController <-- Database : \n    return user
-        SigninModal <-- UserController: task completed
+        UserController <- Database : \n    return true
+        SigninModal <- UserController: user found
         
-        Index <-- SigninModal: return to current page
+        SigninModal <- SigninModal: display success message
+        Index <- SigninModal: go to #
         
-        else user not found
-        UserController x-- Database : \n    return not found error
+        else mismatch or not found
+        UserController x- Database : \n    return false
         deactivate Database
-        SigninModal x-- UserController: display error message
+        SigninModal x- UserController: return error type
+        SigninModal <- SigninModal: display error message
         deactivate UserController
-        deactivate SigninModal
         end
 
     

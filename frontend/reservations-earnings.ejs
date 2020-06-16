@@ -69,20 +69,29 @@
               <th>#</th>
               <th>Nome</th>
               <th>Cognome</th>
-              <th>Check-in</th>
-              <th>Check-out</th>
+              <th>Data prenotazione</th>
               <th>Appartamento</th>
               <th>Guadagno</th>
             </tr>
           </thead>
           <tbody>
             <% let id = 0; for (let reservation of reservations) { %>
-              <tr>
+              <tr data-toggle="tooltip" data-placement="right" data-html="true"
+                  data-title='<strong>Info Prenotazione</strong>
+                              <br />
+                              Check-in: <%= moment(reservation.checkin).format("DD/MM/YYYY") %><br />
+                              Check-out: <%=  moment(reservation.checkout).format("DD/MM/YYYY") %><br />
+                              <br />
+                              <strong>Altri ospiti</strong>
+                              <br />
+                              <% for (let guest of reservation.guests) { %>
+                              <%= guest.firstname %> <%= guest.lastname %><br />
+                              <% } %> 
+                              '>
               <td><%= ++id %></td>
               <td><%= reservation.customer.name.first %></td>
               <td><%= reservation.customer.name.last %></td>
-              <td><%= moment(reservation.checkin).format('DD/MM/YYYY') %></td>
-              <td><%= moment(reservation.checkout).format('DD/MM/YYYY') %></td> 
+              <td><%= moment(reservation.createdat).format('DD/MM/YYYY') %></td>
               <td><%= reservation.apartment.name %></td>
               <td>€ <%= reservation.cleaning_cost + reservation.stay_cost %></td> 
               
@@ -97,5 +106,15 @@
     </main>
   </div>
 </div>
+
+<script>
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+var data = JSON.parse('<%- data %>');
+
+</script>
 
 <script src="/scripts/dashboard.js"></script>
