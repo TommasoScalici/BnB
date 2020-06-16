@@ -132,12 +132,13 @@ $(window).on('load', function() {
                 if(form[0].enctype == "multipart/form-data") {
 
                     let formData = new FormData();
-                    let json = form.serializeJSON();
+                    let json = form.serializeJSON(); // Serializzazione del form in formato JSON
 
                     Object.keys(json).forEach(function(key) {
                 
                         let value = json[key];
 
+                        // Ricostruzione degli oggetti del form secondo il loro tipo
                         if(typeof value === "string" || typeof value === "number" 
                            || typeof value === "boolean" || $.isArray(value))
                             formData.append(key, value);
@@ -145,10 +146,11 @@ $(window).on('load', function() {
                             formData.append(key, JSON.stringify(value));
                     });
 
+                    // Ricostruzione degli input SOLO di tipo files (vanno gestiti separatamente)
                     let inputFiles = form.find("input[type=file]");
 
-                    for(inputFile of inputFiles) 
-                        for(file of inputFile.files)
+                    for(let inputFile of inputFiles) 
+                        for(let file of inputFile.files)
                             formData.append(`${inputFile.getAttribute("id")}[]`, file, file.name);
 
                     $.ajax({

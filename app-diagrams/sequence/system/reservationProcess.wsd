@@ -1,5 +1,0 @@
-@startuml reservationProcessing
-
-actor system
-
-@enduml
