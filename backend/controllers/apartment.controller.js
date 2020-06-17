@@ -22,7 +22,7 @@ module.exports =
 
                     for(file of filePackage) {
                         let filePath = `/uploads/apartments/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                        fileUploader(file, filePath, function(result) {
+                        await fileUploader(file, filePath, function(result) {
                             apartment.photo_paths.push(result);
                         });
                         
@@ -32,7 +32,7 @@ module.exports =
                 else {
                     let file = filePackage;
                     let filePath = `/uploads/apartments/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                    fileUploader(file, filePath, function(result) {
+                    await fileUploader(file, filePath, function(result) {
                         apartment.photo_paths.push(result);
                     });
                 }

@@ -1,6 +1,6 @@
 const {s3, s3bucket} = require('../config/aws.config.js');
 
-module.exports = function(file, filePath, result) {
+module.exports = async function(file, filePath, result) {
 
     // Se siamo sul web host carico su AWS S3 cloud
     if(process.env.CLOUDCUBE_PUBLIC_URL) {

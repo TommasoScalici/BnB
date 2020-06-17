@@ -139,7 +139,7 @@ module.exports =
 
         if(req.files) {
             let image = Object.values(req.files)[0];
-            fileuploader(image, imagePath, function(result) {
+            await fileuploader(image, imagePath, function(result) {
                 user.profile_picture_path = result;
             });
         }
