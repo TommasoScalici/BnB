@@ -143,12 +143,12 @@ module.exports =
                 let params = {
                     Body: image,
                     Bucket: s3bucket,
-                    Key: imagePath
+                    Key: `/public${imagePath}`
                 }
 
                 s3.upload(params, function(err, data) {
                     if(err)
-                        console.log(`Error while trying to upload file to AWS S3`);
+                        console.log(`Error while trying to upload file ${image.name} to AWS S3`);
                 })
             }
             image.mv(`./public${imagePath}`);
