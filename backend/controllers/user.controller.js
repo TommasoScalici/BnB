@@ -141,7 +141,7 @@ module.exports =
             let image = Object.values(req.files)[0];
             if(process.env.CLOUDCUBE_URL) {
                 let params = {
-                    Body: image,
+                    Body: image.data,
                     Bucket: s3bucket,
                     Key: `/public${imagePath}`
                 }
