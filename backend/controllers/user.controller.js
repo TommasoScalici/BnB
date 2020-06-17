@@ -144,8 +144,8 @@ module.exports =
             // Se siamo sul web host carico su AWS S3 cloud
             if(process.env.CLOUDCUBE_PUBLIC_URL) {
                 let params = {
-                    ACL: "bucket-owner-full-control",
-                    Body: Buffer.from(image.data),
+                    ACL: "public-read",
+                    Body: image,
                     Bucket: s3bucket,
                     Key: `.${process.env.CLOUDCUBE_PUBLIC_URL}${imagePath}`
                 }
