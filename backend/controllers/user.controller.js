@@ -139,11 +139,13 @@ module.exports =
 
         if(!!req.files) {
             let image = Object.values(req.files)[0];
-            if(process.env.CLOUDCUBE_URL) {
+
+            // Se siamo sul web host carico su AWS S3
+            if(process.env.CLOUDCUBE_PUBLIC_URL) {
                 let params = {
                     Body: image.data,
                     Bucket: s3bucket,
-                    Key: `/public${imagePath}`
+                    Key: `${CLOUDCUBE_PUBLIC_URL}${imagePath}`
                 }
 
                 s3.upload(params, function(err, data) {
@@ -151,8 +153,10 @@ module.exports =
                         console.log(`Error while trying to upload file ${image.name} to AWS S3`);
                 })
             }
-            image.mv(`./public${imagePath}`);
-            user.profile_picture_path = imagePath;
+            else { // Altrimenti carico in localhost
+                image.mv(`./public${imagePath}`);
+                user.profile_picture_path = imagePath;
+            }
         }
         
 

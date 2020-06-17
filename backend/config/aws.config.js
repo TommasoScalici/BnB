@@ -5,7 +5,7 @@ aws.config.update({
     secretAccessKey: process.env.CLOUDCUBE_SECRET_ACCESS_KEY,
 });
 
-const bucket = process.env.CLOUDCUBE_URL;
+const bucket = "cloud-cube-eu";
 const s3 = new aws.S3();
 
 module.exports = {
