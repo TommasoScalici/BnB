@@ -22,14 +22,19 @@ module.exports =
 
                     for(file of filePackage) {
                         let filePath = `/uploads/apartments/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                        apartment.photo_paths.push(fileUploader(file, filePath));
+                        fileUploader(file, filePath, function(result) {
+                            apartment.photo_paths.push(result);
+                        });
+                        
                         i++;
                     }
                 }
                 else {
                     let file = filePackage;
                     let filePath = `/uploads/apartments/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                    apartment.photo_paths.push(fileUploader(file, filePath));
+                    fileUploader(file, filePath, function(result) {
+                        apartment.photo_paths.push(result);
+                    });
                 }
             }
         }

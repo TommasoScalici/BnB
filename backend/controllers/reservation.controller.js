@@ -11,7 +11,7 @@ const Reservation = require('../models/reservation.js');
 module.exports =
 {
     renderReservations: async (req, res) => {
-        if(!req.session.user || !req.session.user.is_host)
+        if(!req.session.user)
             res.sendStatus(403);
         else {
 
@@ -123,14 +123,20 @@ module.exports =
 
                     for(file of filePackage) {
                         let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                        guests[guestNumber].image_paths.push(fileuplodaer(file, filePath));
+                        
+                        fileuplodaer(file, filePath, function(result) {
+                            guests[guestNumber].image_paths.push(result);
+                        });
+                        
                         i++;
                     }
                 }
                 else {
                     let file = filePackage;
                     let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                    guests[guestNumber].image_paths.push(fileuplodaer(file, filePath));
+                    fileuplodaer(file, filePath, function(result) {
+                        guests[guestNumber].image_paths.push(result);
+                    });
                 }
 
                 guestNumber++;
