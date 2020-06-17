@@ -145,7 +145,7 @@ module.exports =
                 let params = {
                     Body: image.data,
                     Bucket: s3bucket,
-                    Key: `${CLOUDCUBE_PUBLIC_URL}${imagePath}`
+                    Key: `${process.env.CLOUDCUBE_PUBLIC_URL}${imagePath}`
                 }
 
                 s3.upload(params, function(err, data) {
