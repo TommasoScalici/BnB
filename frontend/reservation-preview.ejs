@@ -1,0 +1,16 @@
+<div class="col-lg-4 col-sm-6 mb-4">
+    <div class="card h-100">
+        <a href="#"><img class="card-img-top" style="height: 300px;" src="<%= reservation.apartment.photo_paths[0] %>" alt="Foto appartamento"></a>
+        <div class="card-body">
+            <small class="text-muted">
+                <%= moment(reservation.checkin).format('DD/MM/YYYY') %> - 
+                <%= moment(reservation.checkout).format('DD/MM/YYYY') %></small>
+            <h4 class="card-title">
+                <a href="/reservations/<%= reservation._id %>">
+                    <%= reservation.apartment.address.town %>
+                </a>
+            </h4>
+            <p class="card-text"><%= reservation.apartment.name %></p>
+        </div>
+    </div>
+</div>

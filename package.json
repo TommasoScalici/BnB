@@ -21,6 +21,7 @@
   "homepage": "https://github.com/TommasoScalici/BnB#readme",
   "dependencies": {
     "@popperjs/core": "^2.4.2",
+    "aws-sdk": "^2.698.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "4.5.0",
@@ -32,8 +33,10 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-session": "^1.17.1",
+    "ion-rangeslider": "^2.3.1",
     "jquery": "^3.5.1",
     "jquery-validation": "^1.19.2",
+    "mdbootstrap": "^4.19.0",
     "moment": "^2.26.0",
     "mongoose": "^5.9.19",
     "morgan": "^1.10.0",

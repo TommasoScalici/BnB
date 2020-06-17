@@ -26,14 +26,16 @@ function geolocate() {
 }
 
 
+
+
 function setFieldsFromAddressComponents(address_components) {
 
     address = $("#searchbar-location").val();
-    $(".searchbar-hidden-field").val(null);
 
     // Get each component of the address from the place details,
     // and then fill-in the corresponding field on the form.
     for (let i = 0; i < address_components.length; i++) {
+
         let addressType = address_components[i].types[0];
 
         switch (addressType) {
@@ -86,6 +88,7 @@ function updateSearchBarGuests() {
 
 $(document).ready(function() {
 
+    // Gestione autocompletamento Google Maps Places
     addressCalculated = false;
     autocompleteSearchbar = new google.maps.places.Autocomplete(document.getElementById('searchbar-location'), {types: ['geocode']});
     autocompleteSearchbar.setFields(['address_component']);
@@ -102,12 +105,23 @@ $(document).ready(function() {
         updateSearchBarGuests();
     }
 
+    
+
     $(document).on('submit', '#searchbar-form', function(event) {
 
+        $('#filter-price').val($('#price').val());
+        $('#filter-services').val($('#services').val());
+        $('#filter-typeaccomodation').val($('#type-accomodation').val());
+        
         if((autocompleteSearchbar.getPlace() === undefined || autocompleteSearchbar.getPlace().name !== undefined)
             && !addressCalculated) {
 
+            // Pulisco i fields della ricerca relativi solo alla localizzazione 
+            // perché non sempre vengono popolati dall'autocomplete di Google Places
+            $(".searchbar-hidden-field").val(null);
+
             event.preventDefault();
+            
             let address = $("#searchbar-location").val();
             let geocoder = new google.maps.Geocoder();
 

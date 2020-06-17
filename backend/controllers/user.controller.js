@@ -1,6 +1,7 @@
+const fileuploader = require('../utilities/file-uploader.js');
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
-const Apartment = require('../models/apartment.js');
+
 const Reservation = require('../models/reservation.js');
 const User = require('../models/user.js');
 
@@ -39,7 +40,10 @@ module.exports =
         if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
         else {
-            await Reservation.find({ host: req.session.user._id }, function(err, reservations) {
+            await Reservation.find({
+                host: req.session.user._id,
+                status: { $nin: ["canceled", "refused"]}
+            }, function(err, reservations) {
                 if(err) {
                     console.log(`Mongo error while reservations data: ${err}`);
                     res.status(500).json({message: "Server error while processing the request"});
@@ -48,7 +52,7 @@ module.exports =
                     let data = JSON.stringify(reservations.map(result => {
                         return result == null ? result : { 
                             x: result.createdAt,
-                            y: result.total_cost
+                            y: result.cleaning_cost + result.stay_cost,
                         };
                     }));
                     res.render("index", { pagetitle: "Gestione Guadagni", path: "reservations-earnings", reservations, data});
@@ -130,15 +134,13 @@ module.exports =
 
     update: async (req, res) => {
 
-        let imagePath = `/users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
+        let imagePath = `/uploads/users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
         let user = Mapper.getUserFromReq(req);
 
-        if(!!req.files) {
+        if(req.files) {
             let image = Object.values(req.files)[0];
-            image.mv(`./uploads${imagePath}`);
-            user.profile_picture_path = imagePath;
+            user.profile_picture_path = await fileuploader(image, imagePath);
         }
-        
 
         // Elimina eventuali valori undefined che arrivano dal form e che andrebbero
         // a sostituire i valori già salvati nel DB.

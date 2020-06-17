@@ -1,104 +1,52 @@
- <!--
--- Si fa in caso tutto in una view, gestendosi semplicemente che se:
--- Sei user? Ti faccio vedere solo le prenotazioni che hai effettuato (divise in future e passate)
--- Sei anche host? Puoi vedere sia le prenotazioni che hai effettuato come user e quelle che ti arrivano dagli users
--- (magari si usa un filtro per non rendere troppa confusionaria la view)
--->
-
-
 <div class="container">
 
-<!-- Page Heading -->
-<h1 class="my-4">Viaggi</h1>
+  <h1 class="my-4">Viaggi</h1>
 
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Futuri</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Passati</a>
-  </div>
-</nav>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-future-tab" data-toggle="tab" href="#nav-future" role="tab" aria-controls="nav-future" aria-selected="true">Futuri</a>
+      <a class="nav-item nav-link" id="nav-past-tab" data-toggle="tab" href="#nav-past" role="tab" aria-controls="nav-past" aria-selected="false">Passati</a>
+    </div>
+  </nav>
 
-<div class="tab-content my-4" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <div class="tab-content my-4" id="nav-tab-content">
 
-    <div class="row">
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project One</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-          </div>
+    <div class="tab-pane fade show active" id="nav-future" role="tabpanel" aria-labelledby="nav-future-tab">
+
+      <% for(let i = 0; i < futureReservations.length; i++) { %>
+
+        <% if(i % 3 === 0) { %>
+        <div class="row">
+        <% } %>
+
+        <%- include('reservation-preview', {reservation: futureReservations[i]}) %> 
+
+        <% if((i + 1) % 3 === 0 || futureReservations.length - 1 === i) { %>
         </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Two</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
+        <% } %>
+
+      <% } %>
+
+    </div>
+
+    <div class="tab-pane fade" id="nav-past" role="tabpanel" aria-labelledby="nav-past-tab">
+
+      <% for(let i = 0; i < pastReservations.length; i++) { %>
+
+        <% if(i % 3 === 0) { %>
+        <div class="row">
+        <% } %>
+
+        <%- include('reservation-preview', {reservation: pastReservations[i]}) %>
+
+        <% if((i + 1) % 3 === 0 || pastReservations.length - 1 === i) { %>
         </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Three</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-          </div>
-        </div>
-      </div>
+        <% } %>
+
+      <% } %>
+
     </div>
 
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-    <div class="row">
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project One</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Two</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 mb-4">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Project Three</a>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </div>
-
-
-
-

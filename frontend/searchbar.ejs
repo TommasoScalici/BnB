@@ -33,6 +33,7 @@
 
         <div class="form-group-inline">
             <small class="label-placeholder">DOVE</small>
+
             <input id="searchbar-location" class="form-control input-placeholding" name="location" type="input"
                    style="width: 11rem;" placeholder="Cerca per città, indirizzo..." onFocus="geolocate()" />
             <input type="hidden" class="searchbar-hidden-field" id="searchbar-country" name="country">
@@ -41,7 +42,31 @@
             <input type="hidden" class="searchbar-hidden-field" id="searchbar-region" name="region">
             <input type="hidden" class="searchbar-hidden-field" id="searchbar-street" name="street">
             <input type="hidden" class="searchbar-hidden-field" id="searchbar-streetnumber" name="streetnumber">
-            <input type="hidden" class="searchbar-hidden-field" id="searchbar-town" name="town">
+            <input type="hidden" class="searchbar-hidden-field" id="searchbar-town" name="town">        
+            <input type="hidden" class="filter-hidden-field" id="filter-price" name="price">
+            <select style="display: none;" id="filter-services" name="services[]" multiple>
+                <option>Aria condizionata</option>
+                <option>Allarme antincendio</option>
+                <option>Appendiabiti</option>
+                <option>Asciugacapelli</option>
+                <option>Asciugatrice</option>
+                <option>Bagno privato</option>
+                <option>Camino</option>
+                <option>Colazione</option>
+                <option>Cucina</option>
+                <option>Culla</option>
+                <option>Ferro da stiro</option>
+                <option>Lavatrice</option>
+                <option>Rilevatore di monossido di carbonio</option>
+                <option>Riscaldamento</option>
+                <option>Seggiolone</option>
+                <option>Self check-in</option>   
+                <option>TV</option>
+                <option>Wi-Fi</option>
+                <option>Zona lavoro computer-friendly</option>
+            </select>
+            <input type="hidden" class="filter-hidden-field" id="filter-typeaccomodation" name="typeaccomodation">
+
         </div>
 
         <div class="form-group-inline">
