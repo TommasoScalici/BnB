@@ -72,9 +72,9 @@ module.exports =
             "address.country": req.query.country,
             "address.province": req.query.province,
             "address.town": req.query.town,
-            // Tentativo di risolverla usando la Spread syntax
-            // https://developer.mozilla.org/it/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-            ...req.query.typeaccomodation ? { type_accomodation : req.query.typeaccomodation } : {}, 
+            ...req.query.price ? { price: { $lte: req.query.price } } : {},
+            ...req.query.services ? { services: { $in: req.query.services } } : {},
+            ...req.query.typeaccomodation ? { type_accomodation : req.query.typeaccomodation } : {},
         }, function(err, apartments) {
             if(err) {
                 console.log(`Mongo error while retrieveing apartments data: ${err}`);

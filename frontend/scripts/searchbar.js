@@ -109,6 +109,8 @@ $(document).ready(function() {
 
     $(document).on('submit', '#searchbar-form', function(event) {
 
+        $('#filter-price').val($('#price').val());
+        $('#filter-services').val($('#services').val());
         $('#filter-typeaccomodation').val($('#type-accomodation').val());
         
         if((autocompleteSearchbar.getPlace() === undefined || autocompleteSearchbar.getPlace().name !== undefined)

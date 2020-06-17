@@ -9,10 +9,38 @@
 
     <div class="bootstrap-select-wrapper">
       <label>Alloggi</label>
-      <select class="custom-select form-control" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
+      <select id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
+        <option></option>
         <option>Intero appartamento</option>
         <option>Stanza condivisa</option>
         <option>Stanza privata</option>
+      </select>
+
+      <label>Prezzo</label>
+      <input type="range" id="price" name="price" min="0" max="1000">
+      </select>
+
+      <label>Servizi</label>
+      <select id="services" name="services[]" multiple>
+        <option>Aria condizionata</option>
+        <option>Allarme antincendio</option>
+        <option>Appendiabiti</option>
+        <option>Asciugacapelli</option>
+        <option>Asciugatrice</option>
+        <option>Bagno privato</option>
+        <option>Camino</option>
+        <option>Colazione</option>
+        <option>Cucina</option>
+        <option>Culla</option>
+        <option>Ferro da stiro</option>
+        <option>Lavatrice</option>
+        <option>Rilevatore di monossido di carbonio</option>
+        <option>Riscaldamento</option>
+        <option>Seggiolone</option>
+        <option>Self check-in</option>   
+        <option>TV</option>
+        <option>Wi-Fi</option>
+        <option>Zona lavoro computer-friendly</option>
       </select>
     </div>
 
