@@ -145,13 +145,13 @@ module.exports =
             if(process.env.CLOUDCUBE_PUBLIC_URL) {
                 let params = {
                     ACL: "public-read",
-                    Body: image,
+                    Body: Buffer.from(image.data),
                     Bucket: s3bucket,
                     Key: `.${process.env.CLOUDCUBE_PUBLIC_URL}${imagePath}`
                 }
 
-                s3.upload(params, function(err, data) {
-                    if(err)
+                s3.upload(params, function (err) {
+                    if (err)
                         console.log(`Error while trying to upload file ${image.name} to AWS S3`);
                 })
             }
