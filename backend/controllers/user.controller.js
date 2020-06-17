@@ -139,9 +139,7 @@ module.exports =
 
         if(req.files) {
             let image = Object.values(req.files)[0];
-            await fileuploader(image, imagePath, async function(result) {
-                user.profile_picture_path = await result;
-            });
+            user.profile_picture_path = await fileuploader(image, imagePath);
         }
 
         // Elimina eventuali valori undefined che arrivano dal form e che andrebbero
