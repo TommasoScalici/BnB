@@ -124,8 +124,8 @@ module.exports =
                     for(file of filePackage) {
                         let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
                         
-                        await fileuplodaer(file, filePath, function(result) {
-                            guests[guestNumber].image_paths.push(result);
+                        await fileuplodaer(file, filePath, async function(result) {
+                            guests[guestNumber].image_paths.push(await result);
                         });
                         
                         i++;
@@ -134,8 +134,8 @@ module.exports =
                 else {
                     let file = filePackage;
                     let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                    await fileuplodaer(file, filePath, function(result) {
-                        guests[guestNumber].image_paths.push(result);
+                    fileuplodaer(file, filePath, async function(result) {
+                        guests[guestNumber].image_paths.push(await result);
                     });
                 }
 

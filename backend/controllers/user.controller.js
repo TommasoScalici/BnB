@@ -139,8 +139,8 @@ module.exports =
 
         if(req.files) {
             let image = Object.values(req.files)[0];
-            await fileuploader(image, imagePath, function(result) {
-                user.profile_picture_path = result;
+            await fileuploader(image, imagePath, async function(result) {
+                user.profile_picture_path = await result;
             });
         }
 
