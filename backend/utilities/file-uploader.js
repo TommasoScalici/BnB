@@ -1,6 +1,6 @@
 const {s3, s3bucket} = require('../config/aws.config.js');
 
-module.exports = async function(file, filePath) {
+module.exports = function(file, filePath) {
 
     // Se siamo sul web host carico su AWS S3 cloud
     if(process.env.CLOUDCUBE_PUBLIC_URL) {
@@ -11,7 +11,7 @@ module.exports = async function(file, filePath) {
             Key: `${process.env.CLOUDCUBE_PUBLIC_URL}${filePath}`
         }
 
-        await s3.upload(params, function (err, data) {
+        return s3.upload(params, function (err, data) {
             if (err) {
                 console.log(`Error while trying to upload file ${file.name} to AWS S3. Error: ${err}`);
                 return "";
@@ -20,7 +20,7 @@ module.exports = async function(file, filePath) {
                 console.log(`File ${file.name} uploaded to AWS S3 at path: ${data.Location}`);
                 return data.Location;
             }
-        }).promise();
+        });
     }
     else { // Altrimenti carico in localhost
         file.mv(`./public${filePath}`);
