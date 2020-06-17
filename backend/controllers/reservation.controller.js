@@ -121,7 +121,7 @@ module.exports =
 
                     for(file of filePackage) {
                         let path = `/reservations/guests/images/${fileNamePath}_${i}.jpg`;
-                        file.mv(`./uploads${path}`);
+                        file.mv(`./public/uploads${path}`);
                         guests[guestNumber].image_paths.push(path);
                         i++;
                     }
@@ -129,7 +129,7 @@ module.exports =
                 else {
                     let file = filePackage;
                     let path = `/reservations/guests/images/${fileNamePath}.jpg`;
-                    file.mv(`./uploads${path}`);
+                    file.mv(`./public/uploads${path}`);
                     guests[guestNumber].image_paths.push(path);
                 }
 

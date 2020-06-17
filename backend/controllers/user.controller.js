@@ -1,4 +1,5 @@
 const moment = require('moment');
+const {s3, s3bucket} = require('../config/aws.config.js');
 const Mapper = require('../utilities/request-model-mapper.js')
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
@@ -133,12 +134,24 @@ module.exports =
 
     update: async (req, res) => {
 
-        let imagePath = `/users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
+        let imagePath = `/uploads/users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
         let user = Mapper.getUserFromReq(req);
 
         if(!!req.files) {
             let image = Object.values(req.files)[0];
-            image.mv(`./uploads${imagePath}`);
+            if(process.env.CLOUDCUBE_URL) {
+                let params = {
+                    Body: image,
+                    Bucket: s3bucket,
+                    Key: imagePath
+                }
+
+                s3.upload(params, function(err, data) {
+                    if(err)
+                        console.log(`Error while trying to upload file to AWS S3`);
+                })
+            }
+            image.mv(`./public${imagePath}`);
             user.profile_picture_path = imagePath;
         }
         

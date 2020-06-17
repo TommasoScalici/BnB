@@ -21,7 +21,7 @@ module.exports =
 
                     for(file of filePackage) {
                         let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
-                        file.mv(`./uploads${path}`);
+                        file.mv(`./public/uploads${path}`);
                         apartment.photo_paths.push(path);
                         i++;
                     }
@@ -29,7 +29,7 @@ module.exports =
                 else {
                     let file = filePackage;
                     let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
-                    file.mv(`./uploads${path}`);
+                    file.mv(`./public/uploads${path}`);
                     apartment.photo_paths.push(path);
                 }
             }

@@ -10,7 +10,7 @@ const mongoDBStore = require('connect-mongodb-session')(session);
 module.exports = function(app, express) {
 
     const sessionCollection = "bnb_sessions";
-    const uri = process.env.MONGODB_URI || db.url
+    const uri = process.env.MONGODB_URI || db.url;
 
     app.locals.moment = moment;
 
@@ -21,7 +21,7 @@ module.exports = function(app, express) {
     }));
 
     app.use(morgan('dev'));
-    
+
     app.use(session({
         cookie: { maxAge: 1000 * 60 * 60 * 24 * 365},
         httpOnly: true,
@@ -48,5 +48,5 @@ module.exports = function(app, express) {
     console.log("Using ejs view engine");
     
     app.use(express.static(path.join(__dirname, '../../frontend')));
-    app.use(express.static(path.join(__dirname, '../../uploads')));
+    app.use(express.static(path.join(__dirname, '../../public')));
 };
