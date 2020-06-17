@@ -141,13 +141,13 @@ module.exports =
             let image = Object.values(req.files)[0];
             user.profile_picture_path = imagePath;
 
-            // Se siamo sul web host carico su AWS S3
+            // Se siamo sul web host carico su AWS S3 cloud
             if(process.env.CLOUDCUBE_PUBLIC_URL) {
                 let params = {
                     ACL: "bucket-owner-full-control",
                     Body: Buffer.from(image.data),
                     Bucket: s3bucket,
-                    Key: `${process.env.CLOUDCUBE_PUBLIC_URL}${imagePath}`
+                    Key: `.${process.env.CLOUDCUBE_PUBLIC_URL}${imagePath}`
                 }
 
                 s3.upload(params, function(err, data) {
