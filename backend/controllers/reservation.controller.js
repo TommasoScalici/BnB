@@ -120,8 +120,8 @@ module.exports =
                 if(Array.isArray(filePackage)) {
 
                     for(file of filePackage) {
-                        let path = `/reservations/guests/images/${fileNamePath}_${i}.jpg`;
-                        file.mv(`./public/uploads${path}`);
+                        let path = `/uploads/reservations/guests/images/${fileNamePath}_${i}.jpg`;
+                        file.mv(`./public${path}`);
                         guests[guestNumber].image_paths.push(path);
                         i++;
                     }
@@ -129,7 +129,7 @@ module.exports =
                 else {
                     let file = filePackage;
                     let path = `/reservations/guests/images/${fileNamePath}.jpg`;
-                    file.mv(`./public/uploads${path}`);
+                    file.mv(`./public${path}`);
                     guests[guestNumber].image_paths.push(path);
                 }
 

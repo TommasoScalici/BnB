@@ -20,16 +20,16 @@ module.exports =
                 if(Array.isArray(filePackage)) {
 
                     for(file of filePackage) {
-                        let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
-                        file.mv(`./public/uploads${path}`);
+                        let path = `/uploads/apartments/images/${fileNamePath}_${i}.jpg`;
+                        file.mv(`./public${path}`);
                         apartment.photo_paths.push(path);
                         i++;
                     }
                 }
                 else {
                     let file = filePackage;
-                    let path = `/apartments/images/${fileNamePath}_${i}.jpg`;
-                    file.mv(`./public/uploads${path}`);
+                    let path = `/uploads/apartments/images/${fileNamePath}_${i}.jpg`;
+                    file.mv(`./public${path}`);
                     apartment.photo_paths.push(path);
                 }
             }
