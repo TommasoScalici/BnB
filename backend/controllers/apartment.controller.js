@@ -1,6 +1,8 @@
+const fileUploader = require('../utilities/file-uploader.js');
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
 const Apartment = require('../models/apartment.js');
+
 
 module.exports = 
 {
@@ -8,29 +10,26 @@ module.exports =
 
         let apartment = new Apartment(Mapper.getApartmentFromReq(req));
 
-        if(!!req.files) {
+        if(req.files) {
 
             let filesPackages = Object.values(req.files);
 
             for(filePackage of filesPackages) {
 
-                let fileNamePath = `${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
                 let i = 0;
 
                 if(Array.isArray(filePackage)) {
 
                     for(file of filePackage) {
-                        let path = `/uploads/apartments/images/${fileNamePath}_${i}.jpg`;
-                        file.mv(`./public${path}`);
-                        apartment.photo_paths.push(path);
+                        let filePath = `/uploads/apartments/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
+                        apartment.photo_paths.push(fileUploader(file, filePath));
                         i++;
                     }
                 }
                 else {
                     let file = filePackage;
-                    let path = `/uploads/apartments/images/${fileNamePath}_${i}.jpg`;
-                    file.mv(`./public${path}`);
-                    apartment.photo_paths.push(path);
+                    let filePath = `/uploads/apartments/images/${apartment._id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
+                    apartment.photo_paths.push(fileUploader(file, filePath));
                 }
             }
         }

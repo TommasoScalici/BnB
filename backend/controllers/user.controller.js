@@ -1,7 +1,7 @@
+const fileuploader = require('../utilities/file-uploader.js');
 const moment = require('moment');
-const {s3, s3bucket} = require('../config/aws.config.js');
 const Mapper = require('../utilities/request-model-mapper.js')
-const Apartment = require('../models/apartment.js');
+
 const Reservation = require('../models/reservation.js');
 const User = require('../models/user.js');
 
@@ -137,28 +137,10 @@ module.exports =
         let imagePath = `/uploads/users/images/${req.params.id}_${moment().format("YYYY-MM-DD_hh-mm-ss")}.jpg`;
         let user = Mapper.getUserFromReq(req);
 
-        if(!!req.files) {
+        if(req.files) {
             let image = Object.values(req.files)[0];
-            user.profile_picture_path = imagePath;
-
-            // Se siamo sul web host carico su AWS S3 cloud
-            if(process.env.CLOUDCUBE_PUBLIC_URL) {
-                let params = {
-                    ACL: "public-read",
-                    Body: Buffer.from(image.data),
-                    Bucket: s3bucket,
-                    Key: `${process.env.CLOUDCUBE_PUBLIC_URL}${imagePath}`
-                }
-
-                s3.upload(params, function (err, data) {
-                    if (err)
-                        console.log(`Error while trying to upload file ${image.name} to AWS S3`);
-                })
-            }
-            else // Altrimenti carico in localhost
-                image.mv(`./public${imagePath}`);
+            user.profile_picture_path = fileuploader(image, imagePath);
         }
-        
 
         // Elimina eventuali valori undefined che arrivano dal form e che andrebbero
         // a sostituire i valori già salvati nel DB.

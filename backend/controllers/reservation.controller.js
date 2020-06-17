@@ -1,7 +1,10 @@
+const fileUploader = require('../utilities/file-uploader.js');
+const sendmail = require('../utilities/mail-send');
+
 const ejs = require('ejs');
 const moment = require('moment');
 const path = require('path');
-const sendmail = require('../utilities/mail-send');
+
 const Apartment = require('../models/apartment.js');
 const Reservation = require('../models/reservation.js');
 
@@ -113,24 +116,21 @@ module.exports =
 
             for(filePackage of filesPackages) {
 
-                let fileNamePath = `${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}`;
                 guests[guestNumber].image_paths = new Array();
                 let i = 0;
 
                 if(Array.isArray(filePackage)) {
 
                     for(file of filePackage) {
-                        let path = `/uploads/reservations/guests/images/${fileNamePath}_${i}.jpg`;
-                        file.mv(`./public${path}`);
-                        guests[guestNumber].image_paths.push(path);
+                        let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
+                        guests[guestNumber].image_paths.push(fileuplodaer(file, filePath));
                         i++;
                     }
                 }
                 else {
                     let file = filePackage;
-                    let path = `/reservations/guests/images/${fileNamePath}.jpg`;
-                    file.mv(`./public${path}`);
-                    guests[guestNumber].image_paths.push(path);
+                    let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
+                    guests[guestNumber].image_paths.push(fileuplodaer(file, filePath));
                 }
 
                 guestNumber++;
