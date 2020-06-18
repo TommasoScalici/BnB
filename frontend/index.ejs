@@ -21,6 +21,8 @@
     <meta name="author" content="Salvatore Apicella, Girolamo Nobile, Tommaso Scalici">
 
     <title>B&B - <%= pagetitle %></title>
+    <link rel="shortcut icon" href="/images/title.png" type="image/png">
+
 
 
     <!-- ******************** -->
@@ -63,22 +65,6 @@
     <!-- Custom stylesheets -->
     <link href="/css/index.css" rel="stylesheet">
   </head>
-
-  <script>$(document).ready(function () {
-    $(document).keydown(function (event) {
-        if (event.ctrlKey == true && (event.which == '107' || event.which == '109' || event.which == '187' || event.which == '189'))
-         {
-             event.preventDefault();
-         }
-     });
-
-         $(window).bind('mousewheel DOMMouseScroll', function (event) {
-             if (event.ctrlKey == true) {
-                 event.preventDefault();
-             }
-
-    });
-})</script>
 
     <!-- Placeholder for SearchBar in home -->
     <div id="searchbar-home"></div>
