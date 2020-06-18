@@ -1,0 +1,22 @@
+@startuml remove-apartment
+
+actor User
+participant "Index" as Index
+participant "Apartment\nController" as ApartmentController    
+database Database
+
+activate User
+        
+    User -> Index: GET: /apartments/remove
+    activate Index
+      Index -> ApartmentController: removeApartment()
+    activate ApartmentController
+    ApartmentController -> Database: remove()
+    activate Database
+    return success
+    deactivate Database
+
+    Index <- ApartmentController: show succesfully remove
+    Index <- ApartmentController: display yourApartments 
+
+@enduml
