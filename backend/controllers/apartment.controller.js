@@ -37,7 +37,7 @@ module.exports =
 
         await Apartment.create(apartment, function(err, apartment) {
             if(err)
-                console.log(`Mongo error while user was signing up: ${err}`);   
+                console.log(`Mongo error while creating the apartment: ${apartment.name}. ${err}`);   
             else 
                 res.status(201).json("Apartment inserted sucesfully");
         });        
