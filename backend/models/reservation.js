@@ -24,9 +24,9 @@ var ReservationSchema = new Schema({
     { timestamps: true }
 );
 
-// ReservationSchema.path('guests').validate(function(v) {
-//     return v.length > 1
-// })
+ReservationSchema.path('guests').validate(function(v) {
+    return v.length > 0;
+});
 
 ReservationSchema.virtual('total_cost').get(function () {
     return this.city_tax + this.cleaning_cost + this.service_cost + this.stay_cost;

@@ -29,8 +29,8 @@ var ApartmentSchema = new Schema({
 );
 
 ApartmentSchema.path('photo_paths').validate(function(v) {
-    return v.length > 1
-})
+    return v.length > 0;
+});
 
 ApartmentSchema.virtual('fulladdress').get(function () {
     return `${this.address.street} ${this.address.streetnumber}, ${this.address.postal_code} 
