@@ -1,12 +1,13 @@
-@startuml useraccess
+@startuml application
 scale 2
 left to right direction
 skinparam packageStyle rect
 
 :user:
 :host:
+:system:
 
-rectangle "application" {
+rectangle "application" {  
 
 
 
@@ -21,17 +22,21 @@ rectangle "application" {
 
     login <.. (make reservation): <<extends>>
     (make reservation) ..> (make payment): <<include>>
+    (make reservation) ..> (send/get email): <<include>>
+    system -- (send/get email)
     login <.. (view credentials): <<extends>>
     login <.. (view profile): <<extends>>
     login <.. (view reservations): <<extends>>
 
     login -|> (login host)
-    (login host) ..> (view earnings): <<include>>
-    (login host) ..> (create apartment): <<include>>
+    (login host) <.. (view earnings): <<extends>>
+    (login host) <.. (create apartment): <<extends>>
+    (login host) <.. (view customer reservation ): <<extends>>
 
+    'forse questi non ci vanno'
     (view apartments) ..> (use searchbar): <<include>>
+    (view apartments) <.. (make review): <<extends>>
     (view apartments) ..> (use filters): <<include>>
-
     
     
 }
