@@ -1,4 +1,8 @@
+
 <!DOCTYPE html>
+
+
+
 <html lang="en">
 
   <head>
@@ -12,7 +16,7 @@
      -->
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, target-densitydpi=device-dpi">
     <meta name="description" content="Bed and Breakfast">
     <meta name="author" content="Salvatore Apicella, Girolamo Nobile, Tommaso Scalici">
 
@@ -60,7 +64,21 @@
     <link href="/css/index.css" rel="stylesheet">
   </head>
 
-  <body>
+  <script>$(document).ready(function () {
+    $(document).keydown(function (event) {
+        if (event.ctrlKey == true && (event.which == '107' || event.which == '109' || event.which == '187' || event.which == '189'))
+         {
+             event.preventDefault();
+         }
+     });
+
+         $(window).bind('mousewheel DOMMouseScroll', function (event) {
+             if (event.ctrlKey == true) {
+                 event.preventDefault();
+             }
+
+    });
+})</script>
 
     <!-- Placeholder for SearchBar in home -->
     <div id="searchbar-home"></div>

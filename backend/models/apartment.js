@@ -29,7 +29,7 @@ var ApartmentSchema = new Schema({
 );
 
 ApartmentSchema.path('photo_paths').validate(function(v) {
-    return v.length > 1
+    return v.length >= 1
 })
 
 ApartmentSchema.virtual('fulladdress').get(function () {
