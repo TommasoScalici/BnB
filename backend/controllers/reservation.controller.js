@@ -1,4 +1,4 @@
-const fileUploader = require('../utilities/file-uploader.js');
+const fileuploader = require('../utilities/file-uploader.js');
 const sendmail = require('../utilities/mail-send');
 
 const ejs = require('ejs');
@@ -123,7 +123,7 @@ module.exports =
 
                     for(file of filePackage) {
                         let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                        guests[guestNumber].image_paths.push(await fileuplodaer(file, filePath));
+                        guests[guestNumber].image_paths.push(await fileuploader(file, filePath));
                         
                         i++;
                     }
@@ -131,7 +131,7 @@ module.exports =
                 else {
                     let file = filePackage;
                     let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                    guests[guestNumber].image_paths.push(await fileuplodaer(file, filePath));
+                    guests[guestNumber].image_paths.push(await fileuploader(file, filePath));
                 }
 
                 guestNumber++;
