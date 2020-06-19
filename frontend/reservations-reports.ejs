@@ -1,6 +1,47 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569818907/jquery.table2excel.min.js"></script>
+<script>
+  const sendmail = require('../utilities/mail-send');
+
+</script>
+
+<script>
+  $(function() 
+  {     $("#exporttable").click(function(e)
+      {
+        var table = $("#htmltable");
+          if(table && table.length)
+        {
+            $(table).table2excez         
+          ({
+          exclude: ".noExl",
+          name: "Excel Document Name",
+          filename: "RendicontoBnB_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+          fileext: ".xls",
+          exclude_img: true,
+          exclude_links: true,
+          exclude_inputs: true,
+          preserveColors: false
+          });
+        }
+     });
+  
+  });
+</script>
+
+<!-- script per l'esportazione del rendiconto -->
+<script>
+  $(function() 
+  {     $("#sendemail").click(function(e)
+      {
+        sendmail('apix98@hotmail.it', "Rendiconto", "Rendiconto con l'ammontare delle tasse di soggiorno, generalità degli ospiti e periodo", "", [{'filename': "RendicontoBnB_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls", 'content': "", 'contentType': ''}]);
+     });
+  
+  });
+</script>
+
 
 <link href="/css/dashboard.css" rel="stylesheet">
 
@@ -18,7 +59,7 @@
           </h6>  
 
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="/users/earnings">
               <span data-feather="bar-chart-2"></span>
               Guadagni <span class="sr-only">(current)</span>
             </a>
@@ -42,24 +83,28 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard Guadagni</h1>
+        <h1 class="h2">Dashboard Rendiconto</h1>
+        
       </div>
 
       <canvas class="my-4 w-100" id="my-chart" width="900" height="380"></canvas>
 
-      <h2>Storico guadagni (netti)</h2>
+      <h2>Rendiconto <button id="exporttable" class="btn btn-primary">Esporta file .xls</button>   <button id="sendemail" class="btn btn-primary">Invia il file del Rendiconto</button></h2>
+      
       <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table id="htmltable" class="table table-striped table-sm">
           <thead>
             <tr>
               <th>#</th>
               <th>Nome</th>
               <th>Cognome</th>
-              <th>Data prenotazione</th>
+              <th>Data Check-in</th>
+              <th>Data Check-out</th>
               <th>Appartamento</th>
-              <th>Guadagno</th>
+              <th>Tasse di soggiorno</th>
             </tr>
           </thead>
+          <% var total = 0 ; %>
           <tbody>
             <% let id = 0; for (let reservation of reservations) { %>
               <tr data-toggle="tooltip" data-placement="right" data-html="true"
@@ -74,17 +119,27 @@
                               <%= guest.firstname %> <%= guest.lastname %><br />
                               <% } %> 
                               '>
-              <td><%= ++id %></td>
-              <td><%= reservation.customer.name.first %></td>
-              <td><%= reservation.customer.name.last %></td>
-              <td><%= moment(reservation.createdat).format('DD/MM/YYYY') %></td>
+              <% for (let guest of reservation.guests) { %>
+              <td><%= id %></td>
+              <td><%= guest.firstname %></td>
+              <td><%= guest.lastname %></td>
+              <td><%= moment(reservation.checkin).format('DD/MM/YYYY') %></td>
+              <td><%= moment(reservation.checkout).format('DD/MM/YYYY') %></td>
               <td><%= reservation.apartment.name %></td>
-              <td>€ <%= reservation.cleaning_cost + reservation.stay_cost %></td> 
-              
-
+              <% var city_tax = 0; city_tax = (reservation.city_tax / reservation.guests.length) %></td>   
+              <td>€  <%= city_tax %> </td>
+              <%  total = total + city_tax %>            
               </tr>
-            <% } %>        
-            
+              <% } %>
+              <% id++ %>
+            <% } %> 
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Totale € <%= total %></td>
 
           </tbody>
         </table>
