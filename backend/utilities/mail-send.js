@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-module.exports = function(to, subject, text, html) {
+module.exports = function(to, subject, text, html, attachments) {
 
     let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -17,7 +17,8 @@ module.exports = function(to, subject, text, html) {
         to: to,
         subject: subject,
         text: text,
-        html: html
+        html: html,
+        attachments : attachments
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
