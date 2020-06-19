@@ -38,22 +38,20 @@
       </span>
     </h1>
 
+    
+
+
 
     <div class="bootstrap-select-wrapper">
-      <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
-        <option value="" selected disabled style="text-align: center;">Alloggi</option>
+      <select title="Scegli una opzione" class="selectpicker" id="type-accomodation" name="typeaccomodation" multiple="true" data-multiple-separator="">
+        <option value="" selected disabled style="text-align: center;">Tipologia di stanza</option>
         <option>Intero appartamento</option>
         <option>Stanza condivisa</option>
         <option>Stanza privata</option>
     </select>
-
-    <span>Prezzo</span>
-      <input class="bar" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value" />
-      <span class="highlight"></span>
-      <output id="rangevalue">0</output>
     
 
-      <select class="selectpicker" id="services" name="services[]" multiple >
+      <select class="selectpicker" id="services" name="services[]" multiple = "true" data-multiple-separator="">
         <option value="" selected disabled style="text-align: center;">Servizi</option>
         <option>Aria condizionata</option>
         <option>Allarme antincendio</option>
@@ -77,9 +75,25 @@
     </select>
     </div>
 
+    <span>Prezzo</span>
+      <input class="bar" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value" />
+      <span class="highlight"></span>
+      <output id="rangevalue">0</output>
+
+      <button></button>
+
   </div>
 
 </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+                 
+          <script type="text/javascript">
+               $(document).ready(function() {
+               $('.selectpicker').selectpicker();
+              });
+          </script>
 
 <div class="row my-4">
 

@@ -25,6 +25,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bootstrap": "4.5.0",
+    "bootstrap-select": "^1.13.17",
     "connect-mongodb-session": "^2.3.3",
     "consolidate": "^0.15.1",
     "dotenv": "^8.2.0",
