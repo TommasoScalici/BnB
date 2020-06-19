@@ -192,18 +192,19 @@ module.exports =
                                 let emailTitle;
 
                                 if(req.params.status == "accepted") {
-                                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
                                     emailTitle = "BnB - Prenotazione confermata!"
+                                    sendmail(reservation.customer.email, emailTitle, "", data,"");
+                                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
+                                    
                                 }
                                 else if(req.params.status == "canceled") {
-                                    emailTitle = "BnB - Prenotazione rifiutata :("
+                                    emailTitle = "BnB - Prenotazione rifiutata :(";
+                                    sendmail(reservation.customer.email, emailTitle, "", data,"");
                                     res.send("<h1>Prenotazione rifiutata. Puoi chiudere questa finestra</h1>");
                                 }
                                     
                                 else
                                     res.send("<h1>Sei finito qui per errore. Meglio fare rinuncia agli studi</h1>");
-
-                                sendmail(reservation.customer.email, emailTitle, "", data,"");
                             });
                     }
                 });

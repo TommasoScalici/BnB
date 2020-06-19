@@ -31,50 +31,69 @@
 
 <div class="row my-4">
 
-  <div class="col-lg-7">
+  <div class="col-lg-12">
 
     <h1>Soggiorni nei pressi di
       <span id="search-location">
       </span>
     </h1>
 
-
-    <div class="bootstrap-select-wrapper">
-      <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
-        <option value="" selected disabled style="text-align: center;">Alloggi</option>
-        <option>Intero appartamento</option>
-        <option>Stanza condivisa</option>
-        <option>Stanza privata</option>
-    </select>
-
-    <span>Prezzo</span>
-      <input class="bar" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value" />
-      <span class="highlight"></span>
-      <output id="rangevalue">0</output>
+      <div class="btn-group">
+        <div class="bootstrap-select-wrapper mx-2">
+          <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
+              <option value="" selected disabled style="text-align: center;">Alloggi</option>
+              <option>Intero appartamento</option>
+              <option>Stanza condivisa</option>
+              <option>Stanza privata</option>
+          </select>
+        </div>
     
+        <div class="dropdown show mx-2">
+          <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Prezzo
+          </a>
+        
+          <div class="dropdown-menu" aria-labelledby="price-dropdown">
+            <input class="bar mx-2 my-2" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value">
+            <br />
+            <div class="text-center mx-2 my-2">
+              <span> Fino a</span>
+              <output id="rangevalue">0</output>
+              <span> € / notte</span>
+            </div>
+          </div>
+        </div>
+    
+        <div class="bootstrap-select-wrapper mx-2">
+          <select class="selectpicker" id="services" name="services[]" multiple>
+            <option value="" selected disabled style="text-align: center;">Servizi</option>
+            <option>Aria condizionata</option>
+            <option>Allarme antincendio</option>
+            <option>Appendiabiti</option>
+            <option>Asciugacapelli</option>
+            <option>Asciugatrice</option>
+            <option>Bagno privato</option>
+            <option>Camino</option>
+            <option>Colazione</option>
+            <option>Cucina</option>
+            <option>Culla</option>
+            <option>Ferro da stiro</option>
+            <option>Lavatrice</option>
+            <option>Rilevatore di monossido di carbonio</option>
+            <option>Riscaldamento</option>
+            <option>Seggiolone</option>
+            <option>Self check-in</option>   
+            <option>TV</option>
+            <option>Wi-Fi</option>
+            <option>Zona lavoro computer-friendly</option>
+          </select>
+        </div>
+    
+        <button class="btn btn-primary mx-2" id="filter-submit" type="submit">
+          Applica filtri
+        </button>
+      </div>
 
-      <select class="selectpicker" id="services" name="services[]" multiple >
-        <option value="" selected disabled style="text-align: center;">Servizi</option>
-        <option>Aria condizionata</option>
-        <option>Allarme antincendio</option>
-        <option>Appendiabiti</option>
-        <option>Asciugacapelli</option>
-        <option>Asciugatrice</option>
-        <option>Bagno privato</option>
-        <option>Camino</option>
-        <option>Colazione</option>
-        <option>Cucina</option>
-        <option>Culla</option>
-        <option>Ferro da stiro</option>
-        <option>Lavatrice</option>
-        <option>Rilevatore di monossido di carbonio</option>
-        <option>Riscaldamento</option>
-        <option>Seggiolone</option>
-        <option>Self check-in</option>   
-        <option>TV</option>
-        <option>Wi-Fi</option>
-        <option>Zona lavoro computer-friendly</option>
-    </select>
     </div>
 
   </div>
@@ -103,6 +122,11 @@
 <script src="/scripts/maps.js"></script>
 
 <script>
+
+function updatePriceFilter() {
+  $("#price-dropdown").text(`€ [0 - ${$("#price").val()}]`);
+}
+
   $(document).ready(function() {
     initMap();
     geocodeApartments();
@@ -114,5 +138,13 @@
       let queryJSON = JSON.parse('{"' + decodeURI(queryString).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
       $("#search-location").text(`${queryJSON["town"]}, ${queryJSON["region"]}, ${queryJSON["country"]}`);
     }
+
+    $("#price").change(function(event) {
+      updatePriceFilter();
+    });
+
+    $("#filter-submit").click(function(event) {
+      $("#searchbar-submit").click();
+    });
   })
 </script>
