@@ -203,7 +203,7 @@ module.exports =
                                 else
                                     res.send("<h1>Sei finito qui per errore. Meglio fare rinuncia agli studi</h1>");
 
-                                sendmail(reservation.customer.email, emailTitle, "", data,"");
+                                sendmail(reservation.customer.email, emailTitle, "", data,"","");
                             });
                     }
                 });

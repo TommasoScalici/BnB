@@ -31,5 +31,8 @@ module.exports = app => {
     //Reports for agency
     router.get("/reports", userController.reservationsReports);
 
+    router.get("/sendReports", userController.sendReports);
+
+
     app.use("/users", router);
   };

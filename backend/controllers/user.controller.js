@@ -88,6 +88,16 @@ module.exports =
         }
     },
 
+    sendReports: async(req,res) => {
+        
+        sendmail("apix98@hotmail.it", "Rendiconto ultimi 3 mesi", "Rendiconto totale degli ultimi 3 mesi, incluso di generalità e intervallo di tempo degli affitti", "",[{
+            filename: "RendicontoBnB_"  + ".xls",
+            path: __dirname + 'RendicontoBnB_.xls'
+          }]);
+          res.send("Invio avvenuto con successo!");
+
+    },  
+
 
     renderBecomeHost: (req, res) => {
         if(req.session.user === undefined || req.session.user === null)

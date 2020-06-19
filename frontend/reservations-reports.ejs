@@ -2,46 +2,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569818907/jquery.table2excel.min.js"></script>
-<script>
-  const sendmail = require('../utilities/mail-send');
-
-</script>
-
-<script>
-  $(function() 
-  {     $("#exporttable").click(function(e)
-      {
-        var table = $("#htmltable");
-          if(table && table.length)
-        {
-            $(table).table2excez         
-          ({
-          exclude: ".noExl",
-          name: "Excel Document Name",
-          filename: "RendicontoBnB_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
-          fileext: ".xls",
-          exclude_img: true,
-          exclude_links: true,
-          exclude_inputs: true,
-          preserveColors: false
-          });
-        }
-     });
-  
-  });
-</script>
 
 <!-- script per l'esportazione del rendiconto -->
-<script>
-  $(function() 
-  {     $("#sendemail").click(function(e)
-      {
-        sendmail('apix98@hotmail.it', "Rendiconto", "Rendiconto con l'ammontare delle tasse di soggiorno, generalità degli ospiti e periodo", "", [{'filename': "RendicontoBnB_" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls", 'content': "", 'contentType': ''}]);
-     });
-  
-  });
-</script>
 
+<script>
+  $(function() {
+$("#exporttable").click(function(e){
+var table = $("#htmltable");
+if(table && table.length){
+$(table).table2excel({
+exclude: ".noExl",
+name: "Excel Document Name",
+filename: "RendicontoBnB_" + ".xls",
+fileext: ".xls",
+exclude_img: true,
+exclude_links: true,
+exclude_inputs: true,
+preserveColors: false
+});
+}
+});
+
+});
+</script>
 
 <link href="/css/dashboard.css" rel="stylesheet">
 
@@ -89,7 +72,7 @@
 
       <canvas class="my-4 w-100" id="my-chart" width="900" height="380"></canvas>
 
-      <h2>Rendiconto <button id="exporttable" class="btn btn-primary">Esporta file .xls</button>   <button id="sendemail" class="btn btn-primary">Invia il file del Rendiconto</button></h2>
+      <h2>Rendiconto <button id="exporttable" class="btn btn-primary">Esporta file .xls</button> <a class="btn btn-primary" href="/users/sendReports" role="button">Invia Rendiconto</a></h2>
       
       <div class="table-responsive">
         <table id="htmltable" class="table table-striped table-sm">
