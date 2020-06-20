@@ -60,6 +60,7 @@ module.exports =
         checkin: req.body.checkin,
         checkout: req.body.checkout,
         payment_method: req.body.paymentmethod,
+        payment_citytax: req.body.paymentcitytax,
         city_tax: req.body.citytax,
         cleaning_cost: req.body.cleaningcost,
         service_cost: req.body.servicecost,
