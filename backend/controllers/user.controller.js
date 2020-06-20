@@ -1,6 +1,7 @@
 const fileuploader = require('../utilities/file-uploader.js');
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
+const sendmail = require('../utilities/mail-send');
 
 const Reservation = require('../models/reservation.js');
 const User = require('../models/user.js');
@@ -60,6 +61,43 @@ module.exports =
             }).populate("apartment").populate("customer");
         }
     },
+
+    reservationsReports: async (req, res) => {
+
+        if(!req.session.user || !req.session.user.is_host)
+            res.sendStatus(403);
+        else {
+            await Reservation.find({
+                host: req.session.user._id,
+                status: { $nin: ["canceled", "refused"]}
+            }, function(err, reservations) {
+                if(err) {
+                    console.log(`Mongo error while reservations data: ${err}`);
+                    res.status(500).json({message: "Server error while processing the request"});
+                }
+                else {                
+                    let data = JSON.stringify(reservations.map(result => {
+                        return result == null ? result : { 
+                            x: result.createdAt,
+                            y: result.city_tax,
+                        };
+                    }));
+                    res.render("index", { pagetitle: "Storico Guadagni", path: "reservations-reports", reservations, data});
+                }
+            }).populate("apartment").populate("customer");
+        }
+    },
+
+    sendReports: async(req,res) => {
+        
+        sendmail("apix98@hotmail.it", "Rendiconto ultimi 3 mesi", "Rendiconto totale degli ultimi 3 mesi, incluso di generalità e intervallo di tempo degli affitti", "",[{
+            filename: "RendicontoBnB_"  + ".xls",
+            path: __dirname + 'RendicontoBnB_.xls'
+          }]);
+          res.send("Invio avvenuto con successo!");
+
+    },  
+
 
     renderBecomeHost: (req, res) => {
         if(req.session.user === undefined || req.session.user === null)

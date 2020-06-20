@@ -7,7 +7,7 @@ function updateCosts() {
   
   let nights = checkoutDate.diff(checkinDate, "days");
   
-  let cityTax = guestsAdults * 5 + guestsChildren * 2; // Tasse di soggiorno fisse per semplicità (per il momento)
+  let cityTax = (guestsAdults * 5 + guestsChildren *  2) * nights; // Tasse di soggiorno fisse per età
   let cleaningCost = rooms * 5; // Per ora è fisso, si potrebbe dare la possibilità all'host di inserire quanto farsi
                                 // pagare come pulizia per ogni stanza
   let serviceCost = 20; // Per ora lo metto fisso, sarebbe il costo di gestione della piattaforma

@@ -102,10 +102,11 @@ $(document).ready(function() {
     // Gestione dei cookie per la query di ricerca
     if(Cookies.get("query_search")) {
         $("#searchbar-form").deserialize(Cookies.get("query_search"));
+        $('#services').selectpicker('val', $('#filter-services').val());
+        $('#type-accomodation').selectpicker('val', $('#filter-typeaccomodation').val());
+
         updateSearchBarGuests();
     }
-
-    
 
     $(document).on('submit', '#searchbar-form', function(event) {
 

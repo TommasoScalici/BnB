@@ -27,6 +27,12 @@ module.exports = app => {
 
     // Update data of an existing User
     router.put("/update/:id", userController.update);
-  
+
+    //Reports for agency
+    router.get("/reports", userController.reservationsReports);
+
+    router.get("/sendReports", userController.sendReports);
+
+
     app.use("/users", router);
   };

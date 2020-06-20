@@ -4,7 +4,7 @@
     <h5 class="mb-0">
         <button class="btn btn-link accordion-btn" data-toggle="collapse" data-target="#collapse-<%= form_id %>" 
                 aria-expanded="true" aria-controls="collapse-<%= form_id %>">
-        Ospite #<%= form_id %>
+        Ospite #<%= form_id %> (<%= guestkind %>)
         </button>
     </h5>
     </div>
@@ -84,6 +84,8 @@
                     </div>
 
                 </div>
+
+                <input type="hidden" id="citytax-<%= form_id %>" name="guests[<%= form_id %>][citytax]" value="<%= citytax %>">
             </div>
         </div>
 

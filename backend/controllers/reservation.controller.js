@@ -1,4 +1,4 @@
-const fileUploader = require('../utilities/file-uploader.js');
+const fileuploader = require('../utilities/file-uploader.js');
 const sendmail = require('../utilities/mail-send');
 
 const ejs = require('ejs');
@@ -123,7 +123,7 @@ module.exports =
 
                     for(file of filePackage) {
                         let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                        guests[guestNumber].image_paths.push(await fileuplodaer(file, filePath));
+                        guests[guestNumber].image_paths.push(await fileuploader(file, filePath));
                         
                         i++;
                     }
@@ -131,7 +131,7 @@ module.exports =
                 else {
                     let file = filePackage;
                     let filePath = `/uploads/reservations/guests/images/${draftReservation._id}_${guestNumber}_${moment().format("YYYY-MM-DD_hh-mm-ss")}_${i}.jpg`;
-                    guests[guestNumber].image_paths.push(await fileuplodaer(file, filePath));
+                    guests[guestNumber].image_paths.push(await fileuploader(file, filePath));
                 }
 
                 guestNumber++;
@@ -192,18 +192,21 @@ module.exports =
                                 let emailTitle;
 
                                 if(req.params.status == "accepted") {
-                                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
                                     emailTitle = "BnB - Prenotazione confermata!"
+                                    sendmail(reservation.customer.email, emailTitle, "", data,"");
+                                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
+                                    
                                 }
                                 else if(req.params.status == "canceled") {
-                                    emailTitle = "BnB - Prenotazione rifiutata :("
+                                    emailTitle = "BnB - Prenotazione rifiutata :(";
+                                    sendmail(reservation.customer.email, emailTitle, "", data,"");
                                     res.send("<h1>Prenotazione rifiutata. Puoi chiudere questa finestra</h1>");
                                 }
                                     
                                 else
-                                    res.send("<h1>Sei finito qui per errore. Meglio fare rinuncia agli studi</h1>");
+                                    res.send("<h1>Sei finito qui per errore.</h1>");
 
-                                sendmail(reservation.customer.email, emailTitle, "", data);
+                                sendmail(reservation.customer.email, emailTitle, "", data,"","");
                             });
                     }
                 });
