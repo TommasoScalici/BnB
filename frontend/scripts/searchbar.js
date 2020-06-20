@@ -102,6 +102,7 @@ $(document).ready(function() {
     // Gestione dei cookie per la query di ricerca
     if(Cookies.get("query_search")) {
         $("#searchbar-form").deserialize(Cookies.get("query_search"));
+        $('#price').val( $('#filter-price').val());
         $('#services').selectpicker('val', $('#filter-services').val());
         $('#type-accomodation').selectpicker('val', $('#filter-typeaccomodation').val());
 

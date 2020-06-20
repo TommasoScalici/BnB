@@ -1,12 +1,7 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
-<!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/i18n/defaults-it_IT.min.js"></script>
 
 <!--Colore bottone-->
 <style type="text/css">
@@ -38,110 +33,72 @@
       </span>
     </h1>
 
-      <div class="btn-group">
+    <div class="btn-group">
 
-        <div class="bootstrap-select-wrapper mx-2">
-          <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
-              <option value="" selected disabled style="text-align: center;">Alloggi</option>
-              <option>Intero appartamento</option>
-              <option>Stanza condivisa</option>
-              <option>Stanza privata</option>
-          </select>
-        </div>
-    
-        <div class="dropdown show mx-2">
-
-          <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Prezzo
-          </a>
-        
-          <div class="dropdown-menu" aria-labelledby="price-dropdown">
-            <input class="bar mx-2 my-2" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value">
-            <br />
-            <div class="text-center mx-2 my-2">
-              <span> Fino a</span>
-              <output id="rangevalue">0</output>
-              <span> € / notte</span>
-            </div>
-          </div>
-
-        </div>
-    
-        <div class="bootstrap-select-wrapper mx-2">
-
-          <select class="selectpicker" id="services" name="services[]" multiple>
-            <option value="" selected disabled style="text-align: center;">Servizi</option>
-            <option>Aria condizionata</option>
-            <option>Allarme antincendio</option>
-            <option>Appendiabiti</option>
-            <option>Asciugacapelli</option>
-            <option>Asciugatrice</option>
-            <option>Bagno privato</option>
-            <option>Camino</option>
-            <option>Colazione</option>
-            <option>Cucina</option>
-            <option>Culla</option>
-            <option>Ferro da stiro</option>
-            <option>Lavatrice</option>
-            <option>Rilevatore di monossido di carbonio</option>
-            <option>Riscaldamento</option>
-            <option>Seggiolone</option>
-            <option>Self check-in</option>   
-            <option>TV</option>
-            <option>Wi-Fi</option>
-            <option>Zona lavoro computer-friendly</option>
-          </select>
-
-        </div>
-    
-        <button class="btn btn-primary mx-2" id="filter-submit" type="submit">
-          Applica filtri
-        </button>
+      <div class="bootstrap-select-wrapper mx-2">
+        <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
+            <option value="" selected disabled style="text-align: center;">Alloggi</option>
+            <option>Intero appartamento</option>
+            <option>Stanza condivisa</option>
+            <option>Stanza privata</option>
+        </select>
       </div>
+    
+      <div class="dropdown show mx-2">
 
-      <select class="selectpicker" id="services" name="services[]" multiple = "true" data-multiple-separator="">
-        <option value="" selected disabled style="text-align: center;">Servizi</option>
-        <option>Aria condizionata</option>
-        <option>Allarme antincendio</option>
-        <option>Appendiabiti</option>
-        <option>Asciugacapelli</option>
-        <option>Asciugatrice</option>
-        <option>Bagno privato</option>
-        <option>Camino</option>
-        <option>Colazione</option>
-        <option>Cucina</option>
-        <option>Culla</option>
-        <option>Ferro da stiro</option>
-        <option>Lavatrice</option>
-        <option>Rilevatore di monossido di carbonio</option>
-        <option>Riscaldamento</option>
-        <option>Seggiolone</option>
-        <option>Self check-in</option>   
-        <option>TV</option>
-        <option>Wi-Fi</option>
-        <option>Zona lavoro computer-friendly</option>
-    </select>
+        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Prezzo
+          <span id="price-tag"></span>
+        </a>
+        
+      
+        <div class="dropdown-menu" aria-labelledby="price-dropdown">
+          <input class="bar mx-2 my-2" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value">
+          <br />
+          <div class="text-center mx-2 my-2">
+            <span> Fino a</span>
+            <output id="rangevalue">0</output>
+            <span> € / notte</span>
+          </div>
+        </div>
+
+      </div>
+    
+      <div class="bootstrap-select-wrapper mx-2">
+
+        <select class="selectpicker" id="services" name="services[]" multiple>
+          <option value="" selected disabled style="text-align: center;">Servizi</option>
+          <option>Aria condizionata</option>
+          <option>Allarme antincendio</option>
+          <option>Appendiabiti</option>
+          <option>Asciugacapelli</option>
+          <option>Asciugatrice</option>
+          <option>Bagno privato</option>
+          <option>Camino</option>
+          <option>Colazione</option>
+          <option>Cucina</option>
+          <option>Culla</option>
+          <option>Ferro da stiro</option>
+          <option>Lavatrice</option>
+          <option>Rilevatore di monossido di carbonio</option>
+          <option>Riscaldamento</option>
+          <option>Seggiolone</option>
+          <option>Self check-in</option>   
+          <option>TV</option>
+          <option>Wi-Fi</option>
+          <option>Zona lavoro computer-friendly</option>
+        </select>
+
+      </div>
+    
+      <button class="btn btn-primary mx-2" id="filter-submit" type="submit">
+        Applica filtri
+      </button>
     </div>
-
-    <span>Prezzo</span>
-      <input class="bar" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value" />
-      <span class="highlight"></span>
-      <output id="rangevalue">0</output>
-
-      <button></button>
 
   </div>
 
 </div>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-                 
-          <script type="text/javascript">
-               $(document).ready(function() {
-               $('.selectpicker').selectpicker();
-              });
-          </script>
 
 <div class="row my-4">
 
@@ -166,13 +123,15 @@
 
 <script>
 
-function updatePriceFilter() {
-  $("#price-dropdown").text(`€ [0 - ${$("#price").val()}]`);
-}
+  function updatePriceFilter() {
+    $("#price-tag").text(`€ [0 - ${$("#price").val()}]`);
+    $("#rangevalue").text($("#price").val());
+  };
 
   $(document).ready(function() {
     initMap();
     geocodeApartments();
+    updatePriceFilter();
 
     let queryString = Cookies.get("query_search");
     
@@ -189,6 +148,8 @@ function updatePriceFilter() {
     $("#filter-submit").click(function(event) {
       $("#searchbar-submit").click();
     });
+
+    $('.selectpicker').selectpicker();
   })
   
 </script>
