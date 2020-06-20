@@ -2,7 +2,7 @@ const fileuploader = require('../utilities/file-uploader.js');
 const moment = require('moment');
 const Mapper = require('../utilities/request-model-mapper.js')
 const sendmail = require('../utilities/mail-send');
-
+const fs = require('fs');
 const Reservation = require('../models/reservation.js');
 const User = require('../models/user.js');
 
@@ -90,10 +90,39 @@ module.exports =
 
     sendReports: async(req,res) => {
         
-        sendmail("apix98@hotmail.it", "Rendiconto ultimi 3 mesi", "Rendiconto totale degli ultimi 3 mesi, incluso di generalità e intervallo di tempo degli affitti", "",[{
-            filename: "RendicontoBnB_"  + ".xls",
-            path: __dirname + 'RendicontoBnB_.xls'
-          }]);
+        if(!!req.files) {
+
+            let filesPackages = Object.values(req.files);
+
+            for(filePackage of filesPackages) {
+
+                req.session.user.profile_document_path = new Array();
+                let i = 0;
+
+                if(Array.isArray(filePackage)) {
+
+                    for(file of filePackage) {
+                        let filePath = `/uploads/hosts/files/_${moment().format("YYYY-MM-DD_hh-mm-ss")}.xls`;
+                        req.session.user.profile_document_path.push(await fileuploader(file, filePath));
+                        
+                        i++;
+                    }
+                }
+                else {
+                    let file = filePackage;
+                    let filePath = `/uploads/hosts/files/RendicontoBnB_${moment().format("YYYY-MM-DD")}.xls`;
+                    req.session.user.profile_document_path.push(await fileuploader(file, filePath));
+                }
+
+            }
+        } 
+
+
+        sendmail("tommaso.scalici.1991@gmail.com", "Rendiconto ultimi 3 mesi", "Rendiconto totale degli ultimi 3 mesi, incluso di generalità e intervallo di tempo degli affitti", "",[{
+
+            filename: 'RendicontoBnB_' + '.xls',
+            path:`./public/uploads/hosts/files/RendicontoBnB_${moment().format("YYYY-MM-DD")}.xls`
+               }]);
           res.send("Invio avvenuto con successo!");
 
     },  

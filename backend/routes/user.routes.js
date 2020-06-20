@@ -29,9 +29,10 @@ module.exports = app => {
     router.put("/update/:id", userController.update);
 
     //Reports for agency
-    router.get("/reports", userController.reservationsReports);
+    router.route("/reports")
+          .get( userController.reservationsReports)
+          .post(userController.sendReports);
 
-    router.get("/sendReports", userController.sendReports);
 
 
     app.use("/users", router);
