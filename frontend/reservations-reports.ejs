@@ -135,7 +135,7 @@ preserveColors: false
               <td><%= moment(reservation.checkin).format('DD/MM/YYYY') %></td>
               <td><%= moment(reservation.checkout).format('DD/MM/YYYY') %></td>
               <td><%= reservation.apartment.name %></td>
-              <% var city_tax = 0; city_tax = (guest.citytax/1) %></td>   
+              <% var city_tax = Number(guest.citytax) %></td>   
               <td>€  <%= city_tax %> </td>
               <%  total = total + city_tax %>            
               </tr>
