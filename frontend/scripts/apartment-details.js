@@ -110,12 +110,12 @@ $(document).ready(function() {
         $("#reservation-checkout").attr("min", $("#reservation-checkin").val());
 
         if($("#reservation-checkin").val() > $("#reservation-checkout").val())
-            $("#reservation-checkout").val($("#reservation-checkin").val());
+            $("#reservation-checkout").val(moment($("#reservation-checkin").val()).add("1", "days").format("YYYY-MM-DD"));
     });
 
     $("#reservation-checkout").change(function() {
         if($("#reservation-checkin").val() > $("#reservation-checkout").val())
-            $("#reservation-checkin").val($("#reservation-checkout").val());
+            $("#reservation-checkin").val(moment($("#reservation-checkout").val()).subtract("1", "days").format("YYYY-MM-DD"));
     });
 
   });

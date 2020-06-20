@@ -103,8 +103,12 @@ $(document).ready(function() {
     if(Cookies.get("query_search")) {
         $("#searchbar-form").deserialize(Cookies.get("query_search"));
         $('#price').val( $('#filter-price').val());
-        $('#services').selectpicker('val', $('#filter-services').val());
-        $('#type-accomodation').selectpicker('val', $('#filter-typeaccomodation').val());
+
+        if($('#services').length)
+            $('#services').selectpicker('val', $('#filter-services').val());
+
+        if($('#type-accomodation').length)
+            $('#type-accomodation').selectpicker('val', $('#filter-typeaccomodation').val());
 
         updateSearchBarGuests();
     }
@@ -167,12 +171,12 @@ $(document).ready(function() {
         $("#searchbar-checkout").attr("min", $("#searchbar-checkin").val());
 
         if($("#searchbar-checkin").val() > $("#searchbar-checkout").val())
-            $("#searchbar-checkout").val($("#searchbar-checkin").val());
+            $("#searchbar-checkout").val(moment($("#searchbar-checkin").val()).add("1", "days").format("YYYY-MM-DD"));
     });
 
     $("#searchbar-checkout").change(function() {
         if($("#searchbar-checkin").val() > $("#searchbar-checkout").val())
-            $("#searchbar-checkin").val($("#searchbar-checkout").val());
+            $("#searchbar-checkin").val(moment($("#searchbar-checkout").val()).subtract("1", "days").format("YYYY-MM-DD"));
     });
 
     $(".searchbar-guests-input").change(() => updateSearchBarGuests());
