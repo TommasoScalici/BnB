@@ -39,6 +39,7 @@
     </h1>
 
       <div class="btn-group">
+
         <div class="bootstrap-select-wrapper mx-2">
           <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
               <option value="" selected disabled style="text-align: center;">Alloggi</option>
@@ -49,6 +50,7 @@
         </div>
     
         <div class="dropdown show mx-2">
+
           <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Prezzo
           </a>
@@ -62,9 +64,11 @@
               <span> € / notte</span>
             </div>
           </div>
+
         </div>
     
         <div class="bootstrap-select-wrapper mx-2">
+
           <select class="selectpicker" id="services" name="services[]" multiple>
             <option value="" selected disabled style="text-align: center;">Servizi</option>
             <option>Aria condizionata</option>
@@ -87,6 +91,7 @@
             <option>Wi-Fi</option>
             <option>Zona lavoro computer-friendly</option>
           </select>
+
         </div>
     
         <button class="btn btn-primary mx-2" id="filter-submit" type="submit">
@@ -147,4 +152,5 @@ function updatePriceFilter() {
       $("#searchbar-submit").click();
     });
   })
+  
 </script>
