@@ -24,7 +24,7 @@
       </mj-column>
     </mj-section>
 
-    <mj-section background-url="https://bnb-webmobile.herokuapp.com/<%= reservation.apartment.photo_paths[0] %>"
+    <mj-section background-url="<%= reservation.apartment.photo_paths[0] %>"
                 background-size="cover" background-repeat="no-repeat">
       <mj-column width="600px">
         <mj-text align="center" color="#969696" font-size="40px" font-family="Helvetica Neue"><%= reservation.apartment.name %></mj-text>
@@ -63,7 +63,7 @@
       </mj-column>
 
       <mj-column width="200px" vertical-align="middle">
-        <<mj-image src="https://cdn1.iconfinder.com/data/icons/lucid-arrows-and-directions/24/two_way_right_left_arrows_double-512.png" alt="arrows"
+        <mj-image src="https://cdn1.iconfinder.com/data/icons/lucid-arrows-and-directions/24/two_way_right_left_arrows_double-512.png" alt="arrows"
                    height="64px" width="64px" />
       </mj-column>
 
