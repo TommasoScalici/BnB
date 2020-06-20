@@ -181,7 +181,7 @@ module.exports =
                     }
                 });
 
-                Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
+                await Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
                     if(err) {
                         console.log(`Mongo error while confirming reservation: ${err}`);
                         res.status(500).json({message: "Server error while processing the request"});
