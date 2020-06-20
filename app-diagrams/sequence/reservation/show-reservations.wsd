@@ -3,7 +3,7 @@
 actor User
 participant "Index" as Index
 participant "Reservation\nController" as ReservationController    
-database Database
+
 
 activate User
 

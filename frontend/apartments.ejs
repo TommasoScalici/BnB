@@ -99,11 +99,49 @@
         </button>
       </div>
 
+      <select class="selectpicker" id="services" name="services[]" multiple = "true" data-multiple-separator="">
+        <option value="" selected disabled style="text-align: center;">Servizi</option>
+        <option>Aria condizionata</option>
+        <option>Allarme antincendio</option>
+        <option>Appendiabiti</option>
+        <option>Asciugacapelli</option>
+        <option>Asciugatrice</option>
+        <option>Bagno privato</option>
+        <option>Camino</option>
+        <option>Colazione</option>
+        <option>Cucina</option>
+        <option>Culla</option>
+        <option>Ferro da stiro</option>
+        <option>Lavatrice</option>
+        <option>Rilevatore di monossido di carbonio</option>
+        <option>Riscaldamento</option>
+        <option>Seggiolone</option>
+        <option>Self check-in</option>   
+        <option>TV</option>
+        <option>Wi-Fi</option>
+        <option>Zona lavoro computer-friendly</option>
+    </select>
     </div>
+
+    <span>Prezzo</span>
+      <input class="bar" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value" />
+      <span class="highlight"></span>
+      <output id="rangevalue">0</output>
+
+      <button></button>
 
   </div>
 
 </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+                 
+          <script type="text/javascript">
+               $(document).ready(function() {
+               $('.selectpicker').selectpicker();
+              });
+          </script>
 
 <div class="row my-4">
 

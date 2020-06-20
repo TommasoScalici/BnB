@@ -28,6 +28,8 @@ var UserSchema = new Schema({
 
     is_host: Boolean,
     profile_picture_path: String,
+    profile_document_path: String,
+
     },
 
     { timestamps: true }
