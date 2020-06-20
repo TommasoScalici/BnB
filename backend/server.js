@@ -2,6 +2,8 @@ const express = require('express');
 const db = require('./config/db.js');
 const middleware = require('./config/middleware.js');
 const routes = require('./config/routes');
+const mailreminder = require('./config/mail-reminder.js');
+
 
 require('dotenv').config();
 
@@ -9,6 +11,8 @@ const app = express();
 
 middleware(app, express);
 routes(app, express);
+mailreminder(app, express);
+
 
 const url = process.env.MONGODB_URI || db.url;
 
