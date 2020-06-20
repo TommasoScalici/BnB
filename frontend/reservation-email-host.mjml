@@ -28,9 +28,9 @@
 
       <mj-column width="400px">
         <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Hai ricevuto una prenotazione per 
-        <strong><%= reservation.apartment.name %></strong>
-        da<strong>
-        <%= reservation.customer.name.first %></strong>
+        <strong><%= reservation.apartment.name %></strong><br />
+        da<br />
+        <strong><%= reservation.customer.name.first %></strong><br />
         per le seguenti date:
         </mj-text>
       </mj-column>

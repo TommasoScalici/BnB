@@ -172,13 +172,14 @@ module.exports =
         if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
         else {
-                let reservation = await Reservation.findById(req.params.id);
-                await reservation.populate("host").execPopulate();
-
-                if(req.session.user._id !== reservation.host._id) {
-                    res.sendStatus(403);
-                    return;
-                }
+                await Reservation.findById(req.params.id, async function(err, reservation)
+                {
+                    await reservation.populate("host").execPopulate();
+                    if(req.session.user._id !== reservation.host._id) {
+                        res.sendStatus(403);
+                        return;
+                    }
+                });
 
                 Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
                     if(err) {
