@@ -143,8 +143,11 @@ $(window).on('load', function() {
 
                         // Ricostruzione degli oggetti del form secondo il loro tipo
                         if(typeof value === "string" || typeof value === "number" 
-                           || typeof value === "boolean" || $.isArray(value))
+                           || typeof value === "boolean")
                             formData.append(key, value);
+                        else if ($.isArray(value))
+                            for(let val of value)
+                            formData.append(`${key}`, val);
                         else 
                             formData.append(key, JSON.stringify(value));
                     });
