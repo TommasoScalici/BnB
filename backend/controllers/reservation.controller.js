@@ -194,7 +194,8 @@ module.exports =
                             {
                                 reservation: reservation,
                                 checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
-                                checkout: moment(reservation.checkout).format('DD/MM/YYYY')
+                                checkout: moment(reservation.checkout).format('DD/MM/YYYY'),
+                                status: req.params.status
                             }, function (err, data) {
                                 if (err) {
                                     console.log(`Error rendering reservation result page: ${err}`);
