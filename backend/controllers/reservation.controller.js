@@ -107,6 +107,7 @@ module.exports =
 
         draftReservation.guests = guests;
         draftReservation.payment_method = req.body.paymentmethod;
+        draftReservation.payment_citytax = req.body.paymentcitytax;
         draftReservation.status = "pending";
 
         if(!!req.files) {
@@ -193,18 +194,22 @@ module.exports =
 
                                 if(req.params.status == "accepted") {
                                     emailTitle = "BnB - Prenotazione confermata!"
-                                    sendmail(reservation.customer.email, emailTitle, "", data,"");
+                                    sendmail(reservation.customer.email, emailTitle, "", data,"","");
+                                    //Mail questura
+                                    sendmail("apix98@hotmail.it","Comunicazione di presenza ospiti","S")
                                     res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
                                     
                                 }
                                 else if(req.params.status == "canceled") {
                                     emailTitle = "BnB - Prenotazione rifiutata :(";
-                                    sendmail(reservation.customer.email, emailTitle, "", data,"");
+                                    sendmail(reservation.customer.email, emailTitle, "", data,"","");
                                     res.send("<h1>Prenotazione rifiutata. Puoi chiudere questa finestra</h1>");
                                 }
                                     
                                 else
                                     res.send("<h1>Sei finito qui per errore.</h1>");
+
+                                sendmail(reservation.customer.email, emailTitle, "", data,"","");
                             });
                     }
                 });

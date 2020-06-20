@@ -10,6 +10,7 @@ var ReservationSchema = new Schema({
     checkout: { type: Date, required: true },
     guests: Array,
     payment_method: { type: String, required: true },
+    payment_citytax: { type: String, required: true },
     city_tax: { type: Number, required: true },
     cleaning_cost: { type: Number, required: true },
     service_cost: { type: Number, required: true },
