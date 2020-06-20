@@ -28,6 +28,7 @@ module.exports =
         let guests_children = req.query.guestschildren;
         let guests_newborns = req.query.guestsnewborns;
 
+        let nights = moment(req.query.checkout).diff(moment(req.query.checkin), "days");
         let reservation = new Reservation();
 
         reservation.checkin= req.query.checkin;
@@ -45,7 +46,7 @@ module.exports =
             }
             else 
                 res.render("index", {pagetitle: "Riepilogo prenotazione", path: "reservation-summary", 
-                            apartment, reservation, guests, guests_adults, guests_children, guests_newborns});
+                            apartment, reservation, guests, guests_adults, guests_children, guests_newborns, nights});
 
         }).populate("host");
     },

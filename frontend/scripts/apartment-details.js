@@ -96,7 +96,7 @@ $(document).ready(function() {
     // Aggiorni i costi anche quando i parametri cambiano
     $("#reservation-checkin, #reservation-checkout, .guests-input").change(function() {
 
-        if(!($("#reservation-checkin").val()) ||!($("#reservation-checkout").val()))
+        if(!($("#reservation-checkin").val()) || !($("#reservation-checkout").val()))
           return;
 
         updateCosts();
@@ -118,4 +118,4 @@ $(document).ready(function() {
             $("#reservation-checkin").val(moment($("#reservation-checkout").val()).subtract("1", "days").format("YYYY-MM-DD"));
     });
 
-  });
+});

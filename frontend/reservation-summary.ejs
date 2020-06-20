@@ -64,17 +64,17 @@
                 <% let i = 0; %>
 
                 <% for (let j = 0; j < guests_adults; j++) { %>
-                  <%- include('customer-data-form', { citytax: 5, guestkind: "Adulto", form_id: i + 1 }) %>
+                  <%- include('customer-data-form', { citytax: 5 * nights, guestkind: "Adulto", form_id: i + 1 }) %>
                   <% i++; %>
                 <% } %>
 
                 <% for (let j = 0; j < guests_children; j++) { %>
-                  <%- include('customer-data-form', { citytax: 2, guestkind: "Bambino", form_id: i + 1 }) %>
+                  <%- include('customer-data-form', { citytax: 2 * nights, guestkind: "Bambino", form_id: i + 1 }) %>
                   <% i++; %>
                 <% } %>
 
                 <% for (let j = 0; j < guests_newborns; j++) { %>
-                  <%- include('customer-data-form', { citytax: 0, guestkind: "Neonato", form_id: i + 1 }) %>
+                  <%- include('customer-data-form', { citytax: 0 * nights, guestkind: "Neonato", form_id: i + 1 }) %>
                   <% i++; %>
                 <% } %>
               </div>
