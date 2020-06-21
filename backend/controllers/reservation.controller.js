@@ -176,7 +176,7 @@ module.exports =
                 {
                     await reservation.populate("host").execPopulate();
 
-                    if(req.session.user._id != reservation.host._id) {
+                    if(req.session.user._id.toString() !== reservation.host._id.toString()) {
                         res.sendStatus(403);
                         return;
                     }
