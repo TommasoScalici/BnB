@@ -175,85 +175,87 @@ module.exports =
                 await Reservation.findById(req.params.id, async function(err, reservation)
                 {
                     await reservation.populate("host").execPopulate();
+
                     if(req.session.user._id !== reservation.host._id) {
                         res.sendStatus(403);
                         return;
                     }
-                });
-
-                await Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
-                    if(err) {
-                        console.log(`Mongo error while confirming reservation: ${err}`);
-                        res.status(500).json({message: "Server error while processing the request"});
-                    }
                     else {
-
-                        await reservation.populate("apartment").populate("customer").populate("host").execPopulate();
-
-                        ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-customer.html'),
-                            {
-                                reservation: reservation,
-                                checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
-                                checkout: moment(reservation.checkout).format('DD/MM/YYYY'),
-                                status: req.params.status
-                            }, function (err, data) {
-                                if (err) {
-                                    console.log(`Error rendering reservation result page: ${err}`);
-                                }
-
-                                let emailTitle;
-
-                                if(req.params.status == "accepted") {
-                                    emailTitle = "BnB - Prenotazione confermata!"
-                                    sendmail(reservation.customer.email, emailTitle, "", data, "");
-
-                                    let guestsPhotoDocuments = new Array();
-                                    let guestsList = new Array();
-
-                                    for (const guest of reservation.guests) {
-                                        guestsList.push({
-                                            name: guest.firstname,
-                                            lastname: guest.lastname,
-                                            birthdate: guest.birthdate,
-                                            residence: guest.residence,
-                                            sex: guest.sex,
-                                            fiscalcode: guest.fiscalcode,
-                                            toString: function() {
-                                                return `${name} ${lastname} (${sex}) - ${fiscalcode}\n
-                                                        ${moment(birthdate).format("DD/MM/YYYY")} ${residence}`;
-                                            }
-                                        });
-
-                                        for (const photoPath of guest.image_paths) {
-                                            guestsPhotoDocuments.push({
-                                                filaname: path.basename(photoPath),
-                                                path: photoPath
-                                            });
+                        await Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
+                            if(err) {
+                                console.log(`Mongo error while confirming reservation: ${err}`);
+                                res.status(500).json({message: "Server error while processing the request"});
+                            }
+                            else {
+        
+                                await reservation.populate("apartment").populate("customer").populate("host").execPopulate();
+        
+                                ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-customer.html'),
+                                    {
+                                        reservation: reservation,
+                                        checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
+                                        checkout: moment(reservation.checkout).format('DD/MM/YYYY'),
+                                        status: req.params.status
+                                    }, function (err, data) {
+                                        if (err) {
+                                            console.log(`Error rendering reservation result page: ${err}`);
                                         }
-                                    };
-
-                                    let message = `Comunicazione presenza ospiti nell'appartamento ${reservation.apartment.name}
-                                                   all'indirizzo ${reservation.apartment.fulladdress}.\n`
-
-                                    for (const guest of guestsList) {
-                                        message += guest.toString();
-                                    }
-
-                                    sendmail("bnb.webandmobile@gmail.com", "Comunicazione di presenza ospiti", message, "", guestsPhotoDocuments);
-                                    res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
-                                    
-                                }
-                                else if(req.params.status == "canceled") {
-                                    emailTitle = "BnB - Prenotazione rifiutata :(";
-                                    sendmail(reservation.customer.email, emailTitle, "", data, "");
-                                    res.send("<h1>Prenotazione rifiutata. Puoi chiudere questa finestra</h1>");
-                                }
-                                    
-                                else
-                                    res.send("<h1>Sei finito qui per errore.</h1>");
-
-                                sendmail(reservation.customer.email, emailTitle, "", data,"","");
-                            });
+        
+                                        let emailTitle;
+        
+                                        if(req.params.status == "accepted") {
+                                            emailTitle = "BnB - Prenotazione confermata!"
+                                            sendmail(reservation.customer.email, emailTitle, "", data, "");
+        
+                                            let guestsPhotoDocuments = new Array();
+                                            let guestsList = new Array();
+        
+                                            for (const guest of reservation.guests) {
+                                                guestsList.push({
+                                                    name: guest.firstname,
+                                                    lastname: guest.lastname,
+                                                    birthdate: guest.birthdate,
+                                                    residence: guest.residence,
+                                                    sex: guest.sex,
+                                                    fiscalcode: guest.fiscalcode,
+                                                    toString: function() {
+                                                        return `${name} ${lastname} (${sex}) - ${fiscalcode}\n
+                                                                ${moment(birthdate).format("DD/MM/YYYY")} ${residence}`;
+                                                    }
+                                                });
+        
+                                                for (const photoPath of guest.image_paths) {
+                                                    guestsPhotoDocuments.push({
+                                                        filaname: path.basename(photoPath),
+                                                        path: photoPath
+                                                    });
+                                                }
+                                            };
+        
+                                            let message = `Comunicazione presenza ospiti nell'appartamento ${reservation.apartment.name}
+                                                           all'indirizzo ${reservation.apartment.fulladdress}.\n`
+        
+                                            for (const guest of guestsList) {
+                                                message += guest.toString();
+                                            }
+        
+                                            sendmail("bnb.webandmobile@gmail.com", "Comunicazione di presenza ospiti", message, "", guestsPhotoDocuments);
+                                            res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
+                                            
+                                        }
+                                        else if(req.params.status == "canceled") {
+                                            emailTitle = "BnB - Prenotazione rifiutata :(";
+                                            sendmail(reservation.customer.email, emailTitle, "", data, "");
+                                            res.send("<h1>Prenotazione rifiutata. Puoi chiudere questa finestra</h1>");
+                                        }
+                                            
+                                        else
+                                            res.send("<h1>Sei finito qui per errore.</h1>");
+        
+                                        sendmail(reservation.customer.email, emailTitle, "", data,"","");
+                                    });
+                            }
+                        });
                     }
                 });
         }
