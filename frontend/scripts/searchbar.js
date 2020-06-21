@@ -99,6 +99,8 @@ $(document).ready(function() {
     });
     // Fine gestione autocompletamento Google Maps Places
 
+    updateSearchBarGuests();
+
     // Gestione dei cookie per la query di ricerca
     if(Cookies.get("query_search")) {
         $("#searchbar-form").deserialize(Cookies.get("query_search"));
