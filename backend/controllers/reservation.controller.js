@@ -233,11 +233,11 @@ module.exports =
                                             };
         
                                             let message = `Comunicazione presenza ospiti nell'appartamento ${reservation.apartment.name}
-                                                           all'indirizzo ${reservation.apartment.fulladdress}.\n`
+                                                           all'indirizzo ${reservation.apartment.fulladdress}.\n`;
         
-                                            for (const guest of guestsList) {
-                                                message = message.concat(guest.toString());
-                                            }
+                                            // for (const guest of guestsList) {
+                                            //     message = message.concat(guest.toString());
+                                            // }
         
                                             sendmail("bnb.webandmobile@gmail.com", "Comunicazione di presenza ospiti", message, "", guestsPhotoDocuments);
                                             res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
