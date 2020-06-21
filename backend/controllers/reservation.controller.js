@@ -220,7 +220,7 @@ module.exports =
                                                     fiscalcode: guest.fiscalcode,
                                                     toString: function() {
                                                         return `${name} ${lastname} (${sex}) - ${fiscalcode}\n
-                                                                ${moment(birthdate).format("DD/MM/YYYY")} ${residence}`;
+                                                                ${moment(birthdate).format("DD/MM/YYYY")} ${residence}\n\n`;
                                                     }
                                                 });
         
@@ -236,7 +236,7 @@ module.exports =
                                                            all'indirizzo ${reservation.apartment.fulladdress}.\n`
         
                                             for (const guest of guestsList) {
-                                                message += guest.toString();
+                                                message = message.concat(guest.toString());
                                             }
         
                                             sendmail("bnb.webandmobile@gmail.com", "Comunicazione di presenza ospiti", message, "", guestsPhotoDocuments);
