@@ -206,8 +206,40 @@ module.exports =
                                 if(req.params.status == "accepted") {
                                     emailTitle = "BnB - Prenotazione confermata!"
                                     sendmail(reservation.customer.email, emailTitle, "", data, "");
-                                    //Mail questura
-                                    sendmail("bnb.webandmobile@gmail.com","Comunicazione di presenza ospiti","S")
+
+                                    let guestsPhotoDocuments = new Array();
+                                    let guestsList = new Array();
+
+                                    for (const guest of reservation.guests) {
+                                        guestsList.push({
+                                            name: guest.firstname,
+                                            lastname: guest.lastname,
+                                            birthdate: guest.birthdate,
+                                            residence: guest.residence,
+                                            sex: guest.sex,
+                                            fiscalcode: guest.fiscalcode,
+                                            toString: function() {
+                                                return `${name} ${lastname} (${sex}) - ${fiscalcode}\n
+                                                        ${moment(birthdate).format("DD/MM/YYYY")} ${residence}`;
+                                            }
+                                        });
+
+                                        for (const photoPath of guest.image_paths) {
+                                            guestsPhotoDocuments.push({
+                                                filaname: path.basename(photoPath),
+                                                path: photoPath
+                                            });
+                                        }
+                                    };
+
+                                    let message = `Comunicazione presenza ospiti nell'appartamento ${reservation.apartment.name}
+                                                   all'indirizzo ${reservation.apartment.fulladdress}.\n`
+
+                                    for (const guest of guestsList) {
+                                        message += guest.toString();
+                                    }
+
+                                    sendmail("bnb.webandmobile@gmail.com", "Comunicazione di presenza ospiti", message, "", guestsPhotoDocuments);
                                     res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
                                     
                                 }

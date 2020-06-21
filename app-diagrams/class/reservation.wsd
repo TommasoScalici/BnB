@@ -2,10 +2,14 @@
 left to right direction
 
 class Reservation {
-  +long id
-  +User customer
-  +String password
-  +Object name - [String first, String last]
+  +ObjectId apartment
+  +ObjectId customer
+  +ObjectId host
+  +Date checkin
+  +Date checkout
+  +String payment_citytax
+  +String payment_method
+  +Array guests
   +String email
   +String telephoneNumber
   +Address address
