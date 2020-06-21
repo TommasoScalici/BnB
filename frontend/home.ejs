@@ -56,7 +56,9 @@
           
           Viaggiare è scoprire che altrove esistono nuovi modi di salutarsi al mattino, di arredare casa, di presentarsi e di fare colazione. 
           Per questo <b>alloggiare in un B&B </b> ,a contatto con chi vive e abita i luoghi che scoprirete, <b>è il modo più vero e autentico di viaggiare.</b></p>
-        <a class="btn btn-primary btn-lg" href="#">Prenota Subito &raquo;</a>
+        <a id="prenota-btn" class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#navbarResponsive">Prenota Subito &raquo;</a>
+
+        
       </div>
       <div class="col-md-4 mb-5">
         <h2>Contattaci</h2>
@@ -126,3 +128,8 @@
   <!-- /.ROW -->
 
 <script src="/scripts/home.js"></script>
+<script>
+  $("#prenota-btn").click(function(){
+    window.scrollTo(0,0);
+  });
+</script>

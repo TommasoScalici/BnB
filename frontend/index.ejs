@@ -75,6 +75,28 @@
         <a class="navbar-brand" href="/">
           <img src="/images/logo.png" alt="logo" class="d-inline-block align-top">
         </a>
+
+        <script>
+          $(document).ready(function () {
+          $("#three-monthly-modal").modal("show");
+        });
+        </script>
+        <% if(session.user.is_host) { %>
+            <%- include('three-monthly') %>
+            <script>
+              $(document).ready(function () {
+
+
+                var date = moment().diff(moment("<%=session.user.createdAt%>"), "months")
+
+                if((date % 3) == 0 && date >= 3){ 
+                  $("#three-monthly-modal").modal("show");
+                }
+              });
+            </script>
+          <% } %>
+
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -94,12 +116,12 @@
             <% if(!session.user) { %>
             <a class="nav-item nav-link" data-toggle="modal" data-target="#signin-modal" href="#">Accedi</a>
             <a class="nav-item nav-link" href="/users/signup">Registrati</a>
-
+            
             <% } else if(session.user.is_host) { %>
-            <a class="nav-item nav-link" href="/apartments/create">Inserisci Alloggio</a>
+              <a class="nav-item nav-link" href="/apartments/create">Inserisci Alloggio</a>
             <% } else if(!session.user.is_host) { %>
             <a class="nav-item nav-link" href="/users/becomehost">Diventa un Host</a>
-
+            
             <% } if(session.user) { %>
             <!-- Profile Dropdown -->
             <div class="nav-item dropdown">
