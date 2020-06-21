@@ -1,19 +1,96 @@
-@startuml classdiagram
+@startuml reservation
 left to right direction
+
 
 class Reservation {
   +long id
+  +Apartment apartment
   +User customer
-  +String password
-  +Object name - [String first, String last]
-  +String email
-  +String telephoneNumber
-  +Address address
-  +Date birthdate
-  --
-  +User()
-  +User(String username, String password)
+  +User host    
+  +Date checkin
+  +Date checkout
+  +Array guests
+  +String payment_method
+  +String payment_citytax
+  +Number city_tax
+  +Number cleaning_cost
+  +Number service_cost
+  +Number stay_cost
+  +String status
 }
 
+enum status {
+  accepted
+  canceled
+  pending
+  refused
+}
+
+class "User" as host <<host>> {
+  +long id
+  .. name ..
+  +String first_name
+  +String last_name
+  .. address ..
+  +String country
+  +String postal_code
+  +String street
+  +String street_number
+  +String province
+  +String town
+  ..
+  +String username
+  +String email
+  +String password
+  +String sex
+  +Date birthdate
+  +String telephone
+  +Boolean is_host
+  +String profile_picture_path
+  +String profile_document_path
+}
+
+class "User" as customer <<customer>> {
+  +long id
+  +String first_name
+  +String last_name
+  +Address address
+  +String username
+  +String email
+  +String password
+  +String sex
+  +Date birthdate
+  +String telephone
+  +Boolean is_host
+  +String profile_picture_path
+  +String profile_document_path
+}
+
+class Apartment {
+    +long id
+  +String host
+  +String name
+  +String description
+  +Number price
+  +Number bathrooms
+  +Number beds
+  +Number guests_max
+  +String type_accomodation
+  +Array services
+  +Array photo_paths
+  .. address ..
+  +String country
+  +String postal_code
+  +String street
+  +String street_number
+  +String province
+  +String town
+}
+
+
+status - Reservation
+host "  1" *-- "many" Reservation 
+customer "1" *-- "     many" Reservation
+Apartment "1"*-- "many  " Reservation
 
 @enduml
