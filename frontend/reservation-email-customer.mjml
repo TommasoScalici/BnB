@@ -5,14 +5,14 @@
       <mj-column>
         <mj-text align="center" font-style="italic" font-size="36px" color="#626262">BnB</mj-text>
         <mj-text align="center" font-style="italic" font-size="36px" color="#626262">
-          <% if(reservation.status == "accepted") { %>
+          <% if(status == "accepted") { %>
           Prenotazione confermata!
-          <% } else if(reservation.status == "canceled") { %>
+          <% } else if(status == "canceled") { %>
           Prenotazione non accettata :(
           <% } %>
         </mj-text>
         <mj-raw>
-          <% if(reservation.status == "canceled") { %>
+          <% if(status == "canceled") { %>
         </mj-raw>
         <mj-text align="center" font-style="italic" font-size="20px" color="#626262">
           <mj-link href="https://bnb-webmobile.herokuapp.com/">Torna sul sito</mj-link>
@@ -91,6 +91,15 @@
 
       <mj-column width="400px">
         <mj-text align="center" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Ospiti: <%= reservation.guests.length %> </mj-text>
+        <mj-raw>
+         <% for (let guest of reservation.guests) { %>
+        </mj-raw>
+        <mj-text align="center" font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">
+          <%= guest.firstname %> <%= guest.lastname %>
+        </mj-text>
+        <mj-raw>
+         <% } %>
+        </mj-raw>
       </mj-column>
 
     </mj-section>

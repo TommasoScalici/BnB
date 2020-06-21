@@ -172,7 +172,16 @@ module.exports =
         if(!req.session.user || !req.session.user.is_host)
             res.sendStatus(403);
         else {
-                Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
+                await Reservation.findById(req.params.id, async function(err, reservation)
+                {
+                    await reservation.populate("host").execPopulate();
+                    if(req.session.user._id !== reservation.host._id) {
+                        res.sendStatus(403);
+                        return;
+                    }
+                });
+
+                await Reservation.findByIdAndUpdate(req.params.id, { $set: { status: req.params.status } }, async function(err, reservation) {
                     if(err) {
                         console.log(`Mongo error while confirming reservation: ${err}`);
                         res.status(500).json({message: "Server error while processing the request"});
@@ -181,11 +190,12 @@ module.exports =
 
                         await reservation.populate("apartment").populate("customer").populate("host").execPopulate();
 
-                        ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-host.html'),
+                        ejs.renderFile(path.join(__dirname, '../../frontend/reservation-email-customer.html'),
                             {
                                 reservation: reservation,
                                 checkin: moment(reservation.checkin).format('DD/MM/YYYY'),
-                                checkout: moment(reservation.checkout).format('DD/MM/YYYY')
+                                checkout: moment(reservation.checkout).format('DD/MM/YYYY'),
+                                status: req.params.status
                             }, function (err, data) {
                                 if (err) {
                                     console.log(`Error rendering reservation result page: ${err}`);
@@ -195,15 +205,15 @@ module.exports =
 
                                 if(req.params.status == "accepted") {
                                     emailTitle = "BnB - Prenotazione confermata!"
-                                    sendmail(reservation.customer.email, emailTitle, "", data,"","");
+                                    sendmail(reservation.customer.email, emailTitle, "", data, "");
                                     //Mail questura
-                                    sendmail("apix98@hotmail.it","Comunicazione di presenza ospiti","S")
+                                    sendmail("bnb.webandmobile@gmail.com","Comunicazione di presenza ospiti","S")
                                     res.send("<h1>Prenotazione confermata! Puoi chiudere questa finestra</h1>");
                                     
                                 }
                                 else if(req.params.status == "canceled") {
                                     emailTitle = "BnB - Prenotazione rifiutata :(";
-                                    sendmail(reservation.customer.email, emailTitle, "", data,"","");
+                                    sendmail(reservation.customer.email, emailTitle, "", data, "");
                                     res.send("<h1>Prenotazione rifiutata. Puoi chiudere questa finestra</h1>");
                                 }
                                     

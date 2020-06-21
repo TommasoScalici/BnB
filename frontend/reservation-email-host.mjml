@@ -8,7 +8,7 @@
       </mj-column>
     </mj-section>
 
-    <mj-section background-url="https://bnb-webmobile.herokuapp.com/<%= reservation.apartment.photo_paths[0] %>"
+    <mj-section background-url="<%= reservation.apartment.photo_paths[0] %>"
                 background-size="cover" background-repeat="no-repeat">
       <mj-column width="600px">
         <mj-text align="center" color="#969696" font-size="40px" font-family="Helvetica Neue"><%= reservation.apartment.name %></mj-text>
@@ -28,9 +28,9 @@
 
       <mj-column width="400px">
         <mj-text font-style="italic" font-size="20px" font-family="Helvetica Neue" color="#626262">Hai ricevuto una prenotazione per 
-        <strong><%= reservation.apartment.name %></strong>
-        da<strong>
-        <%= reservation.customer.name.first %></strong>
+        <strong><%= reservation.apartment.name %></strong><br />
+        da<br />
+        <strong><%= reservation.customer.name.first %></strong><br />
         per le seguenti date:
         </mj-text>
       </mj-column>
