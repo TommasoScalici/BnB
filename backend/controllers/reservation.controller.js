@@ -219,8 +219,8 @@ module.exports =
                                                     sex: guest.sex,
                                                     fiscalcode: guest.fiscalcode,
                                                     toString: function() {
-                                                        return `${this.name} ${this.lastname} (${this.sex}) - ${this.fiscalcode}\n
-                                                                ${moment(this.birthdate).format("DD/MM/YYYY")} ${this.residence}\n\n`;
+                                                        return `${this.name} ${this.lastname} (${this.sex}) - ${this.fiscalcode}\n`
+                                                            + `${moment(this.birthdate).format("DD/MM/YYYY")} ${this.residence}\n\n`;
                                                     }
                                                 });
         
