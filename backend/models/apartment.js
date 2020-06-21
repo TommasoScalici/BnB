@@ -33,7 +33,7 @@ ApartmentSchema.path('photo_paths').validate(function(v) {
 });
 
 ApartmentSchema.virtual('fulladdress').get(function () {
-    return `${this.address.street} ${this.address.street_number}, ${this.address.postal_code}`
+    return `${this.address.street} ${this.address.street_number}, ${this.address.postal_code}, `
          + `${this.address.town} ${this.address.province}, ${this.address.country}`;
 });
 

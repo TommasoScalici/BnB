@@ -219,8 +219,8 @@ module.exports =
                                                     sex: guest.sex,
                                                     fiscalcode: guest.fiscalcode,
                                                     toString: function() {
-                                                        return `${name} ${lastname} (${sex}) - ${fiscalcode}\n
-                                                                ${moment(birthdate).format("DD/MM/YYYY")} ${residence}\n\n`;
+                                                        return `${this.name} ${this.lastname} (${this.sex}) - ${this.fiscalcode}\n
+                                                                ${moment(this.birthdate).format("DD/MM/YYYY")} ${this.residence}\n\n`;
                                                     }
                                                 });
         
@@ -233,7 +233,7 @@ module.exports =
                                             };
         
                                             let message = `Comunicazione presenza ospiti nell'appartamento ${reservation.apartment.name} `
-                                                        + `all'indirizzo ${reservation.apartment.fulladdress}.\n`;
+                                                        + `all'indirizzo ${reservation.apartment.fulladdress}\n`;
         
                                             for (const guest of guestsList) {
                                                 message = message.concat(guest.toString());
@@ -251,8 +251,6 @@ module.exports =
                                             
                                         else
                                             res.send("<h1>Sei finito qui per errore.</h1>");
-        
-                                        sendmail(reservation.customer.email, emailTitle, "", data,"","");
                                     });
                             }
                         });
