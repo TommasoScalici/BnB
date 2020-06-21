@@ -2,8 +2,8 @@
 left to right direction
 
 class Apartment {
-  +long id
-  +String host
+  +ObjectId _id
+  +User host
   +String name
   +String description
   +Number price

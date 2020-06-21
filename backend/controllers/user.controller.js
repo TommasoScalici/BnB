@@ -117,7 +117,7 @@ module.exports =
         } 
 
 
-        sendmail("tommaso.scalici.1991@gmail.com", "Rendiconto ultimi 3 mesi", "Rendiconto totale degli ultimi 3 mesi, incluso di generalità e intervallo di tempo degli affitti", "",[{
+        sendmail("bnb.webandmobile@gmail.com", "Rendiconto ultimi 3 mesi", "Rendiconto totale degli ultimi 3 mesi, incluso di generalità e intervallo di tempo degli affitti", "",[{
 
             filename: 'RendicontoBnB_' + '.xls',
             path:`./public/uploads/hosts/files/RendicontoBnB_${moment().format("YYYY-MM-DD")}.xls`

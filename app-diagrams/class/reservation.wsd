@@ -3,7 +3,7 @@ left to right direction
 
 
 class Reservation {
-  +long id
+  +ObjectId _id
   +Apartment apartment
   +User customer
   +User host    
@@ -27,7 +27,7 @@ enum status {
 }
 
 class "User" as host <<host>> {
-  +long id
+  +ObjectId _id
   .. name ..
   +String first_name
   +String last_name
@@ -51,7 +51,7 @@ class "User" as host <<host>> {
 }
 
 class "User" as customer <<customer>> {
-  +long id
+  +ObjectId _id
   +String first_name
   +String last_name
   +Address address
@@ -67,7 +67,7 @@ class "User" as customer <<customer>> {
 }
 
 class Apartment {
-    +long id
+  +ObjectId _id
   +String host
   +String name
   +String description
