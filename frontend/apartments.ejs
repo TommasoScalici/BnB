@@ -32,70 +32,72 @@
       <span id="search-location">
       </span>
     </h1>
+  </div>
 
-    <div class="btn-group">
+</div>
 
-      <div class="bootstrap-select-wrapper mx-2">
-        <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
-            <option value="" selected disabled style="text-align: center;">Alloggi</option>
-            <option>Intero appartamento</option>
-            <option>Stanza condivisa</option>
-            <option>Stanza privata</option>
-        </select>
-      </div>
+<div class="row my-4">
+
+  <div class="col-lg-2 bootstrap-select-wrapper">
+    <select class="selectpicker" id="type-accomodation" name="typeaccomodation" placeholder="Tipo di Alloggio" >
+        <option value="" selected disabled style="text-align: center;">Alloggi</option>
+        <option>Intero appartamento</option>
+        <option>Stanza condivisa</option>
+        <option>Stanza privata</option>
+    </select>
+  </div>
+
+  <div class="col-lg-2 dropdown show">
+
+    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Prezzo
+      <span id="price-tag"></span>
+    </a>
     
-      <div class="dropdown show mx-2">
-
-        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Prezzo
-          <span id="price-tag"></span>
-        </a>
-        
-      
-        <div class="dropdown-menu" aria-labelledby="price-dropdown">
-          <input class="bar mx-2 my-2" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value">
-          <br />
-          <div class="text-center mx-2 my-2">
-            <span> Fino a</span>
-            <output id="rangevalue">0</output>
-            <span> € / notte</span>
-          </div>
-        </div>
-
+  
+    <div class="dropdown-menu" aria-labelledby="price-dropdown">
+      <input class="bar mx-2 my-2" type="range" id="price" name="price" min="0" max="1000" oninput="rangevalue.value=value">
+      <br />
+      <div class="text-center mx-2 my-2">
+        <span> Fino a</span>
+        <output id="rangevalue">0</output>
+        <span> € / notte</span>
       </div>
-    
-      <div class="bootstrap-select-wrapper mx-2">
-
-        <select class="selectpicker" id="services" name="services[]" multiple>
-          <option value="" selected disabled style="text-align: center;">Servizi</option>
-          <option>Aria condizionata</option>
-          <option>Allarme antincendio</option>
-          <option>Appendiabiti</option>
-          <option>Asciugacapelli</option>
-          <option>Asciugatrice</option>
-          <option>Bagno privato</option>
-          <option>Camino</option>
-          <option>Colazione</option>
-          <option>Cucina</option>
-          <option>Culla</option>
-          <option>Ferro da stiro</option>
-          <option>Lavatrice</option>
-          <option>Rilevatore di monossido di carbonio</option>
-          <option>Riscaldamento</option>
-          <option>Seggiolone</option>
-          <option>Self check-in</option>   
-          <option>TV</option>
-          <option>Wi-Fi</option>
-          <option>Zona lavoro computer-friendly</option>
-        </select>
-
-      </div>
-    
-      <button class="btn btn-primary mx-2" id="filter-submit" type="submit">
-        Applica filtri
-      </button>
     </div>
 
+  </div>
+
+  <div class="col-lg-2 bootstrap-select-wrapper">
+
+    <select class="selectpicker" id="services" name="services[]" multiple>
+      <option value="" selected disabled style="text-align: center;">Servizi</option>
+      <option>Aria condizionata</option>
+      <option>Allarme antincendio</option>
+      <option>Appendiabiti</option>
+      <option>Asciugacapelli</option>
+      <option>Asciugatrice</option>
+      <option>Bagno privato</option>
+      <option>Camino</option>
+      <option>Colazione</option>
+      <option>Cucina</option>
+      <option>Culla</option>
+      <option>Ferro da stiro</option>
+      <option>Lavatrice</option>
+      <option>Rilevatore di monossido di carbonio</option>
+      <option>Riscaldamento</option>
+      <option>Seggiolone</option>
+      <option>Self check-in</option>   
+      <option>TV</option>
+      <option>Wi-Fi</option>
+      <option>Zona lavoro computer-friendly</option>
+    </select>
+
+  </div>
+
+  <div class="col-lg mx-auto">
+    <button class="btn btn-primary" id="filter-submit" type="submit">
+      Applica filtri
+    </button>
   </div>
 
 </div>
