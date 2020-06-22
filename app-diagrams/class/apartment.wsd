@@ -3,26 +3,23 @@ left to right direction
 
 class Apartment {
   +ObjectId _id
-  +ObjectId host
+  +User host
   +String name
   +String description
   +Number price
+  +Number bathrooms
   +Number beds
+  +Number guests_max
   +String type_accomodation
   +Array services
   +Array photo_paths
-  +Address address
+  .. address ..
+  +String country
+  +String postal_code
+  +String street
+  +String street_number
+  +String province
+  +String town
 }
-
-class Address {
-    +String country
-    +String city
-    +String province
-    +String street
-    +String number
-    +String zip
-}
-
-Address *-- Apartment
 
 @enduml

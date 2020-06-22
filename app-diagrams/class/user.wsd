@@ -1,34 +1,28 @@
-@startuml classdiagram
+@startuml user
 left to right direction
 
 class User {
-  +long id
+  +ObjectId _id
+  .. name ..
+  +String first_name
+  +String last_name
+  .. address ..
+  +String country
+  +String postal_code
+  +String street
+  +String street_number
+  +String province
+  +String town
+  ..
   +String username
-  +String password
-  +Object name - [String first, String last]
   +String email
-  +String telephoneNumber
-  +Address address
+  +String password
+  +String sex
   +Date birthdate
-  --
-  +User()
-  +User(String username, String password)
+  +String telephone
+  +Boolean is_host
+  +String profile_picture_path
+  +String profile_document_path
 }
-
-class Address {
-    +String country
-    +String city
-    +String province
-    +String street
-    +String number
-    +String zip
-    --
-    +Address()
-    +Address(String country, String city,
-\t       String province, String number, String zip)
-
-}
-
-Address *-- User
 
 @enduml
