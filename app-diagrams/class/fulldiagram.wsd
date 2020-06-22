@@ -1,0 +1,83 @@
+@startuml fulldiagram
+left to right direction
+
+
+class Reservation {
+  +ObjectId _id
+  +Apartment apartment
+  +User customer
+  +User host    
+  +Date checkin
+  +Date checkout
+  +Array guests
+  +String payment_method
+  +String payment_citytax
+  +Number city_tax
+  +Number cleaning_cost
+  +Number service_cost
+  +Number stay_cost
+  +String status
+}
+
+enum status {
+  accepted
+  canceled
+  pending
+  refused
+}
+
+class "User" as user <<customer, host>> {
+  +ObjectId _id
+  +Object name
+  +Object address
+  .. name ..
+  +String first_name
+  +String last_name
+  .. address ..
+  +String country
+  +String postal_code
+  +String street
+  +String street_number
+  +String province
+  +String town
+  ..
+  +String username
+  +String email
+  +String password
+  +String sex
+  +Date birthdate
+  +String telephone
+  +Boolean is_host
+  +String profile_picture_path
+  +String profile_document_path
+}
+
+class Apartment {
+  +ObjectId _id
+  +Object address
+  .. address ..
+  +String country
+  +String postal_code
+  +String street
+  +String street_number
+  +String province
+  +String town
+  .. ..
+  +String host
+  +String name
+  +String description
+  +Number price
+  +Number bathrooms
+  +Number beds
+  +Number guests_max
+  +String type_accomodation
+  +Array services
+  +Array photo_paths
+}
+
+
+status - Reservation
+user "  1" *-- "many" Reservation 
+Apartment "1"*-- "many  " Reservation
+
+@enduml

@@ -6,6 +6,7 @@ class Apartment {
   +User host
   +String name
   +String description
+  +Object address
   +Number price
   +Number bathrooms
   +Number beds
