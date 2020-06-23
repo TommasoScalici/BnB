@@ -23,10 +23,6 @@ activate User
     activate Database 
     UserController <- Database: return false
     deactivate Database
-    'send email to user and waits for his response'
-    UserController <- UserController: sendEmail()
-    Index <- UserController: display email-sent
-    Index -> UserController: wait for user response
     alt accept
     UserController <- UserController: User.create()
     Index <- UserController: display home

@@ -14,4 +14,4 @@ module.exports = app => {
       router.get("/search", apartmentController.searchApartments);
 
       app.use("/apartments", router);
-  };
+};

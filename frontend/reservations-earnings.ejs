@@ -77,7 +77,7 @@
               <td><%= ++id %></td>
               <td><%= reservation.customer.name.first %></td>
               <td><%= reservation.customer.name.last %></td>
-              <td><%= moment(reservation.createdat).format('DD/MM/YYYY') %></td>
+              <td><%= moment(reservation.createdAt).format('DD/MM/YYYY') %></td>
               <td><%= reservation.apartment.name %></td>
               <td>€ <%= reservation.cleaning_cost + reservation.stay_cost %></td> 
               

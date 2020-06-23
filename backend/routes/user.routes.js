@@ -36,4 +36,4 @@ module.exports = app => {
 
 
     app.use("/users", router);
-  };
+};

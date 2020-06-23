@@ -9,7 +9,7 @@ module.exports = function(to, subject, text, html, attachments) {
         requireTLS: true,
         auth: {
             user: 'bnb.webandmobile@gmail.com',
-            pass: 'BnB.Project123!'
+            pass: process.env.EMAIL_PASS
         }
     });
 
