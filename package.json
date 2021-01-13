@@ -33,7 +33,7 @@
     "express-fileupload": "^1.1.9",
     "express-session": "^1.17.1",
     "jquery": "^3.5.1",
-    "jquery-validation": "^1.19.2",
+    "jquery-validation": "^1.19.3",
     "moment": "^2.27.0",
     "mongoose": "^5.9.19",
     "morgan": "^1.10.0",
